@@ -1,0 +1,67 @@
+# сейчас проект настроен на то, что будет выполняться hibernate-boot создание таблиц в БД
+# и, затем выполнятся файлы  schema.sql  и data.sql
+# для справки:
+#    https://www.baeldung.com/spring-boot-data-sql-and-schema-sql
+
+server:
+  port: 8000
+spring:
+  sql:
+    init:
+#      mode: never
+      mode: always
+  h2:
+    console:
+      enabled: true
+      settings:
+        trace: false
+---
+spring:
+  profiles:
+    active:  dev
+---
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    defer-datasource-initialization: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+      generate_ststistics: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create-drop
+  config:
+    activate:
+      on-profile: dev
+---
+spring:
+#    для включения авто- заполнения БД, в физическую (не h2 базу) еще нужно добавить:
+  sql:
+    init:
+#      mode: never
+      mode: always
+  datasource:
+    url: jdbc:postgresql://localhost:5432/book_db....????
+    username:
+    password:
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database: postgresql
+    defer-datasource-initialization: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        generate-ddl: true
+      generate_ststistics: false
+    show-sql: false
+    hibernate:
+      # https://russianblogs.com/article/85481550836/    ,  https://docs.spring.io/spring-boot/docs/1.1.0.M1/reference/html/howto-database-initialization.html
+       ddl-auto: update
+  config:
+    activate:
+      on-profile: prod
