@@ -1,6 +1,8 @@
 package com.hub.accomodation.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.hub.accomodation.Views;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
@@ -20,6 +22,7 @@ abstract public class AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView({Views.Public.class, Views.Internal.class})
     protected Long id;
 
     @CreatedDate
