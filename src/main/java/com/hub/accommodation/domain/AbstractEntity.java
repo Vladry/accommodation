@@ -1,10 +1,9 @@
-package com.hub.accomodation.domain;
+package com.hub.accommodation.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
-import com.hub.accomodation.Views;
-import lombok.Getter;
-import lombok.Setter;
+import com.hub.accommodation.Views;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -14,8 +13,10 @@ import java.util.Date;
 
 import static javax.persistence.TemporalType.TIMESTAMP;
 
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
+@ToString(of = {"id"})
+@EqualsAndHashCode(of = {"id"})
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 abstract public class AbstractEntity {

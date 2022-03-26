@@ -1,4 +1,4 @@
-package com.hub.accomodation;
+package com.hub.accommodation;
 
 public class Views {
     public static class Public{}
