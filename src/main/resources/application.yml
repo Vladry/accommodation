@@ -30,7 +30,8 @@ spring:
       generate_ststistics: true
     generate-ddl: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: create
+    show-sql: true
   config:
     activate:
       on-profile: local

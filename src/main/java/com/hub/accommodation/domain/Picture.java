@@ -1,15 +1,17 @@
 package com.hub.accommodation.domain;
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
-@Data
-public class Picture {
+@Getter
+@Setter
+@RequiredArgsConstructor
+@AllArgsConstructor
+@ToString(of = {"picture", "owner", "tenant", "datingMember"})
+@Table(name = "picture")
+public class Picture extends AbstractEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
     private String picture;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
@@ -18,6 +20,6 @@ public class Picture {
     @JoinColumn(name = "tenant_id")
     private Tenant tenant;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "dating-member_id")
+    @JoinColumn(name = "dating_member_id")
     private Tenant datingMember;
 }
