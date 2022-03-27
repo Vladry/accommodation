@@ -45,9 +45,8 @@ public class Tenant extends AbstractEntity {
     String messenger;  //если желаете, укажите свой адрес в мессенджере и, через побел - какой это мессенджер (вайбер, телеграм, прочее)
     String desiredCity; //если не указано -подразумевается, что подходит любой город
     Country desiredCountry; //если не указано- подразумевается, что подходит любая страна
-
     int totalNumberOfFamilyMembers; //общее количество людей
-    @OneToMany(mappedBy = "tenant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "bearer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     Set<Picture> pictures = new HashSet<>();
 
     int numberOfChildren;

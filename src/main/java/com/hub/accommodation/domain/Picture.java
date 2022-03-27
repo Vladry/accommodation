@@ -13,6 +13,6 @@ public class Picture <? extends Object> {
     Long id;
     private String picture;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "picture_id")
+    @JoinColumn(name = "bearer_id")
     private T bearer;
 }

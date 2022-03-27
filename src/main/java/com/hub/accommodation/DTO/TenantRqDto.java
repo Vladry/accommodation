@@ -1,5 +1,7 @@
-package com.hub.accommodation.domain;
+package com.hub.accommodation.DTO;
 
+import com.hub.accommodation.domain.AbstractEntity;
+import com.hub.accommodation.domain.Country;
 import lombok.*;
 
 import javax.persistence.*;
@@ -16,10 +18,12 @@ public class TenantRqDto extends AbstractEntity {
 
     @NotNull
     @Size(min = 3, message = "Имя не может быть короче 3х символов!")
-    @Column(name = "name", length = 20, nullable = false)
+    @Size(max = 30, message = "Имя не должно быть более 30-ти символов!")
     String name;
+
+    @Size(min = 3, message = "Фамилия не может быть короче 3х символов!")
+    @Size(max = 60, message = "Фамилия не должна быть более 60-ти символов!")
     @NotNull
-    @Column(name = "last_name", length = 25, nullable = true)
     String lastName;
 
     @Email
@@ -37,10 +41,9 @@ public class TenantRqDto extends AbstractEntity {
     String messenger;
     String desiredCity;
     Country desiredCountry;
-
     int totalNumberOfFamilyMembers;
-    @OneToMany(mappedBy = "tenant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    Set<Picture> pictures = new HashSet<>();
+
+//    Set<Picture> pictures = new HashSet<>();
 
     int numberOfChildren;
     int numberOfSmallChildren;

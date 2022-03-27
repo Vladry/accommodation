@@ -6,10 +6,6 @@
 server:
   port: 8000
 spring:
-  sql:
-    init:
-      #      mode: never
-      mode: always
   h2:
     console:
       enabled: true
@@ -44,7 +40,7 @@ spring:
   sql:
     init:
       #      mode: never
-      mode: always
+      mode: always  #always - для самой первой заливки данных в БД
   datasource:
     url: jdbc:postgresql://localhost:5432/book_db....????
     username:
@@ -52,7 +48,8 @@ spring:
     driver_class_name: org.postgresql.Driver
   jpa:
     database: postgresql
-    defer_datasource_initialization: true
+    defer_datasource_initialization: true # true оставить ТОЛЬКО для самого первого запуска, когда в пустую БД заливаем данные! далее сделать false
+#    defer_datasource_initialization: false
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect

@@ -1,5 +1,9 @@
-package com.hub.accommodation.domain;
+package com.hub.accommodation.DTO;
 
+import com.hub.accommodation.domain.AbstractEntity;
+import com.hub.accommodation.domain.Country;
+import com.hub.accommodation.domain.Picture;
+import com.hub.accommodation.domain.Sex;
 import lombok.Data;
 
 import javax.persistence.Column;
