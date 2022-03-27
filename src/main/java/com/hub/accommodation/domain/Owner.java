@@ -51,7 +51,7 @@ public class Owner extends AbstractEntity {
     int numberOrRooms;
     int totalNumberOfBeds;
     int price;
-    @OneToMany(mappedBy = "bearer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    Set<Picture<Owner>> pictures = new HashSet<>();
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    Set<Picture> pictures = new HashSet<>();
 
 }
