@@ -47,7 +47,7 @@ public class Tenant extends AbstractEntity {
     Country desiredCountry; //если не указано- подразумевается, что подходит любая страна
     int totalNumberOfFamilyMembers; //общее количество людей
     @OneToMany(mappedBy = "bearer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    Set<Picture> pictures = new HashSet<>();
+    Set<Picture<Tenant>> pictures = new HashSet<>();
 
     int numberOfChildren;
     int numberOfSmallChildren;

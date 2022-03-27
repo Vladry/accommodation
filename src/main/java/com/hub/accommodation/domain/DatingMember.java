@@ -32,6 +32,6 @@ public class DatingMember extends AbstractEntity {
     String city;  // Город основного проживания
     Country country;  // Город основного проживания
     @OneToMany(mappedBy = "bearer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    Set<Picture> pictures = new HashSet<>();
+    Set<Picture<DatingMember>> pictures = new HashSet<>();
 
 }

@@ -5,13 +5,13 @@ import javax.persistence.*;
 
 @Entity
 @Data
-public class Picture /*<? extends Object> */{
+public class Picture <T extends Object> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     private String picture;
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "bearer_id")
-//    private T bearer;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "bearer_id")
+    private T bearer;
 }
