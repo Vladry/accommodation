@@ -1,12 +1,12 @@
 package com.hub.accommodation.domain;
-
+0
 import lombok.Data;
 
 import javax.persistence.*;
 
 @Entity
 @Data
-public class Picture {
+public class Picture <? extends Object> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,5 +14,5 @@ public class Picture {
     private String picture;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "picture_id")
-    private Owner owner;
+    private T bearer;
 }
