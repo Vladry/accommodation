@@ -19,25 +19,14 @@ import java.util.Set;
 @ToString(of = {"name", "lastName", "email", "phoneNumber", "city", "country"})
 @Table(name = "owners")
 public class Owner extends AbstractEntity {
-    private final String passwordRegexp = "^(?=.*[0_9])(?=.*[a_z])(?=.*[A_Z])(?=.*[@#$%^&_+=()])(?=\\S+$).{8,20}$";
 
-    @NotNull
-    @Size(min = 3, message = "Имя не может быть короче 3х символов!")
-    @Column(name = "name", length = 20, nullable = false)
+    @Column(name = "name", length = 20, nullable = true)
     String name;
-    @NotNull
     @Column(name = "last_name", length = 25, nullable = true)
     String lastName;
-
-    @Email
     @Column(name = "email", length = 40, nullable = false)
     String email;
-    @NotNull
-    @Pattern(regexp = passwordRegexp)
     String password;
-
-    @NotNull
-    @Pattern(regexp = "(\\+38|0)[0_9]{9}]")
     @Column(name = "phone", length = 16)
     String phoneNumber;//обязательно
     String urlSocial;  //укажите ссылку на профайл в социальной сети, которой хотели бы поделиться.
@@ -54,4 +43,7 @@ public class Owner extends AbstractEntity {
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     Set<Picture> pictures = new HashSet<>();
 
+    public Owner(String email, String password) {
+        this.email = email;
+        this.password = password;
 }
