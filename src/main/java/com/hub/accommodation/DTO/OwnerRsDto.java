@@ -29,12 +29,12 @@ public class OwnerRsDto extends AbstractEntity {
     String city;
     String cityRegion;
     String countryRegion;
-    Country country;
+    String country;
     String street;
-    AccommodationType accomodationType;
+    String accomodationType;
     int numberOrRooms;
     int totalNumberOfBeds;
     int price;
-    Set<Picture> pictures = new HashSet<>();
+    Set<Picture> pictures;
 
 }

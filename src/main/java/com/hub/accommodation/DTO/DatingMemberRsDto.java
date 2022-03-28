@@ -17,13 +17,12 @@ import java.util.Set;
 public class DatingMemberRsDto extends AbstractEntity {
 
     String nickOrName;
-    Sex sex;
-    String password;
+    String sex;
     String urlSocial1;
     String urlSocial2;
     String messenger1;
     String messenger2;
     String city;
-    Country country;
-    Set<Picture> pictures = new HashSet<>();
+    String country;
+    Set<Picture> pictures;
 }
