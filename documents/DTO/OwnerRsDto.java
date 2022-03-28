@@ -29,7 +29,7 @@ public class OwnerRsDto extends AbstractEntity {
     String city;
     String cityRegion;
     String countryRegion;
-    Country country;
+    String country;
     String street;
     String accomodationType;
     int numberOrRooms;

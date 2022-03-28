@@ -47,6 +47,7 @@ public class OwnerRqDto extends AbstractEntity {
     AccommodationType accomodationType;
     int numberOrRooms;
     int totalNumberOfBeds;
+//    int price;
 //    Set<Picture> pictures = new HashSet<>();
 
 }

@@ -13,6 +13,7 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
+//@NoArgsConstructor
 @RequiredArgsConstructor
 @AllArgsConstructor
 @ToString(of = {"name", "lastName", "email", "phoneNumber", "city", "country"})
@@ -45,5 +46,4 @@ public class Owner extends AbstractEntity {
     public Owner(String email, String password) {
         this.email = email;
         this.password = password;
-    }
 }
