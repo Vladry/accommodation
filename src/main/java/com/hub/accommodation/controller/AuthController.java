@@ -1,27 +1,59 @@
 package com.hub.accommodation.controller;
 
-import com.hub.accommodation.service.JwtService;
-import com.hub.accommodation.service.UserService;
-import lombok.AllArgsConstructor;
-import lombok.extern.log4j.Log4j2;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.hub.accommodation.DTO.AuthRequest;
+import com.hub.accommodation.DTO.groups.OnCreate;
+import com.hub.accommodation.exception.JwtAuthenticationException;
+import com.hub.accommodation.service.AuthService;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
-@Log4j2
+//import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import java.io.IOException;
+
+@Validated
 @RestController
-@AllArgsConstructor
-@RequestMapping("/auth")
+@RequestMapping("/api/v1/auth")
 public class AuthController {
 
-    private final UserService userService;
-    private final JwtService jwt;
+    private final AuthService authService;
+//    private final ResetPasswordService resetPasswordService;
 
-//@PostMapping("/login")
-//    public LoginRs handleLogin(@RequestBody LoginRq rq){
-//    log.info(rq);
-//
-//    return null;
-//}
+    public AuthController(AuthService authService) {
+        this.authService = authService;
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> authenticate(@RequestBody @Valid AuthRequest request) {
+        try {
+            return ResponseEntity.ok(authService.authenticate(request.getEmail(), request.getPassword()));
+        } catch (AuthenticationException e) {
+            return new ResponseEntity<>("Invalid email/password combination", HttpStatus.FORBIDDEN);
+        }
+    }
+
+    @Validated(OnCreate.class)
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody @Valid AuthRequest request) {
+        try {
+            return ResponseEntity.ok(authService.register(request.getEmail(), request.getPassword()));
+        } catch (AuthenticationException e) {
+            return new ResponseEntity<>("Error with registration: " + e.getMessage(), HttpStatus.FORBIDDEN);
+        }
+    }
+
+    @GetMapping("/refresh")
+    public ResponseEntity<?> refresh(@RequestHeader("Refresh-token") String token) {
+        try {
+            return ResponseEntity.ok(authService.refresh(token));
+        } catch (RuntimeException | JwtAuthenticationException e) {
+            return new ResponseEntity<>("JWT token is expired or invalid", HttpStatus.FORBIDDEN);
+        }
+    }
 }
