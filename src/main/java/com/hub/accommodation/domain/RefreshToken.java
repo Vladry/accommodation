@@ -14,7 +14,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RefreshToken extends AbstractEntity {
+public class RefreshToken extends BaseEntity {
     @Column(name = "expiration_date")
     private Date expirationDate;
     @Column(name = "issue_date")
@@ -24,9 +24,9 @@ public class RefreshToken extends AbstractEntity {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private Owner user;
+    private AppUser user;
 
-    public RefreshToken(Long validityRefreshToken, Owner user) {
+    public RefreshToken(Long validityRefreshToken, AppUser user) {
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityRefreshToken * 1000);
         this.issueDate = now;

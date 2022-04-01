@@ -1,6 +1,6 @@
 package com.hub.accommodation.security;
 
-import com.hub.accommodation.domain.Owner;
+import com.hub.accommodation.domain.AppUser;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -60,7 +60,7 @@ public class SecurityUser implements UserDetails {
         return isActive;
     }
 
-    public static UserDetails fromOwner(Owner owner) {
+    public static UserDetails fromOwner(AppUser owner) {
         return new org.springframework.security.core.userdetails.User(
                 owner.getEmail(), owner.getPassword(),
                 List.of()

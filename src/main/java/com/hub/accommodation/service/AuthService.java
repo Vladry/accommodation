@@ -1,6 +1,6 @@
 package com.hub.accommodation.service;
 
-import com.hub.accommodation.domain.Owner;
+import com.hub.accommodation.domain.AppUser;
 import com.hub.accommodation.domain.RefreshToken;
 import com.hub.accommodation.exception.JwtAuthenticationException;
 import com.hub.accommodation.exception.NoDataFoundException;
@@ -42,7 +42,7 @@ public class AuthService {
         return refreshTokenRepository.findById(id).orElseThrow(() -> new JwtAuthenticationException("refreshToken not found", HttpStatus.FORBIDDEN));
     }
 
-    public RefreshToken createRefreshToken(Owner owner) {
+    public RefreshToken createRefreshToken(AppUser owner) {
         return refreshTokenRepository.save(new RefreshToken(validityRefreshToken, owner));
     }
 
@@ -56,7 +56,7 @@ public class AuthService {
     }
 
     // FIXME
-    public Map<Object, Object> createTokens(Owner o) {
+    public Map<Object, Object> createTokens(AppUser o) {
         String token = jwtTokenProvider.createToken(o.getEmail(), "USER", o.getId());
 
         RefreshToken createdRefreshToken = this.createRefreshToken(o);
@@ -70,7 +70,7 @@ public class AuthService {
     }
 
     public Map<Object, Object> authenticate(String email, String password) {
-        Owner owner = ownerRepository.findOwnerByEmail(email).orElseThrow(() -> new NoDataFoundException("Owner doesn't exists"));
+        AppUser owner = ownerRepository.findOwnerByEmail(email).orElseThrow(() -> new NoDataFoundException("Owner doesn't exists"));
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
         return createTokens(owner);
     }
@@ -80,7 +80,7 @@ public class AuthService {
             throw new UserAlreadyExistException(email);
         }
 
-        ownerRepository.save(new Owner(email, passwordEncoder.encode(password)));
+        ownerRepository.save(new AppUser(email, passwordEncoder.encode(password)));
         return authenticate(email, password);
     }
 
@@ -92,7 +92,7 @@ public class AuthService {
             throw new JwtAuthenticationException("refreshToken is expired", HttpStatus.UNAUTHORIZED);
         } else {
             markUsed(refreshTokenId);
-            Owner owner = ownerRepository.findById(rt.getUser().getId()).orElseThrow(() -> new NoDataFoundException("User doesn't exists"));
+            AppUser owner = ownerRepository.findById(rt.getUser().getId()).orElseThrow(() -> new NoDataFoundException("User doesn't exists"));
             return createTokens(owner);
         }
     }

@@ -4,18 +4,13 @@ import com.hub.accommodation.DTO.AuthRequest;
 import com.hub.accommodation.DTO.groups.OnCreate;
 import com.hub.accommodation.exception.JwtAuthenticationException;
 import com.hub.accommodation.service.AuthService;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-//import javax.mail.MessagingException;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import java.io.IOException;
 
 @Validated
 @RestController

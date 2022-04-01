@@ -19,7 +19,7 @@ import static javax.persistence.TemporalType.TIMESTAMP;
 @EqualsAndHashCode(of = {"id"})
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-abstract public class AbstractEntity {
+abstract public class BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
