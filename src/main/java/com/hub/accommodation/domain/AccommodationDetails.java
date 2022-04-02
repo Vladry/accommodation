@@ -33,10 +33,12 @@ public class AccommodationDetails extends BaseEntity {
     int pricePerRoom;
     @Column(name = "price_per_person", nullable = true)
     int pricePerPerson;
-    boolean provideWork;
-    boolean provideFood;
-    @OneToMany(mappedBy = "pictures", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    boolean helpWithWork;
+    boolean helpWithFood;
+
+    @OneToMany(mappedBy = "accommodationDetails", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     Set<Picture> pictures = new HashSet<>();
+
     @Enumerated(EnumType.STRING)
     AccommodationStatus status;
     @Column(name = "dating", nullable = true)
@@ -44,7 +46,7 @@ public class AccommodationDetails extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "app_user_id")
     AppUser appUser;
-    @OneToMany()
+    @OneToMany(mappedBy = "acc_details", cascade = CascadeType.ALL)
     Set<likeDates> liked = new HashSet<>();
 
 }

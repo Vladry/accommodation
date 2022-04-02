@@ -5,7 +5,7 @@ import com.hub.accommodation.domain.RefreshToken;
 import com.hub.accommodation.exception.JwtAuthenticationException;
 import com.hub.accommodation.exception.NoDataFoundException;
 import com.hub.accommodation.exception.UserAlreadyExistException;
-import com.hub.accommodation.repository.OwnerRepository;
+import com.hub.accommodation.repository.AppUserRepository;
 import com.hub.accommodation.repository.RefreshTokenRepository;
 import com.hub.accommodation.security.jwt.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,14 +22,14 @@ import java.util.Map;
 @Service
 public class AuthService {
     private final AuthenticationManager authenticationManager;
-    private final OwnerRepository ownerRepository;
+    private final AppUserRepository appUserRepository;
     private final JwtTokenProvider jwtTokenProvider;
     private final RefreshTokenRepository refreshTokenRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public AuthService(AuthenticationManager authenticationManager, OwnerRepository ownerRepository, JwtTokenProvider jwtTokenProvider, RefreshTokenRepository refreshTokenRepository, PasswordEncoder passwordEncoder) {
+    public AuthService(AuthenticationManager authenticationManager, AppUserRepository appUserRepository, JwtTokenProvider jwtTokenProvider, RefreshTokenRepository refreshTokenRepository, PasswordEncoder passwordEncoder) {
         this.authenticationManager = authenticationManager;
-        this.ownerRepository = ownerRepository;
+        this.appUserRepository = appUserRepository;
         this.jwtTokenProvider = jwtTokenProvider;
         this.refreshTokenRepository = refreshTokenRepository;
         this.passwordEncoder = passwordEncoder;
@@ -42,8 +42,8 @@ public class AuthService {
         return refreshTokenRepository.findById(id).orElseThrow(() -> new JwtAuthenticationException("refreshToken not found", HttpStatus.FORBIDDEN));
     }
 
-    public RefreshToken createRefreshToken(AppUser owner) {
-        return refreshTokenRepository.save(new RefreshToken(validityRefreshToken, owner));
+    public RefreshToken createRefreshToken(AppUser appUser) {
+        return refreshTokenRepository.save(new RefreshToken(validityRefreshToken, appUser));
     }
 
     public void markUsed(Long id) {
@@ -70,17 +70,17 @@ public class AuthService {
     }
 
     public Map<Object, Object> authenticate(String email, String password) {
-        AppUser owner = ownerRepository.findOwnerByEmail(email).orElseThrow(() -> new NoDataFoundException("Owner doesn't exists"));
+        AppUser appUser = appUserRepository.findAppUserByEmail(email).orElseThrow(() -> new NoDataFoundException("AppUser doesn't exists"));
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
-        return createTokens(owner);
+        return createTokens(appUser);
     }
 
     public Map<Object, Object> register(String email, String password) {
-        if (ownerRepository.findOwnerByEmail(email).isPresent()) {
+        if (appUserRepository.findAppUserByEmail(email).isPresent()) {
             throw new UserAlreadyExistException(email);
         }
 
-        ownerRepository.save(new AppUser(email, passwordEncoder.encode(password)));
+        appUserRepository.save(new AppUser(email, passwordEncoder.encode(password)));
         return authenticate(email, password);
     }
 
@@ -92,8 +92,8 @@ public class AuthService {
             throw new JwtAuthenticationException("refreshToken is expired", HttpStatus.UNAUTHORIZED);
         } else {
             markUsed(refreshTokenId);
-            AppUser owner = ownerRepository.findById(rt.getUser().getId()).orElseThrow(() -> new NoDataFoundException("User doesn't exists"));
-            return createTokens(owner);
+            AppUser appUser = appUserRepository.findById(rt.getUser().getId()).orElseThrow(() -> new NoDataFoundException("User doesn't exists"));
+            return createTokens(appUser);
         }
     }
 }

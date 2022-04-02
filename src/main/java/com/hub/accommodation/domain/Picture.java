@@ -8,14 +8,13 @@ import javax.persistence.*;
 @Setter
 @RequiredArgsConstructor
 @AllArgsConstructor
-@ToString(of = {"picture", "owner", "tenant", "datingMember"})
-@Table(name = "picture")
+@Table(name = "pictures")
 public class Picture extends BaseEntity {
 
     private String picture;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "owner_id")
-    private AppUser owner;
+    @JoinColumn(name = "accommodation_details_id")
+    private AccommodationDetails accommodationDetails;
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "tenant_id")
 //    private Tenant tenant;

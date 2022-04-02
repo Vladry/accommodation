@@ -33,6 +33,11 @@ public class AuthController {
         }
     }
 
+    @PostMapping("/logout")
+    public void logout(){
+
+    }
+
     @Validated(OnCreate.class)
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody @Valid AuthRequest request) {

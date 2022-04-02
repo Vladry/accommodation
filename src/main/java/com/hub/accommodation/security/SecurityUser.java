@@ -11,17 +11,17 @@ import java.util.List;
 
 @Data
 public class SecurityUser implements UserDetails {
+    private final Long id;
     private final String username;
     private final String password;
     private final List<SimpleGrantedAuthority> authorities;
-    private final Long id;
     private final boolean isActive = true;
 
     public SecurityUser(String username, String password, List<SimpleGrantedAuthority> authorities, Long id) {
+        this.id = id;
         this.username = username;
         this.password = password;
         this.authorities = authorities;
-        this.id = id;
     }
 
 
@@ -60,9 +60,9 @@ public class SecurityUser implements UserDetails {
         return isActive;
     }
 
-    public static UserDetails fromOwner(AppUser owner) {
+    public static UserDetails fromAppUser(AppUser appUser) {
         return new org.springframework.security.core.userdetails.User(
-                owner.getEmail(), owner.getPassword(),
+                appUser.getEmail(), appUser.getPassword(),
                 List.of()
         );
     }

@@ -10,15 +10,6 @@ import java.util.Set;
 @Data
 public class AccommodationRsDto extends BaseEntity {
 
-    String name;
-    String lastName;
-    String email;
-    String phoneNumber;
-    String urlSocial1;
-    String urlSocial2;
-    String messenger1;
-    String messenger2;
-    String city;
     String cityRegion;
     String countryRegion;
     Country country;
@@ -29,7 +20,10 @@ public class AccommodationRsDto extends BaseEntity {
     int priceTotal;
     int pricePerRoom;
     int pricePerPerson;
+    boolean helpWithWork;
+    boolean helpWithFood;
     Set<Picture> pictures;
     String accommodationStatus;
+    int liked;
 
 }
