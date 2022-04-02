@@ -50,4 +50,9 @@ public class AppUser extends BaseEntity {
         this.email = email;
         this.password = password;
     }
+
+    public String getCountryString(){
+        return country.name().toString();
+    }
+
 }

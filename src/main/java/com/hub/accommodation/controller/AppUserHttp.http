@@ -1,0 +1,22 @@
+POST http://localhost:8000/app_users
+Content-Type: application/json
+
+{
+"name" : "Vlad",
+"lastName" : "Ryab",
+"email" : "rvy@ukr.net",
+"phoneNumber" : "+380637400791",
+"hideSocialContactData": true,
+"urlSocial1": "facebook.com/VladFromUkraine",
+"urlSocial2" : "",
+"messenger1" : "@Vlad",
+"messenger2" : "",
+"city" : "Kiev",
+"cityRegion" : "Kievsky", "country" : 1,
+"datingServiceParticipation" : false
+}
+###
+GET http://localhost:8000/app_users/1
+###
+GET http://localhost:8000/app_users/?email=rvy@ukr.net
+###
