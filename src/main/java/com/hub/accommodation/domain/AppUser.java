@@ -44,7 +44,7 @@ public class AppUser extends BaseEntity {
     @Column(name = "dating", nullable = true)
     boolean datingServiceParticipation;
     @OneToMany(mappedBy = "appUser", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    Set<AccommodationDetails> accDetails = new HashSet<>();
+    Set<AccommodationMain> accDetails = new HashSet<>();
 
     public AppUser(String email, String password) {
         this.email = email;

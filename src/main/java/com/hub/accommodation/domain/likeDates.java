@@ -1,7 +1,6 @@
 package com.hub.accommodation.domain;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
@@ -21,6 +20,6 @@ public class likeDates extends BaseEntity{
 //    @Temporal(TIMESTAMP)
 //    private Date likeDate;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "acc_details_id")
-    private AccommodationDetails acc_details;
+    @JoinColumn(name = "accommod_main_id")
+    private AccommodationMain accommod_main;
 }

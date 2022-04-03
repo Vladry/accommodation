@@ -14,14 +14,15 @@ import java.util.Set;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @ToString(of = {"street", "numberOfRooms", "numberOfBeds", "canHelpWithWork", "canHelpWithFood"})
-@Table(name = "accommodation_details")
-public class AccommodationDetails extends BaseEntity {
-    String countryRegion;
-    @Column(name = "country", length = 25, nullable = false)
-    String street;
-    @Column(name = "accomodation_type", length = 10)
+@Table(name = "accommodation_main")
+public class AccommodationMain extends BaseEntity {
 
-    @Enumerated(EnumType.STRING)
+    @Column(name = "country_region", length = 25, nullable = true)
+    String countryRegion;
+    @Column(name = "street", length = 40, nullable = false)
+    String street;
+    @Column(name = "accomodation_type")
+    @Enumerated(EnumType.ORDINAL)
     AccommodationType accommodationType;
     @Column(name = "number_of_rooms", nullable = true)
     int numberOfRooms;
@@ -46,7 +47,7 @@ public class AccommodationDetails extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "app_user_id")
     AppUser appUser;
-    @OneToMany(mappedBy = "acc_details", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "accommod_main", cascade = CascadeType.ALL)
     Set<likeDates> liked = new HashSet<>();
 
 }

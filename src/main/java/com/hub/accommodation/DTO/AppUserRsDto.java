@@ -1,12 +1,9 @@
 package com.hub.accommodation.DTO;
 
-import com.hub.accommodation.domain.AccommodationDetails;
+import com.hub.accommodation.domain.AccommodationMain;
 import com.hub.accommodation.domain.BaseEntity;
-import com.hub.accommodation.domain.Country;
 import lombok.Data;
 
-import javax.validation.constraints.Size;
-import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -27,7 +24,7 @@ public class AppUserRsDto extends BaseEntity {
     String cityRegion;
     String country;
     boolean datingServiceParticipation;
-    Set<AccommodationDetails> accDetails;
+    Set<AccommodationMain> accDetails;
 
 
 }

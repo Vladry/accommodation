@@ -14,7 +14,7 @@ public class Picture extends BaseEntity {
     private String picture;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "accommodation_details_id")
-    private AccommodationDetails accommodationDetails;
+    private AccommodationMain accommodationDetails;
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "tenant_id")
 //    private Tenant tenant;

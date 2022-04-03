@@ -8,7 +8,7 @@ import lombok.Data;
 import java.util.Set;
 
 @Data
-public class AccommodationRsDto extends BaseEntity {
+public class AccommodMainRsDto extends BaseEntity {
 
     String cityRegion;
     String countryRegion;

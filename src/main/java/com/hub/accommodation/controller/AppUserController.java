@@ -1,12 +1,11 @@
 package com.hub.accommodation.controller;
 
-import com.hub.accommodation.DTO.AppUserFacade;
+import com.hub.accommodation.facade.AppUserFacade;
 import com.hub.accommodation.DTO.AppUserRqDto;
 import com.hub.accommodation.DTO.AppUserRsDto;
 import com.hub.accommodation.domain.AppUser;
 import com.hub.accommodation.exception.NoDataFoundException;
 import com.hub.accommodation.service.AppUserService;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,5 +1,7 @@
-package com.hub.accommodation.DTO;
+package com.hub.accommodation.facade;
 
+import com.hub.accommodation.DTO.AppUserRqDto;
+import com.hub.accommodation.DTO.AppUserRsDto;
 import com.hub.accommodation.domain.AppUser;
 import com.hub.accommodation.facade.GeneralFacade;
 import lombok.Data;

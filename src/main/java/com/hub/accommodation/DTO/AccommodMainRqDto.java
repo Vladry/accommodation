@@ -10,7 +10,7 @@ import org.springframework.lang.Nullable;
 import javax.validation.constraints.*;
 
 @Data
-public class AccommodationRqDto extends BaseEntity {
+public class AccommodMainRqDto extends BaseEntity {
     private final String passwordRegexp = "^(?=.*[0_9])(?=.*[a_z])(?=.*[A_Z])(?=.*[@#$%^&_+=()])(?=\\S+$).{8,20}$";
 
     String cityRegion;
