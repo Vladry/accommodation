@@ -1,4 +1,4 @@
-package com.hub.accommodation.service;
+package com.hub.accommodation.service.auth;
 
 import com.hub.accommodation.domain.AppUser;
 import com.hub.accommodation.domain.RefreshToken;

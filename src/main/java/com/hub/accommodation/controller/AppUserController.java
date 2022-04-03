@@ -43,7 +43,7 @@ public class AppUserController {
 
     }
 
-    @PreAuthorize("hasAuthority('USER')")
+//    @PreAuthorize("hasAuthority('USER')")
     @GetMapping()
     public AppUserRsDto findAppUserByEmail(
             @RequestParam("email") String email) {

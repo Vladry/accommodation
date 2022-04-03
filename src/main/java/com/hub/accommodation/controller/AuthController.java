@@ -3,7 +3,7 @@ package com.hub.accommodation.controller;
 import com.hub.accommodation.DTO.AuthRequest;
 import com.hub.accommodation.DTO.groups.OnCreate;
 import com.hub.accommodation.exception.JwtAuthenticationException;
-import com.hub.accommodation.service.AuthService;
+import com.hub.accommodation.service.auth.AuthService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
