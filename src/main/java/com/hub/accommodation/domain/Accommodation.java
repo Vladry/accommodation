@@ -11,12 +11,13 @@ import java.util.Set;
 @Setter
 @RequiredArgsConstructor
 @AllArgsConstructor
-@ToString(of = {"street", "numberOfRooms", "numberOfBeds", "canHelpWithWork", "canHelpWithFood"})
+@ToString(exclude = {"pictures", "liked"})
 @Table(name = "accommodation")
 public class Accommodation extends BaseEntity {
 
-    @Column(name = "country", length = 20)
-    String country;
+    @Column(name = "country")
+    @Enumerated(EnumType.ORDINAL)
+    Country country;
     @Column(name = "street", length = 40)
     String street;
     @Column(name = "accomodation_type")
@@ -48,7 +49,11 @@ public class Accommodation extends BaseEntity {
     @OneToMany(mappedBy = "accommodation", cascade = CascadeType.ALL)
     Set<likeDates> liked = new HashSet<>();
 
-    public String getAccommodationType(){
+    public void setUser_(User user) {
+        this.user = null;
+    }
+
+    public String getAccommodationType() {
         return accommodationType.name();
     }
 }

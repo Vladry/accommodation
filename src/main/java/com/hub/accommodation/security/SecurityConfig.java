@@ -30,7 +30,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/api/v1/auth/**").permitAll()
-                .anyRequest().hasRole("USER")
+                .anyRequest().permitAll()
+//                .anyRequest().hasAuthority("USER")
 //                .authenticated()
                 .and()
                 .apply(jwtConfigurer);

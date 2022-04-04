@@ -2,11 +2,12 @@ package com.hub.accommodation.DTO;
 
 import com.hub.accommodation.domain.*;
 import com.hub.accommodation.service.UserService;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
-import java.util.Optional;
 
 @Data
+@AllArgsConstructor
 public class AccommodationRqDto extends BaseEntity {
     private final String passwordRegexp = "^(?=.*[0_9])(?=.*[a_z])(?=.*[A_Z])(?=.*[@#$%^&_+=()])(?=\\S+$).{8,20}$";
 
@@ -16,7 +17,7 @@ public class AccommodationRqDto extends BaseEntity {
         this.service = service;
     }
 
-    Country country;
+    int country;
     String street;
     int accommodationType;
     int numberOrRooms;
@@ -29,6 +30,16 @@ public class AccommodationRqDto extends BaseEntity {
     int status;
     Long userId;
 
+    public User getUserFromRqDto() {
+        return service.getUserById(userId).orElse(null);
+    }
+
+    public User getUserFromRqDto_(){
+        return  service.getUserById(1L).get();
+    }
+
+
+
     public AccommodationType getAccType() {
         return AccommodationType.values()[accommodationType];
     }
@@ -37,7 +48,8 @@ public class AccommodationRqDto extends BaseEntity {
         return AccommodationStatus.values()[status];
     }
 
-    public User getUserById(){
-        return service.getUserById(userId).orElse(null);
+    public Country getCountryEnum(){
+        return Country.values()[this.country];
     }
+
 }

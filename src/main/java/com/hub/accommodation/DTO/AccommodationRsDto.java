@@ -3,15 +3,18 @@ package com.hub.accommodation.DTO;
 import com.hub.accommodation.domain.BaseEntity;
 import com.hub.accommodation.domain.Country;
 import com.hub.accommodation.domain.Picture;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Set;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class AccommodationRsDto extends BaseEntity {
 
     Country country;
-//    String countryRegion;
     String street;
     String accommodationType;
     int numberOrRooms;

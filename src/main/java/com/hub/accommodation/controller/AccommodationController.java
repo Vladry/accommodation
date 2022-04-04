@@ -40,6 +40,7 @@ private final AccommodationFacade accommodMainFacade;
     @GetMapping("/{id}")
     public AccommodationRsDto findById(@PathVariable("id") Long id){
         Optional<Accommodation> byId = accommodMainService.findById(id);
+        System.out.println("byId: " + byId);
         return byId.map(accommodMainFacade::convertToDto).orElse(null);
     }
 

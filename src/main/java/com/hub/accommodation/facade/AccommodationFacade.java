@@ -18,12 +18,13 @@ public class AccommodationFacade extends GeneralFacade<
     @PostConstruct
     public void init(){
         super.getMm().typeMap(AccommodationRqDto.class, Accommodation.class)
+                .addMapping(AccommodationRqDto::getCountryEnum, Accommodation::setCountry)
                 .addMapping(AccommodationRqDto::getAccType, Accommodation::setAccommodationType)
                 .addMapping(AccommodationRqDto::getAccStatus, Accommodation::setStatus)
-                .addMapping(AccommodationRqDto::getUserById, Accommodation::setUser);
+                .addMapping(AccommodationRqDto::getUserFromRqDto_, Accommodation::setUser);
 
-        super.getMm().typeMap(Accommodation.class, AccommodationRsDto.class)
-                .addMapping(Accommodation::getAccommodationType, AccommodationRsDto::setAccommodationType);
+//        super.getMm().typeMap(Accommodation.class, AccommodationRsDto.class)
+//                .addMapping(Accommodation::getAccommodationType, AccommodationRsDto::setAccommodationType);
     }
 
     @Override
