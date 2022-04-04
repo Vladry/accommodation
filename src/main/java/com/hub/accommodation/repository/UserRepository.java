@@ -1,12 +1,12 @@
 package com.hub.accommodation.repository;
 
-import com.hub.accommodation.domain.AppUser;
+import com.hub.accommodation.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface AppUserRepository extends JpaRepository<AppUser, Long> {
-    Optional<AppUser> findAppUserByEmail(String email);
+public interface UserRepository extends JpaRepository<User, Long> {
+    Optional<User> findUserByEmail(String email);
 }

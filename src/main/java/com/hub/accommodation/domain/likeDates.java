@@ -14,12 +14,7 @@ import javax.persistence.ManyToOne;
 @Setter
 @RequiredArgsConstructor
 public class likeDates extends BaseEntity{
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Long id;
-//    @Temporal(TIMESTAMP)
-//    private Date likeDate;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "accommod_main_id")
-    private AccommodationMain accommod_main;
+    @JoinColumn(name = "accommodation_id")
+    private Accommodation accommodation;
 }

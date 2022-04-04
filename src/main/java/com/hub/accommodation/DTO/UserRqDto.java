@@ -8,7 +8,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 
 @Data
-public class AppUserRqDto extends BaseEntity {
+public class UserRqDto extends BaseEntity {
 
     @Size(min = 3, message = "")
     @Size(max = 25, message = "")

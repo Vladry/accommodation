@@ -1,13 +1,13 @@
 package com.hub.accommodation.DTO;
 
-import com.hub.accommodation.domain.AccommodationMain;
+import com.hub.accommodation.domain.Accommodation;
 import com.hub.accommodation.domain.BaseEntity;
 import lombok.Data;
 
 import java.util.Set;
 
 @Data
-public class AppUserRsDto extends BaseEntity {
+public class UserRsDto extends BaseEntity {
 
 
     String name;
@@ -24,7 +24,7 @@ public class AppUserRsDto extends BaseEntity {
     String cityRegion;
     String country;
     boolean datingServiceParticipation;
-    Set<AccommodationMain> accDetails;
+    Set<Accommodation> accDetails;
 
 
 }

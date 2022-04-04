@@ -24,9 +24,9 @@ public class RefreshToken extends BaseEntity {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private AppUser user;
+    private User user;
 
-    public RefreshToken(Long validityRefreshToken, AppUser user) {
+    public RefreshToken(Long validityRefreshToken, User user) {
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityRefreshToken * 1000);
         this.issueDate = now;

@@ -8,11 +8,10 @@ import lombok.Data;
 import java.util.Set;
 
 @Data
-public class AccommodMainRsDto extends BaseEntity {
+public class AccommodationRsDto extends BaseEntity {
 
-    String cityRegion;
-    String countryRegion;
     Country country;
+//    String countryRegion;
     String street;
     String accommodationType;
     int numberOrRooms;
@@ -25,5 +24,5 @@ public class AccommodMainRsDto extends BaseEntity {
     Set<Picture> pictures;
     String accommodationStatus;
     int liked;
-
+    Long appUserId;
 }

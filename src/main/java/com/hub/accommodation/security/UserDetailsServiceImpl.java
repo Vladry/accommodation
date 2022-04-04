@@ -1,7 +1,7 @@
 package com.hub.accommodation.security;
 
-import com.hub.accommodation.domain.AppUser;
-import com.hub.accommodation.repository.AppUserRepository;
+import com.hub.accommodation.domain.User;
+import com.hub.accommodation.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -9,18 +9,18 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-    private final AppUserRepository appUserRepository;
+    private final UserRepository userRepository;
 
-    public UserDetailsServiceImpl(AppUserRepository appUserRepository) {
-        this.appUserRepository = appUserRepository;
+    public UserDetailsServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        AppUser appUser = appUserRepository
-                .findAppUserByEmail(email)
+        User user = userRepository
+                .findUserByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Username " + email + " not found"));
 
-        return SecurityUser.fromAppUser(appUser);
+        return SecurityUser.fromAppUser(user);
     }
 }

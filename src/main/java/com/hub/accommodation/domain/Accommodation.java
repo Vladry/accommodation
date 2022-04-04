@@ -3,8 +3,6 @@ package com.hub.accommodation.domain;
 import lombok.*;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,12 +12,12 @@ import java.util.Set;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @ToString(of = {"street", "numberOfRooms", "numberOfBeds", "canHelpWithWork", "canHelpWithFood"})
-@Table(name = "accommodation_main")
-public class AccommodationMain extends BaseEntity {
+@Table(name = "accommodation")
+public class Accommodation extends BaseEntity {
 
-    @Column(name = "country_region", length = 25, nullable = true)
-    String countryRegion;
-    @Column(name = "street", length = 40, nullable = false)
+    @Column(name = "country", length = 20)
+    String country;
+    @Column(name = "street", length = 40)
     String street;
     @Column(name = "accomodation_type")
     @Enumerated(EnumType.ORDINAL)
@@ -40,14 +38,17 @@ public class AccommodationMain extends BaseEntity {
     @OneToMany(mappedBy = "accommodationDetails", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     Set<Picture> pictures = new HashSet<>();
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     AccommodationStatus status;
-    @Column(name = "dating", nullable = true)
+    @Column(name = "dating")
     boolean datingServiceParticipation;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "app_user_id")
-    AppUser appUser;
-    @OneToMany(mappedBy = "accommod_main", cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    User user;
+    @OneToMany(mappedBy = "accommodation", cascade = CascadeType.ALL)
     Set<likeDates> liked = new HashSet<>();
 
+    public String getAccommodationType(){
+        return accommodationType.name();
+    }
 }

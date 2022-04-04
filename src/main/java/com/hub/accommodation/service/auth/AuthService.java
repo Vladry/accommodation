@@ -1,11 +1,11 @@
 package com.hub.accommodation.service.auth;
 
-import com.hub.accommodation.domain.AppUser;
+import com.hub.accommodation.domain.User;
 import com.hub.accommodation.domain.RefreshToken;
 import com.hub.accommodation.exception.JwtAuthenticationException;
 import com.hub.accommodation.exception.NoDataFoundException;
 import com.hub.accommodation.exception.UserAlreadyExistException;
-import com.hub.accommodation.repository.AppUserRepository;
+import com.hub.accommodation.repository.UserRepository;
 import com.hub.accommodation.repository.RefreshTokenRepository;
 import com.hub.accommodation.security.jwt.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,12 +22,12 @@ import java.util.Map;
 @Service
 public class AuthService {
     private final AuthenticationManager authenticationManager;
-    private final AppUserRepository appUserRepository;
+    private final UserRepository appUserRepository;
     private final JwtTokenProvider jwtTokenProvider;
     private final RefreshTokenRepository refreshTokenRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public AuthService(AuthenticationManager authenticationManager, AppUserRepository appUserRepository, JwtTokenProvider jwtTokenProvider, RefreshTokenRepository refreshTokenRepository, PasswordEncoder passwordEncoder) {
+    public AuthService(AuthenticationManager authenticationManager, UserRepository appUserRepository, JwtTokenProvider jwtTokenProvider, RefreshTokenRepository refreshTokenRepository, PasswordEncoder passwordEncoder) {
         this.authenticationManager = authenticationManager;
         this.appUserRepository = appUserRepository;
         this.jwtTokenProvider = jwtTokenProvider;
@@ -42,7 +42,7 @@ public class AuthService {
         return refreshTokenRepository.findById(id).orElseThrow(() -> new JwtAuthenticationException("refreshToken not found", HttpStatus.FORBIDDEN));
     }
 
-    public RefreshToken createRefreshToken(AppUser appUser) {
+    public RefreshToken createRefreshToken(User appUser) {
         return refreshTokenRepository.save(new RefreshToken(validityRefreshToken, appUser));
     }
 
@@ -56,7 +56,7 @@ public class AuthService {
     }
 
     // FIXME
-    public Map<Object, Object> createTokens(AppUser o) {
+    public Map<Object, Object> createTokens(User o) {
         String token = jwtTokenProvider.createToken(o.getEmail(), "USER", o.getId());
 
         RefreshToken createdRefreshToken = this.createRefreshToken(o);
@@ -70,17 +70,17 @@ public class AuthService {
     }
 
     public Map<Object, Object> authenticate(String email, String password) {
-        AppUser appUser = appUserRepository.findAppUserByEmail(email).orElseThrow(() -> new NoDataFoundException("AppUser doesn't exists"));
+        User appUser = appUserRepository.findUserByEmail(email).orElseThrow(() -> new NoDataFoundException("AppUser doesn't exists"));
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
         return createTokens(appUser);
     }
 
     public Map<Object, Object> register(String email, String password) {
-        if (appUserRepository.findAppUserByEmail(email).isPresent()) {
+        if (appUserRepository.findUserByEmail(email).isPresent()) {
             throw new UserAlreadyExistException(email);
         }
 
-        appUserRepository.save(new AppUser(email, passwordEncoder.encode(password)));
+        appUserRepository.save(new User(email, passwordEncoder.encode(password)));
         return authenticate(email, password);
     }
 
@@ -92,7 +92,7 @@ public class AuthService {
             throw new JwtAuthenticationException("refreshToken is expired", HttpStatus.UNAUTHORIZED);
         } else {
             markUsed(refreshTokenId);
-            AppUser appUser = appUserRepository.findById(rt.getUser().getId()).orElseThrow(() -> new NoDataFoundException("User doesn't exists"));
+            User appUser = appUserRepository.findById(rt.getUser().getId()).orElseThrow(() -> new NoDataFoundException("User doesn't exists"));
             return createTokens(appUser);
         }
     }
