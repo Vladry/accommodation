@@ -19,8 +19,12 @@ public class UserService {
         userRepository.save(appUser);
     }
 
+    public User getUserById_(Long id){
+        return  userRepository.getById(id);
+    }
+
     public Optional<User> getUserById(Long id){
-        return  Optional.of(userRepository.getById(id));
+        return  Optional.ofNullable(userRepository.getById(id));
     }
 
     public Optional<User> getUserByEmail(String email){

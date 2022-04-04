@@ -5,6 +5,8 @@ import com.hub.accommodation.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.util.Optional;
+
 
 @Data
 @AllArgsConstructor
@@ -34,9 +36,22 @@ public class AccommodationRqDto extends BaseEntity {
         return service.getUserById(userId).orElse(null);
     }
 
+
     public User getUserFromRqDto_(){
-        return  service.getUserById(1L).get();
+        User u = service.getUserById_(1L);
+        System.out.println("user is: " + u);
+        return  null;
     }
+
+    public User getUserFromRqDto___(){
+        Optional<User> u = service.getUserById(1L);
+        System.out.println("user is: " + u);
+        return  null;
+    }
+
+//    public User getUserFromRqDto__(){
+//        return  service.getUserById(1L).get();
+//    }
 
 
 

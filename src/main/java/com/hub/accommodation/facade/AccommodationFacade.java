@@ -21,7 +21,7 @@ public class AccommodationFacade extends GeneralFacade<
                 .addMapping(AccommodationRqDto::getCountryEnum, Accommodation::setCountry)
                 .addMapping(AccommodationRqDto::getAccType, Accommodation::setAccommodationType)
                 .addMapping(AccommodationRqDto::getAccStatus, Accommodation::setStatus)
-                .addMapping(AccommodationRqDto::getUserFromRqDto_, Accommodation::setUser);
+                .addMapping(AccommodationRqDto::getUserFromRqDto_, Accommodation::setUser_);
 
 //        super.getMm().typeMap(Accommodation.class, AccommodationRsDto.class)
 //                .addMapping(Accommodation::getAccommodationType, AccommodationRsDto::setAccommodationType);
