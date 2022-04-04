@@ -1,4 +1,4 @@
-package com.hub.accommodation.domain;
+package com.hub.accommodation.domain.enums;
 
 public enum Country {
     USA("United States of America"),

@@ -1,6 +1,8 @@
 package com.hub.accommodation.DTO;
 
 import com.hub.accommodation.domain.*;
+import com.hub.accommodation.domain.enums.Country;
+import com.hub.accommodation.domain.enums.Pets;
 import com.hub.accommodation.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,29 +33,17 @@ public class AccommodationRqDto extends BaseEntity {
     boolean helpWithFood;
     int status;
     Long userId;
+    boolean disabilityOrElderlySupport;
+    boolean childCareSupport;
+    int petsAllowed;
 
     public User getUserFromRqDto() {
         return service.getUserById(userId).orElse(null);
     }
 
-
-    public User getUserFromRqDto_(){
-        User u = service.getUserById_(1L);
-        System.out.println("user is: " + u);
-        return  null;
+    public Pets getPetEnum() {
+        return Pets.values()[petsAllowed];
     }
-
-    public User getUserFromRqDto___(){
-        Optional<User> u = service.getUserById(1L);
-        System.out.println("user is: " + u);
-        return  null;
-    }
-
-//    public User getUserFromRqDto__(){
-//        return  service.getUserById(1L).get();
-//    }
-
-
 
     public AccommodationType getAccType() {
         return AccommodationType.values()[accommodationType];
@@ -63,7 +53,7 @@ public class AccommodationRqDto extends BaseEntity {
         return AccommodationStatus.values()[status];
     }
 
-    public Country getCountryEnum(){
+    public Country getCountryEnum() {
         return Country.values()[this.country];
     }
 

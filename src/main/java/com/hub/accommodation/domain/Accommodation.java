@@ -1,5 +1,7 @@
 package com.hub.accommodation.domain;
 
+import com.hub.accommodation.domain.enums.Country;
+import com.hub.accommodation.domain.enums.Pets;
 import lombok.*;
 
 import javax.persistence.*;
@@ -49,9 +51,9 @@ public class Accommodation extends BaseEntity {
     @OneToMany(mappedBy = "accommodation", cascade = CascadeType.ALL)
     Set<likeDates> liked = new HashSet<>();
 
-    public void setUser_(User user) {
-        this.user = null;
-    }
+    boolean disabilityOrElderlySupport;
+    boolean childCareSupport;
+    Pets petsAllowed;
 
     public String getAccommodationType() {
         return accommodationType.name();

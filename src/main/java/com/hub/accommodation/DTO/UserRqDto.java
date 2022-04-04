@@ -1,7 +1,7 @@
 package com.hub.accommodation.DTO;
 
 import com.hub.accommodation.domain.BaseEntity;
-import com.hub.accommodation.domain.Country;
+import com.hub.accommodation.domain.enums.Country;
 import lombok.Data;
 
 import javax.validation.constraints.Email;

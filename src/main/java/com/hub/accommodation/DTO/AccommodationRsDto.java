@@ -1,7 +1,7 @@
 package com.hub.accommodation.DTO;
 
 import com.hub.accommodation.domain.BaseEntity;
-import com.hub.accommodation.domain.Country;
+import com.hub.accommodation.domain.enums.Country;
 import com.hub.accommodation.domain.Picture;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,5 +27,8 @@ public class AccommodationRsDto extends BaseEntity {
     Set<Picture> pictures;
     String accommodationStatus;
     int liked;
-    Long appUserId;
+    Long userId;
+    boolean disabilityOrElderlySupport;
+    boolean childCareSupport;
+    String petsAllowed;
 }

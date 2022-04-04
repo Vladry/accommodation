@@ -1,5 +1,6 @@
 package com.hub.accommodation.domain;
 
+import com.hub.accommodation.domain.enums.Country;
 import lombok.*;
 
 import javax.persistence.*;

@@ -21,10 +21,11 @@ public class AccommodationFacade extends GeneralFacade<
                 .addMapping(AccommodationRqDto::getCountryEnum, Accommodation::setCountry)
                 .addMapping(AccommodationRqDto::getAccType, Accommodation::setAccommodationType)
                 .addMapping(AccommodationRqDto::getAccStatus, Accommodation::setStatus)
-                .addMapping(AccommodationRqDto::getUserFromRqDto_, Accommodation::setUser_);
+                .addMapping(AccommodationRqDto::getPetEnum, Accommodation::setPetsAllowed)
+                .addMapping(AccommodationRqDto::getUserFromRqDto, Accommodation::setUser);
 
-//        super.getMm().typeMap(Accommodation.class, AccommodationRsDto.class)
-//                .addMapping(Accommodation::getAccommodationType, AccommodationRsDto::setAccommodationType);
+        super.getMm().typeMap(Accommodation.class, AccommodationRsDto.class)
+                .addMapping(Accommodation::getAccommodationType, AccommodationRsDto::setAccommodationType);
     }
 
     @Override
