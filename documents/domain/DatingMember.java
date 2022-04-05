@@ -17,7 +17,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @ToString(of = {"name", "lastName", "email", "phoneNumber", "city", "country"})
-@Table(name = "dating_member")
+@Table(name = "dating-member")
 public class DatingMember extends AbstractEntity {
     private final String passwordRegexp = "^(?=.*[0_9])(?=.*[a_z])(?=.*[A_Z])(?=.*[@#$%^&_+=()])(?=\\S+$).{8,20}$";
 

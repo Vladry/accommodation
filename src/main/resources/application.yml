@@ -35,6 +35,17 @@ spring:
   config:
     activate:
       on-profile: local
+
+jwt:
+  secret: ieu2rh98sdoifio3q4f
+  secretRefresh: fej981349jofqefqer
+  secretPasswordReset: hf139heiuqfhqr34
+  secretPasswordUpdate: t9k09k90qedk90q9k0
+  expiration: 7200
+  expirationRefresh: 604800
+  expirationPasswordReset: 86400
+  expirationPasswordUpdate: 3600
+  header: Authorization
 ---
 spring:
   #    для включения авто_ заполнения БД, в физическую (не h2 базу) еще нужно добавить:
@@ -63,3 +74,5 @@ spring:
   config:
     activate:
       on_profile: prod
+
+

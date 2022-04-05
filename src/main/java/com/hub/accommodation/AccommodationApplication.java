@@ -22,4 +22,5 @@ public class AccommodationApplication implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
 
     }
+
 }

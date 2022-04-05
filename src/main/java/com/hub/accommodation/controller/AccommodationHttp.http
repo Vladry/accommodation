@@ -1,0 +1,21 @@
+POST http://localhost:8000/accommodations
+Content-Type: application/json
+
+{
+"country": 190,
+"street" : "Zhukova",
+"accommodationType" : 1,
+"numberOrRooms" : 2,
+"numberOfBeds"  : 3,
+"priceTotal"  : 0,
+"pricePerRoom"  : 0,
+"pricePerPerson"  : 0,
+"helpWithWork"  : false,
+"helpWithFood"  : false,
+"status"  : 1,
+"userId"  : 1
+}
+
+###
+GET http://localhost:8000/accommodations/1
+###

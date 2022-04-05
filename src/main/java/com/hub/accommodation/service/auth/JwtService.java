@@ -1,4 +1,4 @@
-package com.hub.accommodation.service;
+package com.hub.accommodation.service.auth;
 
 import org.springframework.stereotype.Service;
 
