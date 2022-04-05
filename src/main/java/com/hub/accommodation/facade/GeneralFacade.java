@@ -1,10 +1,12 @@
 package com.hub.accommodation.facade;
 
+import lombok.Data;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 
 import static org.modelmapper.config.Configuration.AccessLevel.PRIVATE;
 
+@Data
 public class GeneralFacade<E, RQ, RS> {
 
     private final Class<E> entityClass;
