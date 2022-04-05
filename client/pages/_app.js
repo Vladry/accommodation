@@ -2,6 +2,8 @@ import React from "react";
 import Head from "next/head";
 import {CssBaseline} from "@material-ui/core";
 import {ThemeProvider, createTheme} from "@material-ui/core/styles"
+import {Provider} from "react-redux";
+import {store, wrapper} from "../redux/store";
 
 function MyApp({Component, pageProps}) {
     React.useEffect(() => {
@@ -21,10 +23,12 @@ function MyApp({Component, pageProps}) {
             <ThemeProvider theme={createTheme({})}>
                 {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
                 <CssBaseline/>
-                <Component {...pageProps} />
+                <Provider store={store}>
+                    <Component {...pageProps} />
+                </Provider>
             </ThemeProvider>
         </>
 )
 }
 
-export default MyApp
+export default wrapper.withRedux(MyApp);
