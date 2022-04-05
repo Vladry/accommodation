@@ -10,13 +10,13 @@ public class GeneralFacade<E, RQ, RS> {
     private final Class<E> entityClass;
     private final Class<RS> dtoRsClass;
 
-    private final ModelMapper modelMapper = new ModelMapper();
+    private final ModelMapper mm = new ModelMapper();
 
     public GeneralFacade(Class<E> eClass, Class<RS> RsClass) {
         entityClass = eClass;
         dtoRsClass = RsClass;
 
-        modelMapper.getConfiguration()
+        mm.getConfiguration()
                 .setMatchingStrategy(MatchingStrategies.STRICT)
                 .setFieldMatchingEnabled(true)
                 .setSkipNullEnabled(true)
@@ -24,13 +24,13 @@ public class GeneralFacade<E, RQ, RS> {
     }
 
     public E convertToEntity(RQ requestDTO) {
-        final E entity = modelMapper.map(requestDTO, entityClass);
+        final E entity = mm.map(requestDTO, entityClass);
         decorateEntity(entity, requestDTO);
         return entity;
     }
 
     public RS convertToDto(E entity){
-        final RS dto = modelMapper.map(entity, dtoRsClass);
+        final RS dto = mm.map(entity, dtoRsClass);
             decorateDto(dto, entity);
             return dto;
     }
