@@ -6,6 +6,7 @@ import com.hub.accommodation.domain.Accommodation;
 import com.hub.accommodation.exception.NoDataFoundException;
 import com.hub.accommodation.facade.AccommodationFacade;
 import com.hub.accommodation.service.AccommodationService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,6 +24,7 @@ private final AccommodationFacade accommodMainFacade;
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('write')")
     public void save(
             @RequestBody AccommodationRqDto accommodationRqDto){
         Accommodation accommodation = accommodMainFacade.convertToEntity(accommodationRqDto);
@@ -38,6 +40,7 @@ private final AccommodationFacade accommodMainFacade;
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('read')")
     public AccommodationRsDto findById(@PathVariable("id") Long id){
         Optional<Accommodation> byId = accommodMainService.findById(id);
         System.out.println("byId: " + byId);

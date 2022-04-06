@@ -1,6 +1,7 @@
 package com.hub.accommodation.domain;
 
 import com.hub.accommodation.domain.enums.Country;
+import com.hub.accommodation.domain.enums.Role;
 import lombok.*;
 
 import javax.persistence.*;
@@ -44,6 +45,9 @@ public class User extends BaseEntity {
     boolean datingServiceParticipation;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     Set<Accommodation> accommodation = new HashSet<>();
+
+    @Enumerated(EnumType.STRING)
+    private Role role = Role.USER;
 
     public User(String email, String password) {
         this.email = email;

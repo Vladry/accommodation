@@ -63,7 +63,7 @@ public class SecurityUser implements UserDetails {
     public static UserDetails fromAppUser(User appUser) {
         return new org.springframework.security.core.userdetails.User(
                 appUser.getEmail(), appUser.getPassword(),
-                List.of()
+                appUser.getRole().getAuthorities()
         );
     }
 }
