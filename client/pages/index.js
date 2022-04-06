@@ -51,8 +51,8 @@ export default function Home() {
             <TextField onChange={handleChange} value={city} placeholder="Enter your city"/>
 
             <ul>
-                {data.features.map(f => (
-                    <li>{f.place_name}</li>
+                {data.features.map((f, index) => (
+                    <li key={index}>{f.place_name}</li>
                 ))}
             </ul>
 

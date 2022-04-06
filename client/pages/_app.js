@@ -4,6 +4,7 @@ import {CssBaseline} from "@material-ui/core";
 import {ThemeProvider, createTheme} from "@material-ui/core/styles"
 import {Provider} from "react-redux";
 import {store, wrapper} from "../redux/store";
+import Header from "../components/Header";
 
 function MyApp({Component, pageProps}) {
     React.useEffect(() => {
@@ -24,6 +25,7 @@ function MyApp({Component, pageProps}) {
                 {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
                 <CssBaseline/>
                 <Provider store={store}>
+                    <Header/>
                     <Component {...pageProps} />
                 </Provider>
             </ThemeProvider>
