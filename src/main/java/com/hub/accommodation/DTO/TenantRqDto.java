@@ -10,7 +10,6 @@ public class TenantRqDto {
 
     String desiredCity;
     String desiredCountry;
-
     int numberOfChildren;
     int numberOfSmallChildren;
     int adultsTo60;
