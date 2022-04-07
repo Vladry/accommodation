@@ -11,6 +11,7 @@ const initalState = {};
 // middleware
 const middleware = [thunk];
 
+
 // creating store
 export const store = createStore(
     rootReducer,

@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/accommodations")
+@RequestMapping("api/v1/accommodations")
 public class AccommodationController {
 private final AccommodationService accommodMainService;
 private final AccommodationFacade accommodMainFacade;

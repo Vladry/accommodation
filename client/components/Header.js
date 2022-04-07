@@ -1,6 +1,8 @@
 import React from 'react';
 import {AppBar, makeStyles, Toolbar, Typography} from "@material-ui/core";
 import {Menu} from "@material-ui/icons"
+import useAuth from "../hooks/useAuth";
+import {signOut} from "next-auth/react";
 
 const useStyles = makeStyles(() => ({
     toolbar: {
@@ -17,6 +19,9 @@ const useStyles = makeStyles(() => ({
 
 const Header = () => {
     const classes = useStyles();
+    const isAuthenticated = useAuth(false);
+
+    if (!isAuthenticated) return <></>;
 
     return (
         <header style={{height: '80px'}}>
@@ -25,7 +30,7 @@ const Header = () => {
                     <Typography>
                         ДОПОМОГА<br/>УКРАЇНСЬКИМ <br/> БІЖЕНЦЯМ
                     </Typography>
-                    <Menu/>
+                    <Menu onClick={signOut}/>
                 </Toolbar>
             </AppBar>
 

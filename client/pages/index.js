@@ -1,9 +1,10 @@
 import Head from 'next/head'
 import {Button, Container, TextField, Typography} from "@material-ui/core";
 import {useDispatch, useSelector} from "react-redux";
-import {decrement, increment} from "../redux/actions/sampleAction";
+import {decrement, increment} from "../store/actions/sampleAction";
 import {useFetch} from "../hooks/useFetch";
 import {useEffect, useRef, useState} from "react";
+import {signIn} from "next-auth/react";
 
 export default function Home() {
     const counter = useSelector(state => state.sampleData.counter)
@@ -42,6 +43,7 @@ export default function Home() {
                 <title>Home page</title>
                 <meta name="description" content="Home page"/>
             </Head>
+
             <main>
                 <Typography>Counter: {counter}</Typography>
                 <Button onClick={() => dispatch(decrement())}>-</Button>

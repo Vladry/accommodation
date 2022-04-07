@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import api from '../services/api';
+import api from '../lib/API';
 
 export const useFetch = ({
   instant = true,
