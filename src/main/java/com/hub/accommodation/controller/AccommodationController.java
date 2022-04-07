@@ -1,8 +1,8 @@
 package com.hub.accommodation.controller;
 
-import com.hub.accommodation.DTO.AccommodationRqDto;
-import com.hub.accommodation.DTO.AccommodationRsDto;
-import com.hub.accommodation.domain.Accommodation;
+import com.hub.accommodation.DTO.request.AccommodationRqDto;
+import com.hub.accommodation.DTO.response.AccommodationRsDto;
+import com.hub.accommodation.domain.accommodation.Accommodation;
 import com.hub.accommodation.exception.NoDataFoundException;
 import com.hub.accommodation.facade.AccommodationFacade;
 import com.hub.accommodation.service.AccommodationService;
@@ -24,7 +24,7 @@ private final AccommodationFacade accommodMainFacade;
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('write')")
+    @PreAuthorize("hasAuthority('writeAccommodation')")
     public void save(
             @RequestBody AccommodationRqDto accommodationRqDto){
         Accommodation accommodation = accommodMainFacade.convertToEntity(accommodationRqDto);

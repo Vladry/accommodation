@@ -1,9 +1,9 @@
 package com.hub.accommodation.facade;
 
-import com.hub.accommodation.DTO.AccommodationRqDto;
-import com.hub.accommodation.DTO.AccommodationRsDto;
-import com.hub.accommodation.domain.Accommodation;
-import com.hub.accommodation.domain.User;
+import com.hub.accommodation.DTO.request.AccommodationRqDto;
+import com.hub.accommodation.DTO.response.AccommodationRsDto;
+import com.hub.accommodation.domain.accommodation.Accommodation;
+import com.hub.accommodation.domain.user.User;
 import com.hub.accommodation.exception.NoDataFoundException;
 import com.hub.accommodation.service.UserService;
 import org.modelmapper.Converter;
@@ -24,7 +24,7 @@ public class AccommodationFacade extends GeneralFacade<
     @PostConstruct
     public void init() {
         Converter<Long, User> ID_TO_USER =
-                mappingContext -> userService.getUserById(mappingContext.getSource()).orElseThrow(() -> new NoDataFoundException("User not found"));
+                mappingContext -> userService.findById(mappingContext.getSource()).orElseThrow(() -> new NoDataFoundException("User not found"));
 
         super.getMm().typeMap(AccommodationRqDto.class, Accommodation.class)
                 .addMapping(AccommodationRqDto::getCountryEnum, Accommodation::setCountry)

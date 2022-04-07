@@ -1,13 +1,15 @@
 package com.hub.accommodation.controller;
 
 import com.hub.accommodation.facade.UserFacade;
-import com.hub.accommodation.DTO.UserRqDto;
-import com.hub.accommodation.DTO.UserRsDto;
-import com.hub.accommodation.domain.User;
+import com.hub.accommodation.DTO.request.UserRqDto;
+import com.hub.accommodation.DTO.response.UserRsDto;
+import com.hub.accommodation.domain.user.User;
 import com.hub.accommodation.exception.NoDataFoundException;
 import com.hub.accommodation.service.UserService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 
 @Validated
@@ -33,8 +35,10 @@ public class UserController {
     public UserRsDto findAppUserById(
             @PathVariable("id") Long id) {
 
-        if (appUserService.getUserById(id).isPresent()) {
-            User user = appUserService.getUserById(id).get();
+
+        Optional<User> optionalUser = appUserService.findById(id);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
             return UserFacade.convertToDto(user);
         } else {
             return null;

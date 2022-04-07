@@ -1,7 +1,7 @@
 package com.hub.accommodation.controller;
 
-import com.hub.accommodation.DTO.error.ExceptionResponse;
-import com.hub.accommodation.DTO.error.ValidationErrorResponse;
+import com.hub.accommodation.DTO.response.error.ExceptionResponse;
+import com.hub.accommodation.DTO.response.error.ValidationErrorResponse;
 import com.hub.accommodation.util.Violation;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;

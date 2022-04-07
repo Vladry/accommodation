@@ -1,6 +1,6 @@
 package com.hub.accommodation.security;
 
-import com.hub.accommodation.domain.User;
+import com.hub.accommodation.domain.user.User;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

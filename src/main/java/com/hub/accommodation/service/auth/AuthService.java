@@ -1,7 +1,7 @@
 package com.hub.accommodation.service.auth;
 
-import com.hub.accommodation.domain.User;
-import com.hub.accommodation.domain.RefreshToken;
+import com.hub.accommodation.domain.user.User;
+import com.hub.accommodation.domain.auth.RefreshToken;
 import com.hub.accommodation.exception.JwtAuthenticationException;
 import com.hub.accommodation.exception.NoDataFoundException;
 import com.hub.accommodation.exception.UserAlreadyExistException;

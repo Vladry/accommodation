@@ -1,10 +1,8 @@
 package com.hub.accommodation.facade;
 
-import com.hub.accommodation.DTO.AccommodationRsDto;
-import com.hub.accommodation.DTO.UserRqDto;
-import com.hub.accommodation.DTO.UserRsDto;
-import com.hub.accommodation.domain.Accommodation;
-import com.hub.accommodation.domain.User;
+import com.hub.accommodation.DTO.request.UserRqDto;
+import com.hub.accommodation.DTO.response.UserRsDto;
+import com.hub.accommodation.domain.user.User;
 import com.hub.accommodation.service.UserService;
 import org.springframework.stereotype.Component;
 

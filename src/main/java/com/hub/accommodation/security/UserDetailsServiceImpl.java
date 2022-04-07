@@ -1,6 +1,6 @@
 package com.hub.accommodation.security;
 
-import com.hub.accommodation.domain.User;
+import com.hub.accommodation.domain.user.User;
 import com.hub.accommodation.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
