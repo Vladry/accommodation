@@ -24,6 +24,8 @@ export async function handleRegister(registerData) {
 
 async function refreshAccessToken(tokenObject) {
     try {
+
+        console.log("Trying to refresh token")
         // Get a new set of tokens with a refreshToken
         const tokenResponse = await api.get(API_URL + '/api/v1/auth/refresh', {
             headers: {
@@ -34,6 +36,7 @@ async function refreshAccessToken(tokenObject) {
         return {
             ...tokenObject,
             accessToken: tokenResponse.token,
+            accessTokenExpiry: tokenResponse.tokenExpiry,
             refreshToken: tokenResponse.refreshToken
         }
     } catch (error) {
@@ -64,7 +67,7 @@ const providers = [
 
                 return null;
             } catch (e) {
-                throw new Error(e);
+                throw new Error("Login or password is not correct");
             }
         }
     })
@@ -75,25 +78,26 @@ const callbacks = {
         if (user) {
             console.log(user);
             token.accessToken = user.token;
+            token.accessTokenExpiry = user.tokenExpiry;
             token.refreshToken = user.refreshToken;
         }
 
         // If accessTokenExpiry is 24 hours, we have to refresh token before 24 hours pass.
-        // const shouldRefreshTime = Math.round((token.accessTokenExpiry - 60 * 60 * 1000) - Date.now());
+        const shouldRefreshTime = Math.round((token.accessTokenExpiry - 60 * 60 * 1000) - Date.now());
 
         // If the token is still valid, just return it.
-        // if (shouldRefreshTime > 0) {
-        return Promise.resolve(token);
-        // }
+        if (shouldRefreshTime > 0) {
+            return Promise.resolve(token);
+        }
 
         // If the call arrives after 23 hours have passed, we allow to refresh the token.
-        // token = refreshAccessToken(token);
-        // return Promise.resolve(token);
+        token = refreshAccessToken(token);
+        return Promise.resolve(token);
     },
     session: async ({session, token}) => {
         // Here we pass accessToken to the client to be used in authentication with your API
         session.accessToken = token.accessToken;
-        // session.accessTokenExpiry = token.accessTokenExpiry;
+        session.accessTokenExpiry = token.accessTokenExpiry;
         session.error = token.error;
 
         return Promise.resolve(session);

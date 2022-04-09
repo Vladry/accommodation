@@ -1,30 +1,35 @@
 import React, {useState} from 'react'
-import {Grid, Paper, Avatar, TextField, Button, Typography, Link} from '@material-ui/core'
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import {makeStyles} from "@material-ui/core/styles";
+import {Grid, Paper, Avatar, TextField, Button, Typography, Link} from '@mui/material'
 import {signIn} from "next-auth/react";
+import {LockOutlined} from "@mui/icons-material";
+import styled from '@emotion/styled'
+import Router, {useRouter} from 'next/router'
 
-const useStyles = makeStyles(() => ({
-    paperStyle: {
-        padding: 20,
-        width: '320px',
-        margin: "20px auto"
-    },
-    avatarStyle: {
-        backgroundColor: '#1bbd7e'
-    },
-    btnStyle: {
-        margin: '8px 0'
-    }
-}));
+const MyPaper = styled(Paper)`
+    padding: 15px 20px;
+    width: 400px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 5px;
+`
+
+const MyTextField = styled(TextField)`
+    margin: 0 0 15px 0;
+`
+
+
 
 const Login = () => {
-    const classes = useStyles();
+    const router = useRouter()
 
     const [formData, setFormData] = useState({
-        email: '',
-        password: ''
+        email: 'vlad@ukr.net',
+        password: 'rvy'
     });
+
+    const [error, setError] = useState("");
 
     const handleChange = (e) => {
         setFormData(prev => ({
@@ -33,23 +38,32 @@ const Login = () => {
         }))
     }
 
-    const handleLogin = () => {
+    const handleLogin = async () => {
         if (formData.email && formData.password) {
-            signIn('credentials', formData);
+            const result = await signIn('credentials', {redirect: false, ...formData});
+            if (result.error) {
+                setError(result.error || '')
+            } else if (router.query.redirectUrl) {
+                Router.push({
+                    pathname: router.query.redirectUrl,
+                })
+            }
         }
     }
 
     return (
         <Grid container>
-            <Paper elevation={10} className={classes.paperStyle}>
+            <MyPaper elevation={10}>
                 <Grid align='center'>
-                    <Avatar className={classes.avatarStyle}><LockOutlinedIcon/></Avatar>
+                    <Avatar><LockOutlined/></Avatar>
                     <h2>Sign In</h2>
                 </Grid>
-                <TextField onChange={handleChange} name="email" label='Email' placeholder='Enter email' fullWidth required/>
-                <TextField onChange={handleChange} name="password" label='Password' placeholder='Enter password' type='password' fullWidth required/>
+                <MyTextField onChange={handleChange} value={formData.email} name="email" label='Email' placeholder='Enter email' fullWidth required/>
+                <MyTextField onChange={handleChange} value={formData.password} name="password" label='Password' placeholder='Enter password' type='password' fullWidth required/>
 
-                <Button onClick={handleLogin} type='submit' color='primary' variant="contained" className={classes.btnStyle} fullWidth>Sign in</Button>
+                {error && <Typography sx={{color: 'red'}}>{error}</Typography>}
+
+                <Button sx={{marginBottom: '15px', marginTop: '10px'}} onClick={handleLogin} type='submit' color='primary' variant="contained" fullWidth>Sign in</Button>
                 <Typography>
                     <Link href="#">
                         Forgot password?
@@ -60,7 +74,8 @@ const Login = () => {
                         &nbsp;Sign Up
                     </Link>
                 </Typography>
-            </Paper>
+
+            </MyPaper>
         </Grid>
     );
 };

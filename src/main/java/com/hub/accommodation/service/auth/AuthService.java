@@ -38,6 +38,9 @@ public class AuthService {
     @Value("${jwt.expirationRefresh}")
     private long validityRefreshToken;
 
+    @Value("${jwt.expiration}")
+    private long validityToken;
+
     public RefreshToken readRefreshToken(Long id) throws JwtAuthenticationException {
         return refreshTokenRepository.findById(id).orElseThrow(() -> new JwtAuthenticationException("refreshToken not found", HttpStatus.FORBIDDEN));
     }
@@ -55,16 +58,18 @@ public class AuthService {
                 .orElseThrow(() -> new NoDataFoundException("refreshToken", id));
     }
 
-    // FIXME
     public Map<Object, Object> createTokens(User o) {
-        String token = jwtTokenProvider.createToken(o.getEmail(), "USER", o.getId());
+        String token = jwtTokenProvider.createToken(o.getEmail(), o.getRole().name(), o.getId());
 
         RefreshToken createdRefreshToken = this.createRefreshToken(o);
         String refreshToken = jwtTokenProvider.createRefreshToken(createdRefreshToken.getId());
 
+        Date now = new Date();
+
         Map<Object, Object> tokens = new HashMap<>();
         tokens.put("userId", o.getId());
         tokens.put("token", token);
+        tokens.put("tokenExpiry", now.getTime() + validityToken * 1000);
         tokens.put("refreshToken", refreshToken);
         return tokens;
     }

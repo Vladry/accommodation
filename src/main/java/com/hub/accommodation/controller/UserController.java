@@ -6,14 +6,17 @@ import com.hub.accommodation.DTO.response.UserRsDto;
 import com.hub.accommodation.domain.user.User;
 import com.hub.accommodation.exception.NoDataFoundException;
 import com.hub.accommodation.service.UserService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.Optional;
 
 
 @Validated
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("api/v1/users")
 public class UserController {
 
@@ -29,6 +32,12 @@ public class UserController {
     public void getUser(@RequestBody UserRqDto userRqDto) {
         User user = UserFacade.convertToEntity(userRqDto);
         appUserService.save(user);
+    }
+
+    @PreAuthorize("hasAuthority('read')")
+    @GetMapping("/profile")
+    public UserRsDto getUserProfile(Principal principal) {
+        return UserFacade.getUserByEmail(principal.getName());
     }
 
     @GetMapping("/{id}")

@@ -1,6 +1,7 @@
 import React from 'react';
-import {AppBar, makeStyles, Toolbar, Typography} from "@material-ui/core";
-import {Menu} from "@material-ui/icons"
+import {AppBar, Toolbar, Typography} from "@mui/material";
+import {makeStyles} from "@mui/styles";
+import {Menu} from "@mui/icons-material"
 import useAuth from "../hooks/useAuth";
 import {signOut} from "next-auth/react";
 

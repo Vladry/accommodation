@@ -1,5 +1,5 @@
 import { signOut, useSession } from "next-auth/react";
-import { useRouter } from "next/router";
+import {Router, useRouter} from "next/router";
 import { useEffect, useState } from "react";
 
 export default function useAuth(shouldRedirect) {
@@ -14,7 +14,10 @@ export default function useAuth(shouldRedirect) {
 
         if (session === null) {
             if (!['/login', '/'].includes(router.route)) {
-                router.replace('/login');
+                router.push({
+                    pathname: '/login',
+                    query: {redirectUrl: router.route}
+                });
             }
             setIsAuthenticated(false);
         } else if (session !== undefined) {

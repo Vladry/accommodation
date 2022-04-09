@@ -1,15 +1,21 @@
 import React, {useState} from "react";
 import Head from "next/head";
-import {CssBaseline} from "@material-ui/core";
-import {ThemeProvider, createTheme} from "@material-ui/core/styles"
+import {CssBaseline} from "@mui/material";
+import {ThemeProvider} from "@mui/material/styles"
 import {Provider} from "react-redux";
 import Header from "../components/Header";
 import {SessionProvider} from "next-auth/react";
 import {store, wrapper} from "../store/store";
-import useAuth from "../hooks/useAuth";
+import createEmotionCache from "../utils/createEmotionCache";
+import {CacheProvider} from "@emotion/react";
+import theme from "../utils/theme";
+import RefreshTokenHandler from "../components/RefreshTokenHandler";
 
-function MyApp({Component, pageProps}) {
+const clientSideEmotionCache = createEmotionCache();
+
+function MyApp({Component, pageProps, emotionCache = clientSideEmotionCache}) {
     const [interval, setInterval] = useState(0);
+    console.log(interval)
     React.useEffect(() => {
         // Remove the server-side injected CSS.
         const jssStyles = document.querySelector('#jss-server-side');
@@ -18,23 +24,24 @@ function MyApp({Component, pageProps}) {
         }
     }, []);
 
-
     return (
         <>
-            <Head>
-                <title>My page</title>
-                <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width"/>
-            </Head>
-            <SessionProvider session={pageProps.session} refetchInterval={interval}>
-                <ThemeProvider theme={createTheme({})}>
-                    {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-                    <CssBaseline/>
-                    <Provider store={store}>
-                        <Header/>
-                        <Component {...pageProps} />
-                    </Provider>
-                </ThemeProvider>
-            </SessionProvider>
+            <CacheProvider value={emotionCache}>
+                <Head>
+                    <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width"/>
+                    <title>My Page</title>
+                </Head>
+                <SessionProvider session={pageProps.session} refetchInterval={interval}>
+                    <ThemeProvider theme={theme}>
+                        <Provider store={store}>
+                            <CssBaseline/>
+                            <Header/>
+                            <Component {...pageProps} />
+                        </Provider>
+                    </ThemeProvider>
+                    <RefreshTokenHandler setInterval={setInterval} />
+                </SessionProvider>
+            </CacheProvider>
         </>
     )
 }

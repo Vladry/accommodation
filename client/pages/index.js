@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import {Button, Container, TextField, Typography} from "@material-ui/core";
+import {Button, Container, TextField, Typography} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
 import {decrement, increment} from "../store/actions/sampleAction";
 import {useFetch} from "../hooks/useFetch";
@@ -20,18 +20,18 @@ export default function Home() {
         url: `https://api.mapbox.com/geocoding/v5/mapbox.places/${city}.json?access_token=pk.eyJ1IjoidmFkeW0tdGFydGFrb3Zza3lpIiwiYSI6ImNraHo4bmt1ZzB2MGszMGx0dDNqZHdmaWUifQ.VVvuIigxHHYEJiQZlWItsQ`
     })
 
+
     useEffect(() => {
         clearTimeout(timer.current)
         if (city) {
             timer.current = setTimeout(() => {
                 getData();
+                console.log("fetched data")
             }, 800)
         } else {
             modifyData({features: []})
         }
     }, [city])
-
-    console.log(data)
 
     const handleChange = (e) => {
         setCity(e.target.value);
