@@ -4,8 +4,8 @@ import React, {useState} from 'react';
 import {Form, Formik, Field, ErrorMessage, useFormik, getIn} from 'formik';
 import * as yup from 'yup';
 import {EMAIL_REGEXP} from "../utils/regexp";
-import MuiPhoneNumber from 'material-ui-phone-number';
-import {Checkbox, FormControlLabel, Grid, TextField} from "@mui/material";
+import MuiPhoneNumber from 'material-ui-phone-number-2';
+import {Button, Checkbox, Container, FormControlLabel, Grid, TextField} from "@mui/material";
 
 const fields = [
     {
@@ -13,7 +13,7 @@ const fields = [
         name: "name",
         formikRef: "name",
         label: "First name",
-        defaultValue: "",
+        valueByDefault: "",
         type: "text"
     },
     {
@@ -21,7 +21,7 @@ const fields = [
         name: "lastName",
         formikRef: "lastName",
         label: "Last name",
-        defaultValue: "",
+        valueByDefault: "",
         type: "text"
     },
     {
@@ -29,7 +29,7 @@ const fields = [
         name: "email",
         formikRef: "email",
         label: "Email",
-        defaultValue: "",
+        valueByDefault: "",
         type: "text"
     },
     {
@@ -37,7 +37,7 @@ const fields = [
         name: "password",
         formikRef: "password",
         label: "Password",
-        defaultValue: "",
+        valueByDefault: "",
         type: "text"
     },
     {
@@ -45,23 +45,15 @@ const fields = [
         name: "phoneNumber",
         formikRef: "phoneNumber",
         label: "Phone number",
-        defaultValue: "",
+        valueByDefault: "+380",
         type: "tel"
-    },
-    {
-        id: "hideSocialContactData",
-        name: "hideSocialContactData",
-        formikRef: "hideSocialContactData",
-        label: "Hide social contact data",
-        defaultValue: false,
-        type: "checkbox",
     },
     {
         id: "urlSocial1",
         name: "urlSocial1",
         formikRef: "urlSocial1",
         label: "urlSocial1",
-        defaultValue: "",
+        valueByDefault: "",
         type: "text",
     },
     {
@@ -69,7 +61,7 @@ const fields = [
         name: "urlSocial2",
         formikRef: "urlSocial2",
         label: "urlSocial2",
-        defaultValue: "",
+        valueByDefault: "",
         type: "text",
     },
     {
@@ -77,7 +69,7 @@ const fields = [
         name: "messenger1",
         formikRef: "messenger1",
         label: "messenger1",
-        defaultValue: "",
+        valueByDefault: "",
         type: "text",
     },
     {
@@ -85,7 +77,7 @@ const fields = [
         name: "messenger2",
         formikRef: "messenger2",
         label: "messenger2",
-        defaultValue: "",
+        valueByDefault: "",
         type: "text",
     },
     {
@@ -93,7 +85,7 @@ const fields = [
         name: "city",
         formikRef: "city",
         label: "City",
-        defaultValue: "",
+        valueByDefault: "",
         type: "text",
     },
     {
@@ -101,7 +93,7 @@ const fields = [
         name: "country",
         formikRef: "country",
         label: "Country",
-        defaultValue: "",
+        valueByDefault: "",
         type: "text",
     },
     {
@@ -109,9 +101,16 @@ const fields = [
         name: "datingServiceParticipation",
         formikRef: "datingServiceParticipation",
         label: "Dating service participation",
-        defaultValue: false,
+        valueByDefault: false,
         type: "checkbox",
-    }
+    }, {
+        id: "hideSocialContactData",
+        name: "hideSocialContactData",
+        formikRef: "hideSocialContactData",
+        label: "Hide social contact data",
+        valueByDefault: false,
+        type: "checkbox",
+    },
 ];
 
 const UserForm = () => {
@@ -135,7 +134,7 @@ const UserForm = () => {
     const formik = useFormik({
         initialValues: fields.reduce((acc, f) => ({
             ...acc,
-            [f.formikRef]: f.defaultValue
+            [f.formikRef]: f.valueByDefault
         }), {}),
         validationSchema: formValidationSchema,
         onSubmit: (values) => {
@@ -164,13 +163,16 @@ const UserForm = () => {
         [formik]
     );
 
-    const mappedFields = fields.map(({formikRef, ...input}) => {
+    const mappedFields = fields.map(({formikRef, valueByDefault, ...input}) => {
         switch (input.type) {
             case 'tel':
                 return (
                     <MuiPhoneNumber
-                        key={input.id}
-                        defaultCountry={"ua"}
+                        variant={"outlined"}
+                        fullWidth
+                        margin={'normal'}
+                        key={formikRef}
+                        defaultCountry={'ua'}
                         onChange={e => formik.setFieldValue(formikRef, e)}
                         value={getIn(formik.values, formikRef)}
                         {...input}
@@ -178,7 +180,7 @@ const UserForm = () => {
                 );
             case 'checkbox':
                 return (
-                    <FormControlLabel key={input.id} control={<Checkbox/>}
+                    <FormControlLabel key={formikRef} control={<Checkbox/>}
                                       value={getIn(formik.values, formikRef)} {...input} {...defaultProps.checkbox} />
                 );
             default:
@@ -196,12 +198,15 @@ const UserForm = () => {
         }
     })
 
+
     return (
-        <Grid sx={{width: '400px', margin: '0 auto'}} container>
-            <form onSubmit={formik.handleSubmit}>
+        <form style={{width: '800px', margin: '0 auto'}} onSubmit={formik.handleSubmit}>
+            <Grid sx={{display: 'grid', justifyContent: "space-around", alignItems: 'center', columnGap: '10px', gridTemplateColumns: '1fr 1fr'}} container>
                 {mappedFields}
-            </form>
-        </Grid>
+            </Grid>
+            <Button variant="outlined" fullWidth onClick={formik.submitForm}>Submit</Button>
+
+        </form>
     );
 };
 
