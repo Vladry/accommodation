@@ -5,6 +5,7 @@ import {decrement, increment} from "../store/actions/sampleAction";
 import {useFetch} from "../hooks/useFetch";
 import {useEffect, useRef, useState} from "react";
 import {signIn} from "next-auth/react";
+import UserForm from "../components/UserForm";
 
 export default function Home() {
     const counter = useSelector(state => state.sampleData.counter)
@@ -58,6 +59,7 @@ export default function Home() {
                 ))}
             </ul>
 
+            <UserForm/>
         </Container>
     )
 }
