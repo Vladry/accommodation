@@ -1,33 +1,120 @@
 //  https://formik.org/docs/api/field
 
 import React, {useState} from 'react';
-import {Form, Formik, Field, ErrorMessage} from 'formik';
+import {Form, Formik, Field, ErrorMessage, useFormik, getIn} from 'formik';
 import * as yup from 'yup';
 import {EMAIL_REGEXP} from "../utils/regexp";
 import MuiPhoneNumber from 'material-ui-phone-number';
+import {Checkbox, FormControlLabel, Grid, TextField} from "@mui/material";
+
+const fields = [
+    {
+        id: "name",
+        name: "name",
+        formikRef: "name",
+        label: "First name",
+        defaultValue: "",
+        type: "text"
+    },
+    {
+        id: "lastName",
+        name: "lastName",
+        formikRef: "lastName",
+        label: "Last name",
+        defaultValue: "",
+        type: "text"
+    },
+    {
+        id: "email",
+        name: "email",
+        formikRef: "email",
+        label: "Email",
+        defaultValue: "",
+        type: "text"
+    },
+    {
+        id: "password",
+        name: "password",
+        formikRef: "password",
+        label: "Password",
+        defaultValue: "",
+        type: "text"
+    },
+    {
+        id: "phoneNumber",
+        name: "phoneNumber",
+        formikRef: "phoneNumber",
+        label: "Phone number",
+        defaultValue: "",
+        type: "tel"
+    },
+    {
+        id: "hideSocialContactData",
+        name: "hideSocialContactData",
+        formikRef: "hideSocialContactData",
+        label: "Hide social contact data",
+        defaultValue: false,
+        type: "checkbox",
+    },
+    {
+        id: "urlSocial1",
+        name: "urlSocial1",
+        formikRef: "urlSocial1",
+        label: "urlSocial1",
+        defaultValue: "",
+        type: "text",
+    },
+    {
+        id: "urlSocial2",
+        name: "urlSocial2",
+        formikRef: "urlSocial2",
+        label: "urlSocial2",
+        defaultValue: "",
+        type: "text",
+    },
+    {
+        id: "messenger1",
+        name: "messenger1",
+        formikRef: "messenger1",
+        label: "messenger1",
+        defaultValue: "",
+        type: "text",
+    },
+    {
+        id: "messenger2",
+        name: "messenger2",
+        formikRef: "messenger2",
+        label: "messenger2",
+        defaultValue: "",
+        type: "text",
+    },
+    {
+        id: "city",
+        name: "city",
+        formikRef: "city",
+        label: "City",
+        defaultValue: "",
+        type: "text",
+    },
+    {
+        id: "country",
+        name: "country",
+        formikRef: "country",
+        label: "Country",
+        defaultValue: "",
+        type: "text",
+    },
+    {
+        id: "datingServiceParticipation",
+        name: "datingServiceParticipation",
+        formikRef: "datingServiceParticipation",
+        label: "Dating service participation",
+        defaultValue: false,
+        type: "checkbox",
+    }
+];
 
 const UserForm = () => {
-
-
-    const [tel, setTel] = useState("");
-
-    const initialValues =
-        {
-            name: "",
-            lastName: "",
-            email: "",
-            password: "",
-            phoneNumber: "",
-            hideSocialContactData: false,
-            urlSocial1: "",
-            urlSocial2: "",
-            messenger1: "",
-            messenger2: "",
-            city: "",
-            country: "",
-            datingServiceParticipation: false
-        }
-
     const formValidationSchema = yup.object().shape({
         name: yup.string().min(3, "слишком короткое имя").max(20, "укоротите имя"),
         lastName: yup.string().min(3, "слишком короткая фамилия").max(20, "укоротите фамилию"),
@@ -45,77 +132,76 @@ const UserForm = () => {
         console.log(JSON.stringify(values, null, 2));
     }
 
-    const handlePhoneInput = (pNumber) => {
-        setTel(pNumber);
-    }
+    const formik = useFormik({
+        initialValues: fields.reduce((acc, f) => ({
+            ...acc,
+            [f.formikRef]: f.defaultValue
+        }), {}),
+        validationSchema: formValidationSchema,
+        onSubmit: (values) => {
+            alert(JSON.stringify(values, null, 2));
+        },
+    })
+
+    const defaultProps = React.useMemo(() => ({
+            textField: {
+                variant: 'outlined',
+                margin: 'normal',
+                onChange: props => {
+                    formik.handleChange(props);
+                    formik.handleBlur(props);
+                },
+                onBlur: formik.handleBlur
+            },
+            checkbox: {
+                onChange: props => {
+                    formik.handleChange(props);
+                    formik.handleBlur(props);
+                },
+                onBlur: formik.handleBlur
+            }
+        }),
+        [formik]
+    );
+
+    const mappedFields = fields.map(({formikRef, ...input}) => {
+        switch (input.type) {
+            case 'tel':
+                return (
+                    <MuiPhoneNumber
+                        key={input.id}
+                        defaultCountry={"ua"}
+                        onChange={e => formik.setFieldValue(formikRef, e)}
+                        value={getIn(formik.values, formikRef)}
+                        {...input}
+                    />
+                );
+            case 'checkbox':
+                return (
+                    <FormControlLabel key={input.id} control={<Checkbox/>}
+                                      value={getIn(formik.values, formikRef)} {...input} {...defaultProps.checkbox} />
+                );
+            default:
+                return (
+                    <TextField
+                        fullWidth
+                        key={formikRef}
+                        helperText={getIn(formik.touched, formikRef) ? getIn(formik.errors, formikRef) : ''}
+                        error={getIn(formik.touched, formikRef) && Boolean(getIn(formik.errors, formikRef))}
+                        value={getIn(formik.values, formikRef)}
+                        {...input}
+                        {...defaultProps.textField}
+                    />
+                )
+        }
+    })
 
     return (
-        <div>
-            <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={formValidationSchema}>
-                {
-                    ({isSubmitting, errors, touched}) =>
-                        (<Form>
-                                <Field name='name' type='text' placeholder='your name/ введите имя'/>
-                                {touched.name && errors.name && <ErrorMessage name='name'/>}
-                                <br/>
-                                <Field name='lastName' type='text' placeholder='your last name/ введите фамилию'/>
-                                {touched.lastName && errors.lastName && <ErrorMessage name='lastName'/>}
-                                <br/>
-                                <Field name='email' type='email' placeholder='email@'/>
-                                {touched.email && errors.email && <ErrorMessage name='email'/>}
-                                <br/>
-                                <Field name='password' type='password'
-                                       placeholder='make up a new password/придумайте пароль'/>
-                                {touched.password && errors.password && <ErrorMessage name='password'/>}
-                                <br/>
-                                <Field name='phoneNumber' type='text' placeholder='input phone#/ номер телефона'/>
-                                {touched.phoneNumber && errors.phoneNumber && <ErrorMessage name='phoneNumber'/>}
-                                <br/>
-
-                                <MuiPhoneNumber defaultCountry={'ua'} onChange={handlePhoneInput}/>
-
-                                <Field as="select" name='hideSocialContactData' type='boolean'>
-                                    {/*<option value=true>yes, hide/ Да, скрыть</option>*/}
-                                    {/*<option value=false selected>no, don't hide/ Не скрывать контакты</option>*/}
-
-                                </Field>
-                                {touched.hideSocialContactData && errors.hideSocialContactData &&
-                                    <ErrorMessage name='hideSocialContactData'/>}
-                                <br/>
-                                <Field name='urlSocial1' type='text'/>
-                                {touched.urlSocial1 && errors.urlSocial1 && <ErrorMessage name='urlSocial1'/>}
-                                <br/>
-                                <Field name='urlSocial2' type='text'/>
-                                {touched.urlSocial2 && errors.urlSocial2 && <ErrorMessage name='urlSocial2'/>}
-                                <br/>
-                                <Field name='messenger1' type='text'/>
-                                {touched.messenger1 && errors.messenger1 && <ErrorMessage name='messenger1'/>}
-                                <br/>
-                                <Field name='messenger2' type='text'/>
-                                {touched.messenger2 && errors.messenger2 && <ErrorMessage name='messenger2'/>}
-                                <br/>
-                                <Field name='city' type='text'/>
-                                {touched.city && errors.city && <ErrorMessage name='city'/>}
-                                <br/>
-                                <Field name='country' type='text'/>
-                                {touched.country && errors.country && <ErrorMessage name='country'/>}
-                                <br/>
-                                <Field name='datingServiceParticipation' type='checkbox' checked
-                                       value='leave checked if want to participate/ оставьте галочку, если желаете участвовать'
-                                />
-                                {touched.datingServiceParticipation && errors.datingServiceParticipation
-                                    && <ErrorMessage name='datingServiceParticipation'/>}
-                                <br/>
-
-                                <Field name='submit' type='submit' value='submit' disabled={isSubmitting}/>
-
-                            </Form>
-                        )
-
-                }
-
-            </Formik>
-        </div>
+        <Grid sx={{width: '400px', margin: '0 auto'}} container>
+            <form onSubmit={formik.handleSubmit}>
+                {mappedFields}
+            </form>
+        </Grid>
     );
 };
 

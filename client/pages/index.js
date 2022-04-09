@@ -51,8 +51,6 @@ export default function Home() {
                 <Button onClick={() => dispatch(increment())}>+</Button>
             </main>
 
-            <TextField onChange={handleChange} value={city} placeholder="Enter your city"/>
-
             <ul>
                 {data.features.map((f, index) => (
                     <li key={index}>{f.place_name}</li>
