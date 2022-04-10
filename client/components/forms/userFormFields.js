@@ -1,0 +1,105 @@
+export const userFormFields = [
+    {
+        id: "name",
+        name: "name",
+        formikRef: "name",
+        label: "First name",
+        valueByDefault: "",
+        type: "text"
+    },
+    {
+        id: "lastName",
+        name: "lastName",
+        formikRef: "lastName",
+        label: "Last name",
+        valueByDefault: "",
+        type: "text"
+    },
+    {
+        id: "email",
+        name: "email",
+        formikRef: "email",
+        label: "Email",
+        valueByDefault: "",
+        type: "text"
+    },
+    {
+        id: "password",
+        name: "password",
+        formikRef: "password",
+        label: "Password",
+        valueByDefault: "",
+        type: "text"
+    },
+    {
+        id: "phoneNumber",
+        name: "phoneNumber",
+        formikRef: "phoneNumber",
+        label: "Phone number",
+        valueByDefault: "+380",
+        type: "tel"
+    },
+    {
+        id: "urlSocial1",
+        name: "urlSocial1",
+        formikRef: "urlSocial1",
+        label: "urlSocial1",
+        valueByDefault: "",
+        type: "text",
+    },
+    {
+        id: "urlSocial2",
+        name: "urlSocial2",
+        formikRef: "urlSocial2",
+        label: "urlSocial2",
+        valueByDefault: "",
+        type: "text",
+    },
+    {
+        id: "messenger1",
+        name: "messenger1",
+        formikRef: "messenger1",
+        label: "messenger1",
+        valueByDefault: "",
+        type: "text",
+    },
+    {
+        id: "messenger2",
+        name: "messenger2",
+        formikRef: "messenger2",
+        label: "messenger2",
+        valueByDefault: "",
+        type: "text",
+    },
+    {
+        id: "city",
+        name: "city",
+        formikRef: "city",
+        label: "City",
+        valueByDefault: "",
+        type: "text",
+    },
+    {
+        id: "country",
+        name: "country",
+        formikRef: "country",
+        label: "Country",
+        valueByDefault: "",
+        type: "text",
+    },
+    {
+        id: "datingServiceParticipation",
+        name: "datingServiceParticipation",
+        formikRef: "datingServiceParticipation",
+        label: "Dating service participation",
+        valueByDefault: false,
+        type: "checkbox",
+    }, {
+        id: "hideSocialContactData",
+        name: "hideSocialContactData",
+        formikRef: "hideSocialContactData",
+        label: "Hide social contact data",
+        valueByDefault: false,
+        type: "checkbox",
+    },
+];
