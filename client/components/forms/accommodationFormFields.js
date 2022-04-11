@@ -1,26 +1,132 @@
 export const accommodationFormFields = [
     {
-        id: "phoneNumber",
-        name: "phoneNumber",
-        formikRef: "phoneNumber",
-        label: "Phone number",
-        valueByDefault: "+380",
-        type: "tel"
+        id: "country",
+        name: "country",
+        formikRef: "country",
+        label: "country/страна",
+        valueByDefault: "190",
+        type: "number"
     },
     {
-        id: "urlSocial1",
-        name: "urlSocial1",
-        formikRef: "urlSocial1",
-        label: "urlSocial1",
+        id: "street",
+        name: "street",
+        formikRef: "street",
+        label: "street/улица",
         valueByDefault: "",
         type: "text",
     },
+
     {
-        id: "datingServiceParticipation",
-        name: "datingServiceParticipation",
-        formikRef: "datingServiceParticipation",
-        label: "Dating service participation",
+        id: "accommodation-type",
+        name: "accommodation-type",
+        formikRef: "accommodation-type",
+        label: "select accommodation type/ выбрать тип жилья",
+        valueByDefault: "",
+        type: "number",
+    },
+    {
+        id: "number-of-rooms",
+        name: "number-of-rooms",
+        formikRef: "number-of-rooms",
+        label: "number of rooms/количество комнат",
+        valueByDefault: "",
+        type: "number",
+    },
+
+
+/*
+    {
+        id: "price-per-room",
+        name: "price-per-room",
+        formikRef: "price-per-room",
+        label: "price per room/цена за комнату",
+        valueByDefault: "",
+        type: "number",
+    },
+    {
+        id: "price-per-person",
+        name: "price-per-person",
+        formikRef: "price-per-person",
+        label: "price per person/цена с человека",
+        valueByDefault: "",
+        type: "number",
+    },
+    {
+        id: "price-total",
+        name: "price-total",
+        formikRef: "price-total",
+        label: "price overall/общая стоимость",
+        valueByDefault: "",
+        type: "number",
+    },*/
+
+ /*   {
+        id: "user-id",
+        name: "user-id",
+        formikRef: "user-id",
+        label: "user id/ id пользователя",
+        valueByDefault: "",
+        type: "number",
+    },*/
+
+    {
+        id: "help-with-food",
+        name: "help-with-food",
+        formikRef: "help-with-food",
+        label: "help with food possible/возможна помощь с едой",
         valueByDefault: false,
         type: "checkbox",
     },
+    {
+        id: "disability-or-elderly-support",
+        name: "disability-or-elderly-support",
+        formikRef: "disability-or-elderly-support",
+        label: "disability or elderly support possible/помощь пристарелым/инвалидам",
+        valueByDefault: false,
+        type: "checkbox",
+    },
+    {
+        id: "number-of-beds",
+        name: "number-of-beds",
+        formikRef: "number-of-beds",
+        label: "number of beds/количество кроватей",
+        valueByDefault: "",
+        type: "number",
+    },
+    {
+        id: "pets-allowed",
+        name: "pets-allowed",
+        formikRef: "pets-allowed",
+        label: "pets allow conditions/условия приема домашних животных",
+        valueByDefault: "",
+        type: "number",
+    },
+
+    {
+        id: "help-with-work",
+        name: "help-with-work",
+        formikRef: "help-with-work",
+        label: "help with finding work possible/помощь с трудоустройством",
+        valueByDefault: false,
+        type: "checkbox",
+    },
+
+    {
+        id: "child-care-support",
+        name: "child-care-support",
+        formikRef: "child-care-support",
+        label: "child care support possible/возможна помощь по уходу за детьми",
+        valueByDefault: false,
+        type: "checkbox",
+    },
+    {
+        id: "status",
+        name: "status",
+        formikRef: "status",
+        label: "status/текущий статус",
+        valueByDefault: "",
+        type: "number",
+    },
+
 ];
+
