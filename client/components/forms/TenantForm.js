@@ -13,7 +13,7 @@ const TenantForm = () => {
     return (
         <>
             <h3 style={{textAlign: 'center', marginTop: '10px'}}
-            >Tenant Details<br/>Информация о претенденте на жильё</h3>
+            >Tenant Details<br/>Информация о семье претендента на жильё</h3>
             <FormMapper fields={tenantFormFields} validation={tenantFormValidation} handleSubmit={handleSubmit}/>
         </>
     );

@@ -8,6 +8,14 @@ export const accommodationFormFields = [
         type: "number"
     },
     {
+        id: "city",
+        name: "city",
+        formikRef: "city",
+        label: "City/город",
+        valueByDefault: "",
+        type: "text",
+    },
+    {
         id: "street",
         name: "street",
         formikRef: "street",
@@ -21,6 +29,14 @@ export const accommodationFormFields = [
         name: "accommodation-type",
         formikRef: "accommodation-type",
         label: "select accommodation type/ выбрать тип жилья",
+        valueByDefault: "",
+        type: "number",
+    },
+    {
+        id: "status",
+        name: "status",
+        formikRef: "status",
+        label: "status/текущий статус",
         valueByDefault: "",
         type: "number",
     },
@@ -119,14 +135,7 @@ export const accommodationFormFields = [
         valueByDefault: false,
         type: "checkbox",
     },
-    {
-        id: "status",
-        name: "status",
-        formikRef: "status",
-        label: "status/текущий статус",
-        valueByDefault: "",
-        type: "number",
-    },
+
 
 ];
 

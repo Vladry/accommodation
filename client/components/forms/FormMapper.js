@@ -1,7 +1,7 @@
 import React from 'react';
 import {useFormik, getIn} from 'formik';
 import MuiPhoneNumber from 'material-ui-phone-number-2';
-import {Button, Checkbox, Container, FormControlLabel, Grid, TextField} from "@mui/material";
+import {Box, Button, Checkbox, Container, FormControlLabel, Grid, TextField} from "@mui/material";
 
 const FormMapper = ({fields, validation, handleSubmit}) => {
 
@@ -53,9 +53,10 @@ const FormMapper = ({fields, validation, handleSubmit}) => {
                     />
                 );
             case 'checkbox':
-                return (
-                    <FormControlLabel key={formikRef} control={<Checkbox/>}
-                                      value={getIn(formik.values, formikRef)} {...input} {...defaultProps.checkbox} />
+                return (<Box sx={{ p: 2, border: '1px solid lightgrey', borderRadius: 1 }}>
+                        <FormControlLabel key={formikRef} control={<Checkbox/>}
+                                          value={getIn(formik.values, formikRef)} {...input} {...defaultProps.checkbox}
+                        /></Box>
                 );
             default:
                 return (

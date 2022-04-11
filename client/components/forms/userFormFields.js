@@ -68,7 +68,7 @@ export const userFormFields = [
         name: "urlSocial2",
         formikRef: "urlSocial2",
         label: "urlSocial2/адрес соцсети",
-        valueByDefault: "https://",
+        valueByDefault: "",
         type: "text",
     },
 
