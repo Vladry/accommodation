@@ -2,6 +2,8 @@ import React from 'react';
 import {useFormik, getIn} from 'formik';
 import MuiPhoneNumber from 'material-ui-phone-number-2';
 import {Box, Button, Checkbox, Container, FormControlLabel, Grid, TextField} from "@mui/material";
+import AutocompleteWithDebounce from "../AutocompleteWithDebounce";
+import AutocompleteFromMapbox from "../AutocompleteFromMapbox";
 
 const FormMapper = ({fields, validation, handleSubmit}) => {
 
@@ -53,11 +55,21 @@ const FormMapper = ({fields, validation, handleSubmit}) => {
                     />
                 );
             case 'checkbox':
-                return (<Box sx={{ p: 2, border: '1px solid lightgrey', borderRadius: 1 }}>
-                        <FormControlLabel key={formikRef} control={<Checkbox/>}
+                return (<Box key={formikRef} sx={{p: 2, border: '1px solid lightgrey', borderRadius: 1}}>
+                        <FormControlLabel control={<Checkbox/>}
                                           value={getIn(formik.values, formikRef)} {...input} {...defaultProps.checkbox}
                         /></Box>
                 );
+            case 'autocompleteFromMapBox':
+                return (<AutocompleteFromMapbox
+                    error={getIn(formik.touched, formikRef) && Boolean(getIn(formik.errors, formikRef))}
+                    helperText={getIn(formik.touched, formikRef) ? getIn(formik.errors, formikRef) : ''}
+                    key={formikRef}
+                    value={getIn(formik.values, formikRef)}
+                    onChange={e => {
+                        formik.setFieldValue(formikRef, e, true)
+                    }
+                    }/>);
             default:
                 return (
                     <TextField

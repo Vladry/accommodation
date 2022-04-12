@@ -15,6 +15,7 @@ export const userFormValidation = yup.object().shape({
     city: yup.string().required("Required"),
     country: yup.string().required("Required"),
     datingServiceParticipation: yup.boolean().required("Required"),
+    location: yup.string().required("Location is required"),
 
     urlSocial1: yup.string()
         .test("is-url-valid", "URL is not valid", (value) => {

@@ -112,5 +112,13 @@ export const userFormFields = [
         valueByDefault: "",
         type: "text",
     },
+    {
+        id: "location",
+        name: "location",
+        formikRef: "location",
+        label: "Location",
+        valueByDefault: "",
+        type: "autocompleteFromMapBox",
+    },
 
 ];
