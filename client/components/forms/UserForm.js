@@ -1,13 +1,8 @@
-import React, {useRef, useState} from 'react';
+import React from 'react';
 import {userFormValidation} from "./formsValidations";
 import {userFormFields} from "./userFormFields";
 import FormMapper from "./FormMapper";
-import config from "../../config.json";
-import axios from "axios";
 import api from "../../lib/API";
-import {useFetch} from "../../hooks/useFetch";
-import useDebounce from "../../hooks/useDebounce";
-import {Autocomplete, TextField} from "@mui/material";
 
 const UserForm = () => {
 

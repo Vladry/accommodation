@@ -12,19 +12,13 @@ export const userFormValidation = yup.object().shape({
         .required("password required!/ Создайте пароль"),
     phoneNumber: yup.string().min(10, "incomplete!/ Номер не полный").required("required"),
     hideSocialContactData: yup.boolean(),
-    city: yup.string().required("Required"),
-    country: yup.string().required("Required"),
     datingServiceParticipation: yup.boolean().required("Required"),
     location: yup.string().required("Location is required"),
-
-    urlSocial1: yup.string()
-        .test("is-url-valid", "URL is not valid", (value) => {
-            return isValidUrl(value);
-        }),
-/*    urlSocial2: yup.string().nullable()
-        .test("is-url-valid", "URL is not valid", (value) => {
-            return isValidUrl(value);
-        }),*/
+    urlSocial1: yup.string().required("требуется хоть одна соц сеть"),
+    // urlSocial1: yup.string()
+    //     .test("is-url-valid", "URL is not valid", (value) => {
+    //         return isValidUrl(value);
+    //     }),
     messenger1: yup.string().min(5).required("at least one messenger required (telegram, viber, instagram or similar)/Требуется как минимум один мессенджер"),
 
 });
