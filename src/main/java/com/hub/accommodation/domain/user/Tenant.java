@@ -23,15 +23,15 @@ public class Tenant extends BaseEntity {
     @OneToMany(mappedBy = "tenant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     Set<Picture> pictures = new HashSet<>();
 
-    int numberOfChildren;
-    int numberOfSmallChildren;
-    int adultsTo60;
+    int numberOfOlderChildren;
+    int numberOfYoungerChildren;
+    int adultsYounger60;
     int adultsOver60;
     int numberOfDogs;
     int numberOfCats;
     int numberOfOtherPets;
     LengthOfStay desiredLengthOfStay;  //требуемая продолжительность проживания в данном месте:  "-1" -не известно;  "0" -до месяца. "1000" - как можно дольше, либо укажите приблизительное количество месяцев (если известны планы)
-    int amountOfFamilyMembersRequiringSpecialCare; //если есть члены семьи с инвалидность, укажите кол-во
+    int familyMembersRequiringSpecialCare; //если есть члены семьи с инвалидность, укажите кол-во
 
     public String getDesiredLengthOfStayEnum(){
         return desiredLengthOfStay.name();

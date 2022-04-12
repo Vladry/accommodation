@@ -6,7 +6,7 @@ Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2bGFkQHVrci5uZXQiLCJyb2xlIjoiVVNF
 "country": 190,
 "street" : "Zhukova",
 "accommodationType" : 1,
-"numberOrRooms" : 2,
+"numberOfRooms" : 2,
 "numberOfBeds"  : 3,
 "priceTotal"  : 0,
 "pricePerRoom"  : 0,

@@ -14,7 +14,6 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class AccommodationRqDto extends BaseEntity {
-    private final String passwordRegexp = "^(?=.*[0_9])(?=.*[a_z])(?=.*[A_Z])(?=.*[@#$%^&_+=()])(?=\\S+$).{8,20}$";
 
     private final UserService service;
 
@@ -25,7 +24,7 @@ public class AccommodationRqDto extends BaseEntity {
     int country;
     String street;
     int accommodationType;
-    int numberOrRooms;
+    int numberOfRooms;
     int numberOfBeds;
     int priceTotal;
     int pricePerRoom;

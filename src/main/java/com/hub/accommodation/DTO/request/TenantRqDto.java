@@ -10,16 +10,17 @@ public class TenantRqDto {
 
     String desiredCity;
     String desiredCountry;
+    String additionalInfo;
 
-    int numberOfChildren;
-    int numberOfSmallChildren;
-    int adultsTo60;
+    int numberOfOlderChildren;
+    int numberOfYoungerChildren;
+    int adultsYounger60;
     int adultsOver60;
     int numberOfDogs;
     int numberOfCats;
     int numberOfOtherPets;
     int desiredLengthOfStay;
-    int amountOfFamilyMembersRequiringSpecialCare;
+    int familyMembersRequiringSpecialCare;
 
     public LengthOfStay getLengthOfStay(){
        return LengthOfStay.values()[desiredLengthOfStay];

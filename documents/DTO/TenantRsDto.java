@@ -27,8 +27,8 @@ public class TenantRsDto extends AbstractEntity {
     String desiredCountry;
     int totalNumberOfFamilyMembers;
     Set<Picture> pictures;
-    int numberOfChildren;
-    int numberOfSmallChildren;
+    int numberOfOlderChildren;
+    int numberOfYoungerChildren;
     int numberOfTeenGirls;
     int numberOfTeenBoys;
     int parents;

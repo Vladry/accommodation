@@ -14,7 +14,6 @@ import javax.validation.Valid;
 
 @Validated
 @RestController
-@RequestMapping("/api/v1/auth")
 public class AuthController {
 
     private final AuthService authService;
@@ -24,7 +23,7 @@ public class AuthController {
         this.authService = authService;
     }
 
-    @PostMapping("/login")
+    @PostMapping("/api/v1/auth/login")
     public ResponseEntity<?> authenticate(@RequestBody @Valid AuthRequest request) {
         try {
             return ResponseEntity.ok(authService.authenticate(request.getEmail(), request.getPassword()));
@@ -33,13 +32,13 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/logout")
+    @PostMapping("/api/v1/auth/logout")
     public void logout(){
 
     }
 
     @Validated(OnCreate.class)
-    @PostMapping("/register")
+    @PostMapping("/api/v1/auth/register")
     public ResponseEntity<?> register(@RequestBody @Valid AuthRequest request) {
         try {
             return ResponseEntity.ok(authService.register(request.getEmail(), request.getPassword()));
@@ -48,7 +47,7 @@ public class AuthController {
         }
     }
 
-    @GetMapping("/refresh")
+    @GetMapping("/api/v1/auth/refresh")
     public ResponseEntity<?> refresh(@RequestHeader("Refresh-token") String token) {
         try {
             return ResponseEntity.ok(authService.refresh(token));

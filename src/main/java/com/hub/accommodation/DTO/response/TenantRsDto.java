@@ -1,12 +1,9 @@
-package com.hub.accommodation.DTO;
+package com.hub.accommodation.DTO.response;
 
-import com.hub.accommodation.domain.Picture;
-import com.hub.accommodation.domain.enums.Country;
-import com.hub.accommodation.domain.enums.LengthOfStay;
+import com.hub.accommodation.domain.accommodation.Picture;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -17,13 +14,14 @@ public class TenantRsDto {
     String desiredCountry;
     Set<Picture> pictures;
 
-    int numberOfChildren;
-    int numberOfSmallChildren;
-    int adultsTo60;
+    int numberOfOlderChildren;
+    int numberOfYoungerChildren;
+    int adultsYounger60;
     int adultsOver60;
     int numberOfDogs;
     int numberOfCats;
     int numberOfOtherPets;
     String desiredLengthOfStay;
-    int amountOfFamilyMembersRequiringSpecialCare;
+    String additionalInfo;
+    int familyMembersRequiringSpecialCare;
 }

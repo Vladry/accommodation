@@ -17,7 +17,7 @@ public class AccommodationRsDto extends BaseEntity {
     Country country;
     String street;
     String accommodationType;
-    int numberOrRooms;
+    int numberOfRooms;
     int numberOfBeds;
     int priceTotal;
     int pricePerRoom;

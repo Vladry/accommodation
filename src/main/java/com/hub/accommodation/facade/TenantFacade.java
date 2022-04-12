@@ -1,8 +1,9 @@
 package com.hub.accommodation.facade;
 
-import com.hub.accommodation.domain.Tenant;
-import com.hub.accommodation.DTO.TenantRqDto;
-import com.hub.accommodation.DTO.TenantRsDto;
+
+import com.hub.accommodation.DTO.request.TenantRqDto;
+import com.hub.accommodation.DTO.response.TenantRsDto;
+import com.hub.accommodation.domain.user.Tenant;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;

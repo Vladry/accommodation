@@ -9,6 +9,7 @@ import javax.validation.constraints.Size;
 
 @Data
 public class UserRqDto extends BaseEntity {
+//    private final String passwordRegexp = "^(?=.*[0_9])(?=.*[a_z])(?=.*[A_Z])(?=.*[@#$%^&_+=()])(?=\\S+$).{8,20}$";
 
     @Size(min = 3, message = "")
     @Size(max = 25, message = "")

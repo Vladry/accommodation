@@ -45,8 +45,8 @@ public class TenantRqDto extends AbstractEntity {
 
 //    Set<Picture> pictures = new HashSet<>();
 
-    int numberOfChildren;
-    int numberOfSmallChildren;
+    int numberOfOlderChildren;
+    int numberOfYoungerChildren;
     int numberOfTeenGirls;
     int numberOfTeenBoys;
     int parents;

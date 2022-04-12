@@ -17,7 +17,7 @@ import java.util.Optional;
 @Validated
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("api/v1/users")
+@RequestMapping("/api/v1/users")
 public class UserController {
 
     private final UserService appUserService;
@@ -29,7 +29,7 @@ public class UserController {
     }
 
     @PostMapping
-    public void getUser(@RequestBody UserRqDto userRqDto) {
+    public void createUser(@RequestBody UserRqDto userRqDto) {
         User user = UserFacade.convertToEntity(userRqDto);
         appUserService.save(user);
     }
@@ -41,7 +41,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public UserRsDto findAppUserById(
+    public UserRsDto findUserById(
             @PathVariable("id") Long id) {
 
 
@@ -55,7 +55,6 @@ public class UserController {
 
     }
 
-//    @PreAuthorize("hasAuthority('USER')")
     @GetMapping()
     public UserRsDto findUserByEmail(
             @RequestParam("email") String email) {
