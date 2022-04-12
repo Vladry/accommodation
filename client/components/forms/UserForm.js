@@ -2,13 +2,22 @@ import React from 'react';
 import {userFormValidation} from "./formsValidations";
 import {userFormFields} from "./userFormFields";
 import FormMapper from "./FormMapper";
-
+import config from "../../config.json";
+import axios from "axios";
 
 const UserForm = () => {
 
-    const handleSubmit =  (values) => {
-            alert(JSON.stringify(values, null, 2));
-        };
+    const handleSubmit = async (values) => {
+
+        await axios.post("/api/v1/users",
+        // await axios.post(config.users.requestMapping,
+            JSON.stringify(values)).then(
+            r => alert(JSON.stringify(r, null, 2))
+        )
+            .catch(err => {
+                console.log(err)
+            });
+    };
 
     return (
         <>
