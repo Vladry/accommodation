@@ -13,13 +13,11 @@ public class UserRsDto extends BaseEntity {
     String lastName;
     String email;
     String phoneNumber;
-    boolean hideSocialContactData;
     String urlSocial1;
     String urlSocial2;
     String messenger1;
     String messenger2;
-    String city;
-    String country;
+    boolean hideSocialContactData;
     boolean datingServiceParticipation;
     Set<Accommodation> accommodation;
 

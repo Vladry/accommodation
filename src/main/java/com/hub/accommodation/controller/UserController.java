@@ -20,18 +20,19 @@ import java.util.Optional;
 @RequestMapping("/api/v1/users")
 public class UserController {
 
-    private final UserService appUserService;
+    private final UserService userService;
     private final UserFacade UserFacade;
 
     public UserController(UserService UserService, UserFacade UserFacade) {
-        this.appUserService = UserService;
+        this.userService = UserService;
         this.UserFacade = UserFacade;
     }
 
     @PostMapping
-    public void createUser(@RequestBody UserRqDto userRqDto) {
+    public UserRsDto createUser(@RequestBody UserRqDto userRqDto) {
         User user = UserFacade.convertToEntity(userRqDto);
-        appUserService.save(user);
+        userService.save(user);
+        return findUserByEmail(user.getEmail());
     }
 
     @PreAuthorize("hasAuthority('read')")
@@ -45,7 +46,7 @@ public class UserController {
             @PathVariable("id") Long id) {
 
 
-        Optional<User> optionalUser = appUserService.findById(id);
+        Optional<User> optionalUser = userService.findById(id);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
             return UserFacade.convertToDto(user);
@@ -58,7 +59,7 @@ public class UserController {
     @GetMapping()
     public UserRsDto findUserByEmail(
             @RequestParam("email") String email) {
-        User user = appUserService.getUserByEmail(email)
+        User user = userService.getUserByEmail(email)
                 .orElseThrow(() -> new NoDataFoundException("no appUser found by this email"));
         return UserFacade.convertToDto(user);
     }

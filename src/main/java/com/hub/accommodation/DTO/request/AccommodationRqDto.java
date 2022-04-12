@@ -21,14 +21,12 @@ public class AccommodationRqDto extends BaseEntity {
         this.service = service;
     }
 
-    int country;
-    String street;
     int accommodationType;
     int numberOfRooms;
     int numberOfBeds;
-    int priceTotal;
-    int pricePerRoom;
-    int pricePerPerson;
+//    int priceTotal;
+//    int pricePerRoom;
+//    int pricePerPerson;
     boolean helpWithWork;
     boolean helpWithFood;
     int status;
@@ -37,9 +35,6 @@ public class AccommodationRqDto extends BaseEntity {
     boolean childCareSupport;
     int petsAllowed;
 
-    public User getUserFromRqDto() {
-        return service.findById(userId).orElse(null);
-    }
 
     public Pets getPetEnum() {
         return Pets.values()[petsAllowed];
@@ -51,10 +46,6 @@ public class AccommodationRqDto extends BaseEntity {
 
     public AccommodationStatus getAccStatus() {
         return AccommodationStatus.values()[status];
-    }
-
-    public Country getCountryEnum() {
-        return Country.values()[this.country];
     }
 
 }

@@ -27,7 +27,6 @@ public class AccommodationFacade extends GeneralFacade<
                 mappingContext -> userService.findById(mappingContext.getSource()).orElseThrow(() -> new NoDataFoundException("User not found"));
 
         super.getMm().typeMap(AccommodationRqDto.class, Accommodation.class)
-                .addMapping(AccommodationRqDto::getCountryEnum, Accommodation::setCountry)
                 .addMapping(AccommodationRqDto::getAccType, Accommodation::setAccommodationType)
                 .addMapping(AccommodationRqDto::getAccStatus, Accommodation::setStatus)
                 .addMapping(AccommodationRqDto::getPetEnum, Accommodation::setPetsAllowed)

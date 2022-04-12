@@ -8,8 +8,7 @@ const UserForm = () => {
 
     const handleSubmit = async (values) => {
 
-        await api.post("/users",
-            // await axios.post(config.users.requestMapping,
+        await api.post("/users",    // это вместо  axios.post(config.users.requestMapping,
             JSON.stringify(values)).then(
             r => alert(JSON.stringify(r, null, 2))
         )

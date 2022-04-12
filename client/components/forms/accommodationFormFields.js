@@ -1,5 +1,5 @@
 export const accommodationFormFields = [
-    {
+/*    {
         id: "country",
         name: "country",
         formikRef: "country",
@@ -22,7 +22,7 @@ export const accommodationFormFields = [
         label: "street/улица",
         valueByDefault: "",
         type: "text",
-    },
+    },*/
 
     {
         id: "accommodation-type",
@@ -74,9 +74,8 @@ export const accommodationFormFields = [
         label: "price overall/общая стоимость",
         valueByDefault: "",
         type: "number",
-    },*/
-
- /*   {
+    },
+      {
         id: "user-id",
         name: "user-id",
         formikRef: "user-id",

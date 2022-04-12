@@ -6,6 +6,7 @@ const api = axios.create({
     baseURL: "http://localhost:8000/api/v1",
 })
 
+// https://axios-http.com/docs/interceptors
 api.interceptors.request.use(async (rq) => {
     const session = await getSession();
 

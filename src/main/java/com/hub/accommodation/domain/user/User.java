@@ -27,10 +27,9 @@ public class User extends BaseEntity {
     String email;
     @Column(name = "password", length = 120)
     String password;
-    @Column(name = "phone", length = 16, nullable = true)
+    @Column(name = "phone", length = 19, nullable = true)
     String phoneNumber;
-    @Column(name = "hide_social_data", nullable = true)
-    boolean hideSocialContactData; //снимите галочку, если хотите, чтобы Ваши социальные сети и мессенджеры были доступны соискателям. Иначе, они будут доступны только нашему сервису для взаимодействия с Вами, но скрыты от других пользователей.
+
     @Column(name = "social_1")
     String urlSocial1;  //укажите URL ссылку на Ваш профайл в социальной сети (Facebook, Instagram, другое)
     @Column(name = "social_2")
@@ -39,14 +38,13 @@ public class User extends BaseEntity {
     String messenger1;  //Один из Ваших мессенджеров должен быть указан для возможности быстрой связи с Вами нашей системой. Укажите адрес в мессенджере и, через побел - какой это мессенджер (вайбер, телеграм, прочее)
     @Column(name = "messenger_2", length = 30)
     String messenger2;  //если желаете, укажите второй мессенджера и, через побел - какой это мессенджер (вайбер, телеграм, прочее)
-    @Column(name = "city", length = 25, nullable = true)
-    String city;
-    @Column(name = "country", length = 25)
-    Country country;
-    @Column(name = "dating", nullable = true)
-    boolean datingServiceParticipation;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     Set<Accommodation> accommodation = new HashSet<>();
+
+    @Column(name = "hide_social_data", nullable = true)
+    boolean hideSocialContactData; //снимите галочку, если хотите, чтобы Ваши социальные сети и мессенджеры были доступны соискателям. Иначе, они будут доступны только нашему сервису для взаимодействия с Вами, но скрыты от других пользователей.
+    @Column(name = "dating_participation", nullable = true)
+    boolean datingServiceParticipation;
 
     @Enumerated(EnumType.STRING)
     private Role role = Role.USER;
@@ -54,10 +52,6 @@ public class User extends BaseEntity {
     public User(String email, String password) {
         this.email = email;
         this.password = password;
-    }
-
-    public String getCountryString(){
-        return country.name().toString();
     }
 
 }

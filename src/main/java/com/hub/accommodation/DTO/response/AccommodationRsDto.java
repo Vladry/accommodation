@@ -14,8 +14,8 @@ import java.util.Set;
 @AllArgsConstructor
 public class AccommodationRsDto extends BaseEntity {
 
-    Country country;
-    String street;
+//    Country country;
+//    String street;
     String accommodationType;
     int numberOfRooms;
     int numberOfBeds;

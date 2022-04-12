@@ -11,30 +11,24 @@ import javax.validation.constraints.Size;
 public class UserRqDto extends BaseEntity {
 //    private final String passwordRegexp = "^(?=.*[0_9])(?=.*[a_z])(?=.*[A_Z])(?=.*[@#$%^&_+=()])(?=\\S+$).{8,20}$";
 
-    @Size(min = 3, message = "")
-    @Size(max = 25, message = "")
+//    @Size(min = 3, message = "")
+//    @Size(max = 25, message = "")
     String name;
-    @Size(min = 3, message = "")
-    @Size(max = 25, message = "")
+//    @Size(min = 3, message = "")
+//    @Size(max = 25, message = "")
     String lastName;
-    @Email
+//    @Email
     String email;
+    String password;
     String phoneNumber;
-    boolean hideSocialContactData;
     String urlSocial1;
     String urlSocial2;
     String messenger1;
     String messenger2;
-    @Size(min = 3, message = "")
-    @Size(max = 25, message = "")
-    String city;
-    String cityRegion;
-    @Size(min = 3, message = "")
-    @Size(max = 25, message = "")
-    int country;
+//    @Size(min = 3, message = "")
+//    @Size(max = 35, message = "")
+    String location;
+    boolean hideSocialContactData;
     boolean datingServiceParticipation;
 
-    public Country getCountryFromOrdinal(){
-        return Country.values()[country];
-    }
 }

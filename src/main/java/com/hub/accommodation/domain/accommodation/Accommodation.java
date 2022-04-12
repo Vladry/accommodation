@@ -21,12 +21,12 @@ import java.util.Set;
 @Table(name = "accommodation")
 public class Accommodation extends BaseEntity {
 
-    @Column(name = "country")
-    @Enumerated(EnumType.ORDINAL)
-    Country country;
-    @Column(name = "street", length = 40)
-    String street;
-    @Column(name = "accomodation_type")
+//    @Column(name = "country")
+//    @Enumerated(EnumType.ORDINAL)
+//    Country country;
+//    @Column(name = "street", length = 40)
+//    String street;
+//    @Column(name = "accomodation_type")
     @Enumerated(EnumType.ORDINAL)
     AccommodationType accommodationType;
     @Column(name = "number_of_rooms", nullable = true)

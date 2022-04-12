@@ -15,8 +15,8 @@ import java.util.Optional;
 @RestController
 @RequestMapping("api/v1/accommodations")
 public class AccommodationController {
-private final AccommodationService accommodMainService;
-private final AccommodationFacade accommodMainFacade;
+    private final AccommodationService accommodMainService;
+    private final AccommodationFacade accommodMainFacade;
 
     public AccommodationController(AccommodationService accommodMainService, AccommodationFacade accommodMainFacade) {
         this.accommodMainService = accommodMainService;
@@ -26,28 +26,30 @@ private final AccommodationFacade accommodMainFacade;
     @PostMapping
     @PreAuthorize("hasAuthority('writeAccommodation')")
     public void save(
-            @RequestBody AccommodationRqDto accommodationRqDto){
+            @RequestBody AccommodationRqDto accommodationRqDto) {
         Accommodation accommodation = accommodMainFacade.convertToEntity(accommodationRqDto);
         accommodMainService.save(accommodation);
     }
 
     //fixme
-    public void update(Accommodation accommodation){
+    public void update(Accommodation accommodation) {
         Accommodation accInDb = accommodMainService.findById(accommodation.getId())
-                .orElseThrow(()-> new NoDataFoundException("object not found"));
+                .orElseThrow(() -> new NoDataFoundException("object not found"));
         accInDb = accommodation;
         accommodMainService.save(accInDb);
     }
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('read')")
-    public AccommodationRsDto findById(@PathVariable("id") Long id){
+    public AccommodationRsDto findById(@PathVariable("id") Long id) {
         Optional<Accommodation> byId = accommodMainService.findById(id);
         System.out.println("byId: " + byId);
         return byId.map(accommodMainFacade::convertToDto).orElse(null);
     }
 
-    public List<Accommodation> findAllByOwnerId(Long appUserId){
-        return accommodMainService.findAllByAppUserId(appUserId);
+    @PostMapping("/{id}")
+    @PreAuthorize("hasAuthority('read')")
+    public List<Accommodation> findAllByUserId(@PathVariable("id") Long userId) {
+        return accommodMainService.findAllByAppUserId(userId);
     }
 }

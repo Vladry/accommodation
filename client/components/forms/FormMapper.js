@@ -14,6 +14,7 @@ const FormMapper = ({fields, validation, handleSubmit}) => {
         }), {}),
         validationSchema: validation,
         onSubmit: (values) => {
+            alert(JSON.stringify(values));
             handleSubmit(values);
         }
     })
