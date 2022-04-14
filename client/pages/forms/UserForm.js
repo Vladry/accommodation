@@ -6,18 +6,24 @@ import api from "../../lib/API";
 
 const UserForm = () => {
 
-    const handleSubmit = async (values) => {
 
-        await api.post("/users",    // это вместо  axios.post(config.users.requestMapping,
-            JSON.stringify(values)).then(
-            r => alert(JSON.stringify(r, null, 2))
-        )
-            .catch(err => {
-                console.log(err)
-            });
-    };
-
-
+        const handleSubmit = async (values) => {
+            alert(JSON.stringify(values));
+            await api.post("/auth/registerFullUser",
+                {
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(values)
+                }
+            ).then(
+                r => {
+                }
+            )
+                .catch(err => {
+                    console.log(err)
+                });
+        };
 
 
     return (

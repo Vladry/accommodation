@@ -1,12 +1,14 @@
 package com.hub.accommodation.service.auth;
 
-import com.hub.accommodation.domain.user.User;
+import com.hub.accommodation.DTO.request.UserRqDto;
 import com.hub.accommodation.domain.auth.RefreshToken;
+import com.hub.accommodation.domain.user.User;
 import com.hub.accommodation.exception.JwtAuthenticationException;
 import com.hub.accommodation.exception.NoDataFoundException;
 import com.hub.accommodation.exception.UserAlreadyExistException;
-import com.hub.accommodation.repository.UserRepository;
+import com.hub.accommodation.facade.UserFacade;
 import com.hub.accommodation.repository.RefreshTokenRepository;
+import com.hub.accommodation.repository.UserRepository;
 import com.hub.accommodation.security.jwt.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -22,17 +24,19 @@ import java.util.Map;
 @Service
 public class AuthService {
     private final AuthenticationManager authenticationManager;
-    private final UserRepository appUserRepository;
+    private final UserRepository userRepository;
     private final JwtTokenProvider jwtTokenProvider;
     private final RefreshTokenRepository refreshTokenRepository;
     private final PasswordEncoder passwordEncoder;
+    private final UserFacade userFacade;
 
-    public AuthService(AuthenticationManager authenticationManager, UserRepository appUserRepository, JwtTokenProvider jwtTokenProvider, RefreshTokenRepository refreshTokenRepository, PasswordEncoder passwordEncoder) {
+    public AuthService(AuthenticationManager authenticationManager, UserRepository appUserRepository, JwtTokenProvider jwtTokenProvider, RefreshTokenRepository refreshTokenRepository, PasswordEncoder passwordEncoder, UserFacade userFacade) {
         this.authenticationManager = authenticationManager;
-        this.appUserRepository = appUserRepository;
+        this.userRepository = appUserRepository;
         this.jwtTokenProvider = jwtTokenProvider;
         this.refreshTokenRepository = refreshTokenRepository;
         this.passwordEncoder = passwordEncoder;
+        this.userFacade = userFacade;
     }
 
     @Value("${jwt.expirationRefresh}")
@@ -75,17 +79,32 @@ public class AuthService {
     }
 
     public Map<Object, Object> authenticate(String email, String password) {
-        User appUser = appUserRepository.findUserByEmail(email).orElseThrow(() -> new NoDataFoundException("AppUser doesn't exists"));
+        User appUser = userRepository.findUserByEmail(email).orElseThrow(() -> new NoDataFoundException("AppUser doesn't exists"));
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
         return createTokens(appUser);
     }
 
-    public Map<Object, Object> register(String email, String password) {
-        if (appUserRepository.findUserByEmail(email).isPresent()) {
+
+    public Map<Object, Object> registerFullUser(UserRqDto userRqDto) {
+        System.out.println("in  registerFullUser(UserRqDto userRqDto) !");
+        String originalPassword = userRqDto.getPassword();
+        User newUser = userFacade.convertToEntity(userRqDto);
+        String email = newUser.getEmail();
+        if (userRepository.findUserByEmail(email).isPresent()) {
+            throw new UserAlreadyExistException(email);
+        } else {
+            userRepository.save(newUser);
+            return authenticate(newUser.getEmail(), originalPassword);
+        }
+    }
+
+
+
+        public Map<Object, Object> register(String email, String password) {
+        if (userRepository.findUserByEmail(email).isPresent()) {
             throw new UserAlreadyExistException(email);
         }
-
-        appUserRepository.save(new User(email, passwordEncoder.encode(password)));
+            userRepository.save(new User(email, passwordEncoder.encode(password)));
         return authenticate(email, password);
     }
 
@@ -97,7 +116,7 @@ public class AuthService {
             throw new JwtAuthenticationException("refreshToken is expired", HttpStatus.UNAUTHORIZED);
         } else {
             markUsed(refreshTokenId);
-            User appUser = appUserRepository.findById(rt.getUser().getId()).orElseThrow(() -> new NoDataFoundException("User doesn't exists"));
+            User appUser = userRepository.findById(rt.getUser().getId()).orElseThrow(() -> new NoDataFoundException("User doesn't exists"));
             return createTokens(appUser);
         }
     }

@@ -69,9 +69,9 @@ const Login = () => {
                         Forgot password?
                     </Link>
                 </Typography>
-                <Typography>Do you have an account?
-                    <Link href="#">
-                        &nbsp;Sign Up
+                <Typography>Do not have an account yet?/Ещё не зарегистрированы?
+                    <Link href={"/forms/UserForm"}>
+                        &nbsp;Click/Тебе сюда!
                     </Link>
                 </Typography>
 

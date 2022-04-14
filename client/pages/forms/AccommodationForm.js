@@ -3,10 +3,20 @@ import {accommodationFormValidation} from "./formsValidations";
 import {accommodationFormFields} from "./accommodationFormFields";
 import FormMapper from "./FormMapper";
 import api from "../../lib/API";
+import useAuth from "../../hooks/useAuth";
+import {useSelector} from "react-redux";
 
 
 const AccommodationForm = () => {
     const [userId, setUserId] = useState(1);
+    const [formData, setFormData] = useState({
+        email: '',
+        password: ''
+    });
+
+    const isAuthenticated = useAuth(true);
+    const profile = useSelector(state => state.userData.user);
+
 
     const handleSubmit = async (values) => {
         alert(JSON.stringify(values));
@@ -28,7 +38,8 @@ const AccommodationForm = () => {
         <>
             <h3 style={{textAlign: 'center', marginTop: '10px'}}
             >Accommodation Details<br/>Информация о предлагаемом жилье</h3>
-            <FormMapper fields={accommodationFormFields} validation={accommodationFormValidation}
+            <FormMapper fields={accommodationFormFields} validation={null}
+
                         handleSubmit={handleSubmit}/>
         </>
     );
