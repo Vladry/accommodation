@@ -9,14 +9,7 @@ const UserForm = () => {
 
         const handleSubmit = async (values) => {
             alert(JSON.stringify(values));
-            await api.post("/auth/registerFullUser",
-                {
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(values)
-                }
-            ).then(
+            await api.post("/auth/registerFullUser", values).then(
                 r => {
                 }
             )

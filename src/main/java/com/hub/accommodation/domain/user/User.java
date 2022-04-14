@@ -15,7 +15,7 @@ import java.util.Set;
 @Setter
 @RequiredArgsConstructor
 @AllArgsConstructor
-@ToString(of = {"name", "lastName", "email", "phoneNumber", "city", "country", "role"})
+@ToString(of = {"name", "lastName", "email", "phoneNumber", "role"})
 @Table(name = "users")
 public class User extends BaseEntity {
 
