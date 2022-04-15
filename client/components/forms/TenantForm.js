@@ -4,11 +4,7 @@ import {tenantFormFields} from "./tenantFormFields";
 import FormMapper from "./FormMapper";
 
 
-const TenantForm = () => {
-
-    const handleSubmit =  (values) => {
-            alert(JSON.stringify(values, null, 2));
-        };
+const TenantForm = ({handleSubmit}) => {
 
     return (
         <>

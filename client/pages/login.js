@@ -70,7 +70,7 @@ const Login = () => {
                     </Link>
                 </Typography>
                 <Typography>Do not have an account yet?/Ещё не зарегистрированы?
-                    <Link href={"/forms/UserForm"}>
+                    <Link href={"/UserRegistrationPage"}>
                         &nbsp;Click/Тебе сюда!
                     </Link>
                 </Typography>

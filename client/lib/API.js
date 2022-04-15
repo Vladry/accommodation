@@ -5,8 +5,7 @@ import {getSession} from "next-auth/react";
 const api = axios.create({
     baseURL: "http://localhost:8000/api/v1",
 });
-api.defaults.headers.common.accept = 'application/json';
-api.interceptors.request.use(async (rq) => {  // https://axios-http.com/docs/interceptors
+api.interceptors.request.use(async (rq) => {    // https://axios-http.com/docs/interceptors
     const session = await getSession();
 
     if (!!session) {

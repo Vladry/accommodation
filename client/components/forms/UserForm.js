@@ -2,22 +2,9 @@ import React from 'react';
 import {userFormValidation} from "./formsValidations";
 import {userFormFields} from "./userFormFields";
 import FormMapper from "./FormMapper";
-import api from "../../lib/API";
-
-const UserForm = () => {
 
 
-        const handleSubmit = async (values) => {
-            alert(JSON.stringify(values));
-            await api.post("/auth/registerFullUser", values).then(
-                r => {
-                }
-            )
-                .catch(err => {
-                    console.log(err)
-                });
-        };
-
+const UserForm = ({handleSubmit}) => {
 
     return (
         <>
