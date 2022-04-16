@@ -25,11 +25,6 @@ export default function Home() {
                 <Button onClick={() => dispatch(decrement())}>-</Button>
                 <Button onClick={() => dispatch(increment())}>+</Button>
             </main>
-
-            <UserForm/>
-            <AccommodationForm/>
-            <TenantForm/>
-
         </Container>
     )
 }

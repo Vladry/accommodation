@@ -12,7 +12,7 @@ public class TenantRsDto {
 
     String desiredCity;
     String desiredCountry;
-    Set<Picture> pictures;
+    Set<PictureRsDto> pictures;
 
     int numberOfOlderChildren;
     int numberOfYoungerChildren;

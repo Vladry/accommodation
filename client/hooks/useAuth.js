@@ -13,7 +13,9 @@ export default function useAuth(shouldRedirect) {
         }
 
         if (session === null) {
-            if (!['/login', '/', '/UserRegistrationPage', '/AccommodationFormPage', "/TenantFormPage", '/about'].includes(router.route)) {
+            if (!['/login', '/', '/formPages/UserRegistrationPage',
+                /*'/formPages/AccommodationFormPage',*/ "/formPages/TenantFormPage",
+                '/about'].includes(router.route)) {
                 router.push({
                     pathname: '/login',
                     query: {redirectUrl: router.route}

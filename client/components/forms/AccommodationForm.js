@@ -22,8 +22,6 @@ const AccommodationForm = ({handleSubmit}) => {
 
     return (
         <>
-            <h3 style={{textAlign: 'center', marginTop: '10px'}}
-            >Accommodation Details<br/>Информация о предлагаемом жилье</h3>
             <FormMapper fields={accommodationFormFields} validation={null}
 
                         handleSubmit={handleSubmit}/>

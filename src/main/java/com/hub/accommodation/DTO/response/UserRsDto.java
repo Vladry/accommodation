@@ -9,6 +9,7 @@ import java.util.Set;
 @Data
 public class UserRsDto extends BaseEntity {
 
+    String location;
     String name;
     String lastName;
     String email;
@@ -19,7 +20,7 @@ public class UserRsDto extends BaseEntity {
     String messenger2;
     boolean hideSocialContactData;
     boolean datingServiceParticipation;
-    Set<Accommodation> accommodation;
+    Set<AccommodationRsDto> accommodation;
 
 
 }

@@ -21,17 +21,14 @@ import java.util.Set;
 @Table(name = "accommodation")
 public class Accommodation extends BaseEntity {
 
-//    @Column(name = "country")
-//    @Enumerated(EnumType.ORDINAL)
-//    Country country;
-//    @Column(name = "street", length = 40)
-//    String street;
-//    @Column(name = "accomodation_type")
+    @Column(name = "locations", length = 50)
+    String location;
     @Enumerated(EnumType.ORDINAL)
+    @Column(name = "acc_type")
     AccommodationType accommodationType;
-    @Column(name = "number_of_rooms", nullable = true)
+    @Column(name = "num_of_rooms", nullable = true)
     int numberOfRooms;
-    @Column(name = "number_of_beds", nullable = true)
+    @Column(name = "num_of_beds", nullable = true)
     int numberOfBeds;
     @Column(name = "price_total", nullable = true)
     int priceTotal;
@@ -39,13 +36,16 @@ public class Accommodation extends BaseEntity {
     int pricePerRoom;
     @Column(name = "price_per_person", nullable = true)
     int pricePerPerson;
+    @Column(name = "provide_work")
     boolean helpWithWork;
+    @Column(name = "provide_food")
     boolean helpWithFood;
 
     @OneToMany(mappedBy = "accommodationDetails", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     Set<Picture> pictures = new HashSet<>();
 
     @Enumerated(EnumType.ORDINAL)
+    @Column(name = "status")
     AccommodationStatus status;
     @Column(name = "dating")
     boolean datingServiceParticipation;
@@ -55,8 +55,12 @@ public class Accommodation extends BaseEntity {
     @OneToMany(mappedBy = "accommodation", cascade = CascadeType.ALL)
     Set<LikeDate> liked = new HashSet<>();
 
+    @Column(name = "disab_sprt")
     boolean disabilityOrElderlySupport;
+    @Column(name = "childcare_sprt")
     boolean childCareSupport;
+    @Column(name = "pets")
+    @Enumerated(EnumType.ORDINAL)
     Pets petsAllowed;
 
     public String getAccommodationType() {

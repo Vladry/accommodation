@@ -8,10 +8,6 @@ const UserForm = ({handleSubmit}) => {
 
     return (
         <>
-            <h3 style={{textAlign: 'center', marginTop: '10px'}}
-            >Fill in new user details<br/>Заполните данные нового пользователя</h3>
-
-
             <FormMapper fields={userFormFields} validation={userFormValidation} handleSubmit={handleSubmit}/>
         </>
     );

@@ -3,6 +3,8 @@ package com.hub.accommodation.service;
 import com.hub.accommodation.domain.accommodation.Accommodation;
 import com.hub.accommodation.exception.NoDataFoundException;
 import com.hub.accommodation.repository.AccommodationRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,7 +26,12 @@ public class AccommodationService extends GeneralService<Accommodation> {
         accommodationRepository.save(accInDb);
     }
 
-    public List<Accommodation> findAllByAppUserId(Long appUserId){
+    public List<Accommodation> findAllByUserId(Long appUserId){
         return accommodationRepository.findAllByUserId(appUserId);
+    }
+
+    @Override
+    public Page<Accommodation> findAll(Pageable pageable) {
+        return accommodationRepository.findAll(pageable);
     }
 }

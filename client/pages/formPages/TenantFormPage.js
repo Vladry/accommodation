@@ -1,5 +1,5 @@
 import React from 'react';
-import TenantForm from "../components/forms/TenantForm";
+import TenantForm from "../../components/forms/TenantForm";
 
 const TenantFormPage = () => {
 

@@ -14,8 +14,7 @@ import java.util.Set;
 @AllArgsConstructor
 public class AccommodationRsDto extends BaseEntity {
 
-//    Country country;
-//    String street;
+    String location;
     String accommodationType;
     int numberOfRooms;
     int numberOfBeds;
@@ -24,7 +23,7 @@ public class AccommodationRsDto extends BaseEntity {
     int pricePerPerson;
     boolean helpWithWork;
     boolean helpWithFood;
-    Set<Picture> pictures;
+    Set<PictureRsDto> pictures;
     String accommodationStatus;
     int liked;
     Long userId;

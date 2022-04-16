@@ -1,28 +1,13 @@
 export const accommodationFormFields = [
-/*    {
-        id: "country",
-        name: "country",
-        formikRef: "country",
-        label: "country/страна",
-        valueByDefault: "190",
-        type: "number"
-    },
+
     {
-        id: "city",
-        name: "city",
-        formikRef: "city",
-        label: "City/город",
+        id: "location",
+        name: "location",
+        formikRef: "location",
+        label: "location/место",
         valueByDefault: "",
-        type: "text",
+        type: "text"
     },
-    {
-        id: "street",
-        name: "street",
-        formikRef: "street",
-        label: "street/улица",
-        valueByDefault: "",
-        type: "text",
-    },*/
 
     {
         id: "accommodation-type",

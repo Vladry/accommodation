@@ -1,4 +1,5 @@
 package com.hub.accommodation.domain.accommodation;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hub.accommodation.domain.BaseEntity;
 import com.hub.accommodation.domain.accommodation.Accommodation;
 import com.hub.accommodation.domain.user.Tenant;
@@ -15,6 +16,7 @@ import javax.persistence.*;
 public class Picture extends BaseEntity {
 
     private String picture;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "accommodation_details_id")
     private Accommodation accommodationDetails;

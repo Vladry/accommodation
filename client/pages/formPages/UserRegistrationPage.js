@@ -1,6 +1,6 @@
 import React from 'react';
-import api from "../lib/API";
-import UserForm from "../components/forms/UserForm";
+import api from "../../lib/API";
+import UserForm from "../../components/forms/UserForm";
 
 const UserRegistrationPage = () => {
 

@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {useSelector} from "react-redux";
-import useAuth from "../hooks/useAuth";
-import AccommodationForm from "../components/forms/AccommodationForm";
-import api from "../lib/API";
+import useAuth from "../../hooks/useAuth";
+import AccommodationForm from "../../components/forms/AccommodationForm";
+import api from "../../lib/API";
 
 
 const AccommodationFormPage = () => {
@@ -41,3 +41,5 @@ const AccommodationFormPage = () => {
 };
 
 export default AccommodationFormPage;
+
+AccommodationFormPage.auth = true;

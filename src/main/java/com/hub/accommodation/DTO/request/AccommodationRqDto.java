@@ -21,6 +21,7 @@ public class AccommodationRqDto extends BaseEntity {
         this.service = service;
     }
 
+    String location;
     int accommodationType;
     int numberOfRooms;
     int numberOfBeds;
