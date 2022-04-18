@@ -4,6 +4,7 @@ import {makeStyles} from "@mui/styles";
 import {Menu} from "@mui/icons-material"
 import useAuth from "../hooks/useAuth";
 import {signOut} from "next-auth/react";
+import NavBar from "./NavBar";
 
 const useStyles = makeStyles(() => ({
     toolbar: {
@@ -21,8 +22,8 @@ const useStyles = makeStyles(() => ({
 const Header = () => {
     const classes = useStyles();
     const isAuthenticated = useAuth(false);
-
-    if (!isAuthenticated) return <></>;
+    //
+    // if (!isAuthenticated) return <></>;
 
     return (
         <header style={{height: '80px'}}>
@@ -31,6 +32,7 @@ const Header = () => {
                     <Typography>
                         ДОПОМОГА<br/>УКРАЇНСЬКИМ <br/> БІЖЕНЦЯМ
                     </Typography>
+                    <NavBar/>
                     <Menu onClick={signOut}/>
                 </Toolbar>
             </AppBar>

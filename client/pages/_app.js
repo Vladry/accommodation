@@ -10,6 +10,7 @@ import createEmotionCache from "../utils/createEmotionCache";
 import {CacheProvider} from "@emotion/react";
 import theme from "../utils/theme";
 import RefreshTokenHandler from "../components/RefreshTokenHandler";
+import Layout from "../components/Layout";
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -35,8 +36,9 @@ function MyApp({Component, pageProps, emotionCache = clientSideEmotionCache}) {
                     <ThemeProvider theme={theme}>
                         <Provider store={store}>
                             <CssBaseline/>
-                            <Header/>
+                            <Layout>
                             <Component {...pageProps} />
+                            </Layout>
                         </Provider>
                     </ThemeProvider>
                     <RefreshTokenHandler setInterval={setInterval} />
