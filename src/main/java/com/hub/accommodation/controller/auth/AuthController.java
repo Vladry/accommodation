@@ -55,7 +55,7 @@ public class AuthController {
 
 
     @Validated(OnCreate.class)
-    @PostMapping("/api/v1/auth/register")
+    @PostMapping("/api/v1/auth/register")  //частичная регистрация юзера только по имейлу и паролю
     public ResponseEntity<?> register(@RequestBody @Valid AuthRequest request) {
         try {
             return ResponseEntity.ok(authService.register(request.getEmail(), request.getPassword()));
