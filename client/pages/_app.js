@@ -36,9 +36,12 @@ function MyApp({Component, pageProps, emotionCache = clientSideEmotionCache}) {
                     <ThemeProvider theme={theme}>
                         <Provider store={store}>
                             <CssBaseline/>
-                            <Layout>
-                            <Component {...pageProps} />
-                            </Layout>
+                            {
+                                Component.getLayout?
+                                Component.getLayout(<Component {...pageProps} />) :
+                                <Component {...pageProps} />
+                            }
+
                         </Provider>
                     </ThemeProvider>
                     <RefreshTokenHandler setInterval={setInterval} />

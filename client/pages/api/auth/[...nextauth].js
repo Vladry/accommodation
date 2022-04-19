@@ -51,6 +51,7 @@ const providers = [
     CredentialsProvider({
         name: 'Credentials',
         authorize: async (credentials) => {
+            console.log("in CredentialsProvider");
             try {
                 console.log(credentials)
                 // Authenticate user with credentials
@@ -62,6 +63,7 @@ const providers = [
                 console.log(user)
 
                 if (user.data.token) {
+                    console.log("user.data: " + user.data);
                     return user.data;
                 }
 

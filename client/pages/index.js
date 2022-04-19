@@ -7,6 +7,7 @@ import {useEffect, useRef, useState} from "react";
 import UserForm from "../components/forms/UserForm";
 import AccommodationForm from "../components/forms/AccommodationForm";
 import TenantForm from "../components/forms/TenantForm";
+import Layout from "../components/Layout";
 
 export default function Home() {
     const counter = useSelector(state => state.sampleData.counter)
@@ -16,6 +17,11 @@ export default function Home() {
     return (
         <Container>
             <Head>
+
+            </Head>
+
+            <main>
+
                 <title>Home page</title>
                 <meta name="description" content="Home page"/>
 
@@ -52,14 +58,20 @@ export default function Home() {
                         идеи и поддержка всех не безразличных в их реализации.
                     </p>
                 </div>
-            </Head>
 
-            <main>
 
-                <Typography>Counter: {counter}</Typography>
-                <Button onClick={() => dispatch(decrement())}>-</Button>
-                <Button onClick={() => dispatch(increment())}>+</Button>
+                {/*<Typography>Counter: {counter}</Typography>*/}
+                {/*<Button onClick={() => dispatch(decrement())}>-</Button>*/}
+                {/*<Button onClick={() => dispatch(increment())}>+</Button>*/}
             </main>
         </Container>
+    )
+}
+
+Home.getLayout = data => {
+    return (
+        <Layout>
+            {data}
+        </Layout>
     )
 }

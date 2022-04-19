@@ -28,7 +28,7 @@ const Header = () => {
     return (
         <header style={{height: '80px'}}>
             <AppBar>
-                <Toolbar className={classes.toolbar}>
+                <Toolbar className={'classes.toolbar'}>
                     <Typography>
                         ДОПОМОГА<br/>УКРАЇНСЬКИМ <br/> БІЖЕНЦЯМ
                     </Typography>

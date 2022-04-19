@@ -3,6 +3,8 @@ import {useSelector} from "react-redux";
 import useAuth from "../../hooks/useAuth";
 import AccommodationForm from "../../components/forms/AccommodationForm";
 import api from "../../lib/API";
+import Header from "../../components/Header";
+import Layout from "../../components/Layout";
 
 
 const AccommodationFormPage = () => {
@@ -21,15 +23,17 @@ const AccommodationFormPage = () => {
         await api.post("/accommodations",
             JSON.stringify(values)).then(
             r => alert(JSON.stringify(r, null, 2))
-        ).then(()=> fetchAccommodations(userId))
+        ).then(() => fetchAccommodations(userId))
             .catch(err => {
                 console.log(err)
             });
     };
-    const fetchAccommodations = async (userId)=>{
+    const fetchAccommodations = async (userId) => {
         api.post(`/accommodations/${userId}`, null)
-            .then(r=>alert(JSON.stringify(r, null, 2)))
+            .then(r => alert(JSON.stringify(r, null, 2)))
     }
+
+    if (!isAuthenticated) return (<h3>please login/ Войтите в систему</h3>);
 
     return (
         <>
@@ -43,3 +47,9 @@ const AccommodationFormPage = () => {
 export default AccommodationFormPage;
 
 AccommodationFormPage.auth = true;
+
+AccommodationFormPage.getLayout = (data) => (
+    <Layout>
+        {data}
+    </Layout>
+)
