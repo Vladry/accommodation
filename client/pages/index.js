@@ -1,12 +1,6 @@
 import Head from 'next/head'
-import {Button, Container, TextField, Typography} from "@mui/material";
+import {Container} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
-import {decrement, increment} from "../store/actions/sampleAction";
-import {useFetch} from "../hooks/useFetch";
-import {useEffect, useRef, useState} from "react";
-import UserForm from "../components/forms/UserForm";
-import AccommodationForm from "../components/forms/AccommodationForm";
-import TenantForm from "../components/forms/TenantForm";
 import Layout from "../components/Layout";
 
 export default function Home() {
