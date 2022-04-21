@@ -1,7 +1,8 @@
 import React from 'react';
-import {MenuList, styled} from "@mui/material";
+import {Button, MenuList, styled} from "@mui/material";
 import Tooltip from '@mui/material/Tooltip';
 import {NavLink} from "./NavLink";
+
 
 
 const NavBar = () => {
@@ -11,11 +12,12 @@ const NavBar = () => {
             <Tooltip title={"Fill in the form bellow describing in details the accommodation that you are offering. That data is required for our search algorithms./  Заполните форму. Детально опишите предлагаемое жильё. Эти данные требуются для более точного подбора вариантов для нуждающихся в жилье претендентов."}>
                 <span><MyNavLink href={"/formPages/AccommodationFormPage"}>
                 Offer accommodation/ Предложить жильё
-            </MyNavLink></span></Tooltip>
+            </MyNavLink></span>
+            </Tooltip>
 
-            <MyNavLink href={"/formPages/TenantFormPage"}>
+            <Button variant="primary" ><MyNavLink href={"/formPages/TenantFormPage"}>
                 Подать заявку на жильё
-            </MyNavLink>
+            </MyNavLink></Button>
 <br/>
             <Tooltip
                 title={"(Знакомства для поиска отношений/совместного проживания/семьи/волонтёрства. Cервис скоро запустим, но регистрация уже доступна!)"}>
