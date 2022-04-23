@@ -42,9 +42,9 @@ public class User extends BaseEntity {
     Set<Accommodation> accommodation = new HashSet<>();
 
     @Column(name = "hide_social_data", nullable = true)
-    boolean hideSocialContactData; //снимите галочку, если хотите, чтобы Ваши социальные сети и мессенджеры были доступны соискателям. Иначе, они будут доступны только нашему сервису для взаимодействия с Вами, но скрыты от других пользователей.
+    boolean hideSocialContactData = false; //снимите галочку, если хотите, чтобы Ваши социальные сети и мессенджеры были доступны соискателям. Иначе, они будут доступны только нашему сервису для взаимодействия с Вами, но скрыты от других пользователей.
     @Column(name = "dating_participation", nullable = true)
-    boolean datingServiceParticipation;
+    boolean datingServiceParticipation = false;
 
     @Enumerated(EnumType.STRING)
     private Role role = Role.USER;

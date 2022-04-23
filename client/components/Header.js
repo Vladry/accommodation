@@ -1,15 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {AppBar, IconButton, Toolbar, Typography} from "@mui/material";
 import {makeStyles} from "@mui/styles";
-import {Menu} from "@mui/icons-material"
 import {signOut} from "next-auth/react";
-import NavBar from "./NavBar";
 import {useMediaQuery} from 'react-responsive';
 import {useTheme} from '@mui/material/styles';
-import {useRouter} from 'next/router';
 import {useSelector} from 'react-redux';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import sel from "../store/selectors";
+import My_Drawer from "./My_Drawer";
+import Button from "@mui/material/Button";
+import styled from '@emotion/styled';
 
 const styles = (theme) => ({
     toolbar: {
@@ -33,21 +33,6 @@ const styles = (theme) => ({
 
 
 const useStyles = makeStyles((theme) => ({
-    appbar: {minHeight: '80px'},
-    toolbar: {
-        display: "flex",
-        justifyContent: "space-around",
-        alignItems: "center",
-        width: '100%',
-        margin: '0 auto',
-
-        padding: '4px 24px',
-        backgroundColor: '#50A511',
-
-    },
-    navbar: {
-        //
-    },
     toolbarProps: theme.mixins.toolbar
 }))
 
@@ -55,9 +40,7 @@ const useStyles = makeStyles((theme) => ({
 const Header = () => {
     const theme = useTheme();
     const classes = useStyles();
-    const router = useRouter();
     const currentSection = useSelector(sel.getCurrentSection);
-
 
     const isDesktopOrLaptop = useMediaQuery({query: '(min-width: 1224px)'})
     const isBigScreen = useMediaQuery({query: '(min-width: 1824px)'})
@@ -65,29 +48,66 @@ const Header = () => {
     const isPortrait = useMediaQuery({query: '(orientation: portrait)'})
     const isRetina = useMediaQuery({query: '(min-resolution: 2dpx)'})
 
+    const [isOpen, setIsOpen] = useState(false);
+
+    const toggleDrawer = () => setIsOpen(!isOpen);
+
+    const handleDrawerClose = (e)=>{
+        if (e.target.name === 'drawer') {
+            toggleDrawer();
+        }
+    };
+
+
+
     return (
-        <header style={{marginTop: '20px'}} className={classes.toolbarProps}>
-            <AppBar className={classes.appbar}>
-                <Toolbar className={classes.toolbar}>
+        <MyHeader>
 
-                        <NavBar classname={classes.navbar}/>
+            <My_Drawer isOpen={isOpen} toggleDrawer={toggleDrawer}/>
 
+            <MyAppBar toggleDrawer={toggleDrawer}>
+                <MyToolBar>
+                    <Button onClick={toggleDrawer}>Open Dashboard</Button>
 
-                    <Typography>
-                        ДОПОМОГА<br/>УКРАЇНСЬКИМ <br/> БІЖЕНЦЯМ
+                    <Typography style={{textAlign: 'center'}}>
+                        ДОПОМОГА УКРАЇНСЬКИМ <br/> БІЖЕНЦЯМ
                     </Typography>
-                    <Typography>
-                        Текущий путь: {router.pathname} <br/>
-                        Текущий раздел: {currentSection}
-                    </Typography>
+
                     <IconButton>
                         <ExitToAppIcon onClick={signOut}/>
                     </IconButton>
-                </Toolbar>
-            </AppBar>
+                </MyToolBar>
+            </MyAppBar>
 
-        </header>
+        </MyHeader>
     );
 };
 
 export default Header;
+
+const MyAppBar = styled(AppBar)`
+    // min-height: 80px;
+    margin: 0 auto;
+    width: 100%;
+    `;
+
+const MyToolBar = styled(Toolbar)`
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    // margin: 0 auto;
+    padding: 4px 24px;
+    background-color: #50A511;
+`;
+
+const MyHeader = styled.header(
+    ({theme}) => (
+        {
+            margin: '20px auto',
+
+            ...theme.mixins.toolbar
+        }
+    )
+);
+

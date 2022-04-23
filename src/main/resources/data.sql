@@ -1,6 +1,7 @@
 SET FOREIGN_KEY_CHECKS=0;
 
-INSERT INTO users (email, password) VALUES( 'vlad@ukr.net','rvy');
+INSERT INTO users (email, password, hide_social_data, dating_participation)
+VALUES( 'vlad1@ukr.net','rvy1', true, false);
 
 INSERT INTO accommodation (locations, acc_type, num_of_rooms, num_of_beds,
                            provide_work, provide_food, status, dating, user_id, disab_sprt, childcare_sprt, pets)
