@@ -4,19 +4,19 @@ import Button from '@mui/material/Button';
 import NavBar from "./NavBar";
 
 
-export default function My_Drawer({isOpen, toggleDrawer}) {
+export default function My_Drawer({isDrawerOpen, toggleDrawer}) {
 
     return (
-        <div>
-
+        <>
             <Drawer
                 anchor={'left'}
-                open={isOpen}
-                // onClose={toggleDrawer}
+                open={isDrawerOpen}
+                onClose={()=>{}}
+                onClick={toggleDrawer}
             >
-                <Button onClick={toggleDrawer}>Close Dashboard</Button>
-                <NavBar/>
+                {/*<Button onClick={toggleDrawer}>Close</Button>*/}
+                <NavBar handleNavClick={toggleDrawer}/>
             </Drawer>
-        </div>
+        </>
     );
 }
