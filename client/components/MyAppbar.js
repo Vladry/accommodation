@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { styled, alpha } from '@mui/material/styles';
+import {styled, alpha} from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -19,81 +19,47 @@ import SearchBar from "./SearchBar";
 import UserMenu from "./UserMenu";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import {signOut} from "next-auth/react";
-import {useEffect, useState} from "react";
+import {useState} from "react";
+import useAuth from "../hooks/useAuth";
+import LoginIcon from '@mui/icons-material/Login';
+import {router} from "next/client";
+
+export default function MyAppbar({toggleDrawer}, ...props) {
 
 
-/*export async function getServerSideProps() {
-    const res = await fetch(`https://http://localhost:3000/data`)
-    const data = await res.json()
-
-    // Pass data to the page via props
-    return { props: { data } }
-}*/
-
-const mediaQuery = '(max-width: 600px)';
-
-export default function MyAppbar({toggleDrawer, data}) {
-
-    /*** мои определения ***/
-    let isMobileScreen = null;
-
-    useEffect(() => {
-        if (!!window){
-            const mediaQueryList = window.matchMedia(mediaQuery);
-            isMobileScreen = mediaQueryList.matches;
-        }
-    }, [null])
-
-    /*** определения mui ***/
+    const isAuthenticated = useAuth(false);
     const [anchorEl, setAnchorEl] = useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-    const handleMobileMenuClose = () => {
-        setMobileMoreAnchorEl(null);
-    };
+
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
     };
+    const handleMobileMenuOpen = (event) => {
+        setMobileMoreAnchorEl(event.currentTarget);
+    };
+
     const handleMenuClose = () => {
         setAnchorEl(null);
         handleMobileMenuClose();
     };
+    const handleMobileMenuClose = () => {
+        setMobileMoreAnchorEl(null);
+    };
 
 
-    const menuId = 'primary-search-account-menu';
-    const renderMenu = (
-        <Menu
-            anchorEl={anchorEl}
-            anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-            }}
-            id={menuId}
-            keepMounted
-            transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-            }}
-            open={isMenuOpen}
-            onClose={handleMenuClose}
-        >
-            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-        </Menu>
-    );
-
-    const mobileMenuId = 'primary-search-account-menu-mobile';
-    const renderMobileMenu = (
+    const accountMenuMobVerId = 'account-menu-mobile';
+    const renderAccountMenuMobVer = (
         <Menu
             anchorEl={mobileMoreAnchorEl}
             anchorOrigin={{
                 vertical: 'top',
                 horizontal: 'right',
             }}
-            id={mobileMenuId}
+            id={accountMenuMobVerId}
             keepMounted
             transformOrigin={{
                 vertical: 'top',
@@ -105,7 +71,7 @@ export default function MyAppbar({toggleDrawer, data}) {
             <MenuItem>
                 <IconButton size="large" aria-label="show 4 new mails" color="inherit">
                     <Badge badgeContent={4} color="error">
-                        <MailIcon />
+                        <MailIcon/>
                     </Badge>
                 </IconButton>
                 <p>Messages</p>
@@ -117,7 +83,7 @@ export default function MyAppbar({toggleDrawer, data}) {
                     color="inherit"
                 >
                     <Badge badgeContent={17} color="error">
-                        <NotificationsIcon />
+                        <NotificationsIcon/>
                     </Badge>
                 </IconButton>
                 <p>Notifications</p>
@@ -126,87 +92,114 @@ export default function MyAppbar({toggleDrawer, data}) {
                 <IconButton
                     size="large"
                     aria-label="account of current user"
-                    aria-controls="primary-search-account-menu"
+                    aria-controls="account-menu"
                     aria-haspopup="true"
                     color="inherit"
                 >
-                    <AccountCircle />
+                    <AccountCircle/>
                 </IconButton>
                 <p>Profile</p>
             </MenuItem>
         </Menu>
     );
 
+
+    const accountMenuId = 'account-menu';
+    const renderAccountMenu = (
+        <Menu
+            anchorEl={anchorEl}
+            anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+            }}
+            id={accountMenuId}
+            keepMounted
+            transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+            }}
+            open={isMenuOpen}
+            onClose={handleMenuClose}
+        >
+            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+            <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+
+
+            <IconButton>
+                <ExitToAppIcon onClick={signOut}/>
+            </IconButton>
+
+        </Menu>
+    );
+
     return (
-        <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{flexGrow: 1}}>
             <AppBar position="static">
 
                 <MyToolBar>
-                    <Typography>{isMobileScreen}</Typography>
-                    <IconButton  onClick={toggleDrawer}>
-                        {!isMobileScreen && <Typography>Dashboard</Typography>}
-                        {isMobileScreen && <MenuIcon/>}
-                    </IconButton>
-                    <Typography style={{textAlign: 'center'}}>
-                        ДОПОМОГА УКРАЇНСЬКИМ <br/> БІЖЕНЦЯМ
-                    </Typography>
-
-                    <SearchBar/>
-
-                    <UserMenu />
-
-                    <IconButton>
-                        <ExitToAppIcon onClick={signOut}/>
-                    </IconButton>
-                </MyToolBar>
-
-{/*
-                <Toolbar>
                     <IconButton
                         size="large"
                         edge="start"
                         color="inherit"
                         aria-label="open drawer"
-                        sx={{ mr: 2 }}
+                        color={"primary"}
+                        onClick={toggleDrawer}
                     >
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="div"
-                        sx={{ display: { xs: 'none', sm: 'block' } }}
-                    >
-                        MUI
-                    </Typography>
-                </Toolbar>
-*/}
 
+                        <Typography
+                            variant={"h6"}
+                            noWrap
+                            component={"div"}
+                            sx={{display: {xs: 'none', sm: 'block'}}}
+                        >Menu</Typography>
+
+                        <MenuIcon
+                            sx={{display: {xs: 'block', sm: 'none'}, mr: 2}}/>
+                    </IconButton>
+
+
+                    <Typography style={{textAlign: 'center'}}>
+                        ДОПОМОГА УКРАЇНСЬКИМ <br/> БІЖЕНЦЯМ
+                    </Typography>
+
+                    {isAuthenticated && <SearchBar/>}
+
+                    {isAuthenticated && <UserMenu handleProfileMenuOpen={handleProfileMenuOpen}
+                                                  handleMobileMenuOpen={handleMobileMenuOpen}/>}
+
+                    {!isAuthenticated && <IconButton
+                        color={"error"}
+                        onClick={() => {
+                            router.push('/login');
+                        }}>
+                        <LoginIcon/>
+                    </IconButton>}
+                </MyToolBar>
 
 
             </AppBar>
-            {/*{renderMobileMenu}*/}
-            {/*{renderMenu}*/}
+            {isAuthenticated && renderAccountMenuMobVer}
+            {isAuthenticated && renderAccountMenu}
         </Box>
     );
 };
 
 
-    const MyToolBar = styled(Toolbar)(
-        ({theme})=>(
-            {
-                display: 'flex',
-                justifyContent: 'space-around',
-                alignItems: 'center',
-                width: '100%',
-                margin: '0 auto',
-                padding: '4px 24px',
-                backgroundColor: '#502211',
+const MyToolBar = styled(Toolbar)(
+    ({theme}) => (
+        {
+            display: 'flex',
+            justifyContent: 'space-around',
+            alignItems: 'center',
+            width: '100%',
+            margin: '0 auto',
+            padding: '4px 24px',
+            backgroundColor: '#502211',
 
-                [theme.breakpoints.down('sm')]: {
-                    flexDirection: 'column',
-                    backgroundColor: theme.palette.secondary.dark
-                }
+            [theme.breakpoints.down('sm')]: {
+                flexDirection: 'column',
+                // backgroundColor: theme.palette.secondary.dark
             }
-        ));
+        }
+    ));
 

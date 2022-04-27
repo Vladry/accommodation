@@ -16,9 +16,6 @@ const clientSideEmotionCache = createEmotionCache();
 
 function MyApp({Component, pageProps, emotionCache = clientSideEmotionCache }) {
 
-
-
-
     const [interval, setInterval] = useState(0);
     console.log(interval)
     React.useEffect(() => {
