@@ -6,15 +6,16 @@ import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MoreIcon from "@mui/icons-material/MoreVert";
-import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import {signOut} from "next-auth/react";
 
 const UserMenu = (props) => {
     const {menuId, mobileMenuId, handleProfileMenuOpen, handleMobileMenuOpen} = props;
-
+console.log(`handleProfileMenuOpen: `);
+console.log({handleProfileMenuOpen});
+    console.log(`handleMobileMenuOpen: `);
+    console.log({handleMobileMenuOpen});
     return (
         <>
-            {/*<Box sx={{flexGrow: 1}}/>*/}
+            <Box sx={{flexGrow: 1}}/>
             <Box sx={{display: {xs: 'none', md: 'flex'}}}>
                 <IconButton size="large" aria-label="show 4 new mails" color="inherit">
                     <Badge badgeContent={4} color="error">
@@ -54,7 +55,6 @@ const UserMenu = (props) => {
                     <MoreIcon/>
                 </IconButton>
             </Box>
-
         </>
     );
 };
