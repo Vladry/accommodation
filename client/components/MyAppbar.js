@@ -5,7 +5,6 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
@@ -13,8 +12,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import MoreIcon from '@mui/icons-material/MoreVert';
-import Button from "@mui/material/Button";
 import SearchBar from "./SearchBar";
 import UserMenu from "./UserMenu";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
@@ -22,9 +19,19 @@ import {signOut} from "next-auth/react";
 import {useState} from "react";
 import useAuth from "../hooks/useAuth";
 import LoginIcon from '@mui/icons-material/Login';
-import {router} from "next/client";
+import Link from 'next/link';
+import {NavLink} from "./NavLink";
+import IconLink from "./IconLink";
 
-export default function MyAppbar({toggleDrawer}, ...props) {
+/*export async function getServerSideProps() {
+    const res = await fetch(`https://http://localhost:3000/data`)
+    const data = await res.json()
+
+    // Pass data to the page via props
+    return { props: { data } }
+}*/
+
+export default function MyAppbar({toggleDrawer}) {
 
 
     const isAuthenticated = useAuth(false);
@@ -140,7 +147,6 @@ export default function MyAppbar({toggleDrawer}, ...props) {
                     <IconButton
                         size="large"
                         edge="start"
-                        color="inherit"
                         aria-label="open drawer"
                         color={"primary"}
                         onClick={toggleDrawer}
@@ -167,13 +173,11 @@ export default function MyAppbar({toggleDrawer}, ...props) {
                     {isAuthenticated && <UserMenu handleProfileMenuOpen={handleProfileMenuOpen}
                                                   handleMobileMenuOpen={handleMobileMenuOpen}/>}
 
-                    {!isAuthenticated && <IconButton
-                        color={"error"}
-                        onClick={() => {
-                            router.push('/login');
-                        }}>
-                        <LoginIcon/>
-                    </IconButton>}
+                    {!isAuthenticated &&
+                        <Link href={'/login'}>
+                            <LoginIcon  sx={{cursor: 'pointer', color: 'red' }}/>
+                        </Link>
+                    }
                 </MyToolBar>
 
 
