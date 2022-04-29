@@ -202,7 +202,6 @@ const MyToolBar = styled(Toolbar)(
 
             [theme.breakpoints.down('sm')]: {
                 flexDirection: 'column',
-                // backgroundColor: theme.palette.secondary.dark
             }
         }
     ));

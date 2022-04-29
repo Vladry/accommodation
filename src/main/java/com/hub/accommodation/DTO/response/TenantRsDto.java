@@ -1,6 +1,7 @@
 package com.hub.accommodation.DTO.response;
 
 import com.hub.accommodation.domain.accommodation.Picture;
+import com.hub.accommodation.domain.user.enums.SeverityStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -21,6 +22,7 @@ public class TenantRsDto {
     int numberOfDogs;
     int numberOfCats;
     int numberOfOtherPets;
+    String severityStatus;
     String desiredLengthOfStay;
     String additionalInfo;
     int familyMembersRequiringSpecialCare;

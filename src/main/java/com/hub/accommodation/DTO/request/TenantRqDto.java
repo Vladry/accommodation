@@ -1,6 +1,7 @@
 package com.hub.accommodation.DTO.request;
 
 import com.hub.accommodation.domain.accommodation.enums.LengthOfStay;
+import com.hub.accommodation.domain.user.enums.SeverityStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -19,6 +20,7 @@ public class TenantRqDto {
     int numberOfDogs;
     int numberOfCats;
     int numberOfOtherPets;
+    String severityStatus;
     int desiredLengthOfStay;
     int familyMembersRequiringSpecialCare;
 
