@@ -9,36 +9,39 @@ let isAuthenticated = null;
 
 const LockedMenu = ({placement}) => {
 
-        isAuthenticated = useAuth(false);
+    isAuthenticated = useAuth(false);
 
 
     return (
         <div>
-            <MenuItem><Tooltip  placement ={placement}
-                                title={menuConfig[1].title}>
+            <MenuItem><Tooltip placement={placement}
+                               title={menuConfig[1].title}>
                 <span>
                     <NavLinkProtected href={menuConfig[1].url} children={menuConfig[1].linkName}/>
-                </span>
-            </Tooltip></MenuItem>
-
-            <MenuItem>
-                <NavLinkProtected href={menuConfig[2].url} children={menuConfig[2].linkName}/>
+                </span></Tooltip>
             </MenuItem>
 
-            <MenuItem><Tooltip  placement ={placement}
-                                title={menuConfig[3].title}>
+            <MenuItem><Tooltip placement={placement}
+                               title={menuConfig[2].title}>
+                <span>
+                <NavLinkProtected href={menuConfig[2].url} children={menuConfig[2].linkName}/>
+                </span></Tooltip>
+            </MenuItem>
+
+            <MenuItem><Tooltip placement={placement}
+                               title={menuConfig[3].title}>
                 <span>
                    <NavLinkProtected href={menuConfig[3].url} children={menuConfig[3].linkName}/>
-                </span>
-            </Tooltip></MenuItem>
+                </span></Tooltip>
+            </MenuItem>
 
 
-            <MenuItem><Tooltip  placement ={placement}
-                                title={menuConfig[4].title}>
+            <MenuItem><Tooltip placement={placement}
+                               title={menuConfig[4].title}>
                 <span>
                     <NavLinkProtected href={menuConfig[4].url} children={menuConfig[4].linkName}/>
-                </span>
-            </Tooltip></MenuItem>
+                </span></Tooltip>
+            </MenuItem>
 
         </div>
     );
@@ -47,12 +50,10 @@ const LockedMenu = ({placement}) => {
 export default LockedMenu;
 
 
-
 const NavLinkProtected = styled(NavLink)`
 margin: 5px 10px;
 text-decoration: none;
-&:visited, &:link, &:active {color: ${props => props.theme.palette.primary.main}   };
-&:focus, &:hover {color: ${props => props.theme.palette.warning.dark} };
+&:focus, &:hover, &:visited, &:link, &:active {color: ${props => props.theme.palette.primary.main}   };
 `;
 
 

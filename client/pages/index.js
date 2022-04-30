@@ -2,11 +2,13 @@ import Head from 'next/head'
 import {Container} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
 import Layout from "../components/Layout";
-import Carousel from '@mui/material/Slider';
 import About from "../components/About";
 
+
+import SwiperCarousel from "../components/SwiperCarousel";
+
+
 export default function Home() {
-    const counter = useSelector(state => state.sampleData.counter)
     const dispatch = useDispatch();
 
 
@@ -21,7 +23,7 @@ export default function Home() {
                 <title>Home page</title>
                 <meta name="description" content="Home page"/>
 
-                <Carousel/>
+                <SwiperCarousel/>
 
                 <About/>
 

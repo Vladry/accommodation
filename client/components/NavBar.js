@@ -14,16 +14,15 @@ let isAuthenticated = null;
 
 const NavBar = () => {
     isAuthenticated = useAuth(false);
-    const isSmallScreen = useMediaQuery('(min-width: 600px)');
-    const placement = `${isSmallScreen ? "right" : "top-end"}`;
+    const isSmallScreen = useMediaQuery('(max-width: 600px)');
+    const placement = `${isSmallScreen ?  "top-end" : "right"}`;
 
     return (
         <MenuList sx={{margin: '20px'}}>
 
-            <Box>placement: {placement}</Box>
-
             <MenuItem><NavLinkUnprotected href={menuConfig[0].url}
-                                          underline={'none'}>{menuConfig[0].linkName}</NavLinkUnprotected></MenuItem>
+                                          underline={'none'}>{menuConfig[0].linkName}</NavLinkUnprotected>
+            </MenuItem>
 
             {!isAuthenticated && <Divider/>}
 
@@ -34,9 +33,11 @@ const NavBar = () => {
                     sx={{mt: '30px'}}
                 >
                     <MySpan>Login/Register</MySpan>
-                    {/*{!isAuthenticated && <Link href={'/login'}>Login/Register</Link>}*/}
                     {!isAuthenticated && <Link href={'/login'}><LoginIcon
-                        sx={{cursor: 'pointer', color: `${({theme}) => theme.palette.error.main}`}}/></Link>}
+                        sx={{
+                            cursor: 'pointer', color: `${({theme}) => theme.palette.error.main}`,
+                            transform: 'scale(1.2) translate(10px, 6px)'
+                        }}/></Link>}
                     <MySpan><br/>для активации разделов:</MySpan>
                 </Typography>
             }
@@ -44,8 +45,9 @@ const NavBar = () => {
             <Box
                 sx={{
                     ...(!isAuthenticated && {
-                        border: 2,
-                        borderColor: 'rgba(250, 0, 0, 0.6)',
+                        border: 4,
+                        borderShadow: true,
+                        borderColor: 'rgba(250, 0, 0, 0.2)',
                         borderRadius: '20px',
                         mt: '30px',
                         opacity: 0.6,
