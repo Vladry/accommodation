@@ -34,10 +34,10 @@ const SwiperCarousel = () => {
     const isSmallSize = useMediaQuery('(max-width: 700px)');
     const isMediumSize = useMediaQuery('(min-width: 701px) and (max-width: 1050px)');
     let bcgPicWidth = '160%';
-    let bcgPicBias = '260px';
-    let bcgPicHeight = '450px';
+    let bcgPicBias = '360px';
+    let bcgPicHeight = '400px';
     let soldierLeftBias = '70%';
-    let soldierTopBias = '130px';
+    let soldierTopBias = '80px';
     let soldierSize = '210px';
     let vFont = 'h6';
     if (isSmallSize) {
@@ -73,12 +73,12 @@ const SwiperCarousel = () => {
                     className="parallax-bg"
                     style={{
                         background:
-                            "no-repeat url(../../swiper-pictures/2_.png)",
-                        filter: 'opacity(0.8)',
+                            "no-repeat url(../../swiper-pictures/1_.jpg)",
+                        filter: 'opacity(0.7)',
                         position: 'absolute',
-                        top: "-60px",
+                        top: "-50px",
                         left: bcgPicBias,
-                        backgroundSize: '110%  90%',
+                        backgroundSize: '100%  80%',
                         height: bcgPicHeight,
                         width: bcgPicWidth,
                     }}
@@ -107,7 +107,7 @@ const SwiperCarousel = () => {
             <Divider/>
 
             <Typography variant={vFont}>
-                <Box sx={{m: "16px "}}>... а тем временем... русский корабль шёл...</Box>
+                <Box sx={{m: "2"}}>... а тем временем... русский корабль погружался ...</Box>
             </Typography>
         </>
     );
@@ -117,3 +117,14 @@ const SwiperCarousel = () => {
 
 export default SwiperCarousel;
 
+<<<<<<< HEAD
+=======
+const FontBox = styled.p`
+    font-family: 'Tapestry', cursive;
+    font-weight: 400;
+    font-display: swap;
+    font-size: 22px;
+    color: ${carouselTextColor};
+`;
+
+>>>>>>> parent of 18d2b80 (save)
