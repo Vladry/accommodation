@@ -7,13 +7,12 @@ import "swiper/css/autoplay";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import {useTheme} from "@mui/material/styles";
-import styled from '@emotion/styled';
-
-const carouselTextColor = '#993300';
+import Slides from "./Slides";
+import {carouselCards, carouselTextColor, fontSize} from "../public/carouselConfig";
+import SwiperCard from "./SwiperCard";
 
 
 const SwiperCarousel = () => {
-    const theme = useTheme();
     const testSlides = (
         <>
             <SwiperSlide><img src={'../../swiper-pictures/1.jpg'} alt={'carousel-picture'}/></SwiperSlide>
@@ -100,86 +99,7 @@ const SwiperCarousel = () => {
                 </div>
 
 
-                {/*                <div   //контейнер для статического изображения (солдат с пальцем вверх)
-                    style={{background: "no-repeat center url(../../swiper-pictures/fuck-boy.png)",
-                        position: 'absolute', top: "60px", left: "50%", opacity: "0.4", filter: "brightness(100%)",
-                        height: '300px', width: '300px'
-                    }}
-
-                >.</div>*/}
-
-                <SwiperSlide>
-                    <Box sx={{width: '80%', m: '0 auto'}}>
-                        <Typography variant='h4'>
-                            О Нашей Платформе
-                        </Typography>
-
-                        <FontBox>
-                            Мы - гуманитарный волонтёрский проект, цель которого - максимально ускорить и облегчить
-                            возвращение наших славных Украинцев к безопасной и счастливой жизни.
-                            Мы -международный ресурс и мы оформлены сейчас на языке врага для более обширного
-                            понимания во
-                            всём Мире, но мы украинцы! Слава Украине!
-                        </FontBox>
-                    </Box>
-                </SwiperSlide>
-
-                <SwiperSlide>
-                    <Box sx={{width: '80%', m: '0 auto'}}>
-                        <Typography variant='h4'>
-                            Предложить/ Найти Жильё
-                        </Typography>
-
-                        <FontBox>
-                            Наш сервис позволяет предлагать и находить жильё и гостепреимство для переселенцев и
-                            потерявших свой дом. Для этого, мы предлагаем и хозяевам жилья и соискателям заполнять
-                            подробные
-                            анкеты: чем более подробно Вы заполните наши формы и расскажете о
-                            себе, тем более эффективно будут работать наши поисковые алгоритмы, сопоставляя
-                            потребности
-                            соискателей с возможностями хозяев. Это позволит самым пострадавшим получить первый
-                            приоритет в расселении.
-                        </FontBox>
-                    </Box>
-                </SwiperSlide>
-
-
-                <SwiperSlide>
-                    <Box sx={{width: '80%', m: '0 auto'}}>
-                        <Typography variant='h4'>
-                            Служба Международных Знакомств
-                        </Typography>
-
-                        <FontBox>
-                            Наш подлый враг, желает видеть украинцев несчастными, поэтому еще один сервис,
-                            который мы вскоре запускаем: <span>служба военных знакомств</span>, цель которого:
-                            знакомства
-                            созидательного характера ведущие к улучшению нашего благосостояния. Это про всё личное,
-                            что может перерости в счастье и
-                            радость для Украинцев). Отличие нашего сервиса: бесплатно на время войны для
-                            переселенцев и предоставляющих жильё и тщательный подход в ликвидации жульничества и
-                            хамства.
-                        </FontBox>
-                    </Box>
-                </SwiperSlide>
-
-
-                <SwiperSlide>
-                    <Box sx={{width: '80%', m: '0 auto'}}>
-                        <Typography variant='h4'>
-                            Поддержка Пострадавших
-                        </Typography>
-
-                        <FontBox>
-                            Развиваем новый сервис: психологическая, дружеское тепло и волонтерская поддержка тем,
-                            кто
-                            испытал на себе последствия насилия рашистов. Для этого мы организовываем сеть
-                            специальных служб, которые будут работать по Украине и Европе.
-                            Наша команда призывает волонтеров присоединяться к нашей платформе -регистрироваться
-                            пользователями и отсылать нам свои предложение по партнерству в телеграм: @Vlad_Ry.
-                        </FontBox>
-                    </Box>
-                </SwiperSlide>
+                <Slides/>
 
 
             </Swiper>
@@ -196,15 +116,4 @@ const SwiperCarousel = () => {
 };
 
 export default SwiperCarousel;
-
-const FontBox = styled.p`
-    font-family: 'RobotoSlab', serif;
-    // font-family: 'Roboto', cursive;
-    // font-family: 'Tapestry', cursive;
-    font-weight: 400;
-    font-display: swap;
-    font-size: 26px;
-    color: ${carouselTextColor};
-    text-shadow: 1px 1px #1d3557;
-`;
 
