@@ -13,8 +13,12 @@ export default class MyDocument extends Document {
             <Html lang="en">
                 <Head>
                     {/* PWA primary color */}
-                    <meta name="theme-color" content={theme.palette.primary.main} />
-                    <link rel="shortcut icon" href="/static/favicon.ico" />
+                    <meta name="theme-color" content={theme.palette.primary.main}/>
+                    <link rel="shortcut icon" href="/static/favicon.ico"/>
+
+
+                    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+                    <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin/>
                     <link
                         rel="stylesheet"
                         href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
@@ -25,14 +29,18 @@ export default class MyDocument extends Document {
                         href="https://fonts.googleapis.com/css2?family=Tapestry&display=swap"
                         as="fonts"
                     />
+                    <link
+                        href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;600;700;800;900&family=RobotoSlab&display=swap"
+                        rel="stylesheet"
+                    />
 
 
                     {/* Inject MUI styles first to match with the prepend: true configuration. */}
                     {this.props.emotionStyleTags}
                 </Head>
                 <body>
-                <Main />
-                <NextScript />
+                <Main/>
+                <NextScript/>
                 </body>
             </Html>
         );
@@ -44,7 +52,7 @@ export default class MyDocument extends Document {
 MyDocument.getInitialProps = async (ctx) => {
     const originalRenderPage = ctx.renderPage;
     const cache = createEmotionCache();
-    const { extractCriticalToChunks } = createEmotionServer(cache);
+    const {extractCriticalToChunks} = createEmotionServer(cache);
 
     ctx.renderPage = () =>
         originalRenderPage({
@@ -61,7 +69,7 @@ MyDocument.getInitialProps = async (ctx) => {
             data-emotion={`${style.key} ${style.ids.join(' ')}`}
             key={style.key}
             // eslint-disable-next-line react/no-danger
-            dangerouslySetInnerHTML={{ __html: style.css }}
+            dangerouslySetInnerHTML={{__html: style.css}}
         />
     ));
 

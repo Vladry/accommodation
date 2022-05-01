@@ -35,10 +35,10 @@ const SwiperCarousel = () => {
     const isSmallSize = useMediaQuery('(max-width: 700px)');
     const isMediumSize = useMediaQuery('(min-width: 701px) and (max-width: 1050px)');
     let bcgPicWidth = '160%';
-    let bcgPicBias = '360px';
-    let bcgPicHeight = '400px';
+    let bcgPicBias = '260px';
+    let bcgPicHeight = '450px';
     let soldierLeftBias = '70%';
-    let soldierTopBias = '80px';
+    let soldierTopBias = '130px';
     let soldierSize = '210px';
     let vFont = 'h6';
     if (isSmallSize) {
@@ -74,12 +74,12 @@ const SwiperCarousel = () => {
                     className="parallax-bg"
                     style={{
                         background:
-                            "no-repeat url(../../swiper-pictures/1_.jpg)",
-                        filter: 'opacity(0.7)',
+                            "no-repeat url(../../swiper-pictures/2_.png)",
+                        filter: 'opacity(0.8)',
                         position: 'absolute',
-                        top: "-50px",
+                        top: "-60px",
                         left: bcgPicBias,
-                        backgroundSize: '100%  80%',
+                        backgroundSize: '110%  90%',
                         height: bcgPicHeight,
                         width: bcgPicWidth,
                     }}
@@ -187,7 +187,7 @@ const SwiperCarousel = () => {
             <Divider/>
 
             <Typography variant={vFont}>
-                <Box sx={{m: "2"}}>... а тем временем... русский корабль погружался ...</Box>
+                <Box sx={{m: "16px "}}>... а тем временем... русский корабль шёл...</Box>
             </Typography>
         </>
     );
@@ -198,10 +198,13 @@ const SwiperCarousel = () => {
 export default SwiperCarousel;
 
 const FontBox = styled.p`
-    font-family: 'Tapestry', cursive;
+    font-family: 'RobotoSlab', serif;
+    // font-family: 'Roboto', cursive;
+    // font-family: 'Tapestry', cursive;
     font-weight: 400;
     font-display: swap;
-    font-size: 22px;
+    font-size: 26px;
     color: ${carouselTextColor};
+    text-shadow: 1px 1px #1d3557;
 `;
 
