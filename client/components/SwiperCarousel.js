@@ -33,22 +33,23 @@ const SwiperCarousel = () => {
 
     const isSmallSize = useMediaQuery('(max-width: 700px)');
     const isMediumSize = useMediaQuery('(min-width: 701px) and (max-width: 1050px)');
+    const slidesDelay = 2000;
     let bcgPicWidth = '160%';
     let bcgPicBias = '260px';
     let bcgPicHeight = '450px';
     let soldierLeftBias = '70%';
-    let soldierTopBias = '130px';
+    let soldierTopBias = '60px';
     let soldierSize = '210px';
     let vFont = 'h6';
     if (isSmallSize) {
         bcgPicBias = '200px';
         soldierLeftBias = "60%";
-        soldierTopBias = '170px';
+        soldierTopBias = '110px';
         vFont = "body1";
         soldierSize = '150px';
     } else if (isMediumSize) {
         soldierLeftBias = "70%";
-        soldierTopBias = '130px';
+        soldierTopBias = '110px';
         soldierSize = '170px';
     }
 
@@ -62,7 +63,7 @@ const SwiperCarousel = () => {
                     parallax={true}
                     pagination={false}     // pagination={{clickable: true}}
                     autoplay={{
-                        delay: 5500,
+                        delay: slidesDelay,
                         disableOnInteraction: false,
                     }}
                     slidesPerView={1}
@@ -74,11 +75,11 @@ const SwiperCarousel = () => {
                     style={{
                         background:
                             "no-repeat url(../../swiper-pictures/2_.png)",
-                        filter: 'opacity(0.8)',
+                        filter: 'opacity(0.6)',
                         position: 'absolute',
                         top: "-60px",
                         left: bcgPicBias,
-                        backgroundSize: '110%  90%',
+                        backgroundSize: '110%  60%',
                         height: bcgPicHeight,
                         width: bcgPicWidth,
                     }}
@@ -107,7 +108,7 @@ const SwiperCarousel = () => {
 
                         <FontBox>
                             {!isSmallSize && carouselCards[0].content}
-                            {!isSmallSize && carouselCards[0].contentMob}
+                            {isSmallSize && carouselCards[0].contentMob}
                         </FontBox>
                     </Box>
                 </SwiperSlide>
@@ -120,7 +121,7 @@ const SwiperCarousel = () => {
 
                         <FontBox>
                             {!isSmallSize && carouselCards[1].content}
-                            {!isSmallSize && carouselCards[1].contentMob}
+                            {isSmallSize && carouselCards[1].contentMob}
                         </FontBox>
                     </Box>
                 </SwiperSlide>
@@ -133,7 +134,7 @@ const SwiperCarousel = () => {
 
                         <FontBox>
                             {!isSmallSize && carouselCards[2].content}
-                            {!isSmallSize && carouselCards[2].contentMob}
+                            {isSmallSize && carouselCards[2].contentMob}
                         </FontBox>
                     </Box>
                 </SwiperSlide>
@@ -146,7 +147,7 @@ const SwiperCarousel = () => {
 
                         <FontBox>
                             {!isSmallSize && carouselCards[3].content}
-                            {!isSmallSize && carouselCards[3].contentMob}
+                            {isSmallSize && carouselCards[3].contentMob}
                         </FontBox>
                     </Box>
                 </SwiperSlide>
