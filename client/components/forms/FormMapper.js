@@ -1,11 +1,12 @@
 import React from 'react';
 import {useFormik, getIn} from 'formik';
 import MuiPhoneNumber from 'material-ui-phone-number-2';
-import {Box, Button, Checkbox, Container, FormControlLabel, Grid, TextField} from "@mui/material";
+import {Box, Button, Checkbox, Container, FormControlLabel, Grid, TextField, useMediaQuery} from "@mui/material";
 import AutocompleteWithDebounce from "../AutocompleteWithDebounce";
 import AutocompleteFromMapbox from "../AutocompleteFromMapbox";
 
 const FormMapper = ({fields, validation, handleSubmit}) => {
+    const isSmallScreen = useMediaQuery("(max-width: 700px)");
 
     const formik = useFormik({
         initialValues: fields.reduce((acc, f) => ({
@@ -14,7 +15,6 @@ const FormMapper = ({fields, validation, handleSubmit}) => {
         }), {}),
         validationSchema: validation,
         onSubmit: (values) => {
-            // alert(JSON.stringify(values));
             handleSubmit(values);
         }
     })
@@ -88,13 +88,13 @@ const FormMapper = ({fields, validation, handleSubmit}) => {
 
 
     return (
-        <form style={{width: '800px', margin: '0 auto'}} onSubmit={formik.handleSubmit}>
+        <form style={{ width: isSmallScreen? '400px' : '800px', margin: '0 auto'}} onSubmit={formik.handleSubmit}>
             <Grid sx={{
-                display: 'grid',
-                justifyContent: "space-around",
-                alignItems: 'center',
-                columnGap: '10px',
-                gridTemplateColumns: '1fr 1fr'
+                    display: 'grid',
+                    justifyContent: "space-around",
+                    alignItems: 'center',
+                    columnGap: '10px',
+                    gridTemplateColumns: {xs: '1fr', md: '1fr 1fr'}
             }} container>
                 {mappedFields}
             </Grid>
