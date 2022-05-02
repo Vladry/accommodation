@@ -8,7 +8,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import {useTheme} from "@mui/material/styles";
 import styled from '@emotion/styled';
-import {carouselCards, fontSize, carouselTextColor} from '../public/carouselConfig.js';
+import {carouselCards, fontSize, carouselTextColor, slidesDelay} from '../public/carouselConfig.js';
 
 
 const SwiperCarousel = () => {
@@ -33,23 +33,24 @@ const SwiperCarousel = () => {
 
     const isSmallSize = useMediaQuery('(max-width: 700px)');
     const isMediumSize = useMediaQuery('(min-width: 701px) and (max-width: 1050px)');
-    const slidesDelay = 2000;
     let bcgPicWidth = '160%';
     let bcgPicBias = '260px';
     let bcgPicHeight = '450px';
     let soldierLeftBias = '70%';
     let soldierTopBias = '60px';
-    let soldierSize = '210px';
+    let soldierSize = '170px';
     let vFont = 'h6';
     if (isSmallSize) {
         bcgPicBias = '200px';
+        bcgPicHeight = '600px';
         soldierLeftBias = "60%";
-        soldierTopBias = '110px';
+        soldierTopBias = '150px';
         vFont = "body1";
         soldierSize = '150px';
     } else if (isMediumSize) {
+        bcgPicHeight = '630px';
         soldierLeftBias = "70%";
-        soldierTopBias = '110px';
+        soldierTopBias = '120px';
         soldierSize = '170px';
     }
 
