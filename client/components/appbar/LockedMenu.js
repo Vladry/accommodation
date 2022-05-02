@@ -1,9 +1,9 @@
 import React from 'react';
 import Tooltip from "@mui/material/Tooltip";
-import useAuth from "../hooks/useAuth";
+import useAuth from "../../hooks/useAuth";
 import styled from "@emotion/styled";
 import {NavLink} from "./NavLink";
-import menuConfig from "../public/menuConfig";
+import menuConfig from "../../public/menuConfig";
 
 let isAuthenticated = null;
 

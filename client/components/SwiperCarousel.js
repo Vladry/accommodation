@@ -9,7 +9,8 @@ import "swiper/css/navigation";
 import {useTheme} from "@mui/material/styles";
 import styled from '@emotion/styled';
 import {carouselCards, fontSize, carouselTextColor, slidesDelay} from '../public/carouselConfig.js';
-
+// import fuckBoy from '../public/swiper-pictures/fuck-boy.png';
+import Image from 'next/image';
 
 const SwiperCarousel = () => {
     const theme = useTheme();
@@ -96,8 +97,8 @@ const SwiperCarousel = () => {
                         opacity: "0.6",
                         filter: "brightness(100%)"
                     }}>
-                    <img style={{height: soldierSize, width: soldierSize}}
-                         src={'../../swiper-pictures/fuck-boy.png'} alt={'soldier'}/>
+                    <Image src={'/swiper-pictures/fuck-boy.png'}
+                           width={soldierSize} height={soldierSize} alt={'soldier'}/>
                 </div>
 
 

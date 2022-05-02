@@ -3,12 +3,12 @@ import {Box, Divider, MenuList, Typography, useMediaQuery} from "@mui/material";
 import Tooltip from '@mui/material/Tooltip';
 import {NavLink} from "./NavLink";
 import styled from '@emotion/styled';
-import useAuth from "../hooks/useAuth";
+import useAuth from "../../hooks/useAuth";
 import LoginIcon from '@mui/icons-material/Login';
 import Link from 'next/link';
 import UnlockedMenu from "./UnlockedMenu";
 import LockedMenu from "./LockedMenu";
-import menuConfig from '../public/menuConfig.js';
+import menuConfig from '../../public/menuConfig.js';
 
 let isAuthenticated = null;
 

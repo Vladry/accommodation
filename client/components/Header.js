@@ -1,19 +1,7 @@
 import React, {useState} from 'react';
-import {AppBar, IconButton, Toolbar, Typography} from "@mui/material";
-import {signOut} from "next-auth/react";
-import {useMediaQuery} from 'react-responsive';
-import {useTheme} from '@mui/material/styles';
-import {useSelector} from 'react-redux';
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import sel from "../store/selectors";
-import My_Drawer from "./My_Drawer";
-import Button from "@mui/material/Button";
+import My_Drawer from "./appbar/My_Drawer";
 import styled from '@emotion/styled';
-import {styled as _styled, alpha} from '@mui/material/styles';
-import MenuIcon from '@mui/icons-material/Menu';
-import UserMenu from "./UserMenu";
-import SearchBar from "./SearchBar";
-import MyAppbar from "./MyAppbar";
+import MyAppbar from "./appbar/MyAppbar";
 
 const Header = () => {
 

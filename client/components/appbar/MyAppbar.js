@@ -17,7 +17,7 @@ import UserMenu from "./UserMenu";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import {signOut} from "next-auth/react";
 import {useState} from "react";
-import useAuth from "../hooks/useAuth";
+import useAuth from "../../hooks/useAuth";
 import LoginIcon from '@mui/icons-material/Login';
 import Link from 'next/link';
 import {NavLink} from "./NavLink";

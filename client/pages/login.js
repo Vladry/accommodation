@@ -44,9 +44,11 @@ const Login = () => {
             if (result.error) {
                 setError(result.error || '')
             } else if (router.query.redirectUrl) {
-                Router.push({
+                await Router.push({
                     pathname: router.query.redirectUrl,
                 })
+            } else {
+                await Router.push('/');
             }
         }
     }
