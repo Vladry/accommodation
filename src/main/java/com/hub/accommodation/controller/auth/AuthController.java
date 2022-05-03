@@ -41,10 +41,11 @@ public class AuthController {
     }
 
 
-    @CrossOrigin
-    @Validated(OnCreate.class)
+    @CrossOrigin(origins="*")
+    @Validated(OnCreate.class) //основная регистрация нового пользователя
     @PostMapping("/api/v1/auth/registerFullUser")
     public ResponseEntity<?> registerFullUser(@RequestBody @Valid UserRqDto userRqDto) {
+        System.out.println("in  registerFullUser !");
         try {
             return ResponseEntity.ok(authService.registerFullUser(userRqDto));
         } catch (AuthenticationException e) {
@@ -54,7 +55,7 @@ public class AuthController {
 
 
     @Validated(OnCreate.class)
-    @PostMapping("/api/v1/auth/register")  //частичная регистрация юзера только по имейлу и паролю
+    @PostMapping("/api/v1/auth/register")  //тестовая регистрация новогопользователя- только по имейлу и паролю
     public ResponseEntity<?> register(@RequestBody @Valid AuthRequest request) {
         try {
             System.out.println("in /api/v1/auth/register  now.  Request is: ");

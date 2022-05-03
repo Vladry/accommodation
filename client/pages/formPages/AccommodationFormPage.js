@@ -19,10 +19,10 @@ const AccommodationFormPage = () => {
 
 
     const handleSubmit = async (values) => {
-        alert(JSON.stringify(values));
+        // alert(JSON.stringify(values));
         await api.post("/accommodations",
             JSON.stringify(values)).then(
-            r => alert(JSON.stringify(r, null, 2))
+            r => {} /*alert(JSON.stringify(r, null, 2))*/
         ).then(() => fetchAccommodations(userId))
             .catch(err => {
                 console.log(err)
@@ -30,7 +30,7 @@ const AccommodationFormPage = () => {
     };
     const fetchAccommodations = async (userId) => {
         api.post(`/accommodations/${userId}`, null)
-            .then(r => alert(JSON.stringify(r, null, 2)))
+            .then(r => {} /*alert(JSON.stringify(r, null, 2))*/ )
     }
 
     if (!isAuthenticated) return (<h3>please login/ Войтите в систему</h3>);
