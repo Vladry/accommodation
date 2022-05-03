@@ -4,9 +4,11 @@ import MuiPhoneNumber from 'material-ui-phone-number-2';
 import {Box, Button, Checkbox, Container, FormControlLabel, Grid, TextField, useMediaQuery} from "@mui/material";
 import AutocompleteWithDebounce from "../AutocompleteWithDebounce";
 import AutocompleteFromMapbox from "../AutocompleteFromMapbox";
+import {useRouter} from "next/router";
 
 const FormMapper = ({fields, validation, handleSubmit}) => {
     const isSmallScreen = useMediaQuery("(max-width: 700px)");
+    const router = useRouter();
 
     const formik = useFormik({
         initialValues: fields.reduce((acc, f) => ({
@@ -99,7 +101,10 @@ const FormMapper = ({fields, validation, handleSubmit}) => {
             }} container>
                 {mappedFields}
             </Grid>
-            <Button variant="outlined" fullWidth onClick={formik.submitForm}>Submit</Button>
+
+            <Box textAlign={'center'} margin={'20px'}>
+            <Button variant="contained"  onClick={formik.submitForm}>Submit/ Отправить форму</Button>
+            </Box>
 
         </form>
     );

@@ -13,13 +13,13 @@ const UserRegistrationPage = () => {
         const theme = useTheme();
 
         const errorBox = (
-            <Box sx={{m: '0 auto'}}>
-                <ErrorBox theme={{color: theme.palette.error.main}}>
+            <Box margin={'0 auto'}>
+                <ErrorBox color={{color: theme.palette.error.main}}>
                     <Typography variant={'subtitle1'}>user with this email or password already
                         exists!<br/>
                         Пользователь с таким имейлом или паролем уже существует!</Typography>
                 </ErrorBox>
-                <ErrorBox theme={{color: theme.palette.primary.main}}>
+                <ErrorBox color={{color: theme.palette.primary.main}}>
                     <Typography variant={'body1'}>Amend your data and try
                         register again<br/>
                         Скорректируйте данные и повторите регистрацию</Typography>
@@ -66,8 +66,8 @@ export default UserRegistrationPage;
 
 
 const ErrorBox = styled('p')(
-    ({theme}) => ({
-        color: theme.color,
+    ({color}) => ({
+        color: color.color,
         margin: '10px auto',
         textAlign: 'center'
     })
