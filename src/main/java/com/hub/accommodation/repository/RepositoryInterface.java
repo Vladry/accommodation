@@ -10,7 +10,7 @@ public interface RepositoryInterface<E extends BaseEntity> extends JpaRepository
     default E findEntityById(Long id) {
         Optional<E> entityOptional = findById(id);
         if (!entityOptional.isPresent()) {
-            String msg = String.format("An error occurred while trying to find entity with id %d. ", id);
+            String msg = String.format("An error has occurred while trying to find entity with id %d. ", id);
             throw new NoDataFoundException(msg);
         }
         return entityOptional.get();
