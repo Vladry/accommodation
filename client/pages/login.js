@@ -19,10 +19,8 @@ const MyTextField = styled(TextField)`
     margin: 0 0 15px 0;
 `
 
-
-
 const Login = () => {
-    const router = useRouter()
+    const router = useRouter();
 
     const [formData, setFormData] = useState({
         email: 'vlad@ukr.net',
@@ -66,14 +64,14 @@ const Login = () => {
                 {error && <Typography sx={{color: 'red'}}>{error}</Typography>}
 
                 <Button sx={{marginBottom: '15px', marginTop: '10px'}} onClick={handleLogin} type='submit' color='primary' variant="contained" fullWidth>Sign in</Button>
-                <Typography>
+{/*                <Typography>
                     <Link href="#">
                         Forgot password?
                     </Link>
-                </Typography>
-                <Typography>Do not have an account yet?/Ещё не зарегистрированы?
+                </Typography>*/}
+                <Typography>Not Registered? -
                     <Link href={"/formPages/UserRegistrationPage"}>
-                        &nbsp;Click/Тебе сюда!
+                        &nbsp;Register/Регистрация
                     </Link>
                 </Typography>
 

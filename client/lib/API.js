@@ -16,7 +16,7 @@ api.interceptors.request.use(async (rq) => {    // https://axios-http.com/docs/i
     }
     return rq;
 }, error => {
-    Promise.reject(error)
+    Promise.reject(false)
 })
 
 api.interceptors.response.use(

@@ -8,7 +8,8 @@ const UserForm = ({handleSubmit}) => {
 
     return (
         <>
-            <FormMapper fields={userFormFields} validation={userFormValidation} handleSubmit={handleSubmit}/>
+            <FormMapper fields={userFormFields} validation={null} handleSubmit={handleSubmit}/>
+            {/*<FormMapper fields={userFormFields} validation={userFormValidation} handleSubmit={handleSubmit}/>*/}
         </>
     );
 };

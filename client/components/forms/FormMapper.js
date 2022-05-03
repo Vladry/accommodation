@@ -15,6 +15,7 @@ const FormMapper = ({fields, validation, handleSubmit}) => {
         }), {}),
         validationSchema: validation,
         onSubmit: (values) => {
+            console.log("values: ", values);
             handleSubmit(values);
         }
     })
