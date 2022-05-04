@@ -24,7 +24,7 @@ const Login = () => {
 
     const [formData, setFormData] = useState({
         email: 'vlad@ukr.net',
-        password: 'rvy'
+        password: '123'
     });
 
     const [error, setError] = useState("");
@@ -70,7 +70,7 @@ const Login = () => {
                     </Link>
                 </Typography>*/}
                 <Typography>Not Registered? -
-                    <Link href={"/formPages/UserRegistrationPage"}>
+                    <Link href={"/register"}>
                         &nbsp;Register/Регистрация
                     </Link>
                 </Typography>

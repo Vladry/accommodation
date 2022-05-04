@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
-import api from "../../lib/API";
-import UserForm from "../../components/forms/UserForm";
+import api from "../lib/API";
+import UserForm from "../components/forms/UserForm";
 import Router from "next/router";
 import {signIn} from "next-auth/react";
 import {Box, Typography} from "@mui/material";
 import styled from "@emotion/styled";
 import {useTheme} from "@mui/material/styles";
 
-const UserRegistrationPage = () => {
+const Register = () => {
 
         const [error, setError] = useState(false);
         const theme = useTheme();
@@ -31,7 +31,7 @@ const UserRegistrationPage = () => {
         const handleSubmit = async (values) => {
 
             try {
-                await api.post("/auth/registerFullUser", values);
+                await api.post("/auth/register", values);
 
                 setError(false);
                 const {email, password} = values;
@@ -62,7 +62,7 @@ const UserRegistrationPage = () => {
     }
 ;
 
-export default UserRegistrationPage;
+export default Register;
 
 
 const ErrorBox = styled('p')(

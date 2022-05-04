@@ -3,27 +3,20 @@ Content-Type: application/json
 
 {
 "email": "vlad@ukr.net",
-"password": "rvy"
+"password": "123"
 }
 ###
-POST http://localhost:8000/api/v1/auth/registerFullUser
-Content-Type: application/json
 
-{
-  "email": "vlad@ukr.net",
-  "password": "rvy"
-}
-###
 POST http://localhost:8000/api/v1/auth/login
 Content-Type: application/json
 
 {
 "email": "vlad@ukr.net",
-"password": "rvy"
+"password": "123"
 }
 ###
 
-POST http://localhost:8000/api/v1/auth/registerFullUser
+POST http://localhost:8000/api/v1/auth/register
 Content-Type: application/json
 
 {

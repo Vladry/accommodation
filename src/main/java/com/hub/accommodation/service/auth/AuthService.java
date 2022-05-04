@@ -85,7 +85,7 @@ public class AuthService {
     }
 
 
-    public Map<Object, Object> registerFullUser(UserRqDto userRqDto) {
+    public Map<Object, Object> register(UserRqDto userRqDto) {
         String originalPassword = userRqDto.getPassword();
         User newUser = userFacade.convertToEntity(userRqDto);
         String email = newUser.getEmail();
@@ -97,15 +97,6 @@ public class AuthService {
         }
     }
 
-
-
-        public Map<Object, Object> register(String email, String password) {
-        if (userRepository.findUserByEmail(email).isPresent()) {
-            throw new UserAlreadyExistException(email);
-        }
-            userRepository.save(new User(email, passwordEncoder.encode(password)));
-        return authenticate(email, password);
-    }
 
     public Map<Object, Object> refresh(String refreshToken) throws JwtAuthenticationException {
         Long refreshTokenId = jwtTokenProvider.getRefreshTokenId(refreshToken);
