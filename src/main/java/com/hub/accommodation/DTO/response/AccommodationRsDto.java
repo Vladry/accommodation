@@ -6,6 +6,7 @@ import com.hub.accommodation.domain.accommodation.Picture;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import java.util.Set;
 
@@ -14,6 +15,7 @@ import java.util.Set;
 @AllArgsConstructor
 public class AccommodationRsDto extends BaseEntity {
 
+    @NonNull
     String location;
     String accommodationType;
     int numberOfRooms;
@@ -24,10 +26,13 @@ public class AccommodationRsDto extends BaseEntity {
     boolean helpWithWork;
     boolean helpWithFood;
     Set<PictureRsDto> pictures;
+    @NonNull
     String accommodationStatus;
     int liked;
+    @NonNull
     Long userId;
     boolean disabilityOrElderlySupport;
     boolean childCareSupport;
+    @NonNull
     String petsAllowed;
 }

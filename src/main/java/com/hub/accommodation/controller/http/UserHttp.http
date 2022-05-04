@@ -4,7 +4,7 @@ Content-Type: application/json
 {
 "name" : "Vlad",
 "lastName" : "Ryab",
-"email" : "rvy@ukr.net",
+"email" : "1rvy@ukr.net",
 "phoneNumber" : "+380637400791",
 "hideSocialContactData": true,
 "urlSocial1": "facebook.com/VladFromUkraine",
@@ -19,4 +19,9 @@ Content-Type: application/json
 GET http://localhost:8000/api/v1/users/1
 ###
 GET http://localhost:8000/api/v1/users/?email=rvy@ukr.net
+###
+GET http://localhost:8000/api/v1/users/?email=vlad@ukr.net
+###
+
+GET http://localhost:8000/api/v1/users/profile
 ###

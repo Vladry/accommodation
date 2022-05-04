@@ -79,14 +79,13 @@ public class AuthService {
     }
 
     public Map<Object, Object> authenticate(String email, String password) {
-        User appUser = userRepository.findUserByEmail(email).orElseThrow(() -> new NoDataFoundException("AppUser doesn't exists"));
+        User user = userRepository.findUserByEmail(email).orElseThrow(() -> new NoDataFoundException("AppUser doesn't exists"));
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
-        return createTokens(appUser);
+        return createTokens(user);
     }
 
 
     public Map<Object, Object> registerFullUser(UserRqDto userRqDto) {
-        System.out.println("in  registerFullUser(UserRqDto userRqDto) !");
         String originalPassword = userRqDto.getPassword();
         User newUser = userFacade.convertToEntity(userRqDto);
         String email = newUser.getEmail();
@@ -94,7 +93,7 @@ public class AuthService {
             throw new UserAlreadyExistException(email);
         } else {
             userRepository.save(newUser);
-            return authenticate(newUser.getEmail(), originalPassword);
+            return authenticate(newUser.getEmail(), originalPassword); //сюда вернулся  Map<o,o> tokens -токенов
         }
     }
 

@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("api/v1/accommodations")
 public class AccommodationController {
     private final AccommodationService accommodMainService;
@@ -31,7 +32,7 @@ public class AccommodationController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('writeAccommodation')")
+    @PreAuthorize("hasAuthority('writeAccommodation')") //TODO -сделать PreAuthorize для все аналогичных методов
     public void save(
             @RequestBody AccommodationRqDto accommodationRqDto) {
         Accommodation accommodation = accommodMainFacade.convertToEntity(accommodationRqDto);

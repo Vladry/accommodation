@@ -41,11 +41,10 @@ public class AuthController {
     }
 
 
-    @CrossOrigin(origins="*")
+    @CrossOrigin(origins = "*") // -без неё не проходят работают запросы из браузера (из постмена работают)
     @Validated(OnCreate.class) //основная регистрация нового пользователя
     @PostMapping("/api/v1/auth/registerFullUser")
     public ResponseEntity<?> registerFullUser(@RequestBody @Valid UserRqDto userRqDto) {
-        System.out.println("in  registerFullUser !");
         try {
             return ResponseEntity.ok(authService.registerFullUser(userRqDto));
         } catch (AuthenticationException e) {
@@ -53,13 +52,10 @@ public class AuthController {
         }
     }
 
-
     @Validated(OnCreate.class)
     @PostMapping("/api/v1/auth/register")  //тестовая регистрация новогопользователя- только по имейлу и паролю
     public ResponseEntity<?> register(@RequestBody @Valid AuthRequest request) {
         try {
-            System.out.println("in /api/v1/auth/register  now.  Request is: ");
-            System.out.println(request);
             return ResponseEntity.ok(authService.register(request.getEmail(), request.getPassword()));
         } catch (AuthenticationException e) {
             return new ResponseEntity<>("Error with registration: " + e.getMessage(), HttpStatus.FORBIDDEN);

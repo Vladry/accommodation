@@ -20,10 +20,12 @@ const AccommodationFormPage = () => {
 
     const handleSubmit = async (values) => {
         // alert(JSON.stringify(values));
-        await api.post("/accommodations",
-            JSON.stringify(values)).then(
-            r => {} /*alert(JSON.stringify(r, null, 2))*/
-        ).then(() => fetchAccommodations(userId))
+
+        console.log("fetchING  await api.post(\"/accommodations\", values");
+        console.log("values: ", values);
+
+        await api.post("/accommodations", values
+        ).then(() => {console.log("fetched  await api.post(\"/accommodations\", values")}) /*TODO fetchAccommodations(userId))*/
             .catch(err => {
                 console.log(err)
             });

@@ -6,7 +6,14 @@ Content-Type: application/json
 "password": "rvy"
 }
 ###
+POST http://localhost:8000/api/v1/auth/registerFullUser
+Content-Type: application/json
 
+{
+  "email": "vlad@ukr.net",
+  "password": "rvy"
+}
+###
 POST http://localhost:8000/api/v1/auth/login
 Content-Type: application/json
 

@@ -33,7 +33,6 @@ public class AccommodationFacade extends GeneralFacade<
                 .addMappings(mappings -> mappings.using(ID_TO_USER).map(AccommodationRqDto::getUserId, Accommodation::setUser));
         super.getMm().typeMap(Accommodation.class, AccommodationRsDto.class)
                 .addMapping(Accommodation::getAccommodationType, AccommodationRsDto::setAccommodationType);
-
     }
 
     @Override

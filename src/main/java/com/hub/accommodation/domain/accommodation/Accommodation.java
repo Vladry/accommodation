@@ -52,8 +52,6 @@ public class Accommodation extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     User user;
-    @OneToMany(mappedBy = "accommodation", cascade = CascadeType.ALL)
-    Set<LikeDate> liked = new HashSet<>();
 
     @Column(name = "disab_sprt")
     boolean disabilityOrElderlySupport;
@@ -62,6 +60,9 @@ public class Accommodation extends BaseEntity {
     @Column(name = "pets")
     @Enumerated(EnumType.ORDINAL)
     Pets petsAllowed;
+    @OneToMany(mappedBy = "accommodation", cascade = CascadeType.ALL)
+    Set<LikeDate> liked = new HashSet<>();
+
 
     public String getAccommodationType() {
         return accommodationType.name();

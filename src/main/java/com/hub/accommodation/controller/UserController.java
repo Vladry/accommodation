@@ -28,6 +28,23 @@ public class UserController {
         this.UserFacade = UserFacade;
     }
 
+//------------------------------------------------
+    @PreAuthorize("hasAuthority('read')")
+    @GetMapping("/{id}")
+    public UserRsDto findUserById(
+            @PathVariable("id") Long id) {
+        System.out.println("in @GetMapping(\"/{id}\"): public UserRsDto findUserById(), id:  "+ id);
+        Optional<User> optionalUser = userService.findById(id);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            return UserFacade.convertToDto(user);
+        } else {
+            return null;
+        }
+
+    }
+//------------------------------------------------
+
     @PostMapping
     public UserRsDto createUser(@RequestBody UserRqDto userRqDto) {
         User user = UserFacade.convertToEntity(userRqDto);
@@ -41,26 +58,13 @@ public class UserController {
         return UserFacade.getUserByEmail(principal.getName());
     }
 
-    @GetMapping("/{id}")
-    public UserRsDto findUserById(
-            @PathVariable("id") Long id) {
 
-
-        Optional<User> optionalUser = userService.findById(id);
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
-            return UserFacade.convertToDto(user);
-        } else {
-            return null;
-        }
-
-    }
-
+    @PreAuthorize("hasAuthority('read')")
     @GetMapping()
     public UserRsDto findUserByEmail(
             @RequestParam("email") String email) {
         User user = userService.getUserByEmail(email)
-                .orElseThrow(() -> new NoDataFoundException("no appUser found by this email"));
+                .orElseThrow(() -> new NoDataFoundException("no User found by this email"));
         return UserFacade.convertToDto(user);
     }
 }

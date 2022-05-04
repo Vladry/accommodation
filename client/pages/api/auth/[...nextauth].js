@@ -51,9 +51,7 @@ const providers = [
     CredentialsProvider({
         name: 'Credentials',
         authorize: async (credentials) => {
-            console.log("in CredentialsProvider");
             try {
-                console.log(credentials)
                 // Authenticate user with credentials
                 const user = await axios.post(API_URL + '/api/v1/auth/login', {
                     password: credentials.password,
