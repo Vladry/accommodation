@@ -44,10 +44,12 @@ const Login = () => {
             } else if (router.query.redirectUrl) {
                 await Router.push({
                     pathname: router.query.redirectUrl,
-                })
+                });
+
             } else {
                 await Router.push('/');
             }
+            Router.reload(); // -без перезагрузки не обновляется user в store в store->userData.user.id при переходе на след.стр.
         }
     }
 

@@ -9,3 +9,4 @@ export const DECREMENT = "DECREMENT";
 export const GET_CURRENT_SECTION = "GET_CURRENT_SECTION";
 export const SET_CURRENT_SECTION = "SET_CURRENT_SECTION";
 
+export const SET_USER_ID = "SET_USER_ID";

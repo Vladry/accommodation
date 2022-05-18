@@ -51,7 +51,7 @@ const NavBar = () => {
                         borderRadius: '20px',
                         mt: '30px',
                         opacity: 0.6,
-                        p: 20
+                        p: 4
                     })
                 }}
             >

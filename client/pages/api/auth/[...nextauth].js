@@ -3,6 +3,7 @@ import NextAuth from 'next-auth';
 import CredentialsProvider from "next-auth/providers/credentials";
 import api from "../../../lib/API";
 import {signIn} from "next-auth/react";
+import {setUserId} from '../../../store/actions/userAction.js';
 
 const API_URL = "http://localhost:8000"
 
@@ -51,6 +52,7 @@ const providers = [
     CredentialsProvider({
         name: 'Credentials',
         authorize: async (credentials) => {
+
             try {
                 // Authenticate user with credentials
                 const user = await axios.post(API_URL + '/api/v1/auth/login', {
@@ -58,10 +60,9 @@ const providers = [
                     email: credentials.email
                 });
 
-                console.log(user)
-
                 if (user.data.token) {
-                    console.log("user.data: " + user.data);
+                    // console.log("user.data.userId: " + user.data.userId);
+                    // setUserId(user.data.userId);
                     return user.data;
                 }
 

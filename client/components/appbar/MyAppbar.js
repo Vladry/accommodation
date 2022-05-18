@@ -132,8 +132,8 @@ export default function MyAppbar({toggleDrawer}) {
             <MenuItem onClick={handleMenuClose}>My account</MenuItem>
 
 
-            <IconButton>
-                <ExitToAppIcon onClick={signOut}/>
+            <IconButton onClick={signOut}>
+                <ExitToAppIcon/>
             </IconButton>
 
         </Menu>

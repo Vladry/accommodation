@@ -1,41 +1,38 @@
-import React, {useState} from 'react';
-import {useSelector} from "react-redux";
+import React, {useState, useEffect} from 'react';
+import {useSelector, connect} from "react-redux";
 import useAuth from "../../hooks/useAuth";
 import AccommodationForm from "../../components/forms/AccommodationForm";
 import api from "../../lib/API";
-import Header from "../../components/Header";
 import Layout from "../../components/Layout";
 
 
-const AccommodationFormPage = () => {
-    const [userId, setUserId] = useState(1);
-    const [formData, setFormData] = useState({
-        email: '',
-        password: ''
-    });
+const AccommodationFormPage = ({user}) => {
 
     const isAuthenticated = useAuth(true);
-    const profile = useSelector(state => state.userData.user);
-
 
     const handleSubmit = async (values) => {
-        // alert(JSON.stringify(values));
-
         console.log("fetchING  await api.post(\"/accommodations\", values");
-        console.log("values: ", values);
+        console.log("form values: ", values);
+        // values = {...values, userId: userId}
+        values = {...values, userId: user.id};
+        console.log("values with userId: ", values);
 
         await api.post("/accommodations", values
-        ).then(() => {console.log("fetched  await api.post(\"/accommodations\", values")}) /*TODO fetchAccommodations(userId))*/
+        ).then(() => {
+            console.log("fetched  await api.post(\"/accommodations\", values")
+        }) /*TODO fetchAccommodations(userId))*/
             .catch(err => {
                 console.log(err)
             });
     };
-    const fetchAccommodations = async (userId) => {
-        api.post(`/accommodations/${userId}`, null)
-            .then(r => {} /*alert(JSON.stringify(r, null, 2))*/ )
+    const fetchAccommodations = async (user) => {
+        api.post(`/accommodations/${user.id}`, null)
+            .then(r => {
+            } /*alert(JSON.stringify(r, null, 2))*/)
     }
 
     if (!isAuthenticated) return (<h3>please login/ Войтите в систему</h3>);
+    if (user === null || user === undefined) return (<h3>user's not defined in store</h3>);
 
     return (
         <>
@@ -46,7 +43,15 @@ const AccommodationFormPage = () => {
     );
 };
 
-export default AccommodationFormPage;
+const mapStateToProps = (state) => {
+    console.log("in mapStateToProps: returning: state.userData.user", {user: state.userData.user})
+    return {user: state.userData.user};
+};
+// const mapDispatchToProps = dispatch => dispatch;
+
+export default connect(mapStateToProps/*, mapDispatchToProps*/)(AccommodationFormPage);
+// export default connect(mapStateToProps/*, mapDispatchToProps*/)(AccommodationFormPage);
+
 
 AccommodationFormPage.auth = true;
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
@@ -8,9 +8,18 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import {signOut} from "next-auth/react";
+import {useSelector} from "react-redux";
+import {getProfile} from "../../store/actions/userAction";
 
 const UserMenu = (props) => {
     const {menuId, mobileMenuId, handleProfileMenuOpen, handleMobileMenuOpen} = props;
+    // const userId = useSelector(state=> state.userData.user?.id | null);
+    const [userId, setUserId] = useState(useSelector(state => state.userData.user?.id | 0));
+
+/*    useEffect(()=>{
+        getProfile();
+        setUserId ( useState(useSelector(state => state.userData.user?.id) ));
+    },[]);*/
 
     return (
         <>
@@ -40,6 +49,7 @@ const UserMenu = (props) => {
                     color="inherit"
                 >
                     <AccountCircle/>
+                    {'id: ' + userId}
                 </IconButton>
             </Box>
             <Box sx={{display: {xs: 'flex', md: 'none'}}}>
