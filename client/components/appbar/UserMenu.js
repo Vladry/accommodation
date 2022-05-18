@@ -10,17 +10,13 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import {signOut} from "next-auth/react";
 import {useSelector} from "react-redux";
 import {getProfile} from "../../store/actions/userAction";
+import {Typography} from "@mui/material";
 
 const UserMenu = (props) => {
     const {menuId, mobileMenuId, handleProfileMenuOpen, handleMobileMenuOpen} = props;
-    // const userId = useSelector(state=> state.userData.user?.id | null);
-    const [userId, setUserId] = useState(useSelector(state => state.userData.user?.id | 0));
-
-/*    useEffect(()=>{
-        getProfile();
-        setUserId ( useState(useSelector(state => state.userData.user?.id) ));
-    },[]);*/
-
+    const user = useSelector(state => state.userData.user);
+    const greeting = (<Typography style={{margin: '0 20px'}} variant='subtitle1'>
+        Hi, {user?.name} {user?.lastName}</Typography>);
     return (
         <>
             {/*<Box sx={{flexGrow: 1}}/>*/}
@@ -48,8 +44,9 @@ const UserMenu = (props) => {
                     onClick={handleProfileMenuOpen}
                     color="inherit"
                 >
+                    { (user?.name || user?.lastName) && greeting}
                     <AccountCircle/>
-                    {'id: ' + userId}
+
                 </IconButton>
             </Box>
             <Box sx={{display: {xs: 'flex', md: 'none'}}}>

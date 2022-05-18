@@ -3,9 +3,23 @@ Content-Type: application/json
 
 {
 "email": "vlad@ukr.net",
-"password": "123"
+"password": "123",
+  "name" : "Vlad",
+  "lastName" : "Ry"
 }
 ###
+
+POST http://localhost:8000/api/v1/auth/register
+Content-Type: application/json
+
+{
+  "email": "rvy@ukr.net",
+  "password": "123",
+  "name" : "Rvy",
+  "lastName" : ""
+}
+###
+
 
 POST http://localhost:8000/api/v1/auth/login
 Content-Type: application/json
@@ -30,8 +44,8 @@ Content-Type: application/json
   "location" :"Kyiv",
   "hideSocialContactData" : true,
   "datingServiceParticipation" : true,
-  "email": "vlad@ukr.net",
-  "password": "rvy"
+  "email": "1vlad@ukr.net",
+  "password": "123"
 }
 ###
 

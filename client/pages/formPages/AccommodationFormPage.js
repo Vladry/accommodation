@@ -1,19 +1,18 @@
-import React, {useState, useEffect} from 'react';
-import {useSelector, connect} from "react-redux";
+import React from 'react';
+import {useSelector} from "react-redux";
 import useAuth from "../../hooks/useAuth";
 import AccommodationForm from "../../components/forms/AccommodationForm";
 import api from "../../lib/API";
 import Layout from "../../components/Layout";
 
 
-const AccommodationFormPage = ({user}) => {
-
+const AccommodationFormPage = () => {
+    const user = useSelector((state)=>state.userData.user);
     const isAuthenticated = useAuth(true);
 
     const handleSubmit = async (values) => {
         console.log("fetchING  await api.post(\"/accommodations\", values");
         console.log("form values: ", values);
-        // values = {...values, userId: userId}
         values = {...values, userId: user.id};
         console.log("values with userId: ", values);
 
@@ -47,11 +46,8 @@ const mapStateToProps = (state) => {
     console.log("in mapStateToProps: returning: state.userData.user", {user: state.userData.user})
     return {user: state.userData.user};
 };
-// const mapDispatchToProps = dispatch => dispatch;
 
-export default connect(mapStateToProps/*, mapDispatchToProps*/)(AccommodationFormPage);
-// export default connect(mapStateToProps/*, mapDispatchToProps*/)(AccommodationFormPage);
-
+export default AccommodationFormPage;
 
 AccommodationFormPage.auth = true;
 

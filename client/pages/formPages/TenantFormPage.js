@@ -23,8 +23,6 @@ const TenantFormPage = () => {
             <h3 style={{textAlign: 'center', marginTop: '10px'}}>
                 Заполните форму о претенденте на жильё
             </h3>
-            <h5 style={{textAlign: "center"}}>userId: {user?.id}</h5>
-            <h5 style={{textAlign: "center"}}>userEmail: {user?.email}</h5>
             <TenantForm handleSubmit={handleSubmit}/>
         </>
     );

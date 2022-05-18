@@ -1,10 +1,7 @@
 import React from 'react';
 import Header from "./Header";
-import {connect} from "react-redux";
 
-const Layout = (props) => {
-    const {children} = props;
-    console.log("props: ", props);
+const Layout = ({children}) => {
     return (
         <>
             <Header/>
@@ -14,6 +11,3 @@ const Layout = (props) => {
 };
 
 export default Layout;
-
-// const mapStateToProps = (state) => state;
-// export default connect(mapStateToProps)(Layout);

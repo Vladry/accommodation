@@ -22,6 +22,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import Link from 'next/link';
 import {NavLink} from "./NavLink";
 import IconLink from "./IconLink";
+import {useSelector} from "react-redux";
 
 /*export async function getServerSideProps() {
     const res = await fetch(`https://http://localhost:3000/data`)
@@ -32,7 +33,7 @@ import IconLink from "./IconLink";
 }*/
 
 export default function MyAppbar({toggleDrawer}) {
-
+    const user = useSelector(state => state.userData.user);
 
     const isAuthenticated = useAuth(false);
     const [anchorEl, setAnchorEl] = useState(null);
@@ -75,6 +76,11 @@ export default function MyAppbar({toggleDrawer}) {
             open={isMobileMenuOpen}
             onClose={handleMobileMenuClose}
         >
+
+
+            <MenuItem><Typography>logged: {user?.email}</Typography></MenuItem>
+
+
             <MenuItem>
                 <IconButton size="large" aria-label="show 4 new mails" color="inherit">
                     <Badge badgeContent={4} color="error">
@@ -95,7 +101,9 @@ export default function MyAppbar({toggleDrawer}) {
                 </IconButton>
                 <p>Notifications</p>
             </MenuItem>
+
             <MenuItem onClick={handleProfileMenuOpen}>
+
                 <IconButton
                     size="large"
                     aria-label="account of current user"
@@ -105,6 +113,7 @@ export default function MyAppbar({toggleDrawer}) {
                 >
                     <AccountCircle/>
                 </IconButton>
+
                 <p>Profile</p>
             </MenuItem>
         </Menu>
@@ -128,9 +137,9 @@ export default function MyAppbar({toggleDrawer}) {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
+            <MenuItem><Typography>logged: {user?.email}</Typography></MenuItem>
             <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
             <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-
 
             <IconButton onClick={signOut}>
                 <ExitToAppIcon/>
