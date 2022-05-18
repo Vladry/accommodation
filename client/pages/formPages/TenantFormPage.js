@@ -3,8 +3,10 @@ import TenantForm from "../../components/forms/TenantForm";
 import useAuth from "../../hooks/useAuth";
 import Layout from "../../components/Layout";
 import api from "../../lib/API";
+import {useSelector} from "react-redux";
 
 const TenantFormPage = () => {
+    const user = useSelector((store) => store.userData.user);
 
     const isAuthenticated = useAuth();
 
@@ -21,6 +23,8 @@ const TenantFormPage = () => {
             <h3 style={{textAlign: 'center', marginTop: '10px'}}>
                 Заполните форму о претенденте на жильё
             </h3>
+            <h5 style={{textAlign: "center"}}>userId: {user?.id}</h5>
+            <h5 style={{textAlign: "center"}}>userEmail: {user?.email}</h5>
             <TenantForm handleSubmit={handleSubmit}/>
         </>
     );
