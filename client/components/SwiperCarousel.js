@@ -160,7 +160,7 @@ const SwiperCarousel = () => {
             <Divider/>
 
             <Typography variant={vFont}>
-                <Box sx={{m: "16px "}}>... а тем временем... русский корабль шёл...</Box>
+                <p style={{margin: "16px"}}>... а тем временем... русский корабль шёл...</p>
             </Typography>
         </>
     );
