@@ -14,7 +14,13 @@ export default class MyDocument extends Document {
                 <Head>
                     {/* PWA primary color */}
                     <meta name="theme-color" content={theme.palette.primary.main}/>
-                    <link rel="shortcut icon" href="/static/favicon.ico"/>
+
+                    <link rel="icon" type="image/png" sizes="16x16" href="../favicons/favicon-16x16.png" />
+                    <link rel="icon" type="image/png" sizes="32x32" href="../favicons/favicon-32x32.png" />
+                    <link rel="icon" type="image/png" sizes="192x192" href="../favicons/android-chrome-192x192.png" />
+                    <link rel="icon" type="image/png" sizes="512x512" href="../favicons/android-chrome-512x512.png" />
+                    <link rel="shortcut icon" type="text/x-icon" href="/favicons/favicon.ico" />
+
 
 
                     <link rel="preconnect" href="https://fonts.googleapis.com"/>
