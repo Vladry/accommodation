@@ -23,6 +23,9 @@ import Link from 'next/link';
 import {NavLink} from "./NavLink";
 import IconLink from "./IconLink";
 import {useSelector} from "react-redux";
+import Greeting from "../Greeting";
+import * as propTypes from "prop-types";
+import {useMediaQuery} from "@mui/material";
 
 /*export async function getServerSideProps() {
     const res = await fetch(`https://http://localhost:3000/data`)
@@ -34,7 +37,7 @@ import {useSelector} from "react-redux";
 
 export default function MyAppbar({toggleDrawer}) {
     const user = useSelector(state => state.userData.user);
-
+    const isMediumScreen = useMediaQuery('(max-width: 900px)');
     const isAuthenticated = useAuth(false);
     const [anchorEl, setAnchorEl] = useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
@@ -174,19 +177,25 @@ export default function MyAppbar({toggleDrawer}) {
 
 
                     <Typography style={{textAlign: 'center'}}>
-                        ДОПОМОГА УКРАЇНСЬКИМ <br/> БІЖЕНЦЯМ
+                        ДОПОМОГА<br/>УКРАЇНЦЯМ
                     </Typography>
 
                     {isAuthenticated && <SearchBar/>}
 
-                    {isAuthenticated && <UserMenu handleProfileMenuOpen={handleProfileMenuOpen}
-                                                  handleMobileMenuOpen={handleMobileMenuOpen}/>}
+                    {isMediumScreen && <Greeting/>}
 
-                    {!isAuthenticated &&
-                        <Link href={'/login'}>
-                            <LoginIcon  sx={{cursor: 'pointer', color: 'red' }}/>
-                        </Link>
-                    }
+                        {isAuthenticated && <UserMenu handleProfileMenuOpen={handleProfileMenuOpen}
+                                                      handleMobileMenuOpen={handleMobileMenuOpen}/>}
+
+
+                        {!isAuthenticated &&
+                            <Link href={'/login'}>
+                                <LoginIcon sx={{cursor: 'pointer', color: 'red'}}/>
+                            </Link>
+                        }
+
+
+
                 </MyToolBar>
 
 
@@ -215,3 +224,6 @@ const MyToolBar = styled(Toolbar)(
         }
     ));
 
+MyAppbar.propTypes = {
+    toggleDrawer: propTypes.func
+};

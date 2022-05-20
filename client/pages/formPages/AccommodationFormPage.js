@@ -11,10 +11,7 @@ const AccommodationFormPage = () => {
     const isAuthenticated = useAuth(true);
 
     const handleSubmit = async (values) => {
-        console.log("fetchING  await api.post(\"/accommodations\", values");
-        console.log("form values: ", values);
         values = {...values, userId: user.id};
-        console.log("values with userId: ", values);
 
         await api.post("/accommodations", values
         ).then(() => {
