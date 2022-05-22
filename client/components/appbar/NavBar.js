@@ -1,6 +1,5 @@
 import React from 'react';
 import {Box, Divider, MenuList, Typography, useMediaQuery} from "@mui/material";
-import Tooltip from '@mui/material/Tooltip';
 import {NavLink} from "./NavLink";
 import styled from '@emotion/styled';
 import useAuth from "../../hooks/useAuth";

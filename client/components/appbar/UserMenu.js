@@ -15,7 +15,7 @@ import Greeting from "../Greeting";
 
 const UserMenu = (props) => {
     const {menuId, mobileMenuId, handleProfileMenuOpen, handleMobileMenuOpen} = props;
-    const user = useSelector(state => state.userData.user);
+    // const user = useSelector(state => state.userData.user);
 
     return (
         <>

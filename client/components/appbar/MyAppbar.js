@@ -38,6 +38,7 @@ import {useMediaQuery} from "@mui/material";
 export default function MyAppbar({toggleDrawer}) {
     const user = useSelector(state => state.userData.user);
     const isMediumScreen = useMediaQuery('(max-width: 900px)');
+    const isSmallScreen = useMediaQuery('(max-width: 600px)');
     const isAuthenticated = useAuth(false);
     const [anchorEl, setAnchorEl] = useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
@@ -156,44 +157,58 @@ export default function MyAppbar({toggleDrawer}) {
             <AppBar position="static">
 
                 <MyToolBar>
-                    <IconButton
-                        size="large"
-                        edge="start"
-                        aria-label="open drawer"
-                        color={"primary"}
-                        onClick={toggleDrawer}
-                    >
 
-                        <Typography
-                            variant={"h6"}
-                            noWrap
-                            component={"div"}
-                            sx={{display: {xs: 'none', sm: 'block'}}}
-                        >Menu</Typography>
+                    <Box sx={{display: 'inline-flex', flexFlow: 'row nowrap', justifyContent: 'space-between',
+                        alignItems: 'center', width: {xs: '90%', sm: '8%', md: '20%'}}}>
 
-                        <MenuIcon
-                            sx={{display: {xs: 'block', sm: 'none'}, mr: 2}}/>
-                    </IconButton>
+                        <IconButton
+                            size="large"
+                            edge="start"
+                            aria-label="open drawer"
+                            color={"primary"}
+                            onClick={toggleDrawer}
+                        >
+
+                            <Typography
+                                variant={"h6"}
+                                noWrap
+                                component={"div"}
+                                sx={{display: {xs: 'none', sm: 'block'}}}
+                            >Menu</Typography>
+
+                            <MenuIcon
+                                sx={{display: {xs: 'block', sm: 'none'}, mr: 2}}/>
+                        </IconButton>
+
+                        {!!isSmallScreen && <Greeting/>}
 
 
-                    <Typography style={{textAlign: 'center'}}>
+                        {!!isAuthenticated && !!isSmallScreen &&
+                            <UserMenu handleProfileMenuOpen={handleProfileMenuOpen}
+                                      handleMobileMenuOpen={handleMobileMenuOpen}/>}
+
+
+                    </Box>
+                    {isSmallScreen && <Typography style={{textAlign: 'center'}}>
+                        ДОПОМОГА УКРАЇНЦЯМ
+                    </Typography>}
+                    {!isSmallScreen && <Typography style={{textAlign: 'center'}}>
                         ДОПОМОГА<br/>УКРАЇНЦЯМ
-                    </Typography>
+                    </Typography>}
 
                     {isAuthenticated && <SearchBar/>}
 
-                    {isMediumScreen && <Greeting/>}
+                    {!isSmallScreen && !!isMediumScreen && <Greeting/>}
 
-                        {isAuthenticated && <UserMenu handleProfileMenuOpen={handleProfileMenuOpen}
-                                                      handleMobileMenuOpen={handleMobileMenuOpen}/>}
+                    {isAuthenticated && !isSmallScreen && <UserMenu handleProfileMenuOpen={handleProfileMenuOpen}
+                                                                    handleMobileMenuOpen={handleMobileMenuOpen}/>}
 
 
-                        {!isAuthenticated &&
-                            <Link href={'/login'}>
-                                <LoginIcon sx={{cursor: 'pointer', color: 'red'}}/>
-                            </Link>
-                        }
-
+                    {!isAuthenticated &&
+                        <Link href={'/login'}>
+                            <LoginIcon sx={{cursor: 'pointer', color: 'red'}}/>
+                        </Link>
+                    }
 
 
                 </MyToolBar>

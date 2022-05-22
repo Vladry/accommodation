@@ -9,7 +9,6 @@ import "swiper/css/navigation";
 import {useTheme} from "@mui/material/styles";
 import styled from '@emotion/styled';
 import {carouselCards, fontSize, carouselTextColor, slidesDelay} from '../public/carouselConfig.js';
-// import fuckBoy from '../public/swiper-pictures/fuck-boy.png';
 import Image from 'next/image';
 
 const SwiperCarousel = () => {
@@ -160,7 +159,7 @@ const SwiperCarousel = () => {
             <Divider/>
 
             <Typography variant={vFont}>
-                <p style={{margin: "16px"}}>... а тем временем... русский корабль шёл...</p>
+                <span style={{margin: "16px"}}>... а тем временем... русский корабль шёл...</span>
             </Typography>
         </>
     );
@@ -168,7 +167,7 @@ const SwiperCarousel = () => {
 
 export default SwiperCarousel;
 
-const FontBox = styled.p`
+const FontBox = styled.span`
     font-family: 'RobotoSlab', serif;
     // font-family: 'Roboto', cursive;
     // font-family: 'Tapestry', cursive;

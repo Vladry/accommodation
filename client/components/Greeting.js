@@ -10,7 +10,7 @@ const Greeting = () => {
 
     return (
         <>
-            <Typography style={{margin: '0 20px'}} variant='subtitle1'>
+            <Typography style={{margin: '0 20px', display: 'inline', alignSelf: 'bottom'}} variant='subtitle1'>
             Hi {user?.name && user.name} {user?.lastName && user.lastName} !
             </Typography>
         </>
