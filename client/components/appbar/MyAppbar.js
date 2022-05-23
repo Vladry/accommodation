@@ -26,6 +26,8 @@ import {useSelector} from "react-redux";
 import Greeting from "../Greeting";
 import * as propTypes from "prop-types";
 import {useMediaQuery} from "@mui/material";
+import {ToolbarFullSize} from "../ToolbarFullSize";
+import {ToolbarMobile} from "../ToolbarMobile";
 
 /*export async function getServerSideProps() {
     const res = await fetch(`https://http://localhost:3000/data`)
@@ -37,15 +39,14 @@ import {useMediaQuery} from "@mui/material";
 
 export default function MyAppbar({toggleDrawer}) {
     const user = useSelector(state => state.userData.user);
-    const isMediumScreen = useMediaQuery('(max-width: 900px)');
-    const isSmallScreen = useMediaQuery('(max-width: 600px)');
     const isAuthenticated = useAuth(false);
     const [anchorEl, setAnchorEl] = useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
+    const isMediumSize = useMediaQuery('(min-width: 601px)');
+    const isSmallSize = useMediaQuery('(max-width: 600px)');
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -156,62 +157,17 @@ export default function MyAppbar({toggleDrawer}) {
         <Box sx={{flexGrow: 1}}>
             <AppBar position="static">
 
-                <MyToolBar>
 
-                    <Box sx={{display: 'inline-flex', flexFlow: 'row nowrap', justifyContent: 'space-between',
-                        alignItems: 'center', width: {xs: '90%', sm: '8%', md: '20%'}}}>
+                {!!isSmallSize && <ToolbarMobile toggleDrawer={toggleDrawer}
+                                  handleProfileMenuOpen={handleProfileMenuOpen}
+                                  handleMobileMenuOpen={handleMobileMenuOpen}
+                />}
 
-                        <IconButton
-                            size="large"
-                            edge="start"
-                            aria-label="open drawer"
-                            color={"primary"}
-                            onClick={toggleDrawer}
-                        >
+                {!!isMediumSize && <ToolbarFullSize toggleDrawer={toggleDrawer}
+                                handleProfileMenuOpen={handleProfileMenuOpen}
+                                handleMobileMenuOpen={handleMobileMenuOpen}
+                />}
 
-                            <Typography
-                                variant={"h6"}
-                                noWrap
-                                component={"div"}
-                                sx={{display: {xs: 'none', sm: 'block'}}}
-                            >Menu</Typography>
-
-                            <MenuIcon
-                                sx={{display: {xs: 'block', sm: 'none'}, mr: 2}}/>
-                        </IconButton>
-
-                        {!!isSmallScreen && <Greeting/>}
-
-
-                        {!!isAuthenticated && !!isSmallScreen &&
-                            <UserMenu handleProfileMenuOpen={handleProfileMenuOpen}
-                                      handleMobileMenuOpen={handleMobileMenuOpen}/>}
-
-
-                    </Box>
-                    {isSmallScreen && <Typography style={{textAlign: 'center'}}>
-                        ДОПОМОГА УКРАЇНЦЯМ
-                    </Typography>}
-                    {!isSmallScreen && <Typography style={{textAlign: 'center'}}>
-                        ДОПОМОГА<br/>УКРАЇНЦЯМ
-                    </Typography>}
-
-                    {isAuthenticated && <SearchBar/>}
-
-                    {!isSmallScreen && !!isMediumScreen && <Greeting/>}
-
-                    {isAuthenticated && !isSmallScreen && <UserMenu handleProfileMenuOpen={handleProfileMenuOpen}
-                                                                    handleMobileMenuOpen={handleMobileMenuOpen}/>}
-
-
-                    {!isAuthenticated &&
-                        <Link href={'/login'}>
-                            <LoginIcon sx={{cursor: 'pointer', color: 'red'}}/>
-                        </Link>
-                    }
-
-
-                </MyToolBar>
 
 
             </AppBar>
@@ -222,7 +178,7 @@ export default function MyAppbar({toggleDrawer}) {
 };
 
 
-const MyToolBar = styled(Toolbar)(
+const ToolbarSM_styled = styled(ToolbarFullSize)(
     ({theme}) => (
         {
             display: 'flex',
