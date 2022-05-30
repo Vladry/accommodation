@@ -3,15 +3,16 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import MenuIcon from "@mui/icons-material/Menu";
 import Greeting from "./Greeting";
-import UserMenu from "./appbar/UserMenu";
-import SearchBar from "./appbar/SearchBar";
+import UserMenu from "./UserMenu";
+import SearchBar from "./SearchBar";
 import Link from "next/link";
 import LoginIcon from "@mui/icons-material/Login";
 import * as React from "react";
 import {styled} from "@mui/material/styles";
 import {useMediaQuery} from "@mui/material";
-import useAuth from "../hooks/useAuth";
+import useAuth from "../../hooks/useAuth";
 import Toolbar from '@mui/material/Toolbar';
+
 
 
 export const ToolbarMobile = ({toggleDrawer, handleProfileMenuOpen, handleMobileMenuOpen}) => {

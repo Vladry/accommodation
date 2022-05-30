@@ -4,8 +4,8 @@ Content-Type: application/json
 {
 "email": "vlad@ukr.net",
 "password": "123",
-  "name" : "Vlad",
-  "lastName" : "Ry"
+  "name": "Влад",
+  "lastName" :"Рябушкин"
 }
 ###
 

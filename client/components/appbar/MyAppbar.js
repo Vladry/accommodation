@@ -23,11 +23,11 @@ import Link from 'next/link';
 import {NavLink} from "./NavLink";
 import IconLink from "./IconLink";
 import {useSelector} from "react-redux";
-import Greeting from "../Greeting";
+import Greeting from "./Greeting";
 import * as propTypes from "prop-types";
 import {useMediaQuery} from "@mui/material";
-import {ToolbarFullSize} from "../ToolbarFullSize";
-import {ToolbarMobile} from "../ToolbarMobile";
+import {ToolbarFullSize} from "./ToolbarFullSize";
+import {ToolbarMobile} from "./ToolbarMobile";
 
 /*export async function getServerSideProps() {
     const res = await fetch(`https://http://localhost:3000/data`)

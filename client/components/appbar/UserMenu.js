@@ -11,7 +11,7 @@ import {signOut} from "next-auth/react";
 import {useSelector} from "react-redux";
 import {getProfile} from "../../store/actions/userAction";
 import {Typography} from "@mui/material";
-import Greeting from "../Greeting";
+import Greeting from "./Greeting";
 
 const UserMenu = (props) => {
     const {menuId, mobileMenuId, handleProfileMenuOpen, handleMobileMenuOpen} = props;
