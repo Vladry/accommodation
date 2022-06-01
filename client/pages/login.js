@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Grid, Paper, Avatar, TextField, Button, Typography, Link} from '@mui/material'
+import {Grid, Paper, Avatar, TextField, Button, Typography, Link, Box} from '@mui/material'
 import {signIn} from "next-auth/react";
 import {LockOutlined} from "@mui/icons-material";
 import styled from '@emotion/styled'
@@ -13,11 +13,11 @@ const MyPaper = styled(Paper)`
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 5px;
-`
+`;
 
 const MyTextField = styled(TextField)`
     margin: 0 0 15px 0;
-`
+`;
 
 const Login = () => {
     const router = useRouter();
@@ -55,8 +55,11 @@ const Login = () => {
 
     return (
         <Grid container>
+
             <MyPaper elevation={10}>
+
                 <Grid align='center'>
+                    <div style={{margin: '20px auto'}} ><Link href={"/"}>Homepage</Link></div>
                     <Avatar><LockOutlined/></Avatar>
                     <h2>Sign In</h2>
                 </Grid>
@@ -75,6 +78,7 @@ const Login = () => {
                     <Link href={"/register"}>
                         &nbsp;Register/Регистрация
                     </Link>
+
                 </Typography>
 
             </MyPaper>

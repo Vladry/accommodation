@@ -14,34 +14,35 @@ const UnlockedMenu = ({placement}) => {
 
     return (
         <div>
-            <MenuItem><Tooltip  placement ={placement}
-                                title={menuConfig[1].title}>
-                <span>
-                    <NavLinkUnprotected href={menuConfig[1].url} children={menuConfig[1].linkName}/>
-                </span>
-            </Tooltip></MenuItem>
 
-            <MenuItem><Tooltip  placement ={placement}
-                                title={menuConfig[2].title}>
+            <MenuItem><Tooltip placement={placement}
+                               title={menuConfig[1].title}>
+                <span>
+                <NavLinkUnprotected href={menuConfig[1].url} children={menuConfig[1].linkName}/>
+                </span></Tooltip>
+            </MenuItem>
+
+            <MenuItem><Tooltip placement={placement}
+                               title={menuConfig[2].title}>
                 <span>
                    <NavLinkUnprotected href={menuConfig[2].url} children={menuConfig[2].linkName}/>
-                </span>
-            </Tooltip></MenuItem>
+                </span></Tooltip>
+            </MenuItem>
 
-            <MenuItem><Tooltip  placement ={placement}
-                title={menuConfig[3].title}>
+
+            <MenuItem><Tooltip placement={placement}
+                               title={menuConfig[3].title}>
                 <span>
-                   <NavLinkUnprotected href={menuConfig[3].url} children={menuConfig[3].linkName}/>
-                </span>
-            </Tooltip></MenuItem>
+                    <NavLinkUnprotected href={menuConfig[3].url} children={menuConfig[3].linkName}/>
+                </span></Tooltip>
+            </MenuItem>
 
-
-            <MenuItem><Tooltip  placement ={placement}
-                title={menuConfig[4].title}>
+            <MenuItem><Tooltip placement={placement}
+                               title={menuConfig[4].title}>
                 <span>
                     <NavLinkUnprotected href={menuConfig[4].url} children={menuConfig[4].linkName}/>
-                </span>
-            </Tooltip></MenuItem>
+                </span></Tooltip>
+            </MenuItem>
 
         </div>
     );
@@ -53,7 +54,7 @@ const NavLinkUnprotected = styled(NavLink)`
 margin: 5px 10px;
 text-decoration: none;
 &:visited, &:link, &:active {color: ${props => props.theme.palette.primary.main}   };
-&:focus, &:hover {color: ${props => props.theme.palette.warning.dark} };
+&:focus, &:hover {color: ${props => props.theme.palette.success.dark} };
 `;
 
 

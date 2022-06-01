@@ -14,16 +14,15 @@ let isAuthenticated = null;
 const NavBar = () => {
     isAuthenticated = useAuth(false);
     const isSmallScreen = useMediaQuery('(max-width: 600px)');
-    const placement = `${isSmallScreen ?  "top-end" : "right"}`;
+    const placement = `${isSmallScreen ? "top-end" : "right"}`;
 
     return (
         <MenuList sx={{margin: '20px'}}>
+            {!isAuthenticated && <MenuItem><NavLinkUnprotected href={menuConfig[0].url}
+                                                              underline={'none'}>{menuConfig[0].linkName}</NavLinkUnprotected>
+            </MenuItem> }
 
-            <MenuItem><NavLinkUnprotected href={menuConfig[0].url}
-                                          underline={'none'}>{menuConfig[0].linkName}</NavLinkUnprotected>
-            </MenuItem>
-
-            {!isAuthenticated && <Divider/>}
+            {!isAuthenticated && <Divider/> }
 
             {!isAuthenticated &&
                 <Typography
@@ -54,10 +53,17 @@ const NavBar = () => {
                     })
                 }}
             >
+
                 {isAuthenticated && <UnlockedMenu placement={placement}/>}
                 {!isAuthenticated && <LockedMenu placement={placement}/>}
 
             </Box>
+
+            {isAuthenticated && <MenuItem><NavLinkUnprotected href={menuConfig[0].url}
+                                           underline={'none'}>{menuConfig[0].linkName}</NavLinkUnprotected>
+            </MenuItem>}
+
+
         </MenuList>
     );
 };
@@ -69,7 +75,7 @@ const NavLinkUnprotected = styled(NavLink)`
 margin: 5px 10px;
 text-decoration: none;
 &:visited, &:link, &:active {color: ${props => props.theme.palette.primary.main}   };
-&:focus, &:hover {color: ${props => props.theme.palette.warning.dark} };
+&:focus, &:hover {color: ${props => props.theme.palette.success.dark} };
 `;
 
 

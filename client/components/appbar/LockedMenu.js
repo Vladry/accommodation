@@ -14,27 +14,28 @@ const LockedMenu = ({placement}) => {
 
     return (
         <div>
+
             <MenuItem><Tooltip placement={placement}
                                title={menuConfig[1].title}>
                 <span>
-                    <NavLinkProtected href={menuConfig[1].url} children={menuConfig[1].linkName}/>
+                <NavLinkProtected href={menuConfig[1].url} children={menuConfig[1].linkName}/>
                 </span></Tooltip>
             </MenuItem>
 
             <MenuItem><Tooltip placement={placement}
                                title={menuConfig[2].title}>
                 <span>
-                <NavLinkProtected href={menuConfig[2].url} children={menuConfig[2].linkName}/>
+                   <NavLinkProtected href={menuConfig[2].url} children={menuConfig[2].linkName}/>
                 </span></Tooltip>
             </MenuItem>
+
 
             <MenuItem><Tooltip placement={placement}
                                title={menuConfig[3].title}>
                 <span>
-                   <NavLinkProtected href={menuConfig[3].url} children={menuConfig[3].linkName}/>
+                    <NavLinkProtected href={menuConfig[3].url} children={menuConfig[3].linkName}/>
                 </span></Tooltip>
             </MenuItem>
-
 
             <MenuItem><Tooltip placement={placement}
                                title={menuConfig[4].title}>
@@ -53,7 +54,8 @@ export default LockedMenu;
 const NavLinkProtected = styled(NavLink)`
 margin: 5px 10px;
 text-decoration: none;
-&:focus, &:hover, &:visited, &:link, &:active {color: ${props => props.theme.palette.primary.main}   };
+&:visited, &:link  {color: ${props => props.theme.palette.primary.main}   };
+&:focus, &:hover, &:active {color: ${props => props.theme.palette.error.main}   };
 `;
 
 

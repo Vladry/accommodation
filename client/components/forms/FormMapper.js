@@ -90,7 +90,8 @@ const FormMapper = ({fields, validation, handleSubmit}) => {
 
 
     return (
-        <form style={{ width: isSmallScreen? '400px' : '800px', margin: '0 auto'}} onSubmit={formik.handleSubmit}>
+        <form style={{ width: '95%', margin: '0 auto'}} onSubmit={formik.handleSubmit}>
+        {/*<form style={{ width: isSmallScreen? '95%' : '680px', margin: '0 auto'}} onSubmit={formik.handleSubmit}>*/}
             <Grid sx={{
                     display: 'grid',
                     justifyContent: "space-around",
