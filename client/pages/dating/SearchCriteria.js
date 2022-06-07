@@ -1,12 +1,15 @@
 import React from 'react';
 import DatingWrapper from "./DatingWrapper";
-import datingMenu from "./DatingMenu";
+import {datingMenu} from "../../public/menuConfig";
 
 const SearchCriteria = () => {
     return (
-        <DatingWrapper title={datingMenu[4]}>
-            <h2>search criteria</h2>
-        </DatingWrapper>
+        <div>
+            <DatingWrapper>
+                {datingMenu[4].linkName}
+            </DatingWrapper>
+            <h3>SearchCriteria</h3>
+        </div>
     );
 };
 

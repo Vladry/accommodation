@@ -1,12 +1,15 @@
 import React from 'react';
 import DatingWrapper from "./DatingWrapper";
-import datingMenu from "./DatingMenu";
+import {datingMenu} from "../../public/menuConfig";
 
 const DatingProfile = () => {
     return (
-        <DatingWrapper title={datingMenu[5]}>
-            <h2>profile</h2>
-        </DatingWrapper>
+        <div>
+            <DatingWrapper>
+                {datingMenu[5].linkName}
+            </DatingWrapper>
+            <h3>DatingProfile</h3>
+        </div>
     );
 };
 

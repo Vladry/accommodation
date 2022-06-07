@@ -1,14 +1,14 @@
 import React from 'react';
 import DatingWrapper from "./DatingWrapper";
-import datingMenu from "./DatingMenu";
+import {datingMenu} from "../../public/menuConfig";
 
 const Index = () => {
     return (
         <div>
-            <DatingWrapper title = {datingMenu[0]}>
-                <h2>Меню</h2>
+            <DatingWrapper>
+                {datingMenu[0].linkName}
             </DatingWrapper>
-
+            <h3>Меню</h3>
         </div>
     );
 };
