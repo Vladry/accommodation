@@ -3,14 +3,12 @@ import Head from "next/head";
 import {CssBaseline} from "@mui/material";
 import {ThemeProvider} from "@mui/material/styles"
 import {Provider} from "react-redux";
-import Header from "../components/Header";
 import {SessionProvider} from "next-auth/react";
 import {store, wrapper} from "../store/store";
 import createEmotionCache from "../utils/createEmotionCache";
 import {CacheProvider} from "@emotion/react";
 import theme from "../utils/theme";
 import RefreshTokenHandler from "../components/RefreshTokenHandler";
-import Layout from "../components/Layout";
 
 const clientSideEmotionCache = createEmotionCache();
 

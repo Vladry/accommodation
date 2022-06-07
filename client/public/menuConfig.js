@@ -5,7 +5,7 @@ export default [
         title: "",
     },
     {
-        url: "/acquaintances",
+        url: "/dating",
         linkName: "Знакомства",
         title: "Знакомства для поиска отношений/совместного проживания/семьи/создания групп по интересам. Полный сервисный пакет позволяет осуществлять поиск по рубрикам и интересам.",
     },
@@ -27,3 +27,30 @@ export default [
 
 ]
 ;
+
+export const datingMenu = [
+        {
+        url: "/dating",
+        linkName: "знакомства",
+    },        {
+        url: "/dating/Inbox",
+        linkName: "входящие",
+    },
+        {
+        url: "/dating/Favorites",
+        linkName: "избранные",
+    },
+        {
+        url: "/dating/MutualLikes",
+        linkName: "взаимно лайкаем",
+    },
+        {
+        url: "/dating/SearchCriteria",
+        linkName: "настройка поиска",
+    },
+        {
+        url: "/dating/DatingProfile",
+        linkName: "Ваша анкета",
+    },
+
+];
