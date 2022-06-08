@@ -19,7 +19,7 @@ const DatingMenu = () => {
 export default DatingMenu;
 
 const NavLink_styled = styled(NavLink)`
-margin: 5px 10px;
+margin: 5px auto;
 text-decoration: none;
 &:visited, &:link, &:active {color: ${props => props.theme.palette.primary.main}   };
 &:focus, &:hover {color: ${props => props.theme.palette.success.dark} };
@@ -27,8 +27,8 @@ text-decoration: none;
 
 
 const MenuItem = styled.div`
-border: 2px solid #ccc;
-border-radius: 15px;
+border: 2px solid #acc;
+border-radius: 8px;
 margin: 6px 10px;
-width: 200px;
+width: 100px;
 `;
