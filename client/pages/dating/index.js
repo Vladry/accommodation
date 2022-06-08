@@ -6,10 +6,22 @@ import DatingUserList from "../../components/content/DatingUserList";
 
 const Index = () => {
     const users = [
-        {name: "Vlad", bestPhoto: ""},
-        {name: "Serge", bestPhoto: ""},
-        {name: "Andrey", bestPhoto: ""},
-        {name: "Egor", bestPhoto: ""},
+        {name: "Vlad", bestPhoto: "photo1"},
+        {name: "Serge", bestPhoto: "photo2"},
+        {name: "Andrey", bestPhoto: "photo3"},
+        {name: "Anya", bestPhoto: "photo4"},
+        {name: "Petya", bestPhoto: "photo5"},
+        {name: "Galya", bestPhoto: "photo6"},
+        {name: "Sidora", bestPhoto: "photo7"},
+        {name: "Gvidonia", bestPhoto: "photo8"},
+        {name: "Algora", bestPhoto: "photo9"},
+        {name: "Semyon", bestPhoto: "photo10"},
+        {name: "Kuzya", bestPhoto: "photo11"},
+        {name: "Priparok", bestPhoto: "photo12"},
+        {name: "Karisa", bestPhoto: "photo13"},
+        {name: "Matvey", bestPhoto: "photo14"},
+        {name: "Danil", bestPhoto: "photo15"},
+        {name: "Efimovna", bestPhoto: "photo16"},
     ];
     return (
         <Grid container={true} spacing={2}>
