@@ -6,22 +6,22 @@ import DatingUserList from "../../components/content/DatingUserList";
 
 const Index = () => {
     const users = [
-        {name: "Vlad", bestPhoto: "photo1"},
-        {name: "Serge", bestPhoto: "photo2"},
-        {name: "Andrey", bestPhoto: "photo3"},
-        {name: "Anya", bestPhoto: "photo4"},
-        {name: "Petya", bestPhoto: "photo5"},
-        {name: "Galya", bestPhoto: "photo6"},
-        {name: "Sidora", bestPhoto: "photo7"},
-        {name: "Gvidonia", bestPhoto: "photo8"},
-        {name: "Algora", bestPhoto: "photo9"},
-        {name: "Semyon", bestPhoto: "photo10"},
-        {name: "Kuzya", bestPhoto: "photo11"},
-        {name: "Priparok", bestPhoto: "photo12"},
-        {name: "Karisa", bestPhoto: "photo13"},
-        {name: "Matvey", bestPhoto: "photo14"},
-        {name: "Danil", bestPhoto: "photo15"},
-        {name: "Efimovna", bestPhoto: "photo16"},
+        {id:  1, name: "Vlad", bestPhoto: "photo1"},
+        {id:  2, name: "Serge", bestPhoto: "photo2"},
+        {id:  3, name: "Andrey", bestPhoto: "photo3"},
+        {id:  4, name: "Anya", bestPhoto: "photo4"},
+        {id:  5, name: "Petya", bestPhoto: "photo5"},
+        {id:  6, name: "Galya", bestPhoto: "photo6"},
+        {id:  7, name: "Sidora", bestPhoto: "photo7"},
+        {id:  8, name: "Gvidonia", bestPhoto: "photo8"},
+        {id:  9, name: "Algora", bestPhoto: "photo9"},
+        {id: 10, name: "Semyon", bestPhoto: "photo10"},
+        {id: 11, name: "Kuzya", bestPhoto: "photo11"},
+        {id: 12, name: "Priparok", bestPhoto: "photo12"},
+        {id: 13, name: "Karisa", bestPhoto: "photo13"},
+        {id: 14, name: "Matvey", bestPhoto: "photo14"},
+        {id: 15, name: "Danil", bestPhoto: "photo15"},
+        {id: 16, name: "Efimovna", bestPhoto: "photo16"},
     ];
     return (
         <Grid container={true} spacing={2}>
@@ -32,7 +32,7 @@ const Index = () => {
             </Grid>
             <Grid item={true} xs={7} sm={9} md={10}>
                 <Box sx={{border: '1px solid green'}}>
-                    <h3>Меню</h3>
+                    <h3 style={{textAlign: 'center'}}>Меню</h3>
                     <DatingUserList users={users}/>
                 </Box>
             </Grid>

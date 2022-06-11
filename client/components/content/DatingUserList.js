@@ -1,5 +1,5 @@
 import React from 'react';
-import DatingUser from './DatingUser';
+import DatingUserCard from './DatingUserCard';
 import styled from "@emotion/styled";
 import {Box} from "@mui/material";
 
@@ -8,7 +8,7 @@ const DatingUserList = ({users}) => {
     const datingUsers = users.map(
         (user, key) => {
             if (!user) return null;
-            return <DatingUser user={user} key={key}/>;
+            return <DatingUserCard user={user} key={key}/>;
         });
 
     return (
@@ -22,7 +22,7 @@ export default DatingUserList;
 
 const FlexContainer = styled(Box)`
 display: flex;
-justify-content flex-start;
+justify-content: center;
 flex-flow: row wrap;
 gap: 5px;
 `;

@@ -9,6 +9,8 @@ import createEmotionCache from "../utils/createEmotionCache";
 import {CacheProvider} from "@emotion/react";
 import theme from "../utils/theme";
 import RefreshTokenHandler from "../components/RefreshTokenHandler";
+import {Context} from '../context';
+import contextValues from '../contextValues.js';
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -24,6 +26,8 @@ function MyApp({Component, pageProps, emotionCache = clientSideEmotionCache }) {
         }
     }, []);
 
+    const getDatingUserProfile = contextValues.getDatingUserProfile;
+
     return (
         <>
             <CacheProvider value={emotionCache}>
@@ -32,6 +36,7 @@ function MyApp({Component, pageProps, emotionCache = clientSideEmotionCache }) {
                     <title>My Page</title>
                 </Head>
                 <SessionProvider session={pageProps.session} refetchInterval={interval}>
+                    <Context.Provider value={{getDatingUserProfile}}>
                     <ThemeProvider theme={theme}>
                         <Provider store={store}>
                             <CssBaseline/>
@@ -40,9 +45,9 @@ function MyApp({Component, pageProps, emotionCache = clientSideEmotionCache }) {
                                 Component.getLayout(<Component {...pageProps} />) :
                                 <Component {...pageProps} />
                             }
-
                         </Provider>
                     </ThemeProvider>
+                    </Context.Provider>
                     <RefreshTokenHandler setInterval={setInterval} />
                 </SessionProvider>
             </CacheProvider>

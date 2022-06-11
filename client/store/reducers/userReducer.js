@@ -2,7 +2,8 @@ import {GET_PROFILE_FAILURE, GET_PROFILE_REQUEST, GET_PROFILE_SUCCESS, SET_USER_
 
 const initialState = {
     user: null,
-    loading: false
+    loading: false,
+
 }
 
 export default (state = initialState, action) => {

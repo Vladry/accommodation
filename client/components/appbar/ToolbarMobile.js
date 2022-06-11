@@ -11,11 +11,8 @@ import * as React from "react";
 import {styled} from "@mui/material/styles";
 import {useMediaQuery} from "@mui/material";
 import useAuth from "../../hooks/useAuth";
-import Toolbar from '@mui/material/Toolbar';
 
-
-
-export const ToolbarMobile = ({toggleDrawer, handleProfileMenuOpen, handleMobileMenuOpen}) => {
+export const ToolbarMobile = forwardRef(({toggleDrawer, handleUserProfileMobMenuOpen}, ref) => {
     const isSmallScreen = useMediaQuery('(max-width: 600px)');
     const isAuthenticated = useAuth(false);
 
@@ -39,7 +36,6 @@ export const ToolbarMobile = ({toggleDrawer, handleProfileMenuOpen, handleMobile
     return (
 
         <Toolbar_styled>
-
 
             <Typography style={{textAlign: 'center'}}>
                 ДОПОМОГА УКРАЇНЦЯМ</Typography>
@@ -72,13 +68,12 @@ export const ToolbarMobile = ({toggleDrawer, handleProfileMenuOpen, handleMobile
 
                 {!!isSmallScreen && <Greeting/>}
 
-                {!!isAuthenticated && !!isSmallScreen &&
-                    <UserMenu handleProfileMenuOpen={handleProfileMenuOpen}
-                              handleMobileMenuOpen={handleMobileMenuOpen}/>}
+                <UserProfileMobMenu
+                    ref={ref}
+                    handleUserProfileMobMenuOpen={handleUserProfileMobMenuOpen}
+                />
             </Box>
 
-            {isAuthenticated && !isSmallScreen && <UserMenu handleProfileMenuOpen={handleProfileMenuOpen}
-                                                            handleMobileMenuOpen={handleMobileMenuOpen}/>}
 
             {!isAuthenticated &&
                 <Link href={'/login'}>
@@ -90,4 +85,9 @@ export const ToolbarMobile = ({toggleDrawer, handleProfileMenuOpen, handleMobile
         </Toolbar_styled>
     );
 
-};
+});
+
+
+import Toolbar from '@mui/material/Toolbar';
+import {forwardRef} from "react";
+import UserProfileMobMenu from "./UserProfileMobMenu";

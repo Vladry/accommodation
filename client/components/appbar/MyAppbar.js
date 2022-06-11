@@ -16,7 +16,7 @@ import SearchBar from "./SearchBar";
 import UserMenu from "./UserMenu";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import {signOut} from "next-auth/react";
-import {useState} from "react";
+import {useRef, useState} from "react";
 import useAuth from "../../hooks/useAuth";
 import LoginIcon from '@mui/icons-material/Login';
 import Link from 'next/link';
@@ -28,6 +28,7 @@ import * as propTypes from "prop-types";
 import {useMediaQuery} from "@mui/material";
 import {ToolbarFullSize} from "./ToolbarFullSize";
 import {ToolbarMobile} from "./ToolbarMobile";
+import BasicMenuTest from "../../pages/BasicMenuTest";
 
 /*export async function getServerSideProps() {
     const res = await fetch(`https://http://localhost:3000/data`)
@@ -38,50 +39,88 @@ import {ToolbarMobile} from "./ToolbarMobile";
 }*/
 
 export default function MyAppbar({toggleDrawer}) {
+    const refPicker = useRef();
     const user = useSelector(state => state.userData.user);
     const isAuthenticated = useAuth(false);
-    const [anchorEl, setAnchorEl] = useState(null);
-    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
+    const [userProfileFullMenuAnchorEl, setUserProfileFullMenuAnchorEl] = useState(null);
+    const [userProfileMobMenuAnchorEl, setUserProfileMobMenuAnchorEl] = useState(null);
 
-    const isMenuOpen = Boolean(anchorEl);
-    const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+    const isMenuOpen = Boolean(userProfileFullMenuAnchorEl);
+    const isMobileMenuOpen = Boolean(userProfileMobMenuAnchorEl);
     const isMediumSize = useMediaQuery('(min-width: 601px)');
     const isSmallSize = useMediaQuery('(max-width: 600px)');
 
-    const handleProfileMenuOpen = (event) => {
-        setAnchorEl(event.currentTarget);
+
+    const handleUserProfileFullMenuOpen = (event) => {
+        // console.log('in handle userProfileFullMenu Open');
+        console.log('event.currentTarget in MyAppbar: ', event.currentTarget);
+        console.log('refPicker.current in MyAppbar: ', refPicker.current);
+        // setUserProfileFullMenuAnchorEl(event.currentTarget);
+        setUserProfileFullMenuAnchorEl(refPicker.current);
     };
-    const handleMobileMenuOpen = (event) => {
-        setMobileMoreAnchorEl(event.currentTarget);
+    const handleUserProfileMobMenuOpen = (event) => {
+        // console.log('in handleMobileMenuOpen');
+        console.log('refPicker.current in MyAppbar: ', refPicker.current);
+        // setUserProfileMobMenuAnchorEl(event.currentTarget);
+        setUserProfileMobMenuAnchorEl(refPicker.current);
     };
 
-    const handleMenuClose = () => {
-        setAnchorEl(null);
-        handleMobileMenuClose();
+
+    const handleUserProfileFullMenuClose = () => {
+        setUserProfileFullMenuAnchorEl(null);
+        handleUserProfileMobMenuClose();
     };
-    const handleMobileMenuClose = () => {
-        setMobileMoreAnchorEl(null);
+    const handleUserProfileMobMenuClose = () => {
+        setUserProfileMobMenuAnchorEl(null);
     };
 
 
-    const accountMenuMobVerId = 'account-menu-mobile';
-    const renderAccountMenuMobVer = (
+
+    const accountMenuId = 'account-menu';
+    const renderUserProfileFullMenu = (
         <Menu
-            anchorEl={mobileMoreAnchorEl}
+            anchorEl={userProfileFullMenuAnchorEl}
             anchorOrigin={{
                 vertical: 'top',
                 horizontal: 'right',
             }}
-            id={accountMenuMobVerId}
+            id={accountMenuId}
+            keepMounted
+            transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+            }}
+            open={isMenuOpen}
+            onClose={handleUserProfileFullMenuClose}
+        >
+            <MenuItem><Typography>logged: {user?.email}</Typography></MenuItem>
+            <MenuItem onClick={handleUserProfileFullMenuClose}>Profile</MenuItem>
+            <MenuItem onClick={handleUserProfileFullMenuClose}>My account</MenuItem>
+
+            <IconButton onClick={signOut}>
+                <ExitToAppIcon/>
+            </IconButton>
+        </Menu>
+    );
+
+
+    const userProfileMobMenuId = 'account-menu-mobile';
+    const renderUserProfileMobMenu = (
+        <Menu
+            anchorEl={userProfileMobMenuAnchorEl}
+            anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+            }}
+            id={userProfileMobMenuId}
             keepMounted
             transformOrigin={{
                 vertical: 'top',
                 horizontal: 'right',
             }}
             open={isMobileMenuOpen}
-            onClose={handleMobileMenuClose}
+            onClose={handleUserProfileMobMenuClose}
         >
-
 
             <MenuItem><Typography>logged: {user?.email}</Typography></MenuItem>
 
@@ -107,7 +146,7 @@ export default function MyAppbar({toggleDrawer}) {
                 <p>Notifications</p>
             </MenuItem>
 
-            <MenuItem onClick={handleProfileMenuOpen}>
+            <MenuItem onClick={handleUserProfileFullMenuOpen}>
 
                 <IconButton
                     size="large"
@@ -125,75 +164,29 @@ export default function MyAppbar({toggleDrawer}) {
     );
 
 
-    const accountMenuId = 'account-menu';
-    const renderAccountMenu = (
-        <Menu
-            anchorEl={anchorEl}
-            anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-            }}
-            id={accountMenuId}
-            keepMounted
-            transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-            }}
-            open={isMenuOpen}
-            onClose={handleMenuClose}
-        >
-            <MenuItem><Typography>logged: {user?.email}</Typography></MenuItem>
-            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-
-            <IconButton onClick={signOut}>
-                <ExitToAppIcon/>
-            </IconButton>
-
-        </Menu>
-    );
 
     return (
         <Box sx={{flexGrow: 1}}>
             <AppBar position="static">
 
-
                 {!!isSmallSize && <ToolbarMobile toggleDrawer={toggleDrawer}
-                                  handleProfileMenuOpen={handleProfileMenuOpen}
-                                  handleMobileMenuOpen={handleMobileMenuOpen}
+                                                 ref={refPicker}
+                                                 handleUserProfileMobMenuOpen={handleUserProfileMobMenuOpen}
                 />}
 
                 {!!isMediumSize && <ToolbarFullSize toggleDrawer={toggleDrawer}
-                                handleProfileMenuOpen={handleProfileMenuOpen}
-                                handleMobileMenuOpen={handleMobileMenuOpen}
+                                                    ref={refPicker}
+                                                    handleUserProfileFullMenuOpen={handleUserProfileFullMenuOpen}
                 />}
 
 
-
             </AppBar>
-            {isAuthenticated && renderAccountMenuMobVer}
-            {isAuthenticated && renderAccountMenu}
+            {isAuthenticated && renderUserProfileMobMenu}
+            {isAuthenticated && renderUserProfileFullMenu}
         </Box>
     );
 };
 
-
-const ToolbarSM_styled = styled(ToolbarFullSize)(
-    ({theme}) => (
-        {
-            display: 'flex',
-            justifyContent: 'space-around',
-            alignItems: 'center',
-            width: '100%',
-            margin: '0 auto',
-            padding: '4px 24px',
-            backgroundColor: '#502211',
-
-            [theme.breakpoints.down('sm')]: {
-                flexDirection: 'column',
-            }
-        }
-    ));
 
 MyAppbar.propTypes = {
     toggleDrawer: propTypes.func

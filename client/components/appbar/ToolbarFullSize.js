@@ -12,9 +12,12 @@ import {styled} from "@mui/material/styles";
 import {useMediaQuery} from "@mui/material";
 import useAuth from "../../hooks/useAuth";
 import Toolbar from '@mui/material/Toolbar';
+import {forwardRef} from "react";
+import UserProfileMobMenu from "./UserProfileMobMenu";
+import UserProfileFullMenu from "./UserProfileFullMenu";
 
 
-export const ToolbarFullSize = ({toggleDrawer, handleProfileMenuOpen, handleMobileMenuOpen}) => {
+export const ToolbarFullSize = forwardRef(({toggleDrawer, handleUserProfileFullMenuOpen}, ref) => {
     const isMediumScreen = useMediaQuery('(max-width: 900px)');
     const isSmallScreen = useMediaQuery('(max-width: 600px)');
     const isAuthenticated = useAuth(false);
@@ -37,9 +40,7 @@ export const ToolbarFullSize = ({toggleDrawer, handleProfileMenuOpen, handleMobi
         ));
 
     return (
-
         <Toolbar_styled>
-
             <Box sx={{
                 display: 'inline-flex', flexFlow: 'row nowrap', justifyContent: 'space-between',
                 alignItems: 'center', width: {xs: '90%', sm: '8%', md: '20%'}
@@ -67,11 +68,6 @@ export const ToolbarFullSize = ({toggleDrawer, handleProfileMenuOpen, handleMobi
                 {!!isSmallScreen && <Greeting/>}
 
 
-                {!!isAuthenticated && !!isSmallScreen &&
-                    <UserMenu handleProfileMenuOpen={handleProfileMenuOpen}
-                              handleMobileMenuOpen={handleMobileMenuOpen}/>}
-
-
             </Box>
             {isSmallScreen && <Typography style={{textAlign: 'center'}}>
                 ДОПОМОГА УКРАЇНЦЯМ
@@ -84,8 +80,10 @@ export const ToolbarFullSize = ({toggleDrawer, handleProfileMenuOpen, handleMobi
 
             {!isSmallScreen && !!isMediumScreen && <Greeting/>}
 
-            {isAuthenticated && !isSmallScreen && <UserMenu handleProfileMenuOpen={handleProfileMenuOpen}
-                                                            handleMobileMenuOpen={handleMobileMenuOpen}/>}
+                <UserProfileFullMenu
+                    ref={ref}
+                    handleUserProfileFullMenuOpen={handleUserProfileFullMenuOpen}
+                />
 
 
             {!isAuthenticated &&
@@ -98,4 +96,4 @@ export const ToolbarFullSize = ({toggleDrawer, handleProfileMenuOpen, handleMobi
         </Toolbar_styled>
     );
 
-};
+});

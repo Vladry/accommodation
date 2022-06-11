@@ -1,4 +1,3 @@
-
 import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
@@ -8,7 +7,7 @@ import {getSession} from "next-auth/react";
 import {getProfile} from "./actions/userAction";
 
 // initial states here
-const initalState = {};
+const initialState = {};
 
 // middleware
 const middleware = [thunk];
@@ -17,7 +16,7 @@ const middleware = [thunk];
 // creating store
 export const store = createStore(
     rootReducer,
-    initalState,
+    initialState,
     composeWithDevTools(applyMiddleware(...middleware))
 );
 
