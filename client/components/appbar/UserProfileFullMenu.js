@@ -10,15 +10,54 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import {signOut} from "next-auth/react";
 import {useSelector} from "react-redux";
 import {getProfile} from "../../store/actions/userAction";
-import {Typography} from "@mui/material";
+import {Typography, useMediaQuery} from "@mui/material";
 import Greeting from "./Greeting";
 import MenuItem from "@mui/material/MenuItem";
+import Menu from "@mui/material/Menu";
+import useAuth from "../../hooks/useAuth";
 
-const UserMenu = forwardRef((props, ref) => {
-    const {
-        menuId, mobileMenuId, handleProfileMenuOpen, handleMobileMenuOpen
-    } = props;
-    // const user = useSelector(state => state.userData.user);
+const UserProfileFullMenu = (props) => {
+    const {menuId} = props;
+
+    const user = useSelector(state => state.userData.user);
+    const isAuthenticated = useAuth(false);
+    const [userProfileFullMenuAnchorEl, setUserProfileFullMenuAnchorEl] = useState(null);
+    const isFullMenuOpen = Boolean(userProfileFullMenuAnchorEl);
+
+    const handleUserProfileFullMenuOpen = (event) => {
+        setUserProfileFullMenuAnchorEl(event.currentTarget);
+    };
+    const handleUserProfileFullMenuClose = () => {
+        setUserProfileFullMenuAnchorEl(null);
+    };
+
+        const accountMenuId = 'account-menu';
+        const renderUserProfileFullMenu = (
+            <Menu
+                anchorEl={userProfileFullMenuAnchorEl}
+                anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                }}
+                id={accountMenuId}
+                keepMounted
+                transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                }}
+                open={isFullMenuOpen}
+                onClose={handleUserProfileFullMenuClose}
+            >
+                <MenuItem><Typography>logged: {user?.email}</Typography></MenuItem>
+                <MenuItem onClick={handleUserProfileFullMenuClose}>Profile</MenuItem>
+                <MenuItem onClick={handleUserProfileFullMenuClose}>My account</MenuItem>
+
+                <IconButton onClick={signOut}>
+                    <ExitToAppIcon/>
+                </IconButton>
+            </Menu>
+        );
+
 
     return (
         <>
@@ -39,6 +78,7 @@ const UserMenu = forwardRef((props, ref) => {
                 </IconButton>
 
                 <Greeting/>
+            </Box>
 
                 <IconButton
                     size="large"
@@ -46,29 +86,19 @@ const UserMenu = forwardRef((props, ref) => {
                     aria-label="account of current user"
                     aria-controls={menuId}
                     aria-haspopup="true"
-                    onClick={handleProfileMenuOpen}
+                    onClick={handleUserProfileFullMenuOpen}
                     color="inherit"
                 >
-                    <AccountCircle ref={ref}/>
+                    <AccountCircle  sx={{display: {xs: 'none', md: 'flex'}}}/>
+                    <MoreIcon  sx={{display: {xs: 'flex', md: 'none'}}}/>
 
                 </IconButton>
-            </Box>
-            <Box sx={{display: {xs: 'flex', md: 'none'}}}>
-                <IconButton
-                    size="large"
-                    aria-label="show more"
-                    aria-controls={mobileMenuId}
-                    aria-haspopup="true"
-                    onClick={handleMobileMenuOpen}
-                    color="inherit"
-                    >
-                    <MoreIcon ref={ref}/>
-                </IconButton>
 
-            </Box>
 
+
+            {isAuthenticated && renderUserProfileFullMenu}
         </>
     );
-});
+};
 
-export default UserMenu;
+export default UserProfileFullMenu;

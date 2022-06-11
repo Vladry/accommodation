@@ -3,7 +3,6 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import MenuIcon from "@mui/icons-material/Menu";
 import Greeting from "./Greeting";
-import UserMenu from "./UserMenu";
 import SearchBar from "./SearchBar";
 import Link from "next/link";
 import LoginIcon from "@mui/icons-material/Login";
@@ -12,12 +11,11 @@ import {styled} from "@mui/material/styles";
 import {useMediaQuery} from "@mui/material";
 import useAuth from "../../hooks/useAuth";
 import Toolbar from '@mui/material/Toolbar';
-import {forwardRef} from "react";
-import UserProfileMobMenu from "./UserProfileMobMenu";
 import UserProfileFullMenu from "./UserProfileFullMenu";
+import {useSelector} from "react-redux";
 
 
-export const ToolbarFullSize = forwardRef(({toggleDrawer, handleUserProfileFullMenuOpen}, ref) => {
+export const ToolbarFullSize = ({toggleDrawer, handleUserProfileFullMenuOpen}) => {
     const isMediumScreen = useMediaQuery('(max-width: 900px)');
     const isSmallScreen = useMediaQuery('(max-width: 600px)');
     const isAuthenticated = useAuth(false);
@@ -80,10 +78,7 @@ export const ToolbarFullSize = forwardRef(({toggleDrawer, handleUserProfileFullM
 
             {!isSmallScreen && !!isMediumScreen && <Greeting/>}
 
-                <UserProfileFullMenu
-                    ref={ref}
-                    handleUserProfileFullMenuOpen={handleUserProfileFullMenuOpen}
-                />
+                <UserProfileFullMenu/>
 
 
             {!isAuthenticated &&
@@ -96,4 +91,4 @@ export const ToolbarFullSize = forwardRef(({toggleDrawer, handleUserProfileFullM
         </Toolbar_styled>
     );
 
-});
+};

@@ -3,7 +3,6 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import MenuIcon from "@mui/icons-material/Menu";
 import Greeting from "./Greeting";
-import UserMenu from "./UserMenu";
 import SearchBar from "./SearchBar";
 import Link from "next/link";
 import LoginIcon from "@mui/icons-material/Login";
@@ -11,8 +10,10 @@ import * as React from "react";
 import {styled} from "@mui/material/styles";
 import {useMediaQuery} from "@mui/material";
 import useAuth from "../../hooks/useAuth";
+import Toolbar from '@mui/material/Toolbar';
+import UserProfileMobMenu from "./UserProfileMobMenu";
 
-export const ToolbarMobile = forwardRef(({toggleDrawer, handleUserProfileMobMenuOpen}, ref) => {
+export const ToolbarMobile = ({toggleDrawer}) => {
     const isSmallScreen = useMediaQuery('(max-width: 600px)');
     const isAuthenticated = useAuth(false);
 
@@ -68,10 +69,7 @@ export const ToolbarMobile = forwardRef(({toggleDrawer, handleUserProfileMobMenu
 
                 {!!isSmallScreen && <Greeting/>}
 
-                <UserProfileMobMenu
-                    ref={ref}
-                    handleUserProfileMobMenuOpen={handleUserProfileMobMenuOpen}
-                />
+                <UserProfileMobMenu/>
             </Box>
 
 
@@ -85,9 +83,6 @@ export const ToolbarMobile = forwardRef(({toggleDrawer, handleUserProfileMobMenu
         </Toolbar_styled>
     );
 
-});
+};
 
 
-import Toolbar from '@mui/material/Toolbar';
-import {forwardRef} from "react";
-import UserProfileMobMenu from "./UserProfileMobMenu";

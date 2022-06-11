@@ -39,150 +39,21 @@ import BasicMenuTest from "../../pages/BasicMenuTest";
 }*/
 
 export default function MyAppbar({toggleDrawer}) {
-    const refPicker = useRef();
-    const user = useSelector(state => state.userData.user);
-    const isAuthenticated = useAuth(false);
-    const [userProfileFullMenuAnchorEl, setUserProfileFullMenuAnchorEl] = useState(null);
-    const [userProfileMobMenuAnchorEl, setUserProfileMobMenuAnchorEl] = useState(null);
 
-    const isMenuOpen = Boolean(userProfileFullMenuAnchorEl);
-    const isMobileMenuOpen = Boolean(userProfileMobMenuAnchorEl);
+    const isAuthenticated = useAuth(false);
     const isMediumSize = useMediaQuery('(min-width: 601px)');
     const isSmallSize = useMediaQuery('(max-width: 600px)');
-
-
-    const handleUserProfileFullMenuOpen = (event) => {
-        // console.log('in handle userProfileFullMenu Open');
-        console.log('event.currentTarget in MyAppbar: ', event.currentTarget);
-        console.log('refPicker.current in MyAppbar: ', refPicker.current);
-        // setUserProfileFullMenuAnchorEl(event.currentTarget);
-        setUserProfileFullMenuAnchorEl(refPicker.current);
-    };
-    const handleUserProfileMobMenuOpen = (event) => {
-        // console.log('in handleMobileMenuOpen');
-        console.log('refPicker.current in MyAppbar: ', refPicker.current);
-        // setUserProfileMobMenuAnchorEl(event.currentTarget);
-        setUserProfileMobMenuAnchorEl(refPicker.current);
-    };
-
-
-    const handleUserProfileFullMenuClose = () => {
-        setUserProfileFullMenuAnchorEl(null);
-        handleUserProfileMobMenuClose();
-    };
-    const handleUserProfileMobMenuClose = () => {
-        setUserProfileMobMenuAnchorEl(null);
-    };
-
-
-
-    const accountMenuId = 'account-menu';
-    const renderUserProfileFullMenu = (
-        <Menu
-            anchorEl={userProfileFullMenuAnchorEl}
-            anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-            }}
-            id={accountMenuId}
-            keepMounted
-            transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-            }}
-            open={isMenuOpen}
-            onClose={handleUserProfileFullMenuClose}
-        >
-            <MenuItem><Typography>logged: {user?.email}</Typography></MenuItem>
-            <MenuItem onClick={handleUserProfileFullMenuClose}>Profile</MenuItem>
-            <MenuItem onClick={handleUserProfileFullMenuClose}>My account</MenuItem>
-
-            <IconButton onClick={signOut}>
-                <ExitToAppIcon/>
-            </IconButton>
-        </Menu>
-    );
-
-
-    const userProfileMobMenuId = 'account-menu-mobile';
-    const renderUserProfileMobMenu = (
-        <Menu
-            anchorEl={userProfileMobMenuAnchorEl}
-            anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-            }}
-            id={userProfileMobMenuId}
-            keepMounted
-            transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-            }}
-            open={isMobileMenuOpen}
-            onClose={handleUserProfileMobMenuClose}
-        >
-
-            <MenuItem><Typography>logged: {user?.email}</Typography></MenuItem>
-
-
-            <MenuItem>
-                <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                    <Badge badgeContent={4} color="error">
-                        <MailIcon/>
-                    </Badge>
-                </IconButton>
-                <p>Messages</p>
-            </MenuItem>
-            <MenuItem>
-                <IconButton
-                    size="large"
-                    aria-label="show 17 new notifications"
-                    color="inherit"
-                >
-                    <Badge badgeContent={17} color="error">
-                        <NotificationsIcon/>
-                    </Badge>
-                </IconButton>
-                <p>Notifications</p>
-            </MenuItem>
-
-            <MenuItem onClick={handleUserProfileFullMenuOpen}>
-
-                <IconButton
-                    size="large"
-                    aria-label="account of current user"
-                    aria-controls="account-menu"
-                    aria-haspopup="true"
-                    color="inherit"
-                >
-                    <AccountCircle/>
-                </IconButton>
-
-                <p>Profile</p>
-            </MenuItem>
-        </Menu>
-    );
-
-
 
     return (
         <Box sx={{flexGrow: 1}}>
             <AppBar position="static">
 
-                {!!isSmallSize && <ToolbarMobile toggleDrawer={toggleDrawer}
-                                                 ref={refPicker}
-                                                 handleUserProfileMobMenuOpen={handleUserProfileMobMenuOpen}
-                />}
+                {!!isSmallSize && <ToolbarMobile toggleDrawer={toggleDrawer}/>}
 
-                {!!isMediumSize && <ToolbarFullSize toggleDrawer={toggleDrawer}
-                                                    ref={refPicker}
-                                                    handleUserProfileFullMenuOpen={handleUserProfileFullMenuOpen}
-                />}
-
+                {!!isMediumSize && <ToolbarFullSize toggleDrawer={toggleDrawer}/>}
 
             </AppBar>
-            {isAuthenticated && renderUserProfileMobMenu}
-            {isAuthenticated && renderUserProfileFullMenu}
+
         </Box>
     );
 };
