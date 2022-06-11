@@ -11,7 +11,7 @@ import {styled} from "@mui/material/styles";
 import {useMediaQuery} from "@mui/material";
 import useAuth from "../../hooks/useAuth";
 import Toolbar from '@mui/material/Toolbar';
-import UserProfileMenu_ from "./UserProfileMenu";
+import UserProfileMenu from "./UserProfileMenu";
 
 
 export const ToolbarFullSize = ({toggleDrawer, handleUserProfileFullMenuOpen}) => {
@@ -77,7 +77,7 @@ export const ToolbarFullSize = ({toggleDrawer, handleUserProfileFullMenuOpen}) =
 
             {!isSmallScreen && !!isMediumScreen && <Greeting/>}
 
-            <UserProfileMenu_/>
+            <UserProfileMenu/>
 
 
             {!isAuthenticated &&

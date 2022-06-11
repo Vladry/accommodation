@@ -1,22 +1,24 @@
 import * as React from 'react';
 import Drawer from '@mui/material/Drawer';
-import Button from '@mui/material/Button';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import NavBar from "./NavBar";
-
 
 export default function My_Drawer({isDrawerOpen, toggleDrawer}) {
 
     return (
         <>
-            <Drawer
+            <SwipeableDrawer
                 anchor={'left'}
                 open={isDrawerOpen}
-                onClose={()=>{}}
+                onOpen={()=>{ }}
+                onClose={toggleDrawer}
                 onClick={toggleDrawer}
+                ModalProps={{
+                    keepMounted: true,
+                }}
             >
-                {/*<Button onClick={toggleDrawer}>Close</Button>*/}
-                <NavBar handleNavClick={toggleDrawer}/>
-            </Drawer>
+                <NavBar/>
+            </SwipeableDrawer>
         </>
     );
 }

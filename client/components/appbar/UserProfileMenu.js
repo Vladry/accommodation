@@ -51,7 +51,7 @@ const UserProfileMenu = (props) => {
         >
 
             {!isLargeScreen &&
-                <>
+                <Box>
                     <MenuItem>
                         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
                             <Badge badgeContent={4} color="error">
@@ -73,7 +73,7 @@ const UserProfileMenu = (props) => {
                         </IconButton>
                         <p>Notifications</p>
                     </MenuItem>
-                </>}
+                </Box>}
 
                     <MenuItem><Typography>logged: {user?.email}</Typography></MenuItem>
                     <MenuItem>Profile</MenuItem>
