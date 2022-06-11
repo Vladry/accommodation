@@ -11,7 +11,7 @@ import {styled} from "@mui/material/styles";
 import {useMediaQuery} from "@mui/material";
 import useAuth from "../../hooks/useAuth";
 import Toolbar from '@mui/material/Toolbar';
-import UserProfileMobMenu from "./UserProfileMobMenu";
+import UserProfileMenu_ from "./UserProfileMenu";
 
 export const ToolbarMobile = ({toggleDrawer}) => {
     const isSmallScreen = useMediaQuery('(max-width: 600px)');
@@ -69,7 +69,7 @@ export const ToolbarMobile = ({toggleDrawer}) => {
 
                 {!!isSmallScreen && <Greeting/>}
 
-                <UserProfileMobMenu/>
+                <UserProfileMenu_/>
             </Box>
 
 

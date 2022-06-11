@@ -11,8 +11,7 @@ import {styled} from "@mui/material/styles";
 import {useMediaQuery} from "@mui/material";
 import useAuth from "../../hooks/useAuth";
 import Toolbar from '@mui/material/Toolbar';
-import UserProfileFullMenu from "./UserProfileFullMenu";
-import {useSelector} from "react-redux";
+import UserProfileMenu_ from "./UserProfileMenu";
 
 
 export const ToolbarFullSize = ({toggleDrawer, handleUserProfileFullMenuOpen}) => {
@@ -78,7 +77,7 @@ export const ToolbarFullSize = ({toggleDrawer, handleUserProfileFullMenuOpen}) =
 
             {!isSmallScreen && !!isMediumScreen && <Greeting/>}
 
-                <UserProfileFullMenu/>
+            <UserProfileMenu_/>
 
 
             {!isAuthenticated &&

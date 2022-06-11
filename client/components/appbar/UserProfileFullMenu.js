@@ -48,9 +48,12 @@ const UserProfileFullMenu = (props) => {
                 open={isFullMenuOpen}
                 onClose={handleUserProfileFullMenuClose}
             >
-                <MenuItem><Typography>logged: {user?.email}</Typography></MenuItem>
-                <MenuItem onClick={handleUserProfileFullMenuClose}>Profile</MenuItem>
-                <MenuItem onClick={handleUserProfileFullMenuClose}>My account</MenuItem>
+                {isLargeScreen &&
+                    <Box>
+                        <MenuItem><Typography>logged: {user?.email}</Typography></MenuItem>
+                        <MenuItem onClick={handleUserProfileFullMenuClose}>Profile</MenuItem>
+                        <MenuItem onClick={handleUserProfileFullMenuClose}>My account</MenuItem>
+                    </Box>}
 
                 <IconButton onClick={signOut}>
                     <ExitToAppIcon/>

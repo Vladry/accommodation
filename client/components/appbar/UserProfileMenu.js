@@ -16,76 +16,73 @@ import MenuItem from "@mui/material/MenuItem";
 import useAuth from "../../hooks/useAuth";
 import Menu from "@mui/material/Menu";
 
-const UserProfileMobMenu = (props) => {
+const UserProfileMenu = (props) => {
     const {menuId} = props;
 
     const user = useSelector(state => state.userData.user);
     const isAuthenticated = useAuth(false);
-    const [userProfileMobMenuAnchorEl, setUserProfileMobMenuAnchorEl] = useState(null);
-    const isMobileMenuOpen = Boolean(userProfileMobMenuAnchorEl);
-    const handleUserProfileMobMenuOpen = (event) => {
-        setUserProfileMobMenuAnchorEl(event.currentTarget);
+    const isMediumScreen = useMediaQuery('(max-width: 900px)');
+    const isLargeScreen = useMediaQuery('(min-width: 901px)');
+    const [userProfileMenuAnchorEl, setUserProfileMenuAnchorEl] = useState(null);
+    const isMenuOpen = Boolean(userProfileMenuAnchorEl);
+    const handleUserProfileMenuOpen = (event) => {
+        setUserProfileMenuAnchorEl(event.currentTarget);
     };
-    const handleUserProfileMobMenuClose = () => {
-        setUserProfileMobMenuAnchorEl(null);
+    const handleUserProfileMenuClose = () => {
+        setUserProfileMenuAnchorEl(null);
     };
 
-    const userProfileMobMenuId = 'account-menu-mobile';
-    const renderUserProfileMobMenu = (
+    const userProfileMenuId = 'account-menu';
+    const renderUserProfileMenu = (
         <Menu
-            anchorEl={userProfileMobMenuAnchorEl}
+            anchorEl={userProfileMenuAnchorEl}
             anchorOrigin={{
                 vertical: 'top',
                 horizontal: 'right',
             }}
-            id={userProfileMobMenuId}
+            id={userProfileMenuId}
             keepMounted
             transformOrigin={{
                 vertical: 'top',
                 horizontal: 'right',
             }}
-            open={isMobileMenuOpen}
-            onClose={handleUserProfileMobMenuClose}
+            open={isMenuOpen}
+            onClose={handleUserProfileMenuClose}
         >
 
-            <MenuItem><Typography>logged: {user?.email}</Typography></MenuItem>
+            {!isLargeScreen &&
+                <>
+                    <MenuItem>
+                        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+                            <Badge badgeContent={4} color="error">
+                                <MailIcon/>
+                            </Badge>
+                        </IconButton>
+                        <p>Messages</p>
+                    </MenuItem>
 
+                    <MenuItem>
+                        <IconButton
+                            size="large"
+                            aria-label="show 17 new notifications"
+                            color="inherit"
+                        >
+                            <Badge badgeContent={17} color="error">
+                                <NotificationsIcon/>
+                            </Badge>
+                        </IconButton>
+                        <p>Notifications</p>
+                    </MenuItem>
+                </>}
 
-            <MenuItem>
-                <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                    <Badge badgeContent={4} color="error">
-                        <MailIcon/>
-                    </Badge>
-                </IconButton>
-                <p>Messages</p>
-            </MenuItem>
-            <MenuItem>
-                <IconButton
-                    size="large"
-                    aria-label="show 17 new notifications"
-                    color="inherit"
-                >
-                    <Badge badgeContent={17} color="error">
-                        <NotificationsIcon/>
-                    </Badge>
-                </IconButton>
-                <p>Notifications</p>
-            </MenuItem>
-
-            <MenuItem>
-
-                <IconButton
-                    size="large"
-                    aria-label="account of current user"
-                    aria-controls="account-menu"
-                    aria-haspopup="true"
-                    color="inherit"
-                >
-                    <AccountCircle/>
-                </IconButton>
-
-                <p>Profile</p>
-            </MenuItem>
+                    <MenuItem><Typography>logged: {user?.email}</Typography></MenuItem>
+                    <MenuItem>Profile</MenuItem>
+                    <MenuItem>My account</MenuItem>
+                    <MenuItem>
+                        <IconButton onClick={signOut}>
+                        <ExitToAppIcon/>
+                    </IconButton>
+                    </MenuItem>
         </Menu>
     );
 
@@ -118,7 +115,7 @@ const UserProfileMobMenu = (props) => {
                 aria-label="account of current user"
                 aria-controls={menuId}
                 aria-haspopup="true"
-                onClick={handleUserProfileMobMenuOpen}
+                onClick={handleUserProfileMenuOpen}
                 color="inherit"
             >
                 <AccountCircle sx={{display: {xs: 'none', md: 'flex'}}}/>
@@ -126,9 +123,9 @@ const UserProfileMobMenu = (props) => {
 
             </IconButton>
 
-            {isAuthenticated && renderUserProfileMobMenu}
+            {isAuthenticated && renderUserProfileMenu}
         </>
     );
 };
 
-export default UserProfileMobMenu;
+export default UserProfileMenu;
