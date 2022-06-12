@@ -15,6 +15,7 @@ import Greeting from "./Greeting";
 import MenuItem from "@mui/material/MenuItem";
 import useAuth from "../../hooks/useAuth";
 import Menu from "@mui/material/Menu";
+import styled from '@emotion/styled';
 
 const UserProfileMenu = (props) => {
     const {menuId} = props;
@@ -105,7 +106,7 @@ const UserProfileMenu = (props) => {
                     </Badge>
                 </IconButton>
 
-                <Greeting/>
+                <Greeting />
             </Box>
 
 

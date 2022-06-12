@@ -17,6 +17,7 @@ import UserProfileMenu from "./UserProfileMenu";
 export const ToolbarFullSize = ({toggleDrawer, handleUserProfileFullMenuOpen}) => {
     const isMediumScreen = useMediaQuery('(max-width: 900px)');
     const isSmallScreen = useMediaQuery('(max-width: 600px)');
+    const isLargeScreen = useMediaQuery('(min-width: 901px)');
     const isAuthenticated = useAuth(false);
 
     const Toolbar_styled = styled(Toolbar)(
@@ -75,7 +76,7 @@ export const ToolbarFullSize = ({toggleDrawer, handleUserProfileFullMenuOpen}) =
 
             {isAuthenticated && <SearchBar/>}
 
-            {!isSmallScreen && !!isMediumScreen && <Greeting/>}
+            {!isSmallScreen && !!isMediumScreen && <Greeting />}
 
             <UserProfileMenu/>
 

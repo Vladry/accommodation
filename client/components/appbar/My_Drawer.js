@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Drawer from '@mui/material/Drawer';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import NavBar from "./NavBar";
 
