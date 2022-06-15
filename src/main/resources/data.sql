@@ -21,10 +21,16 @@ VALUES
 
 
 INSERT INTO accommodation (locations, acc_type, num_of_rooms, num_of_beds,
-                           provide_work, provide_food, status, dating, disab_sprt, childcare_sprt, pets)
+                           provide_work, provide_food, status, disab_sprt, childcare_sprt, pets)
 VALUES
-       ('Loc1',  1,  1,  1, false, false, 1, true, false, false, 1),
-       ('Loc30', 1, 30, 30, false, true, 1, true, true , false, 1);
+       ('Loc1', 1,  1,  1, false, false, 1, false, false, 1),
+       ('Loc2', 2, 30, 30, true,  true,  1, true , false, 1),
+       ('Loc3', 3,  3, 30, false, true,  1, true , false, 1),
+       ('Loc4', 1,  3,  3, true,  true,  1, true , false, 1),
+       ('Loc5', 1,  3,  3, false, true,  1, true , false, 1),
+       ('Loc6', 2,  3,  3, true,  true,  1, true , false, 1),
+       ('Loc7', 3,  3,  3, false, true,  1, true , false, 1),
+       ('Loc8', 1, 30, 30, true,  true,  1, true , false, 1);
 
 
 SET FOREIGN_KEY_CHECKS=1;

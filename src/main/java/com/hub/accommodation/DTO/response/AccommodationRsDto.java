@@ -23,16 +23,16 @@ public class AccommodationRsDto extends BaseEntity {
     int priceTotal;
     int pricePerRoom;
     int pricePerPerson;
-    boolean helpWithWork;
-    boolean helpWithFood;
+    boolean helpWithWork = false;
+    boolean helpWithFood = false;
     Set<PictureRsDto> pictures;
     @NonNull
     String accommodationStatus;
     int liked;
     @NonNull
     Long userId;
-    boolean disabilityOrElderlySupport;
-    boolean childCareSupport;
+    boolean disabilityOrElderlySupport = false;
+    boolean childCareSupport = false;
     @NonNull
     String petsAllowed;
 }

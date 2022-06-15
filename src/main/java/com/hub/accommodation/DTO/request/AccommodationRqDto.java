@@ -29,13 +29,12 @@ public class AccommodationRqDto extends BaseEntity {
     int priceTotal;
     int pricePerRoom;
     int pricePerPerson;
-    boolean helpWithWork;
-    boolean helpWithFood;
+    boolean helpWithWork = false;
+    boolean helpWithFood = false;
     int status;
-    boolean datingServiceParticipation;
     Long userId;
-    boolean disabilityOrElderlySupport;
-    boolean childCareSupport;
+    boolean disabilityOrElderlySupport = false;
+    boolean childCareSupport = false;
     int petsAllowed;
     int liked; // TODO ? проверить типа поля!!
 

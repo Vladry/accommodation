@@ -38,10 +38,8 @@ public class UserController {
         Optional<User> optionalUser = userService.findById(id);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
-            System.out.println("in findUserById(): user= " + user);
             return userFacade.convertToDto(user);
         } else {
-            System.out.println("in findUserById(): user is NULL ! ");
             return null;
         }
 

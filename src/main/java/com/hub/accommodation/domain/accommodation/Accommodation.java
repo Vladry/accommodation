@@ -47,8 +47,6 @@ public class Accommodation extends BaseEntity {
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "status")
     AccommodationStatus status;
-    @Column(name = "dating")
-    boolean datingServiceParticipation;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     User user;

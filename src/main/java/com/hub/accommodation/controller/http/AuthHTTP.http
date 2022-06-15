@@ -3,10 +3,8 @@ Content-Type: application/json
 
 {
 "email": "vlad@ukr.net",
-"password": "123",
-  "name": "Влад",
-  "lastName" :"Рябушкин"
-
+"password": "123", "name": "Влад",
+"lastName" :"Рябушкин"
 }
 ###
 
@@ -55,7 +53,8 @@ Content-Type: application/json
   "hideSocialContactData" : true,
   "datingServiceParticipation" : true,
   "email": "1vlad@ukr.net",
-  "password": "123"
+  "password": "123",
+  "avatar": "https://res.cloudinary.com/vladry/image/upload/v1628196607/avatars/Vlad_avatar_tjrcut.jpg"
 }
 ###
 
