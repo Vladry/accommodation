@@ -52,7 +52,7 @@ const providers = [
     CredentialsProvider({
         name: 'Credentials',
         authorize: async (credentials) => {
-
+            console.log('in Credentials Provider!');
             try {
                 // Authenticate user with credentials
                 const user = await axios.post(API_URL + '/api/v1/auth/login', {
@@ -61,10 +61,11 @@ const providers = [
                 });
 
                 if (user.data.token) {
-                    // console.log("user.data.userId: " + user.data.userId);
+                    console.log("user.data.userId: " + user.data.userId);
                     // setUserId(user.data.userId);
                     return user.data;
                 }
+                console.log("user.data.userId: " + user.data.userId);
 
                 return null;
             } catch (e) {

@@ -11,7 +11,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Validated
@@ -21,24 +23,25 @@ import java.util.Optional;
 public class UserController {
 
     private final UserService userService;
-    private final UserFacade UserFacade;
+    private final UserFacade userFacade;
 
-    public UserController(UserService UserService, UserFacade UserFacade) {
-        this.userService = UserService;
-        this.UserFacade = UserFacade;
+    public UserController(UserService userService, UserFacade userFacade) {
+        this.userService = userService;
+        this.userFacade = userFacade;
     }
 
 //------------------------------------------------
-    @PreAuthorize("hasAuthority('read')")
+//    @PreAuthorize("hasAuthority('read')")
     @GetMapping("/{id}")
     public UserRsDto findUserById(
             @PathVariable("id") Long id) {
-        System.out.println("in @GetMapping(\"/{id}\"): public UserRsDto findUserById(), id:  "+ id);
         Optional<User> optionalUser = userService.findById(id);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
-            return UserFacade.convertToDto(user);
+            System.out.println("in findUserById(): user= " + user);
+            return userFacade.convertToDto(user);
         } else {
+            System.out.println("in findUserById(): user is NULL ! ");
             return null;
         }
 
@@ -47,7 +50,7 @@ public class UserController {
 
     @PostMapping
     public UserRsDto createUser(@RequestBody UserRqDto userRqDto) {
-        User user = UserFacade.convertToEntity(userRqDto);
+        User user = userFacade.convertToEntity(userRqDto);
         userService.save(user);
         return findUserByEmail(user.getEmail());
     }
@@ -55,7 +58,7 @@ public class UserController {
     @PreAuthorize("hasAuthority('read')")
     @GetMapping("/profile")
     public UserRsDto getUserProfile(Principal principal) {
-        return UserFacade.getUserByEmail(principal.getName());
+        return userFacade.getUserByEmail(principal.getName());
     }
 
 
@@ -65,6 +68,13 @@ public class UserController {
             @RequestParam("email") String email) {
         User user = userService.getUserByEmail(email)
                 .orElseThrow(() -> new NoDataFoundException("no User found by this email"));
-        return UserFacade.convertToDto(user);
+        return userFacade.convertToDto(user);
+    }
+
+
+//    @PreAuthorize("hasAuthority('read')")
+    @GetMapping("/all")
+    public List<UserRsDto> findAll () {
+     return userService.findAll().stream().map(userFacade::convertToDto).collect(Collectors.toList());
     }
 }

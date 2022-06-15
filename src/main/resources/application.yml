@@ -8,7 +8,7 @@ server:
 spring:
   h2:
     console:
-      enabled: true
+      enabled: false
       settings:
         trace: false
 ---
@@ -27,11 +27,11 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.H2Dialect
-      generate_ststistics: true
+      generate_ststistics: false
     generate-ddl: true
     hibernate:
-      ddl-auto: create
-    show-sql: true
+      ddl-auto: update
+    show-sql: false
   config:
     activate:
       on-profile: local

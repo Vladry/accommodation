@@ -6,6 +6,17 @@ Content-Type: application/json
 "password": "123",
   "name": "Влад",
   "lastName" :"Рябушкин"
+
+}
+###
+
+
+POST http://localhost:8000/api/v1/auth/login
+Content-Type: application/json
+
+{
+"email": "vlad@ukr.net",
+"password": "123"
 }
 ###
 
@@ -19,16 +30,15 @@ Content-Type: application/json
   "lastName" : ""
 }
 ###
-
-
 POST http://localhost:8000/api/v1/auth/login
 Content-Type: application/json
 
 {
-"email": "vlad@ukr.net",
-"password": "123"
+  "email": "rvy@ukr.net",
+  "password": "123"
 }
 ###
+
 
 POST http://localhost:8000/api/v1/auth/register
 Content-Type: application/json

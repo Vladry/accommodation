@@ -18,5 +18,5 @@ import javax.persistence.ManyToOne;
 public class LikeDate extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "accommodation_id")
-    private Accommodation accommodation;
+    private Accommodation accommodation;//FIXME: подумать как организовать "устаревание" залайканных вариантов жилья
 }

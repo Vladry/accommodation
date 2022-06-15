@@ -7,5 +7,5 @@ import java.util.List;
 
 @Repository
 public interface AccommodationRepository extends RepositoryInterface<Accommodation> {
-    public List<Accommodation> findAllByUserId(Long appUserId);
+    public List<Accommodation> findAllByUserId(Long userId);
 }

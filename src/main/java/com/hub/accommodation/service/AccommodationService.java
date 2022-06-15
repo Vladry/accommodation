@@ -26,8 +26,8 @@ public class AccommodationService extends GeneralService<Accommodation> {
         accommodationRepository.save(accInDb);
     }
 
-    public List<Accommodation> findAllByUserId(Long appUserId){
-        return accommodationRepository.findAllByUserId(appUserId);
+    public List<Accommodation> findAllByUserId(Long userId){
+        return accommodationRepository.findAllByUserId(userId);
     }
 
     @Override

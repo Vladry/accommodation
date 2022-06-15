@@ -1,5 +1,7 @@
 package com.hub.accommodation.DTO.response;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.hub.accommodation.Views;
 import com.hub.accommodation.domain.accommodation.Accommodation;
 import com.hub.accommodation.domain.BaseEntity;
 import lombok.AllArgsConstructor;
@@ -14,19 +16,21 @@ import java.util.Set;
 @AllArgsConstructor
 public class UserRsDto extends BaseEntity {
 
-    String location;
-    @NonNull
-    String name;
-    String lastName;
-    @NonNull
-    String email;
-    String phoneNumber;
-    String urlSocial1;
-    String urlSocial2;
-    String messenger1;
-    String messenger2;
-    boolean hideSocialContactData;
-    boolean datingServiceParticipation;
+    String name = "";
+    @JsonView(Views.Public.class)
+    String lastName = "";
+    String email = "";
+    @JsonView(Views.Internal.class)
+    String phoneNumber = "";
+    String urlSocial1 = "";
+    @JsonView(Views.Internal.class)
+    String urlSocial2 = "";
+    String messenger1 = "";
+    @JsonView(Views.Internal.class)
+    String messenger2 = "";
+    String avatar = "";
+    boolean hideSocialContactData = false;
+    boolean datingServiceParticipation = false;
     Set<AccommodationRsDto> accommodation;
 
 

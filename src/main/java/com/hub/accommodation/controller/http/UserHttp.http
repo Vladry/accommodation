@@ -1,10 +1,15 @@
+GET http://localhost:8000/api/v1/users/all
+###
+
+
 POST http://localhost:8000/api/v1/users
 Content-Type: application/json
 
 {
-"name" : "Vlad",
+"name" : "Vlad2",
 "lastName" : "Ryab",
-"email" : "1rvy@ukr.net",
+  "password": "pas_ryavlad",
+"email" : "21rvy@ukr.net",
 "phoneNumber" : "+380637400791",
 "hideSocialContactData": true,
 "urlSocial1": "facebook.com/VladFromUkraine",
@@ -16,6 +21,8 @@ Content-Type: application/json
 "datingServiceParticipation" : false
 }
 ###
+
+
 GET http://localhost:8000/api/v1/users/1
 ###
 GET http://localhost:8000/api/v1/users/?email=rvy@ukr.net

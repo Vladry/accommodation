@@ -30,9 +30,9 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final UserFacade userFacade;
 
-    public AuthService(AuthenticationManager authenticationManager, UserRepository appUserRepository, JwtTokenProvider jwtTokenProvider, RefreshTokenRepository refreshTokenRepository, PasswordEncoder passwordEncoder, UserFacade userFacade) {
+    public AuthService(AuthenticationManager authenticationManager, UserRepository userRepository, JwtTokenProvider jwtTokenProvider, RefreshTokenRepository refreshTokenRepository, PasswordEncoder passwordEncoder, UserFacade userFacade) {
         this.authenticationManager = authenticationManager;
-        this.userRepository = appUserRepository;
+        this.userRepository = userRepository;
         this.jwtTokenProvider = jwtTokenProvider;
         this.refreshTokenRepository = refreshTokenRepository;
         this.passwordEncoder = passwordEncoder;
@@ -49,8 +49,8 @@ public class AuthService {
         return refreshTokenRepository.findById(id).orElseThrow(() -> new JwtAuthenticationException("refreshToken not found", HttpStatus.FORBIDDEN));
     }
 
-    public RefreshToken createRefreshToken(User appUser) {
-        return refreshTokenRepository.save(new RefreshToken(validityRefreshToken, appUser));
+    public RefreshToken createRefreshToken(User user) {
+        return refreshTokenRepository.save(new RefreshToken(validityRefreshToken, user));
     }
 
     public void markUsed(Long id) {
@@ -79,7 +79,7 @@ public class AuthService {
     }
 
     public Map<Object, Object> authenticate(String email, String password) {
-        User user = userRepository.findUserByEmail(email).orElseThrow(() -> new NoDataFoundException("AppUser doesn't exists"));
+        User user = userRepository.findUserByEmail(email).orElseThrow(() -> new NoDataFoundException("user doesn't exists"));
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
         return createTokens(user);
     }
@@ -106,8 +106,8 @@ public class AuthService {
             throw new JwtAuthenticationException("refreshToken is expired", HttpStatus.UNAUTHORIZED);
         } else {
             markUsed(refreshTokenId);
-            User appUser = userRepository.findById(rt.getUser().getId()).orElseThrow(() -> new NoDataFoundException("User doesn't exists"));
-            return createTokens(appUser);
+            User user = userRepository.findById(rt.getUser().getId()).orElseThrow(() -> new NoDataFoundException("User doesn't exists"));
+            return createTokens(user);
         }
     }
 }

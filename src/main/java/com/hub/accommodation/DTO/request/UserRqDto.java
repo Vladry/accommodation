@@ -3,6 +3,7 @@ package com.hub.accommodation.DTO.request;
 import com.hub.accommodation.domain.BaseEntity;
 import com.hub.accommodation.domain.accommodation.enums.Country;
 import lombok.Data;
+import lombok.NonNull;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
@@ -13,22 +14,23 @@ public class UserRqDto {
 
 //    @Size(min = 3, message = "")
 //    @Size(max = 25, message = "")
-    String name;
+//    @NonNull
+    String name = "";
 //    @Size(min = 3, message = "")
 //    @Size(max = 25, message = "")
-    String lastName;
+    String lastName = "";
 //    @Email
-    String email;
-    String password;
-    String phoneNumber;
-    String urlSocial1;
-    String urlSocial2;
-    String messenger1;
-    String messenger2;
-//    @Size(min = 3, message = "")
-//    @Size(max = 35, message = "")
-    String location;
-    boolean hideSocialContactData;
-    boolean datingServiceParticipation;
+//    @NonNull
+    String email = "";
+//    @NonNull
+    String password = "";
+    String phoneNumber = "";
+    String urlSocial1 = "";
+    String urlSocial2 = "";
+    String messenger1 = "";
+    String messenger2 = "";
+    String avatar = "";
+    boolean hideSocialContactData = false;
+    boolean datingServiceParticipation = false;
 
 }
