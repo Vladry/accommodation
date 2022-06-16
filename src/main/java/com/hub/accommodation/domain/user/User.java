@@ -1,20 +1,25 @@
 package com.hub.accommodation.domain.user;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.hub.accommodation.domain.accommodation.Accommodation;
 import com.hub.accommodation.domain.BaseEntity;
-import com.hub.accommodation.domain.accommodation.enums.Country;
 import com.hub.accommodation.domain.user.enums.Role;
+import com.hub.accommodation.domain.user.enums.Sex;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
+import static javax.persistence.TemporalType.TIMESTAMP;
 
 @Entity
 @Getter
 @Setter
 @RequiredArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(of={"id"})
 @ToString(of = {"name", "lastName", "email", "phoneNumber", "role"})
 @Table(name = "users")
 public class User extends BaseEntity {
@@ -41,7 +46,10 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     Set<Accommodation> accommodation = new HashSet<>();
 
-    @Column(name= "avatar")
+    @OneToOne
+    DatingUserProfile datingUserProfile;
+
+    @Column(name = "avatar")
     String avatar = "";
 
     @Column(name = "hide_social_data", nullable = false)
@@ -49,9 +57,9 @@ public class User extends BaseEntity {
     @Column(name = "dating_participation", nullable = false)
     boolean datingServiceParticipation = false;
 
-
     @Enumerated(EnumType.STRING)
     private Role role = Role.USER;
+
 
     public User(String email, String password) {
         this.email = email;

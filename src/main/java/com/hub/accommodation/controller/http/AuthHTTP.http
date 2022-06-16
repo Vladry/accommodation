@@ -4,7 +4,8 @@ Content-Type: application/json
 {
 "email": "vlad@ukr.net",
 "password": "123", "name": "Влад",
-"lastName" :"Рябушкин"
+"lastName" :"Рябушкин",
+"avatar": "https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_in_car_rtzqzp.jpg"
 }
 ###
 

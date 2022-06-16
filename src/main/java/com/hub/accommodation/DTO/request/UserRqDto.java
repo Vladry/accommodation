@@ -1,12 +1,13 @@
 package com.hub.accommodation.DTO.request;
 
-import com.hub.accommodation.domain.BaseEntity;
-import com.hub.accommodation.domain.accommodation.enums.Country;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-import lombok.NonNull;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Size;
+import javax.persistence.Temporal;
+import java.util.Date;
+
+import static javax.persistence.TemporalType.TIMESTAMP;
+
 
 @Data
 public class UserRqDto {
@@ -32,5 +33,8 @@ public class UserRqDto {
     String avatar = "";
     boolean hideSocialContactData = false;
     boolean datingServiceParticipation = false;
-
+    String sex;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.YYYY")
+    @Temporal(TIMESTAMP)
+    Date dBirth;
 }

@@ -15,7 +15,6 @@ const Index = () => {
     useEffect(() => {
         api.get('users/all').then((r) => setAllUsers(r))
             .catch(e => console.log(e.message));
-        console.log(allUsers);
     }, []);
 
 
