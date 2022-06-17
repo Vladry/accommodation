@@ -24,8 +24,9 @@ import static javax.persistence.TemporalType.TIMESTAMP;
 @Table(name = "users")
 public class User extends BaseEntity {
 
-//    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    DatingUserProfile datingUserProfile;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @PrimaryKeyJoinColumn
+    DatingUserProfile datingUserProfile;
 
     @Column(name = "name", length = 20)
     private String name = "";

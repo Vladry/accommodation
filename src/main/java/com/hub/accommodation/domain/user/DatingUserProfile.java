@@ -29,8 +29,9 @@ public class DatingUserProfile {
     @Id
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @MapsId
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Column(name = "sex", length = 2)
