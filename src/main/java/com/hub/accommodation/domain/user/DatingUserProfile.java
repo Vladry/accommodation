@@ -7,7 +7,10 @@ import com.hub.accommodation.domain.user.enums.Sex;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.persistence.criteria.Fetch;
+import java.util.Collection;
 import java.util.Date;
+import java.util.Set;
 
 import static javax.persistence.TemporalType.TIMESTAMP;
 
@@ -17,60 +20,84 @@ import static javax.persistence.TemporalType.TIMESTAMP;
 //@NoArgsConstructor
 @RequiredArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper=true)
+@EqualsAndHashCode(of = {"id"})
 @ToString
-@Table(name = "dating_user_profile")
-public class DatingUserProfile extends BaseEntity {
+@Table(name = "dating_user_profiles")
+public class DatingUserProfile {
+
+    // аннотация @MapsId назначит имя этой колонки как:  user_id -по полям "user" и "id"
+    @Id
+    private Long id;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @MapsId
+    private User user;
 
     @Column(name = "sex", length = 2)
     @Enumerated(EnumType.STRING)
-    Sex sex;
+    private Sex sex;
     @Column(name = "db")
     @Temporal(TIMESTAMP)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.YYYY")
-    Date dBirth;
+    private Date dBirth;
 
     @Column(name = "i_want_a")
     @Enumerated(EnumType.STRING)
-    Sex iWantA;
+    private Sex iWantA;
 
     @Column(name = "my_height")
-    Integer myHeight;
+    private Integer myHeight;
     @Column(name = "min_height_wanted")
-    Integer minHeightIWant;
+    private Integer minHeightIWant;
     @Column(name = "max_height_wanted")
-    Integer maxHeightIWant;
+    private Integer maxHeightIWant;
 
     @Column(name = "min_pref_age")
-    Integer minPreferedAge;
+    private Integer minPreferedAge;
     @Column(name = "max_pref_age")
-    Integer maxPreferedAge;
+    private Integer maxPreferedAge;
 
     @Column(name = "my_country")
-    String myCountry;
+    private String myCountry;
     @Column(name = "from_country_wanted")
-    String wantFromCountry;
+    private String wantFromCountry;
 
     @Column(name = "my_children")
-    Integer numberOfMyChildren;
+    private Integer numberOfMyChildren;
     @Column(name = "their_children_allowed")
-    Integer maxNumberOfChildrenAllowed;
+    private Integer maxNumberOfChildrenAllowed;
 
-    @Column(name = "my_interests")
-    Interests myInterests;
-    @Column(name = "their_interests_wanted")
-    Interests desiredWithInterests;
 
     @Column(name = "self_description")
-    String selfDescription;
+    private String selfDescription;
     @Column(name = "describe_who_i_want")
-    String descriptionWhoIWant;
+    private String descriptionWhoIWant;
     @Column(name = "traits_i_like")
-    String traitsIWouldLoveInYou;
+    private String traitsIWouldLoveInYou;
     @Column(name = "traits_i_hate")
-    String traitsIWouldHaveInYou;
-    @Column(name = "my_goal")
-    String mySpecialGoals;
+    private String traitsIWouldHaveInYou;
+
+    @ElementCollection(fetch = FetchType.LAZY, targetClass = Interests.class)
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "my_interests_list")
+    @Column(name = "my_interests")
+    Collection<Interests> myInterests;
+
+    @ElementCollection(fetch = FetchType.LAZY, targetClass = Interests.class)
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "their_interests_list")
+    @Column(name = "their_interests_wanted")
+    Collection<Interests> desiredWithInterests;
+
+    @ElementCollection(fetch = FetchType.LAZY, targetClass = Goals.class)
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "user_goals")
+    @Column(name = "goals")
+    Collection<Goals> myGoals;
+
+
+    @Column(name = "my_other_goal")
+    private String mySpecialGoals;
 
 
 }
