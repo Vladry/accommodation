@@ -44,14 +44,19 @@ VALUES ('Loc1', 1, 1, 1, false, false, 1, false, false, 1),
        ('Loc8', 1, 30, 30, true, true, 1, true, false, 1);
 
 INSERT INTO dating_user_profiles (user_id, sex, i_want_a, my_height, min_height_wanted,
-                                 max_height_wanted, min_pref_age, max_pref_age,
-                                 my_children, their_children_allowed)
-VALUES
-       (1, 'M', 'F', 173, 160, 188, 18, 30, 0, 1),
+                                  max_height_wanted, min_pref_age, max_pref_age,
+                                  my_children, their_children_allowed)
+VALUES (1, 'M', 'F', 173, 160, 188, 18, 30, 0, 1),
        (2, 'F', 'M', 163, 180, 198, 18, 30, 2, 0),
        (3, 'M', 'F', 193, 160, 188, 18, 30, 0, 2),
        (4, 'M', 'F', 170, 160, 188, 18, 30, 1, 0),
        (5, 'F', 'M', 160, 180, 198, 18, 30, 0, 0),
        (6, 'M', 'F', 183, 160, 188, 18, 30, 1, 0);
 
-    SET FOREIGN_KEY_CHECKS=1;
+
+INSERT INTO user_pictures (id, dating_user_profile, picture)
+VALUES (1, 1, 'pic1'),
+       (2, 1, 'pic2'),
+       (3, 1, 'pic3');
+
+SET FOREIGN_KEY_CHECKS = 1;

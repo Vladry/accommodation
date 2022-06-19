@@ -1,5 +1,8 @@
 package com.hub.accommodation.controller;
 
+import com.hub.accommodation.DTO.response.DatingUserProfileRsDto;
+import com.hub.accommodation.domain.user.DatingUserProfile;
+import com.hub.accommodation.facade.DatingUserProfileFacade;
 import com.hub.accommodation.facade.UserFacade;
 import com.hub.accommodation.DTO.request.UserRqDto;
 import com.hub.accommodation.DTO.response.UserRsDto;
@@ -24,13 +27,15 @@ public class UserController {
 
     private final UserService userService;
     private final UserFacade userFacade;
+    private final DatingUserProfileFacade datingUserProfileFacade;
 
-    public UserController(UserService userService, UserFacade userFacade) {
+    public UserController(UserService userService, UserFacade userFacade, DatingUserProfileFacade datingUserProfileFacade) {
         this.userService = userService;
         this.userFacade = userFacade;
+        this.datingUserProfileFacade = datingUserProfileFacade;
     }
 
-//------------------------------------------------
+    //------------------------------------------------
 //    @PreAuthorize("hasAuthority('read')")
     @GetMapping("/{id}")
     public UserRsDto findUserById(
@@ -45,6 +50,18 @@ public class UserController {
 
     }
 //------------------------------------------------
+
+    //    @PreAuthorize("hasAuthority('read')")
+    @GetMapping("/{id}/datingProfile")
+    public DatingUserProfileRsDto findUserDatingProfileById(
+            @PathVariable("id") Long id
+    ) {
+        DatingUserProfile datingUserProfile = null;
+        if (userService.findDatingUserProfileById(id).isPresent()) {
+            datingUserProfile = userService.findDatingUserProfileById(id).get();
+        }
+        return datingUserProfileFacade.convertToDto(datingUserProfile);
+    }
 
     @PostMapping
     public UserRsDto createUser(@RequestBody UserRqDto userRqDto) {
@@ -70,9 +87,9 @@ public class UserController {
     }
 
 
-//    @PreAuthorize("hasAuthority('read')")
+    //    @PreAuthorize("hasAuthority('read')")
     @GetMapping("/all")
-    public List<UserRsDto> findAll () {
-     return userService.findAll().stream().map(userFacade::convertToDto).collect(Collectors.toList());
+    public List<UserRsDto> findAll() {
+        return userService.findAll().stream().map(userFacade::convertToDto).collect(Collectors.toList());
     }
 }

@@ -2,28 +2,28 @@ package com.hub.accommodation.domain.user;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.hub.accommodation.domain.BaseEntity;
+import com.hub.accommodation.domain.accommodation.Picture;
 import com.hub.accommodation.domain.user.enums.Interests;
 import com.hub.accommodation.domain.user.enums.Sex;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.persistence.criteria.Fetch;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Set;
+import java.util.*;
 
 import static javax.persistence.TemporalType.TIMESTAMP;
 
 @Entity
-@Getter
-@Setter
-//@NoArgsConstructor
+//@Getter
+//@Setter
 @RequiredArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(of = {"id"})
+//@NoArgsConstructor
+//@AllArgsConstructor  // при генерации в Lombok-е  @AllArgsConstructor  не будет выполнена инициализация и не вставятся в этот конструктор аргументы полей суперкласса.
+//@EqualsAndHashCode(of = {"id"})
+@EqualsAndHashCode(callSuper = true)   //Устанавливая callSuper в true, вы можете включить методы equals и hashCode суперкласса в сгенерированные методы.    https://urvanov.ru/2015/09/18/lombok-equalsandhashcode-%D0%BE%D0%B1%D0%BB%D0%B5%D0%B3%D1%87%D0%B0%D0%B5%D0%BC-%D1%81%D1%80%D0%B0%D0%B2%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5-%D0%BE%D0%B1%D1%8A%D0%B5%D0%BA%D1%82%D0%BE%D0%B2/
 @ToString
 @Table(name = "dating_user_profiles")
-public class DatingUserProfile {
+public class DatingUserProfile extends BaseEntity{
 
     // аннотация @MapsId назначит имя этой колонки как:  user_id -по полям "user" и "id"
     @Id
@@ -82,23 +82,27 @@ public class DatingUserProfile {
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "my_interests_list")
     @Column(name = "my_interests")
-    Collection<Interests> myInterests;
+    private Collection<Interests> myInterests;
 
     @ElementCollection(fetch = FetchType.LAZY, targetClass = Interests.class)
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "their_interests_list")
     @Column(name = "their_interests_wanted")
-    Collection<Interests> desiredWithInterests;
+    private Collection<Interests> desiredWithInterests;
 
     @ElementCollection(fetch = FetchType.LAZY, targetClass = Goals.class)
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_goals")
     @Column(name = "goals")
-    Collection<Goals> myGoals;
-
+    private Collection<Goals> myGoals;
 
     @Column(name = "my_other_goal")
     private String mySpecialGoals;
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "datingUserProfile")
+    private List<Picture> pictures = new ArrayList<>();
 
 }
+
+
+

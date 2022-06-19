@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.hub.accommodation.Views;
 import com.hub.accommodation.domain.accommodation.Accommodation;
 import com.hub.accommodation.domain.BaseEntity;
+import com.hub.accommodation.domain.user.DatingUserProfile;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -41,6 +42,7 @@ public class UserRsDto extends BaseEntity {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.YYYY")
     @Temporal(TIMESTAMP)
     Date dBirth;
+    String datingUserProfile;
 
 
 }

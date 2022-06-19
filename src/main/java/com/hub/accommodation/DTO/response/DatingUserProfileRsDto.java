@@ -1,27 +1,24 @@
 package com.hub.accommodation.DTO.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hub.accommodation.domain.BaseEntity;
-import com.hub.accommodation.domain.user.Goals;
 import com.hub.accommodation.domain.user.User;
-import com.hub.accommodation.domain.user.enums.Interests;
-import com.hub.accommodation.domain.user.enums.Sex;
 import lombok.*;
 
-import javax.persistence.*;
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
-
-import static javax.persistence.TemporalType.TIMESTAMP;
 
 @Getter
 @Setter
 @RequiredArgsConstructor
-@AllArgsConstructor
-@ToString
+//@NoArgsConstructor
+//@AllArgsConstructor
+@ToString(of = {"sex", "iWantA", "myHeight", "myCountry", "numberOfMyChildren", "myInterests", "myGoals", "mySpecialGoals"})
 public class DatingUserProfileRsDto extends BaseEntity {
 
+    @JsonIgnore
     private User user;
 
     private String sex;
@@ -49,14 +46,14 @@ public class DatingUserProfileRsDto extends BaseEntity {
     private String traitsIWouldHaveInYou;
 
 
-    Set<String> myInterests;
-    Set<String> desiredWithInterests;
+    private Set<String> myInterests;
+    private Set<String> desiredWithInterests;
 
-    Set<String> myGoals;
-
+    private Set<String> myGoals;
 
 
     private String mySpecialGoals;
 
+    private List<String> pictures;
 
 }
