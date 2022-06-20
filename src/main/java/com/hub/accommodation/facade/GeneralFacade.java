@@ -1,5 +1,6 @@
 package com.hub.accommodation.facade;
 
+import ch.qos.logback.core.joran.action.ImplicitAction;
 import lombok.Data;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -20,7 +21,8 @@ public class GeneralFacade<E, RQ, RS> {
 
         mm.getConfiguration()
                 .setMatchingStrategy(MatchingStrategies.STRICT)
-                .setFieldMatchingEnabled(true)
+//                .setImplicitMappingEnabled(false) // false отключит вообще все матчинги
+                .setFieldMatchingEnabled(false)  //по умолчанию оно в false. Но я явно установил в false, т.к. при true он пытался маппить и поля и геттеры/сеттеры этих же полей
                 .setSkipNullEnabled(true)
                 .setFieldAccessLevel(PRIVATE);
     }

@@ -14,8 +14,8 @@ import java.util.*;
 import static javax.persistence.TemporalType.TIMESTAMP;
 
 @Entity
-//@Getter
-//@Setter
+@Getter
+@Setter
 @RequiredArgsConstructor
 //@NoArgsConstructor
 //@AllArgsConstructor  // при генерации в Lombok-е  @AllArgsConstructor  не будет выполнена инициализация и не вставятся в этот конструктор аргументы полей суперкласса.

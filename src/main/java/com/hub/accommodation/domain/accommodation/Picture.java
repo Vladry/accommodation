@@ -1,10 +1,12 @@
 package com.hub.accommodation.domain.accommodation;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import com.hub.accommodation.domain.BaseEntity;
-import com.hub.accommodation.domain.accommodation.Accommodation;
 import com.hub.accommodation.domain.user.DatingUserProfile;
 import com.hub.accommodation.domain.user.Tenant;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 

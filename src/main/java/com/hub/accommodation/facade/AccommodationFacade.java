@@ -30,8 +30,6 @@ public class AccommodationFacade extends GeneralFacade<
                 .addMapping(AccommodationRqDto::getAccType, Accommodation::setAccommodationType)
                 .addMapping(AccommodationRqDto::getAccStatus, Accommodation::setStatus)
                 .addMapping(AccommodationRqDto::getPetEnum, Accommodation::setPetsAllowed)
-//                .addMappings(mappings -> mappings.using(ID_TO_USER).map(AccommodationRqDto::getMyUserId, Accommodation::setUser));
-//                .addMappings(mappings -> mappings.using(ID_TO_USER).map(AccommodationRqDto::getTest, Accommodation::setUser));
                 .addMappings(mappings -> mappings.using(ID_TO_USER).map(AccommodationRqDto::getUserId, Accommodation::setUser));
         super.getMm().typeMap(Accommodation.class, AccommodationRsDto.class)
                 .addMapping(Accommodation::getAccommodationType, AccommodationRsDto::setAccommodationType);
