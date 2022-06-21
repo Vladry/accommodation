@@ -11,6 +11,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import static javax.persistence.TemporalType.TIMESTAMP;
@@ -36,27 +37,22 @@ public class DatingUserProfileRqDto extends BaseEntity {
     private Integer minPreferedAge;
     private Integer maxPreferedAge;
 
-    private String myCountry;
+    private String countryINowLiveIn;
+    private String myCitizenship;
     private String wantFromCountry;
 
     private Integer numberOfMyChildren;
     private Integer maxNumberOfChildrenAllowed;
 
     private String selfDescription;
-    private String descriptionWhoIWant;
     private String traitsIWouldLoveInYou;
-    private String traitsIWouldHaveInYou;
+    private String traitsIWouldHateInYou;
 
+    private Set<String> myInterests;
+    private Set<String> desiredWithInterests;
+    private Set<String> myGoals;
 
-    Set<String> myInterests;
-    Set<String> desiredWithInterests;
-
-    Set<String> myGoals;
-
-
-
-
-    private String mySpecialGoals;
+    private List<String> pictures;
 
 
 

@@ -3,6 +3,7 @@ package com.hub.accommodation.domain.user;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.hub.accommodation.domain.BaseEntity;
 import com.hub.accommodation.domain.accommodation.Picture;
+import com.hub.accommodation.domain.accommodation.enums.Country;
 import com.hub.accommodation.domain.user.enums.Interests;
 import com.hub.accommodation.domain.user.enums.Sex;
 import lombok.*;
@@ -58,10 +59,18 @@ public class DatingUserProfile extends BaseEntity{
     @Column(name = "max_pref_age")
     private Integer maxPreferedAge;
 
-    @Column(name = "my_country")
-    private String myCountry;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "country_i_now_live_in")
+    private Country countryINowLiveIn;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "my_citizenship")
+    private Country myCitizenship;
+
+    @Enumerated(EnumType.STRING)
     @Column(name = "from_country_wanted")
-    private String wantFromCountry;
+    private Country wantFromCountry;
+
 
     @Column(name = "my_children")
     private Integer numberOfMyChildren;
@@ -71,12 +80,10 @@ public class DatingUserProfile extends BaseEntity{
 
     @Column(name = "self_description")
     private String selfDescription;
-    @Column(name = "describe_who_i_want")
-    private String descriptionWhoIWant;
     @Column(name = "traits_i_like")
     private String traitsIWouldLoveInYou;
     @Column(name = "traits_i_hate")
-    private String traitsIWouldHaveInYou;
+    private String traitsIWouldHateInYou;
 
     @ElementCollection(fetch = FetchType.LAZY, targetClass = Interests.class)
     @Enumerated(EnumType.STRING)
@@ -92,12 +99,10 @@ public class DatingUserProfile extends BaseEntity{
 
     @ElementCollection(fetch = FetchType.LAZY, targetClass = Goals.class)
     @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "user_goals")
+    @CollectionTable(name = "user_dating_goals")
     @Column(name = "goals")
     private Collection<Goals> myGoals;
 
-    @Column(name = "my_other_goal")
-    private String mySpecialGoals;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "datingUserProfile")
     private List<Picture> pictures = new ArrayList<>();

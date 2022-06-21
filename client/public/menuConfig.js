@@ -49,7 +49,7 @@ export const datingMenu = [
         linkName: "настройка поиска",
     },
         {
-        url: "/dating/DatingProfile",
+        url: "/dating/DatingProfilePage",
         linkName: "Ваша анкета",
     },
 

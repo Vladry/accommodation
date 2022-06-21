@@ -9,8 +9,10 @@ import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Component
 public class DatingUserProfileFacade extends
@@ -23,11 +25,16 @@ public class DatingUserProfileFacade extends
     @PostConstruct
     public void init(){
 
-        super.getMm().getConfiguration()
-                .setMatchingStrategy(MatchingStrategies.STRICT);
-
         Converter<List<Picture>, List<String> > picturesToUrls =
-                mappingContext-> mappingContext.getSource().stream().map(Picture::getPicture).collect(Collectors.toList());
+                mappingContext-> mappingContext.getSource().stream()
+                        .map(Picture::getPicture)
+                        .flatMap(pic ->
+                                {
+                                    if ( pic == null || pic.isEmpty() ) return Stream.empty();
+                                    else return Stream.of(pic);
+                                }
+                                ).
+                        collect(Collectors.toList());
 
         super.getMm().typeMap(DatingUserProfile.class, DatingUserProfileRsDto.class)
                 .addMappings(mappings -> mappings.using(picturesToUrls).map(DatingUserProfile::getPictures, DatingUserProfileRsDto::setPictures));

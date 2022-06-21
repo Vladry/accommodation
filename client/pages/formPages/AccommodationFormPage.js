@@ -21,11 +21,6 @@ const AccommodationFormPage = () => {
                 console.log(err)
             });
     };
-    const fetchAccommodations = async (user) => {
-        api.post(`/accommodations/${user.id}`, null)
-            .then(r => {
-            } /*alert(JSON.stringify(r, null, 2))*/)
-    }
 
     if (!isAuthenticated) return (<h3>please login/ Войтите в систему</h3>);
     if (user === null || user === undefined) return (<h3>user's not defined in store</h3>);

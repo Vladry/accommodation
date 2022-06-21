@@ -51,12 +51,51 @@ VALUES (1, 'M', 'F', 173, 160, 188, 18, 30, 0, 1),
        (3, 'M', 'F', 193, 160, 188, 18, 30, 0, 2),
        (4, 'M', 'F', 170, 160, 188, 18, 30, 1, 0),
        (5, 'F', 'M', 160, 180, 198, 18, 30, 0, 0),
-       (6, 'M', 'F', 183, 160, 188, 18, 30, 1, 0);
+       (6, 'M', 'F', 183, 160, 188, 18, 30, 1, 0),
+       (17, 'M', 'F', 173, 180, 188, 18, 30, 1, 0),
+       (18, 'F', 'M', 173, 190, 198, 18, 30, 1, 0);
 
 
 INSERT INTO user_pictures (id, dating_user_profile, picture)
-VALUES (1, 1, 'pic1'),
-       (2, 1, 'pic2'),
-       (3, 1, 'pic3');
+VALUES (1, 1, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_haircut_ziiyxb.jpg'),
+       (2, 1, null),
+       (3, 1, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_arsenalna_befcu2.jpg'),
+       (4, 1, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_arsenalna_befcu2.jpg'),
+       (5, 1, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_arsenalna_befcu2.jpg'),
+       (6, 1, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_arsenalna_befcu2.jpg'),
+       (7, 1, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_arsenalna_befcu2.jpg'),
+       (8, 17, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_haircut_ziiyxb.jpg'),
+       (9, 18, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_haircut_ziiyxb.jpg');
+
+INSERT INTO user_dating_goals (DATING_USER_PROFILE_USER_ID, goals)
+VALUES (1, 'TO_BUILD_FAMILY_WITH_CHILDREN'),
+       (1, 'TO_BECOME_A_COUPLE_WITHOUT_CHILDREN'),
+       (1, 'JOINT_RENT_OF_APARTMENT'),
+       (1, 'I_AM_JUST_BORED'),
+       (17, 'SPONSORSHIP_BASED_RELATIONSHIP'),
+       (17, 'WANTED_WITH_SIMILAR_INTERESTS'),
+       (17, 'MAKING_FRIENDS_ONLY'),
+       (17, 'I_AM_JUST_BORED');
+
+INSERT INTO my_interests_list (DATING_USER_PROFILE_USER_ID, my_interests)
+VALUES (1, 'TRAVEL'),
+       (1, 'PLAYING_MUSIC_INSTRUMENTS'),
+       (1, 'DANCING'),
+       (1, 'SINGING'),
+       (17, 'PAINTING'),
+       (17, 'OTHER_ARTS'),
+       (17, 'CHILDREN'),
+       (17, 'CARS');
+
+INSERT INTO their_interests_list (DATING_USER_PROFILE_USER_ID, their_interests_wanted)
+VALUES (1, 'PAINTING'),
+       (1, 'OTHER_ARTS'),
+       (1, 'CHILDREN'),
+       (1, 'CARS'),
+       (17, 'TRAVEL'),
+       (17, 'PLAYING_MUSIC_INSTRUMENTS'),
+       (17, 'DANCING'),
+       (17, 'SINGING');
+
 
 SET FOREIGN_KEY_CHECKS = 1;
