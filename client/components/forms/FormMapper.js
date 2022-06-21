@@ -73,6 +73,13 @@ const FormMapper = ({fields, validation, handleSubmit}) => {
                         formik.setFieldValue(formikRef, e, true)
                     }
                     }/>);
+            case 'image': //TODO -переписать весь кейс для image:
+                // https://medium.com/geekculture/how-to-upload-and-preview-images-in-react-js-4e22a903f3db
+                return (<Box key={formikRef} sx={{p: 2, border: '1px solid lightgrey', borderRadius: 1}}>
+                        - input your image here-
+                        <input type = 'image'/>
+                </Box>
+                );
             default:
                 return (
                     <TextField
@@ -90,20 +97,20 @@ const FormMapper = ({fields, validation, handleSubmit}) => {
 
 
     return (
-        <form style={{ width: '95%', margin: '0 auto'}} onSubmit={formik.handleSubmit}>
-        {/*<form style={{ width: isSmallScreen? '95%' : '680px', margin: '0 auto'}} onSubmit={formik.handleSubmit}>*/}
+        <form style={{width: '95%', margin: '0 auto'}} onSubmit={formik.handleSubmit}>
+            {/*<form style={{ width: isSmallScreen? '95%' : '680px', margin: '0 auto'}} onSubmit={formik.handleSubmit}>*/}
             <Grid sx={{
-                    display: 'grid',
-                    justifyContent: "space-around",
-                    alignItems: 'center',
-                    columnGap: '10px',
-                    gridTemplateColumns: {xs: '1fr', md: '1fr 1fr'}
+                display: 'grid',
+                justifyContent: "space-around",
+                alignItems: 'center',
+                columnGap: '10px',
+                gridTemplateColumns: {xs: '1fr', md: '1fr 1fr'}
             }} container>
                 {mappedFields}
             </Grid>
 
             <Box textAlign={'center'} margin={'20px'}>
-            <Button variant="contained"  onClick={formik.submitForm}>Submit/ Отправить форму</Button>
+                <Button variant="contained" onClick={formik.submitForm}>Submit/ Отправить форму</Button>
             </Box>
 
         </form>

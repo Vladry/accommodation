@@ -26,8 +26,8 @@ const DatingProfilePage = () => {
         <div>
             <DatingWrapper>
                 {datingMenu[5].linkName}
-                <DatingProfile  handleSubmit={handleSubmit}/>
             </DatingWrapper>
+            <DatingProfile  handleSubmit={handleSubmit}/>
         </div>
     );
 };
