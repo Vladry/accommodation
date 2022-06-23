@@ -14,7 +14,10 @@ const UserForm = ({handleSubmit}) => {
         <>
             <Box textAlign={'center'}><Button variant={'outlined'} color={'primary'} size={'small'}
             onClick={() => router.back()}> Go Back/ Вернуться Обратно</Button></Box>
-            <FormMapper fields={userFormFields} validation={null} handleSubmit={handleSubmit}/>
+            <FormMapper fields={userFormFields}
+                        persistedValues={null}
+                        validation={null}
+                        handleSubmit={handleSubmit}/>
             {/* TODO <FormMapper fields={userFormFields} validation={userFormValidation} handleSubmit={handleSubmit}/>*/}
         </>
     );

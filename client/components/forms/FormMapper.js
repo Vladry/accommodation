@@ -4,17 +4,49 @@ import MuiPhoneNumber from 'material-ui-phone-number-2';
 import {Box, Button, Checkbox, Container, FormControlLabel, Grid, TextField, useMediaQuery} from "@mui/material";
 import AutocompleteWithDebounce from "../AutocompleteWithDebounce";
 import AutocompleteFromMapbox from "../AutocompleteFromMapbox";
-import {useRouter} from "next/router";
+import {useSelector} from "react-redux";
 
-const FormMapper = ({fields, validation, handleSubmit}) => {
-    const isSmallScreen = useMediaQuery("(max-width: 700px)");
-    const router = useRouter();
+const FormMapper = ({fields, persistedValues, validation, handleSubmit}) => {
+    // persistedValues -полученные из БД значения из datingUserProfile (если таковы имеются). Если их нет- нужно подставить значения из fields[i].valueByDefault
+    const datingUserProfile = useSelector((state) => state.userData.datingUserProfile);
 
+    //формируем пары formikRef: дефолтное значение для useFormik()  (данные берутся либо из fetched datingUserProfile, если там их нет- то из заданных дефолтных значений
+
+    // debugger
+    const initValues =
+        {
+            initialValues: fields.reduce((acc, current, index, array) => ({     //https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
+                ...acc,
+                [current.formikRef]: (datingUserProfile && datingUserProfile[current.formikRef]) ?
+                    datingUserProfile[current.formikRef] : current.valueByDefault //заполняем дефолтными значениями полученными либо из fetched from persistedValues, либо из заданных по дефолту
+            }), {})
+        };
+
+
+    /*
+        //выше получили initValues- теперь пробежать по нему и найти initValues.initialValues[formikRef] === null и заменить их на дефолтные значения заданные в fields[i].valueByDefault
+        for (let key in initValues.initialValues) {
+            if (initValues.initialValues.hasOwnProperty(key)) {
+                if (!initValues.initialValues[key]) {
+    // console.log(key, "is not present in  initValues.initialValues" );
+                    fields.forEach(obj => {
+                        if (obj.formikRef === key) {
+                            initValues.initialValues[key] = obj.valueByDefault;
+                        }
+
+                    });
+                }
+                // теперь initValues гарантированно содержит valueByDefault необходимые для useFormik()
+                // console.log("key: ", key, "= ", initValues.initialValues[key]); // дефолтные значения для формы ПОСЛЕ подмены несуществующих полей в fetched на дефолтные из файла initialValues
+            }
+
+        }
+    */
+
+    console.log("initValues.initialValues: ", initValues.initialValues);
+    console.log("datingUserProfile: ", datingUserProfile);
     const formik = useFormik({
-        initialValues: fields.reduce((acc, f) => ({
-            ...acc,
-            [f.formikRef]: f.valueByDefault
-        }), {}),
+        ...initValues,
         validationSchema: validation,
         onSubmit: (values) => {
             handleSubmit(values);
@@ -42,7 +74,9 @@ const FormMapper = ({fields, validation, handleSubmit}) => {
         [formik]
     );
 
+
     const mappedFields = fields.map(({formikRef, valueByDefault, ...input}) => {
+
         switch (input.type) {
             case 'tel':
                 return (
@@ -77,8 +111,8 @@ const FormMapper = ({fields, validation, handleSubmit}) => {
                 // https://medium.com/geekculture/how-to-upload-and-preview-images-in-react-js-4e22a903f3db
                 return (<Box key={formikRef} sx={{p: 2, border: '1px solid lightgrey', borderRadius: 1}}>
                         - input your image here-
-                        <input type = 'image'/>
-                </Box>
+                        <input type='image' alt="user_images"/>
+                    </Box>
                 );
             default:
                 return (
@@ -94,6 +128,8 @@ const FormMapper = ({fields, validation, handleSubmit}) => {
                 )
         }
     })
+
+    console.log('formik.values', formik.values);
 
 
     return (

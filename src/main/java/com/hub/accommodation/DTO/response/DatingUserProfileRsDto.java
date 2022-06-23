@@ -16,17 +16,18 @@ import java.util.Set;
 @RequiredArgsConstructor
 //@NoArgsConstructor
 //@AllArgsConstructor
-@ToString(of = {"sex", "iWantA", "myHeight", "myCountry", "numberOfMyChildren", "myInterests", "myGoals", "mySpecialGoals"})
+@ToString(of = {"mySex", "seekAPersonOfSex", "myHeight", "numberOfMyChildren", "myInterests", "myGoals"})
 public class DatingUserProfileRsDto extends BaseEntity {
 
     @JsonIgnore
     private User user;
 
-    private String sex;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.YYYY")
-    private Date dBirth;
+    private String mySex;
 
-    private String iWantA;
+    private String birthday;
+    private String lastVisitDate;
+
+    private String seekAPersonOfSex;
 
     private Integer myHeight;
     private Integer minHeightIWant;

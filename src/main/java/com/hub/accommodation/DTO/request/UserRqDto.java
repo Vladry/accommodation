@@ -1,6 +1,7 @@
 package com.hub.accommodation.DTO.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.hub.accommodation.domain.user.enums.Role;
 import lombok.Data;
 
 import javax.persistence.Temporal;
@@ -33,8 +34,5 @@ public class UserRqDto {
     String avatar = "";
     boolean hideSocialContactData = false;
     boolean datingServiceParticipation = false;
-    String sex;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.YYYY")
-    @Temporal(TIMESTAMP)
-    Date dBirth;
+    private String role;
 }

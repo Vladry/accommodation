@@ -7,9 +7,12 @@ import com.hub.accommodation.domain.accommodation.enums.Country;
 import com.hub.accommodation.domain.user.enums.Interests;
 import com.hub.accommodation.domain.user.enums.Sex;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.persistence.criteria.Fetch;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 import static javax.persistence.TemporalType.TIMESTAMP;
@@ -35,17 +38,21 @@ public class DatingUserProfile extends BaseEntity{
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Column(name = "sex", length = 2)
+    @Column(name = "my_sex", length = 2)
     @Enumerated(EnumType.STRING)
-    private Sex sex;
-    @Column(name = "db")
-    @Temporal(TIMESTAMP)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.YYYY")
-    private Date dBirth;
+    private Sex mySex;
 
-    @Column(name = "i_want_a")
+    @Column(name = "birthday")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.YYYY")
+    private LocalDate birthday = LocalDate.of(1973, 5 ,13);
+
+    @Column(name = "last_visit_date")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.YYYY hh.mm.ss")
+    private LocalDateTime lastVisitDate = LocalDateTime.of(2022, 6 ,13, 14, 30, 33);
+
+    @Column(name = "seek_a_person_of_sex")
     @Enumerated(EnumType.STRING)
-    private Sex iWantA;
+    private Sex seekAPersonOfSex;
 
     @Column(name = "my_height")
     private Integer myHeight;
@@ -102,7 +109,6 @@ public class DatingUserProfile extends BaseEntity{
     @CollectionTable(name = "user_dating_goals")
     @Column(name = "goals")
     private Collection<Goals> myGoals;
-
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "datingUserProfile")
     private List<Picture> pictures = new ArrayList<>();

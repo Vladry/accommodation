@@ -20,7 +20,9 @@ const AccommodationForm = ({handleSubmit}) => {
 
     return (
         <>
-            <FormMapper fields={accommodationFormFields} validation={null}
+            <FormMapper fields={accommodationFormFields}
+                        persistedValues={null}
+                        validation={null}
 
                         handleSubmit={handleSubmit}/>
         </>

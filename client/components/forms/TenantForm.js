@@ -8,7 +8,10 @@ const TenantForm = ({handleSubmit}) => {
 
     return (
         <>
-            <FormMapper fields={tenantFormFields} validation={tenantFormValidation} handleSubmit={handleSubmit}/>
+            <FormMapper fields={tenantFormFields}
+                        persistedValues={null}
+                        validation={tenantFormValidation}
+                        handleSubmit={handleSubmit}/>
         </>
     );
 };

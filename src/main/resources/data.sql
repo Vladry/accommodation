@@ -43,17 +43,17 @@ VALUES ('Loc1', 1, 1, 1, false, false, 1, false, false, 1),
        ('Loc7', 3, 3, 3, false, true, 1, true, false, 1),
        ('Loc8', 1, 30, 30, true, true, 1, true, false, 1);
 
-INSERT INTO dating_user_profiles (user_id, sex, i_want_a, my_height, min_height_wanted,
+INSERT INTO dating_user_profiles (user_id, birthday, last_visit_date, my_sex, seek_a_person_of_sex, my_height, min_height_wanted,
                                   max_height_wanted, min_pref_age, max_pref_age,
                                   my_children, their_children_allowed)
-VALUES (1, 'M', 'F', 173, 160, 188, 18, 30, 0, 1),
-       (2, 'F', 'M', 163, 180, 198, 18, 30, 2, 0),
-       (3, 'M', 'F', 193, 160, 188, 18, 30, 0, 2),
-       (4, 'M', 'F', 170, 160, 188, 18, 30, 1, 0),
-       (5, 'F', 'M', 160, 180, 198, 18, 30, 0, 0),
-       (6, 'M', 'F', 183, 160, 188, 18, 30, 1, 0),
-       (17, 'M', 'F', 173, 180, 188, 18, 30, 1, 0),
-       (18, 'F', 'M', 173, 190, 198, 18, 30, 1, 0);
+VALUES (1, '2022-06-23', NOW() , 'M', 'F', 173, 160, 188, 18, 30, 0, 1),
+       (2, '2022-06-22', NOW() , 'F', 'M', 163, 180, 198, 18, 30, 2, 0),
+       (3, '2022-06-21', NOW() , 'M', 'F', 193, 160, 188, 18, 30, 0, 2),
+       (4, '2022-06-20', NOW() , 'M', 'F', 170, 160, 188, 18, 30, 1, 0),
+       (5, '2022-06-19', NOW() , 'F', 'M', 160, 180, 198, 18, 30, 0, 0),
+       (6, '2022-06-18', NOW() , 'M', 'F', 183, 160, 188, 18, 30, 1, 0),
+       (17,'2022-06-17', NOW() , 'M', 'F', 173, 180, 188, 18, 30, 1, 0),
+       (18,'2022-04-23', NOW() , 'F', 'M', 173, 190, 198, 18, 30, 1, 0);
 
 
 INSERT INTO user_pictures (id, dating_user_profile, picture)

@@ -1,11 +1,11 @@
 export const datingUserProfileFormFields = [
 
     {
-        id: "sex",
-        name: "sex",
-        formikRef: "sex",
-        label: "sex/пол",
-        valueByDefault: "",
+        id: "mySex",
+        name: "mySex",
+        formikRef: "mySex",
+        label: "mySex/мой пол",
+        valueByDefault: "OTHER",
         type: "text"
     },
     {
@@ -17,11 +17,11 @@ export const datingUserProfileFormFields = [
         type: "text"
     },
     {
-        id: "iWantA",
-        name: "iWantA",
-        formikRef: "iWantA",
-        label: "iWantA/Я ищу",
-        valueByDefault: "",
+        id: "seekAPersonOfSex",
+        name: "seekAPersonOfSex",
+        formikRef: "seekAPersonOfSex",
+        label: "seekAPersonOfSex/Я ищу",
+        valueByDefault: "ANY",
         type: "text"
     },
     {
@@ -29,7 +29,7 @@ export const datingUserProfileFormFields = [
         name: "myHeight",
         formikRef: "myHeight",
         label: "myHeight/Ваш рост:",
-        valueByDefault: 170,
+        valueByDefault: 0,
         type: "number"
     },
     {
@@ -37,7 +37,7 @@ export const datingUserProfileFormFields = [
         name: "minHeightIWant",
         formikRef: "minHeightIWant",
         label: "minHeightIWant/Ищу ростом ОТ, см:",
-        valueByDefault: 160,
+        valueByDefault: 0,
         type: "number"
     },
     {
@@ -45,7 +45,7 @@ export const datingUserProfileFormFields = [
         name: "maxHeightIWant",
         formikRef: "maxHeightIWant",
         label: "maxHeightIWant/Ищу ростом ДО, см:",
-        valueByDefault: 160,
+        valueByDefault: 200,
         type: "number"
     },
 
@@ -95,7 +95,7 @@ export const datingUserProfileFormFields = [
         name: "numberOfMyChildren",
         formikRef: "numberOfMyChildren",
         label: "numberOfMyChildren/У меня детей:",
-        valueByDefault: 3,
+        valueByDefault: 0,
         type: "number"
     },
     {
@@ -159,7 +159,7 @@ export const datingUserProfileFormFields = [
         name: "pictures",
         formikRef: "pictures",
         label: "pictures/Загрузить еще одну мою фотографию",
-        valueByDefault: "pictures: ...",
+        valueByDefault: "load your pictures here",
         type: "image"
     },
 

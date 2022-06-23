@@ -9,6 +9,7 @@ import com.hub.accommodation.domain.user.enums.Sex;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -24,11 +25,12 @@ public class DatingUserProfileRqDto extends BaseEntity {
 
     private User user;
 
-    private String sex;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.YYYY")
-    private Date dBirth;
+    private String mySex;
 
-    private String iWantA;
+    private String birthday;
+    private String lastVisitDate;
+
+    private String seekAPersonOfSex;
 
     private Integer myHeight;
     private Integer minHeightIWant;

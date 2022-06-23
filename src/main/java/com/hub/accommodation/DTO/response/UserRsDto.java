@@ -38,11 +38,7 @@ public class UserRsDto extends BaseEntity {
     boolean hideSocialContactData = false;
     boolean datingServiceParticipation = false;
     Set<AccommodationRsDto> accommodation;
-    String sex;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.YYYY")
-    @Temporal(TIMESTAMP)
-    Date dBirth;
-    String datingUserProfile;
+    private String role;
 
 
 }
