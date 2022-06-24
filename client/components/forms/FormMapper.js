@@ -4,45 +4,9 @@ import MuiPhoneNumber from 'material-ui-phone-number-2';
 import {Box, Button, Checkbox, Container, FormControlLabel, Grid, TextField, useMediaQuery} from "@mui/material";
 import AutocompleteWithDebounce from "../AutocompleteWithDebounce";
 import AutocompleteFromMapbox from "../AutocompleteFromMapbox";
-import {useSelector} from "react-redux";
 
-const FormMapper = ({fields, persistedValues, finalInputValues, validation, handleSubmit}) => {
-    // persistedValues -полученные из БД значения из datingUserProfile (если таковы имеются). Если их нет- нужно подставить значения из fields[i].valueByDefault
+const FormMapper = ({fields, initValues, validation, handleSubmit}) => {
 
-    //формируем пары formikRef: дефолтное значение для useFormik()  (данные берутся либо из fetched datingUserProfile, если там их нет- то из заданных дефолтных значений
-    let initValues =
-        {
-            initialValues: fields.reduce((acc, current, index, array) => ({     //https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
-                ...acc,
-                [current.formikRef]: (persistedValues && persistedValues[current.formikRef]) ? persistedValues[current.formikRef] : current.valueByDefault //заполняем дефолтными значениями полученными либо из fetched from persistedValues, либо из заданных по дефолту
-            }), {})
-        };
-
-    initValues = finalInputValues; // TODO убрать эту строчку подмены значений
-    const {initialValues} = initValues;
-
-    /*
-        //выше получили initValues- теперь пробежать по нему и найти initValues.initialValues[formikRef] === null и заменить их на дефолтные значения заданные в fields[i].valueByDefault
-        for (let key in initValues.initialValues) {
-            if (initValues.initialValues.hasOwnProperty(key)) {
-                if (!initValues.initialValues[key]) {
-    // console.log(key, "is not present in  initValues.initialValues" );
-                    fields.forEach(obj => {
-                        if (obj.formikRef === key) {
-                            initValues.initialValues[key] = obj.valueByDefault;
-                        }
-
-                    });
-                }
-                // теперь initValues гарантированно содержит valueByDefault необходимые для useFormik()
-                // console.log("key: ", key, "= ", initValues.initialValues[key]); // дефолтные значения для формы ПОСЛЕ подмены несуществующих полей в fetched на дефолтные из файла initialValues
-            }
-
-        }
-    */
-
-    // console.log("initialValues: ", initialValues);
-    // console.log("persistedValues: ", persistedValues);
     const formik = useFormik({
         ...initValues,
         validationSchema: validation,
@@ -126,10 +90,6 @@ const FormMapper = ({fields, persistedValues, finalInputValues, validation, hand
                 )
         }
     })
-
-    console.log("initialValues: ", initialValues);
-    console.table("finalInputValues: ", finalInputValues);
-    console.log('formik.values', formik.values);
 
     return (
         <form style={{width: '95%', margin: '0 auto'}} onSubmit={formik.handleSubmit}>

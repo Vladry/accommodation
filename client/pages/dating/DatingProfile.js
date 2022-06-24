@@ -1,18 +1,22 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import useAuth from "../../hooks/useAuth";
 import FormMapper from "../../components/forms/FormMapper";
 import {datingUserProfileFormFields} from "../../components/forms/datingUserProfileFormFields";
 import api from "../../lib/API";
 import act from "../../store/types";
-
+import {Context} from '../../context';
+import contextValues from '../../contextValues';
 
 const DatingProfile = ({handleSubmit}) => {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.userData.user);
     const isAuthenticated = useAuth(true);
     const datingUserProfile = useSelector((state) => state.userData.datingUserProfile);
-    const  [isRenderFormikFormAllowed, setIsRenderFormikFormAllowed ] = useState(false);
+    const [isRenderFormikFormAllowed, setIsRenderFormikFormAllowed] = useState(false);
+    const prepareFormData = contextValues.prepareFormData;
+// const {prepareFormData} = useContext(Context);
+    const formInitValues = prepareFormData(datingUserProfileFormFields, datingUserProfile);
 
     const fetchDatingUserProfile = () => {
         if (!user) return;
@@ -29,7 +33,6 @@ const DatingProfile = ({handleSubmit}) => {
     useEffect(
         () => {
             if (!user) return;
-            // console.log("now doing: fetchDatingUserProfile(): ");
             fetchDatingUserProfile();
         }, [user]
     );
@@ -38,28 +41,15 @@ const DatingProfile = ({handleSubmit}) => {
     if (user === null || user === undefined) return (<h3>user's not defined in store</h3>);
 
 
-    // временный блок формирования данных для FormikMapper
-    const fields = datingUserProfileFormFields;
-    const persistedValues = datingUserProfile;
-
-    const initValues =
-        {
-            initialValues: fields.reduce((acc, current, index, array) => ({     //https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
-                ...acc,
-                [current.formikRef]: (persistedValues && persistedValues[current.formikRef]) ? persistedValues[current.formikRef] : current.valueByDefault //заполняем дефолтными значениями полученными либо из fetched from persistedValues, либо из заданных по дефолту
-            }), {})
-        };
-
-
     return (
         <div>
             <h3 style={{textAlign: 'center', marginTop: '10px'}}
             >DatingProfile</h3>
-            {isRenderFormikFormAllowed && <FormMapper fields={datingUserProfileFormFields}
-                         persistedValues={datingUserProfile}
-                         finalInputValues={initValues}
-                         validation={null}
-                         handleSubmit={handleSubmit}/>}
+            {isRenderFormikFormAllowed && <FormMapper
+                fields={datingUserProfileFormFields}
+                initValues={formInitValues}
+                validation={null}
+                handleSubmit={handleSubmit}/>}
         </div>
     );
 };
