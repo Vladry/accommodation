@@ -11,14 +11,13 @@ const DatingProfile = ({handleSubmit}) => {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.userData.user);
     const isAuthenticated = useAuth(true);
-    const [datingUserProfile, setDatingUserProfile] = useState({});
+    const datingUserProfile = useSelector((state) => state.userData.datingUserProfile);
 
 
     const fetchDatingUserProfile = ()=> {
         if (!user) return;
         api.get(`/users/${user.id}/datingProfile`).then((res) => {
-            setDatingUserProfile(res);
-            console.log("now dispatching datingUserProfile to store: ");
+            // console.log("now dispatching datingUserProfile to store: ");
             dispatch({type: act.SET_DATING_USER_PROFILE, payload: res});
         }).catch(err => {
             console.log(err)
@@ -29,7 +28,7 @@ const DatingProfile = ({handleSubmit}) => {
     useEffect(
         () => {
             if (!user) return;
-            console.log("now doing: fetchDatingUserProfile(): ");
+            // console.log("now doing: fetchDatingUserProfile(): ");
             fetchDatingUserProfile();
         }, [user]
     );

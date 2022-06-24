@@ -8,20 +8,16 @@ import {useSelector} from "react-redux";
 
 const FormMapper = ({fields, persistedValues, validation, handleSubmit}) => {
     // persistedValues -полученные из БД значения из datingUserProfile (если таковы имеются). Если их нет- нужно подставить значения из fields[i].valueByDefault
-    const datingUserProfile = useSelector((state) => state.userData.datingUserProfile);
 
     //формируем пары formikRef: дефолтное значение для useFormik()  (данные берутся либо из fetched datingUserProfile, если там их нет- то из заданных дефолтных значений
-
-    // debugger
     const initValues =
         {
             initialValues: fields.reduce((acc, current, index, array) => ({     //https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
                 ...acc,
-                [current.formikRef]: (datingUserProfile && datingUserProfile[current.formikRef]) ?
-                    datingUserProfile[current.formikRef] : current.valueByDefault //заполняем дефолтными значениями полученными либо из fetched from persistedValues, либо из заданных по дефолту
+                [current.formikRef]: (persistedValues && persistedValues[current.formikRef]) ? persistedValues[current.formikRef] : current.valueByDefault //заполняем дефолтными значениями полученными либо из fetched from persistedValues, либо из заданных по дефолту
             }), {})
         };
-
+    const {initialValues} = initValues;
 
     /*
         //выше получили initValues- теперь пробежать по нему и найти initValues.initialValues[formikRef] === null и заменить их на дефолтные значения заданные в fields[i].valueByDefault
@@ -43,8 +39,8 @@ const FormMapper = ({fields, persistedValues, validation, handleSubmit}) => {
         }
     */
 
-    console.log("initValues.initialValues: ", initValues.initialValues);
-    console.log("datingUserProfile: ", datingUserProfile);
+    // console.log("initialValues: ", initialValues);
+    // console.log("persistedValues: ", persistedValues);
     const formik = useFormik({
         ...initValues,
         validationSchema: validation,
@@ -121,7 +117,8 @@ const FormMapper = ({fields, persistedValues, validation, handleSubmit}) => {
                         key={formikRef}
                         helperText={getIn(formik.touched, formikRef) ? getIn(formik.errors, formikRef) : ''}
                         error={getIn(formik.touched, formikRef) && Boolean(getIn(formik.errors, formikRef))}
-                        value={getIn(formik.values, formikRef)}
+                        value={initialValues[formikRef]} //TODO вернуть как надо -получать через getIn() строкой ниже
+                        // value={getIn(formik.values, formikRef)}
                         {...input}
                         {...defaultProps.textField}
                     />
@@ -129,8 +126,8 @@ const FormMapper = ({fields, persistedValues, validation, handleSubmit}) => {
         }
     })
 
+    console.log("initialValues: ", initialValues);
     console.log('formik.values', formik.values);
-
 
     return (
         <form style={{width: '95%', margin: '0 auto'}} onSubmit={formik.handleSubmit}>

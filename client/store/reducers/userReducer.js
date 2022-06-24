@@ -11,7 +11,7 @@ export default (state = initialState, action) => {
     switch (action.type) {
 
         case act.SET_DATING_USER_PROFILE:
-            console.log("in reducer: sending datingUserProfile to store ");
+            // console.log("in reducer: sending datingUserProfile to store ");
             return {...state, datingUserProfile: action.payload}
 
         case act.GET_PROFILE_REQUEST:

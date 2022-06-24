@@ -9,10 +9,10 @@ export const datingUserProfileFormFields = [
         type: "text"
     },
     {
-        id: "dBirth",
-        name: "dBirth",
-        formikRef: "dBirth",
-        label: "dBirth/Дата Рождения",
+        id: "birthday",
+        name: "birthday",
+        formikRef: "birthday",
+        label: "birthday/Дата Рождения",
         valueByDefault: "",
         type: "text"
     },

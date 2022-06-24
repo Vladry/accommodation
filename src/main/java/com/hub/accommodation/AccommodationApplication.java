@@ -12,6 +12,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.websocket.Session;
+import java.time.ZoneId;
 import java.util.TimeZone;
 
 
@@ -26,6 +27,7 @@ public class AccommodationApplication implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
+        System.out.println("ZoneId.systemDefault(): " + ZoneId.systemDefault());
     }
 
 }

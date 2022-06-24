@@ -15,6 +15,11 @@ spring:
 spring:
   profiles:
     active:  local
+  jpa:
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
 ---
 spring:
   datasource:
@@ -27,7 +32,7 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.H2Dialect
-      generate_ststistics: false
+      generate_statistics: false
     generate-ddl: true
     hibernate:
       ddl-auto: update
@@ -66,7 +71,7 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         generate_ddl: true
-      generate_ststistics: false
+      generate_statistics: false
     show_sql: false
     hibernate:
       # https://russianblogs.com/article/85481550836/    ,  https://docs.spring.io/spring_boot/docs/1.1.0.M1/reference/html/howto_database_initialization.html

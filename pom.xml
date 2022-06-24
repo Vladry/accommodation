@@ -66,6 +66,14 @@
             <version>0.9.1</version>
         </dependency>
 
+        <!-- подключаем маппинг LocalDate из Java8 в JDBC Date:
+         https://mvnrepository.com/artifact/org.hibernate/hibernate-java8 -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-java8</artifactId>
+            <version>5.6.8.Final</version>
+        </dependency>
+
     </dependencies>
 
     <build>

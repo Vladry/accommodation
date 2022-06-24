@@ -9,7 +9,11 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.annotation.PostConstruct;
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 
 import static javax.persistence.TemporalType.TIMESTAMP;
@@ -29,16 +33,38 @@ abstract public class BaseEntity {
     protected Long id;
 
     @CreatedDate
-    @DateTimeFormat(pattern = "dd.MM.YYYY")  //https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/format/annotation/DateTimeFormat.html
-    @Temporal(TIMESTAMP)
+    @DateTimeFormat(pattern = "dd.MM.YYYY kk:mm:ss")
+    //https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/format/annotation/DateTimeFormat.html
     @JsonFormat(shape = JsonFormat.Shape.STRING,
-            pattern = "dd.MM.yyyy hh:mm:ss")
-    protected Date createdDate;
+            pattern = "dd.MM.yyyy kk:mm:ss")
+    protected LocalDateTime createdDate;
 
     @LastModifiedDate
-    @DateTimeFormat(pattern = "dd.MM.YYYY")
-    @Temporal(TIMESTAMP)
+    @DateTimeFormat(pattern = "dd.MM.YYYY kk:mm:ss")
     @JsonFormat(shape = JsonFormat.Shape.STRING,
-            pattern = "dd.MM.yyyy hh:mm:ss")
-    protected Date lastModifiedDate;
+            pattern = "dd.MM.yyyy kk:mm:ss")
+    protected LocalDateTime lastModifiedDate;
+
+
+    @PrePersist
+    public void onCreate() {
+        this.createdDate_UTC = LocalDateTime.now(ZoneId.of("UTC"));
+        this.lastModifiedDate_UTC = LocalDateTime.now(ZoneId.of("UTC"));
+    }
+
+    @PreUpdate
+    public void onUpdate() {
+        this.lastModifiedDate_UTC = LocalDateTime.now(ZoneId.of("UTC"));
+    }
+
+    @DateTimeFormat(pattern = "dd.MM.YYYY kk:mm:ss")  //https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/format/annotation/DateTimeFormat.html
+    @JsonFormat(shape = JsonFormat.Shape.STRING,
+            pattern = "dd.MM.yyyy kk:mm:ss")
+    protected LocalDateTime createdDate_UTC;
+
+    @DateTimeFormat(pattern = "dd.MM.YYYY kk:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING,
+            pattern = "dd.MM.yyyy kk:mm:ss")
+    protected LocalDateTime lastModifiedDate_UTC;
+
 }
