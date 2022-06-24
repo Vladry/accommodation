@@ -28,6 +28,10 @@ public class User extends BaseEntity {
     @PrimaryKeyJoinColumn
     DatingUserProfile datingUserProfile;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Accommodation> accommodation = new HashSet<>();
+
+
     @Column(name = "name", length = 20)
     private String name = "";
     @Column(name = "last_name", length = 25, nullable = true)
@@ -47,8 +51,6 @@ public class User extends BaseEntity {
     private String messenger1 = "";  //Один из Ваших мессенджеров должен быть указан для возможности быстрой связи с Вами нашей системой. Укажите адрес в мессенджере и, через побел - какой это мессенджер (вайбер, телеграм, прочее)
     @Column(name = "messenger_2", length = 30)
     private String messenger2 = "";  //если желаете, укажите второй мессенджера и, через побел - какой это мессенджер (вайбер, телеграм, прочее)
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Accommodation> accommodation = new HashSet<>();
 
     @Column(name = "avatar")
     private String avatar = "";

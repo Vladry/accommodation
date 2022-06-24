@@ -37,7 +37,7 @@ public class UserRsDto extends BaseEntity {
     String avatar = "";
     boolean hideSocialContactData = false;
     boolean datingServiceParticipation = false;
-    Set<AccommodationRsDto> accommodation;
+//    Set<AccommodationRsDto> accommodation;
     private String role;
 
 

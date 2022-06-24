@@ -22,10 +22,11 @@ const prepareFormData = (fields, persistedValues) => {
 const fetchInitFormValues = (URL, actionType, callback, dispatch) => {
     api.get(URL).then((res) => {
         dispatch({type: actionType, payload: res});
-        callback();
     }).catch(err => {
         console.log(err)
-    });
+    }).finally(
+        ()=>callback()
+    );
 }
 
 export default {

@@ -31,7 +31,7 @@ public class DatingUserProfile extends BaseEntity{
 
     // аннотация @MapsId назначит имя этой колонки как:  user_id -по полям "user" и "id"
     @Id
-    private Long id;
+    private Long id; //TODO - это поле уже есть в BaseEntity - разобраться!
 
     @OneToOne(fetch = FetchType.EAGER)
     @MapsId

@@ -2,7 +2,6 @@ import React from 'react';
 import {useFormik, getIn} from 'formik';
 import MuiPhoneNumber from 'material-ui-phone-number-2';
 import {Box, Button, Checkbox, Container, FormControlLabel, Grid, TextField, useMediaQuery} from "@mui/material";
-import AutocompleteWithDebounce from "../AutocompleteWithDebounce";
 import AutocompleteFromMapbox from "../AutocompleteFromMapbox";
 
 const FormMapper = ({fields, initValues, validation, handleSubmit}) => {

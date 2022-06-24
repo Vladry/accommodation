@@ -29,7 +29,7 @@ public class AccommodationRqDto extends BaseEntity {
     int priceTotal;
     int pricePerRoom;
     int pricePerPerson;
-    boolean helpWithWork = false;
+    boolean helpFindWork = false;
     boolean helpWithFood = false;
     int status;
     Long userId;

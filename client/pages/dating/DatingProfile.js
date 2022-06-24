@@ -3,7 +3,6 @@ import {useDispatch, useSelector} from "react-redux";
 import useAuth from "../../hooks/useAuth";
 import FormMapper from "../../components/forms/FormMapper";
 import {datingUserProfileFormFields} from "../../components/forms/datingUserProfileFormFields";
-import api from "../../lib/API";
 import act from "../../store/types";
 import {Context} from '../../context';
 
@@ -24,7 +23,7 @@ const DatingProfile = ({handleSubmit}) => {
             const actionType = act.SET_DATING_USER_PROFILE;
             const callback = ()=> setIsRenderFormikFormAllowed(true);
 
-            fetchInitFormValues(datingUserProfileURL, actionType, callback, dispatch);
+            !datingUserProfile && fetchInitFormValues(datingUserProfileURL, actionType, callback, dispatch);
         }, [user]
     );
 

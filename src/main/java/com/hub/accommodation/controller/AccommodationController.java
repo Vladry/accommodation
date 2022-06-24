@@ -32,7 +32,7 @@ public class AccommodationController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('writeAccommodation')") //TODO -сделать PreAuthorize для все аналогичных методов
+//    @PreAuthorize("hasAuthority('writeAccommodation')") //TODO -сделать PreAuthorize для все аналогичных методов
     public void save(
             @RequestBody AccommodationRqDto accommodationRqDto) {
         Accommodation accommodation = accommodMainFacade.convertToEntity(accommodationRqDto);
@@ -48,7 +48,7 @@ public class AccommodationController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('read')")
+//    @PreAuthorize("hasAuthority('read')")
     public AccommodationRsDto findById(@PathVariable("id") Long id) {
         Optional<Accommodation> byId = accommodMainService.findById(id);
         System.out.println("byId: " + byId);
@@ -56,7 +56,7 @@ public class AccommodationController {
     }
 
     @PostMapping("/{id}")
-    @PreAuthorize("hasAuthority('read')")
+//    @PreAuthorize("hasAuthority('read')")
     public List<Accommodation> findAllByUserId(@PathVariable("id") Long userId) {
         return accommodMainService.findAllByUserId(userId);
     }

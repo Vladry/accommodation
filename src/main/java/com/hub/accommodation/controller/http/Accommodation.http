@@ -1,3 +1,8 @@
+GET http://localhost:8000/api/v1/accommodations/1
+###
+
+
+
 POST http://localhost:8000/api/v1/accommodations
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2bGFkQHVrci5uZXQiLCJyb2xlIjoiVVNFUiIsImlkIjoxLCJpYXQiOjE2NDkyNDEwMzksImV4cCI6MTY0OTI0ODIzOX0.WgBVTVZku7BML06dmdlAZJjN27ADe27hBtJo6aFb9Rw
@@ -17,6 +22,4 @@ Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2bGFkQHVrci5uZXQiLCJyb2xlIjoiVVNF
 "userId"  : 1
 }
 
-###
-GET http://localhost:8000/accommodations/1
 ###

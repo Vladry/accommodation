@@ -18,8 +18,12 @@ import java.util.Set;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @ToString(exclude = {"pictures", "liked"})
-@Table(name = "accommodation")
+@Table(name = "accommodations")
 public class Accommodation extends BaseEntity {
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    User user;
 
     @Column(name = "locations", length = 50)
     String location;
@@ -27,17 +31,17 @@ public class Accommodation extends BaseEntity {
     @Column(name = "acc_type")
     AccommodationType accommodationType;
     @Column(name = "num_of_rooms", nullable = true)
-    int numberOfRooms;
+    Integer numberOfRooms;
     @Column(name = "num_of_beds", nullable = true)
-    int numberOfBeds;
+    Integer numberOfBeds;
     @Column(name = "price_total", nullable = true)
-    int priceTotal;
+    Integer priceTotal;
     @Column(name = "price_per_room", nullable = true)
-    int pricePerRoom;
+    Integer pricePerRoom;
     @Column(name = "price_per_person", nullable = true)
-    int pricePerPerson;
+    Integer pricePerPerson;
     @Column(name = "provide_work")
-    boolean helpWithWork;
+    boolean helpFindWork;
     @Column(name = "provide_food")
     boolean helpWithFood;
 
@@ -47,9 +51,7 @@ public class Accommodation extends BaseEntity {
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "status")
     AccommodationStatus status;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    User user;
+
 
     @Column(name = "disab_sprt")
     boolean disabilityOrElderlySupport;

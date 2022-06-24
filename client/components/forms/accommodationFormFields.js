@@ -10,14 +10,13 @@ export const accommodationFormFields = [
         valueByDefault: "",
         type: "text"
     },
-
     {
-        id: "accommodation-type",
-        name: "accommodation-type",
-        formikRef: "accommodation-type",
+        id: "accommodationType",
+        name: "accommodationType",
+        formikRef: "accommodationType",
         label: "select accommodation type/ выбрать тип жилья",
         valueByDefault: "",
-        type: "number",
+        type: "text",
     },
     {
         id: "status",
@@ -25,102 +24,100 @@ export const accommodationFormFields = [
         formikRef: "status",
         label: "status/текущий статус",
         valueByDefault: "",
-        type: "number",
+        type: "text",
     },
     {
-        id: "number-of-rooms",
-        name: "number-of-rooms",
-        formikRef: "number-of-rooms",
+        id: "numberOfRooms",
+        name: "numberOfRooms",
+        formikRef: "numberOfRooms",
         label: "number of rooms/количество комнат",
         valueByDefault: "",
         type: "number",
     },
-
-
-/*
     {
-        id: "price-per-room",
-        name: "price-per-room",
-        formikRef: "price-per-room",
-        label: "price per room/цена за комнату",
-        valueByDefault: "",
-        type: "number",
-    },
-    {
-        id: "price-per-person",
-        name: "price-per-person",
-        formikRef: "price-per-person",
-        label: "price per person/цена с человека",
-        valueByDefault: "",
-        type: "number",
-    },
-    {
-        id: "price-total",
-        name: "price-total",
-        formikRef: "price-total",
-        label: "price overall/общая стоимость",
-        valueByDefault: "",
-        type: "number",
-    },
-      {
-        id: "user-id",
-        name: "user-id",
-        formikRef: "user-id",
-        label: "user id/ id пользователя",
-        valueByDefault: "",
-        type: "number",
-    },*/
-
-    {
-        id: "help-with-food",
-        name: "help-with-food",
-        formikRef: "help-with-food",
+        id: "helpWithFood",
+        name: "helpWithFood",
+        formikRef: "helpWithFood",
         label: "help with food possible/возможна помощь с едой",
         valueByDefault: false,
         type: "checkbox",
     },
     {
-        id: "disability-or-elderly-support",
-        name: "disability-or-elderly-support",
-        formikRef: "disability-or-elderly-support",
+        id: "disabilityOrElderlySupport",
+        name: "disabilityOrElderlySupport",
+        formikRef: "disabilityOrElderlySupport",
         label: "disability or elderly support possible/помощь пристарелым/инвалидам",
         valueByDefault: false,
         type: "checkbox",
     },
     {
-        id: "number-of-beds",
-        name: "number-of-beds",
-        formikRef: "number-of-beds",
+        id: "numberOfBeds",
+        name: "numberOfBeds",
+        formikRef: "numberOfBeds",
         label: "number of beds/количество кроватей",
         valueByDefault: "",
         type: "number",
     },
     {
-        id: "pets-allowed",
-        name: "pets-allowed",
-        formikRef: "pets-allowed",
+        id: "petsAllowed",
+        name: "petsAllowed",
+        formikRef: "petsAllowed",
         label: "pets allow conditions/условия приема домашних животных",
         valueByDefault: "",
         type: "number",
     },
-
     {
-        id: "help-with-work",
-        name: "help-with-work",
-        formikRef: "help-with-work",
+        id: "helpFindWork",
+        name: "helpFindWork",
+        formikRef: "helpFindWork",
         label: "help with finding work possible/помощь с трудоустройством",
         valueByDefault: false,
         type: "checkbox",
     },
-
     {
-        id: "child-care-support",
-        name: "child-care-support",
-        formikRef: "child-care-support",
+        id: "childCareSupport",
+        name: "childCareSupport",
+        formikRef: "childCareSupport",
         label: "child care support possible/возможна помощь по уходу за детьми",
         valueByDefault: false,
         type: "checkbox",
     },
+
+
+
+    /*
+        {
+            id: "price-per-room",
+            name: "price-per-room",
+            formikRef: "price-per-room",
+            label: "price per room/цена за комнату",
+            valueByDefault: "",
+            type: "number",
+        },
+        {
+            id: "price-per-person",
+            name: "price-per-person",
+            formikRef: "price-per-person",
+            label: "price per person/цена с человека",
+            valueByDefault: "",
+            type: "number",
+        },
+        {
+            id: "price-total",
+            name: "price-total",
+            formikRef: "price-total",
+            label: "price overall/общая стоимость",
+            valueByDefault: "",
+            type: "number",
+        },
+          {
+            id: "user-id",
+            name: "user-id",
+            formikRef: "user-id",
+            label: "user id/ id пользователя",
+            valueByDefault: "",
+            type: "number",
+        },*/
 
 
 ];

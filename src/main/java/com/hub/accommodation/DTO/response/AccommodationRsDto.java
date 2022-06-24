@@ -15,24 +15,20 @@ import java.util.Set;
 @AllArgsConstructor
 public class AccommodationRsDto extends BaseEntity {
 
-    @NonNull
+//    Long user;
     String location;
     String accommodationType;
-    int numberOfRooms;
-    int numberOfBeds;
-    int priceTotal;
-    int pricePerRoom;
-    int pricePerPerson;
-    boolean helpWithWork = false;
+    Integer numberOfRooms;
+    Integer numberOfBeds;
+    Integer priceTotal;
+    Integer pricePerRoom;
+    Integer pricePerPerson;
+    boolean helpFindWork = false;
     boolean helpWithFood = false;
-    Set<PictureRsDto> pictures;
-    @NonNull
+    //    Set<PictureRsDto> pictures;
     String accommodationStatus;
-    int liked;
-    @NonNull
-    Long userId;
+//    Integer liked;
     boolean disabilityOrElderlySupport = false;
     boolean childCareSupport = false;
-    @NonNull
     String petsAllowed;
 }
