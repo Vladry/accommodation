@@ -6,7 +6,7 @@ import {datingUserProfileFormFields} from "../../components/forms/datingUserProf
 import api from "../../lib/API";
 import act from "../../store/types";
 import {Context} from '../../context';
-import contextValues from '../../contextValues';
+
 
 const DatingProfile = ({handleSubmit}) => {
     const dispatch = useDispatch();
@@ -14,26 +14,17 @@ const DatingProfile = ({handleSubmit}) => {
     const isAuthenticated = useAuth(true);
     const datingUserProfile = useSelector((state) => state.userData.datingUserProfile);
     const [isRenderFormikFormAllowed, setIsRenderFormikFormAllowed] = useState(false);
-    const prepareFormData = contextValues.prepareFormData;
-// const {prepareFormData} = useContext(Context);
+    const {prepareFormData, fetchInitFormValues} = useContext(Context);
     const formInitValues = prepareFormData(datingUserProfileFormFields, datingUserProfile);
-
-    const fetchDatingUserProfile = () => {
-        if (!user) return;
-        api.get(`/users/${user.id}/datingProfile`).then((res) => {
-            // console.log("now dispatching datingUserProfile to store: ");
-            dispatch({type: act.SET_DATING_USER_PROFILE, payload: res});
-            setIsRenderFormikFormAllowed(true);
-        }).catch(err => {
-            console.log(err)
-        });
-
-    }
 
     useEffect(
         () => {
             if (!user) return;
-            fetchDatingUserProfile();
+            const datingUserProfileURL = `/users/${user.id}/datingProfile`;
+            const actionType = act.SET_DATING_USER_PROFILE;
+            const callback = ()=> setIsRenderFormikFormAllowed(true);
+
+            fetchInitFormValues(datingUserProfileURL, actionType, callback, dispatch);
         }, [user]
     );
 

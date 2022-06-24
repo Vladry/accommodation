@@ -1,4 +1,4 @@
-import {datingUserProfileFormFields} from "./components/forms/datingUserProfileFormFields";
+import api from "./lib/API";
 
 const getDatingUserProfile = (event) => {
     const {target} = event;
@@ -19,7 +19,17 @@ const prepareFormData = (fields, persistedValues) => {
     };
 }
 
+const fetchInitFormValues = (URL, actionType, callback, dispatch) => {
+    api.get(URL).then((res) => {
+        dispatch({type: actionType, payload: res});
+        callback();
+    }).catch(err => {
+        console.log(err)
+    });
+}
+
 export default {
     getDatingUserProfile,
-    prepareFormData
+    prepareFormData,
+    fetchInitFormValues,
 }

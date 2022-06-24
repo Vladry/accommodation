@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import Head from "next/head";
 import {CssBaseline} from "@mui/material";
 import {ThemeProvider} from "@mui/material/styles"
@@ -10,11 +10,12 @@ import {CacheProvider} from "@emotion/react";
 import theme from "../utils/theme";
 import RefreshTokenHandler from "../components/RefreshTokenHandler";
 import {Context} from '../context';
-import contextValues from '../contextValues.js';
+
 
 const clientSideEmotionCache = createEmotionCache();
 
 function MyApp({Component, pageProps, emotionCache = clientSideEmotionCache }) {
+const context = useContext(Context);
 
     const [interval, setInterval] = useState(0);
     // console.log(interval)
@@ -26,8 +27,6 @@ function MyApp({Component, pageProps, emotionCache = clientSideEmotionCache }) {
         }
     }, []);
 
-    const getDatingUserProfile = contextValues.getDatingUserProfile;
-
     return (
         <>
             <CacheProvider value={emotionCache}>
@@ -36,7 +35,7 @@ function MyApp({Component, pageProps, emotionCache = clientSideEmotionCache }) {
                     <title>My Page</title>
                 </Head>
                 <SessionProvider session={pageProps.session} refetchInterval={interval}>
-                    <Context.Provider value={{getDatingUserProfile}}>
+                    <Context.Provider value={context}>
                     <ThemeProvider theme={theme}>
                         <Provider store={store}>
                             <CssBaseline/>

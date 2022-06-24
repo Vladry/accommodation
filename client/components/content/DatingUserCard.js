@@ -1,6 +1,5 @@
 import React, {useContext} from 'react';
 import {Context} from '../../context';
-import styled from '@emotion/styled';
 import {Box, ListItem} from "@mui/material";
 import Image from "next/image";
 
