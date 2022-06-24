@@ -6,17 +6,19 @@ import AutocompleteWithDebounce from "../AutocompleteWithDebounce";
 import AutocompleteFromMapbox from "../AutocompleteFromMapbox";
 import {useSelector} from "react-redux";
 
-const FormMapper = ({fields, persistedValues, validation, handleSubmit}) => {
+const FormMapper = ({fields, persistedValues, finalInputValues, validation, handleSubmit}) => {
     // persistedValues -полученные из БД значения из datingUserProfile (если таковы имеются). Если их нет- нужно подставить значения из fields[i].valueByDefault
 
     //формируем пары formikRef: дефолтное значение для useFormik()  (данные берутся либо из fetched datingUserProfile, если там их нет- то из заданных дефолтных значений
-    const initValues =
+    let initValues =
         {
             initialValues: fields.reduce((acc, current, index, array) => ({     //https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
                 ...acc,
                 [current.formikRef]: (persistedValues && persistedValues[current.formikRef]) ? persistedValues[current.formikRef] : current.valueByDefault //заполняем дефолтными значениями полученными либо из fetched from persistedValues, либо из заданных по дефолту
             }), {})
         };
+
+    initValues = finalInputValues; // TODO убрать эту строчку подмены значений
     const {initialValues} = initValues;
 
     /*
@@ -117,8 +119,7 @@ const FormMapper = ({fields, persistedValues, validation, handleSubmit}) => {
                         key={formikRef}
                         helperText={getIn(formik.touched, formikRef) ? getIn(formik.errors, formikRef) : ''}
                         error={getIn(formik.touched, formikRef) && Boolean(getIn(formik.errors, formikRef))}
-                        value={initialValues[formikRef]} //TODO вернуть как надо -получать через getIn() строкой ниже
-                        // value={getIn(formik.values, formikRef)}
+                        value={getIn(formik.values, formikRef)}
                         {...input}
                         {...defaultProps.textField}
                     />
@@ -127,6 +128,7 @@ const FormMapper = ({fields, persistedValues, validation, handleSubmit}) => {
     })
 
     console.log("initialValues: ", initialValues);
+    console.table("finalInputValues: ", finalInputValues);
     console.log('formik.values', formik.values);
 
     return (
