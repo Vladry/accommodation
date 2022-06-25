@@ -11,6 +11,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.*;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -32,20 +33,21 @@ abstract public class BaseEntity {
     @JsonView({Views.Public.class, Views.Internal.class})
     protected Long id;
 
+    // Вариант локальных дат без корректировок зональности:
     @CreatedDate
     @DateTimeFormat(pattern = "dd.MM.YYYY kk:mm:ss")
     //https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/format/annotation/DateTimeFormat.html
     @JsonFormat(shape = JsonFormat.Shape.STRING,
             pattern = "dd.MM.yyyy kk:mm:ss")
-    protected LocalDateTime createdDate;
+    protected LocalDateTime createdDate_inLocalTimeZone;
 
     @LastModifiedDate
     @DateTimeFormat(pattern = "dd.MM.YYYY kk:mm:ss")
     @JsonFormat(shape = JsonFormat.Shape.STRING,
             pattern = "dd.MM.yyyy kk:mm:ss")
-    protected LocalDateTime lastModifiedDate;
+    protected LocalDateTime lastModifiedDate_inLocalTimeZone;
 
-
+    // Вариант локальных дат с приведением к зональности UTC:
     @PrePersist
     public void onCreate() {
         this.createdDate_UTC = LocalDateTime.now(ZoneId.of("UTC"));
@@ -67,4 +69,9 @@ abstract public class BaseEntity {
             pattern = "dd.MM.yyyy kk:mm:ss")
     protected LocalDateTime lastModifiedDate_UTC;
 
+
+    @CreatedDate
+    protected Instant createdDate;
+    @LastModifiedDate
+    protected Instant lastModifiedDate;
 }

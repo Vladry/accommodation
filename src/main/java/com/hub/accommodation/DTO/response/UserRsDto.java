@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import javax.persistence.Temporal;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Set;
 
@@ -39,6 +40,8 @@ public class UserRsDto extends BaseEntity {
     boolean datingServiceParticipation = false;
 //    Set<AccommodationRsDto> accommodation;
     private String role;
+//    private LocalDateTime lastModifiedDate;
+//    private LocalDateTime createdDate;
 
 
 }
