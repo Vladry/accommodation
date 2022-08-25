@@ -13,11 +13,11 @@ import java.util.Set;
 
 @Getter
 @Setter
-@RequiredArgsConstructor
-//@NoArgsConstructor
+//@RequiredArgsConstructor
+@NoArgsConstructor
 //@AllArgsConstructor
 @ToString(of = {"mySex", "seekAPersonOfSex", "myHeight", "numberOfMyChildren", "myInterests", "myGoals"})
-public class DatingUserProfileRsDto extends BaseEntity {
+public class DatingUserProfileRsDto /*extends BaseEntity */{
 
     @JsonIgnore
     private User user;

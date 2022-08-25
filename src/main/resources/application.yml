@@ -11,15 +11,19 @@ spring:
       enabled: false
       settings:
         trace: false
+logging:  # https://habr.com/ru/post/521950/
+#  file.name: application.log
+  level:
+    accommodation2: TRACE
 ---
 spring:
   profiles:
-    active:  local
-  jpa:
-    properties:
-      hibernate:
-        jdbc:
-          time_zone: UTC
+    active: local
+#  jpa:
+#    properties:
+#      hibernate:
+#        jdbc:
+#          time_zone: UTC
 ---
 spring:
   datasource:
@@ -31,12 +35,14 @@ spring:
     defer-datasource-initialization: true
     properties:
       hibernate:
+        #        format_sql: true
         dialect: org.hibernate.dialect.H2Dialect
       generate_statistics: false
     generate-ddl: true
     hibernate:
       ddl-auto: update
     show-sql: false
+
   config:
     activate:
       on-profile: local
@@ -66,7 +72,7 @@ spring:
   jpa:
     database: postgresql
     defer_datasource_initialization: true # true оставить ТОЛЬКО для самого первого запуска, когда в пустую БД заливаем данные! далее сделать false
-#    defer_datasource_initialization: false
+    #    defer_datasource_initialization: false
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect

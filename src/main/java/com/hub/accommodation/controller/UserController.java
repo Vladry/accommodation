@@ -2,6 +2,7 @@ package com.hub.accommodation.controller;
 
 import com.hub.accommodation.DTO.response.DatingUserProfileRsDto;
 import com.hub.accommodation.domain.user.DatingUserProfile;
+import com.hub.accommodation.exception.CreatingEntityFailed;
 import com.hub.accommodation.facade.DatingUserProfileFacade;
 import com.hub.accommodation.facade.UserFacade;
 import com.hub.accommodation.DTO.request.UserRqDto;
@@ -9,6 +10,7 @@ import com.hub.accommodation.DTO.response.UserRsDto;
 import com.hub.accommodation.domain.user.User;
 import com.hub.accommodation.exception.NoDataFoundException;
 import com.hub.accommodation.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +22,7 @@ import java.util.stream.Collectors;
 
 
 @Validated
+@Slf4j
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/api/v1/users")
@@ -65,9 +68,15 @@ public class UserController {
 
     @PostMapping
     public UserRsDto createUser(@RequestBody UserRqDto userRqDto) {
-        User user = userFacade.convertToEntity(userRqDto);
-        userService.save(user);
-        return findUserByEmail(user.getEmail());
+        try {
+            User user = userFacade.convertToEntity(userRqDto);
+            userService.save(user);
+            log.info("in createUser: new user (user.name: "+userRqDto.getName()+" "+ userRqDto.getLastName()+" created");
+            return findUserByEmail(user.getEmail());
+        } catch (Exception e) {
+            log.error("error creating a new user: " +userRqDto.getName()+" "+ userRqDto.getLastName());
+            throw new CreatingEntityFailed("error creating a new user");
+        }
     }
 
     @PreAuthorize("hasAuthority('read')")
@@ -82,7 +91,7 @@ public class UserController {
     public UserRsDto findUserByEmail(
             @RequestParam("email") String email) {
         User user = userService.getUserByEmail(email)
-                .orElseThrow(() -> new NoDataFoundException("no User found by this email"));
+                .orElseThrow(() -> new NoDataFoundException("no User found by this email")); //https://habr.com/ru/post/346782/
         return userFacade.convertToDto(user);
     }
 

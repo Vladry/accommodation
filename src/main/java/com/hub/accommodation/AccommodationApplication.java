@@ -5,6 +5,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.SpringVersion;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -17,11 +18,11 @@ import java.util.TimeZone;
 
 
 @SpringBootApplication
-@EnableJpaAuditing
 @EnableTransactionManagement
 public class AccommodationApplication implements ApplicationRunner {
 
     public static void main(String[] args) {
+        System.out.println("my App 'Accommodation' is using the Spring version: " + SpringVersion.getVersion());
         SpringApplication.run(AccommodationApplication.class, args);
     }
 

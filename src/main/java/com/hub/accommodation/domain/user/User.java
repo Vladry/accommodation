@@ -25,7 +25,7 @@ import static javax.persistence.TemporalType.TIMESTAMP;
 public class User extends BaseEntity {
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @PrimaryKeyJoinColumn
+//    @PrimaryKeyJoinColumn
     DatingUserProfile datingUserProfile;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

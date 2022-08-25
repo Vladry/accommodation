@@ -23,25 +23,30 @@ import static javax.persistence.TemporalType.TIMESTAMP;
 @AllArgsConstructor
 public class UserRsDto extends BaseEntity {
 
+    @JsonView(Views.Public.class)
     String name = "";
     @JsonView(Views.Public.class)
     String lastName = "";
+    @JsonView(Views.Internal.class)
     String email = "";
     @JsonView(Views.Internal.class)
     String phoneNumber = "";
+    @JsonView(Views.Public.class)
     String urlSocial1 = "";
     @JsonView(Views.Internal.class)
     String urlSocial2 = "";
+    @JsonView(Views.Public.class)
     String messenger1 = "";
     @JsonView(Views.Internal.class)
     String messenger2 = "";
+    @JsonView(Views.Public.class)
     String avatar = "";
     boolean hideSocialContactData = false;
     boolean datingServiceParticipation = false;
 //    Set<AccommodationRsDto> accommodation;
     private String role;
-//    private LocalDateTime lastModifiedDate;
-//    private LocalDateTime createdDate;
+//    private String lastModifiedDate;
+//    private String createdDate;
 
 
 }

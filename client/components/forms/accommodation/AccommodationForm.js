@@ -1,10 +1,10 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {accommodationFormFields} from "./accommodationFormFields";
-import FormMapper from "./FormMapper";
-import useAuth from "../../hooks/useAuth";
+import FormMapper from "../FormMapper";
+import useAuth from "../../../hooks/useAuth";
 import {useDispatch, useSelector} from "react-redux";
-import {Context} from "../../context";
-import act from "../../store/types";
+import {Context} from "../../../context";
+import act from "../../../store/types";
 
 
 const AccommodationForm = ({handleSubmit}) => {

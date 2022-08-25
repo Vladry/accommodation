@@ -19,8 +19,9 @@ import static javax.persistence.TemporalType.TIMESTAMP;
 
 @Getter
 @Setter
-@RequiredArgsConstructor
-@AllArgsConstructor
+//@RequiredArgsConstructor
+//@AllArgsConstructor
+@NoArgsConstructor
 public class DatingUserProfileRqDto extends BaseEntity {
 
     private User user;

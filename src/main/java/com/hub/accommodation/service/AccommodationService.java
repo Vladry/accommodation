@@ -21,7 +21,7 @@ public class AccommodationService extends GeneralService<Accommodation> {
     //fixme
     public void update(Accommodation accommodation){
         Accommodation accInDb = accommodationRepository.findById(accommodation.getId())
-                .orElseThrow(()-> new NoDataFoundException("object not found"));
+                .orElseThrow(()-> new NoDataFoundException("object not found")); // https://habr.com/ru/post/346782/
         accInDb = accommodation;
         accommodationRepository.save(accInDb);
     }
