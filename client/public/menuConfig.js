@@ -1,11 +1,12 @@
 export default [
+    // Общее меню всего приложения (виджет слева):
     {
         url: "/",
         linkName: "Homepage",
         title: "",
     },
     {
-        url: "/dating",
+        url: "/formPages/dating",
         linkName: "Знакомства",
         title: "Знакомства для поиска отношений/совместного проживания/семьи/создания групп по интересам. Полный сервисный пакет позволяет осуществлять поиск по рубрикам и интересам.",
     },
@@ -29,28 +30,34 @@ export default [
 ;
 
 export const datingMenu = [
+    // Меню раздела "знакомства"
+
         {
-        url: "/dating",
+        url: "/formPages/dating",
         linkName: "знакомства",
     },        {
-        url: "/dating/Inbox",
+        url: "/formPages/dating/Inbox",
         linkName: "входящие",
     },
         {
-        url: "/dating/Favorites",
+        url: "/formPages/dating/Favorites",
         linkName: "избранные",
     },
         {
-        url: "/dating/MutualLikes",
+        url: "/formPages/dating/MutualLikes",
         linkName: "взаимно лайкаем",
     },
         {
-        url: "/dating/SearchCriteria",
+        url: "/formPages/dating/SearchCriteria",
         linkName: "настройка поиска",
     },
         {
-        url: "/dating/DatingProfilePage",
-        linkName: "Ваша анкета",
+        url: "/formPages/dating/DatingUserProfileFormPage",
+        linkName: "Редактировать Вашу анкету",
+    },
+    {
+        url: "/",
+        linkName: "homepage",
     },
 
 ];

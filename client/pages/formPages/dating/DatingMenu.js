@@ -1,7 +1,7 @@
 import React from 'react';
-import {datingMenu} from "../../public/menuConfig";
+import {datingMenu} from "../../../public/menuConfig";
 import styled from "@emotion/styled";
-import {NavLink} from "../../components/appbar/NavLink";
+import {NavLink} from "../../../components/appbar/NavLink";
 
 const DatingMenu = () => {
     return (
@@ -12,6 +12,7 @@ const DatingMenu = () => {
             <MenuItem><NavLink_styled href={datingMenu[3].url}>{datingMenu[3].linkName}</NavLink_styled></MenuItem>
             <MenuItem><NavLink_styled href={datingMenu[4].url}>{datingMenu[4].linkName}</NavLink_styled></MenuItem>
             <MenuItem><NavLink_styled href={datingMenu[5].url}>{datingMenu[5].linkName}</NavLink_styled></MenuItem>
+            <MenuItem><NavLink_styled href={datingMenu[6].url}>{datingMenu[6].linkName}</NavLink_styled></MenuItem>
         </div>
     );
 };

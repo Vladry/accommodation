@@ -1,12 +1,12 @@
 import React from 'react';
 import DatingWrapper from "./DatingWrapper";
-import {datingMenu} from "../../public/menuConfig";
-import DatingProfile from "./DatingProfile";
-import api from "../../lib/API";
+import {datingMenu} from "../../../public/menuConfig";
+import api from "../../../lib/API";
 import {useSelector} from "react-redux";
-import useAuth from "../../hooks/useAuth";
+import useAuth from "../../../hooks/useAuth";
+import DatingUserProfileForm from "../../../components/forms/dating_user_profile_form/DatingUserProfileForm";
 
-const DatingProfilePage = () => {
+const DatingUserProfileFormPage = () => {
     const user = useSelector((state)=>state.userData.user);
     const isAuthenticated = useAuth(true);
 
@@ -27,9 +27,9 @@ const DatingProfilePage = () => {
             <DatingWrapper>
                 {datingMenu[5].linkName}
             </DatingWrapper>
-            <DatingProfile  handleSubmit={handleSubmit}/>
+            <DatingUserProfileForm handleSubmit={handleSubmit}/>
         </div>
     );
 };
 
-export default DatingProfilePage;
+export default DatingUserProfileFormPage;

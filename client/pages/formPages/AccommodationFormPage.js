@@ -1,7 +1,7 @@
 import React from 'react';
 import {useSelector} from "react-redux";
 import useAuth from "../../hooks/useAuth";
-import AccommodationForm from "../../components/forms/accommodation/AccommodationForm";
+import AccommodationForm from "../../components/forms/accommodation_form/AccommodationForm";
 import api from "../../lib/API";
 import Layout from "../../components/Layout";
 

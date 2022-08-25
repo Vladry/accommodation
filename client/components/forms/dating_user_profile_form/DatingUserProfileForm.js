@@ -1,13 +1,13 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import useAuth from "../../hooks/useAuth";
-import FormMapper from "../../components/forms/FormMapper";
-import {datingUserProfileFormFields} from "../../components/forms/datingUserProfileFormFields";
-import act from "../../store/types";
-import {Context} from '../../context';
+import useAuth from "../../../hooks/useAuth";
+import FormMapper from "../FormMapper";
+import {datingUserProfileFormFields} from "./datingUserProfileFormFields";
+import act from "../../../store/types";
+import {Context} from '../../../context';
 
 
-const DatingProfile = ({handleSubmit}) => {
+const DatingUserProfileForm = ({handleSubmit}) => {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.userData.user);
     const isAuthenticated = useAuth(true);
@@ -44,4 +44,4 @@ const DatingProfile = ({handleSubmit}) => {
     );
 };
 
-export default DatingProfile;
+export default DatingUserProfileForm;

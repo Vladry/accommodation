@@ -1,5 +1,5 @@
 import * as yup from "yup";
-import {isValidUrl} from "../../utils/validators";
+import {isValidUrl} from "../../../utils/validators";
 
 export const userFormValidation = yup.object().shape({
     //TODO разблокировать:

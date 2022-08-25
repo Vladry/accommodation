@@ -1,6 +1,6 @@
 import React from 'react';
 import DatingWrapper from "./DatingWrapper";
-import {datingMenu} from "../../public/menuConfig";
+import {datingMenu} from "../../../public/menuConfig";
 
 const SearchCriteria = () => {
     return (

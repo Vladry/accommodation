@@ -1,16 +1,16 @@
 import React from 'react';
 import DatingWrapper from "./DatingWrapper";
-import {datingMenu} from "../../public/menuConfig";
+import {datingMenu} from "../../../public/menuConfig";
 
-const MutualLikes = () => {
+const Inbox = () => {
     return (
         <div>
             <DatingWrapper>
-                {datingMenu[3].linkName}
+                {datingMenu[1].linkName}
             </DatingWrapper>
-            <h3>MutualLikes</h3>
+            <h3>Inbox</h3>
         </div>
     );
 };
 
-export default MutualLikes;
+export default Inbox;

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import api from "../lib/API";
-import UserForm from "../components/forms/UserForm";
+import UserForm from "../components/forms/user_form/UserForm";
 import Router from "next/router";
 import {signIn} from "next-auth/react";
 import {Box, Typography} from "@mui/material";

@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import DatingWrapper from "./DatingWrapper";
-import {datingMenu} from "../../public/menuConfig";
+import {datingMenu} from "../../../public/menuConfig";
 import {Box, Grid} from '@mui/material';
-import DatingUserList from "../../components/content/DatingUserList";
-import tryUsers from '../../public/tryUsers';
-import api from "../../lib/API";
+import DatingUserList from "../../../components/content/DatingUserList";
+import tryUsers from '../../../public/tryUsers';
+import api from "../../../lib/API";
 
 
 const Index = () => {
@@ -29,7 +29,7 @@ const Index = () => {
             </Grid>
             <Grid item={true} xs={7} sm={9} md={10}>
                 <Box sx={{border: '1px solid green'}}>
-                    <h3 style={{textAlign: 'center'}}>Меню</h3>
+                    <h3 style={{textAlign: 'center'}}>Candidates matching your criteria</h3>
                     <DatingUserList users={allUsers}/>
                     {/*<DatingUserList users={tryUsers}/>*/}
                 </Box>

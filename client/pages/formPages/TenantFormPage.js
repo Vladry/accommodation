@@ -1,5 +1,5 @@
 import React from 'react';
-import TenantForm from "../../components/forms/TenantForm";
+import TenantForm from "../../components/forms/tenant_form/TenantForm";
 import useAuth from "../../hooks/useAuth";
 import Layout from "../../components/Layout";
 import api from "../../lib/API";

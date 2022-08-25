@@ -14,7 +14,8 @@ spring:
 logging:  # https://habr.com/ru/post/521950/
 #  file.name: application.log
   level:
-    accommodation2: TRACE
+    org: off
+
 ---
 spring:
   profiles:
