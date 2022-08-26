@@ -7,7 +7,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import Link from 'next/link';
 import UnlockedMenu from "./UnlockedMenu";
 import LockedMenu from "./LockedMenu";
-import menuConfig from '../../public/menuConfig.js';
+import {mainMenu} from '../../public/menuConfig.js';
 
 let isAuthenticated = null;
 
@@ -18,8 +18,8 @@ const NavBar = () => {
 
     return (
         <MenuList sx={{margin: '20px'}}>
-            {!isAuthenticated && <MenuItem><NavLinkUnprotected href={menuConfig[0].url}
-                                                              underline={'none'}>{menuConfig[0].linkName}</NavLinkUnprotected>
+            {!isAuthenticated && <MenuItem><NavLinkUnprotected href={mainMenu[0].url}
+                                                              underline={'none'}>{mainMenu[0].linkName}</NavLinkUnprotected>
             </MenuItem> }
 
             {!isAuthenticated && <Divider/> }
@@ -59,8 +59,8 @@ const NavBar = () => {
 
             </Box>
 
-            {isAuthenticated && <MenuItem><NavLinkUnprotected href={menuConfig[0].url}
-                                           underline={'none'}>{menuConfig[0].linkName}</NavLinkUnprotected>
+            {isAuthenticated && <MenuItem><NavLinkUnprotected href={mainMenu[0].url}
+                                           underline={'none'}>{mainMenu[0].linkName}</NavLinkUnprotected>
             </MenuItem>}
 
 

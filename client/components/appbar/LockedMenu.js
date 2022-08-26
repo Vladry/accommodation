@@ -3,7 +3,7 @@ import Tooltip from "@mui/material/Tooltip";
 import useAuth from "../../hooks/useAuth";
 import styled from "@emotion/styled";
 import {NavLink} from "./NavLink";
-import menuConfig from "../../public/menuConfig";
+import {mainMenu} from "../../public/menuConfig";
 
 let isAuthenticated = null;
 
@@ -16,31 +16,31 @@ const LockedMenu = ({placement}) => {
         <div>
 
             <MenuItem><Tooltip placement={placement}
-                               title={menuConfig[1].title}>
+                               title={mainMenu[1].title}>
                 <span>
-                <NavLinkProtected href={menuConfig[1].url} children={menuConfig[1].linkName}/>
+                <NavLinkProtected href={mainMenu[1].url} children={mainMenu[1].linkName}/>
                 </span></Tooltip>
             </MenuItem>
 
             <MenuItem><Tooltip placement={placement}
-                               title={menuConfig[2].title}>
+                               title={mainMenu[2].title}>
                 <span>
-                   <NavLinkProtected href={menuConfig[2].url} children={menuConfig[2].linkName}/>
+                   <NavLinkProtected href={mainMenu[2].url} children={mainMenu[2].linkName}/>
                 </span></Tooltip>
             </MenuItem>
 
 
             <MenuItem><Tooltip placement={placement}
-                               title={menuConfig[3].title}>
+                               title={mainMenu[3].title}>
                 <span>
-                    <NavLinkProtected href={menuConfig[3].url} children={menuConfig[3].linkName}/>
+                    <NavLinkProtected href={mainMenu[3].url} children={mainMenu[3].linkName}/>
                 </span></Tooltip>
             </MenuItem>
 
             <MenuItem><Tooltip placement={placement}
-                               title={menuConfig[4].title}>
+                               title={mainMenu[4].title}>
                 <span>
-                    <NavLinkProtected href={menuConfig[4].url} children={menuConfig[4].linkName}/>
+                    <NavLinkProtected href={mainMenu[4].url} children={mainMenu[4].linkName}/>
                 </span></Tooltip>
             </MenuItem>
 

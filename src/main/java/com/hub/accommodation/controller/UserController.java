@@ -62,8 +62,9 @@ public class UserController {
         DatingUserProfile datingUserProfile = null;
         if (userService.findDatingUserProfileById(id).isPresent()) {
             datingUserProfile = userService.findDatingUserProfileById(id).get();
-        }
-        return datingUserProfileFacade.convertToDto(datingUserProfile);
+            return datingUserProfileFacade.convertToDto(datingUserProfile);
+        } else {return null;}
+
     }
 
     @PostMapping

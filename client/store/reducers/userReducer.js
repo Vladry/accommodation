@@ -6,7 +6,8 @@ const initialState = {
     datingUserProfile: null,
     accommodationUserProfile: null,
     tenantUserProfile: null,
-
+    userDatingProfile: null,
+    candidateDatingProfile: null,
 }
 
 export default (state = initialState, action) => {
@@ -37,6 +38,16 @@ export default (state = initialState, action) => {
                 user: null,
                 loading: false
             }
+        case act.GET_USER_DATING_PROFILE:
+            return {...state, loading: true}
+        case act.SET_USER_DATING_PROFILE:
+            return {...state, userDatingProfile: action.payload, loading: false}
+
+        case act.GET_CANDIDATE_DATING_PROFILE:
+            return {...state, loading: true, candidateDatingProfile: null}
+        case act.SET_CANDIDATE_DATING_PROFILE:
+            return {...state, candidateDatingProfile: action.payload, loading: false}
+
         default:
             return state;
     }

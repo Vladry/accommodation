@@ -1,6 +1,6 @@
 import api from "./lib/API";
 
-const getDatingUserProfileId = (router, queriedUserId, event) => {
+const getUserDatingProfileId = (router, queriedUserId, event) => {
     console.log('queriedUser: ', queriedUserId);
     const {target} = event;// не используем, т.к. мы получили прямо айдишку queriedUserId
     // const targetUserId = Number(target.dataset.id);
@@ -8,13 +8,9 @@ const getDatingUserProfileId = (router, queriedUserId, event) => {
     // console.log('target.name: ', target.name);
     // console.log('target.dataset.id: ', queriedUserId);
     // console.log("router: ", router);
-    router.push(`/profiles/QueriedDatingUserProfile/?queriedUserId=${queriedUserId}`);
+    router.push(`/profiles/UserDatingProfile/?queriedUserId=${queriedUserId}`);
 }
 
-const reviewUserProfile = ()=>{
-    const id = getDatingUserProfileId();
-
-}
 
 const prepareFormData = (fields, persistedValues) => {
 
@@ -37,7 +33,7 @@ const fetchInitFormValues = (URL, actionType, callback, dispatch) => {
 }
 
 export default {
-    getDatingUserProfileId: getDatingUserProfileId,
+    getUserDatingProfileId,
     prepareFormData,
     fetchInitFormValues,
 }

@@ -7,7 +7,7 @@ import act from "../../../store/types";
 import {Context} from '../../../context';
 
 
-const DatingUserProfileForm = ({handleSubmit}) => {
+const UserDatingProfileForm = ({handleSubmit}) => {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.userData.user);
     const isAuthenticated = useAuth(true);
@@ -33,8 +33,6 @@ const DatingUserProfileForm = ({handleSubmit}) => {
 
     return (
         <div>
-            <h3 style={{textAlign: 'center', marginTop: '10px'}}
-            >DatingProfile</h3>
             {isRenderFormikFormAllowed && <FormMapper
                 fields={datingUserProfileFormFields}
                 initValues={formInitValues}
@@ -44,4 +42,4 @@ const DatingUserProfileForm = ({handleSubmit}) => {
     );
 };
 
-export default DatingUserProfileForm;
+export default UserDatingProfileForm;

@@ -1,13 +1,13 @@
 import React from 'react';
-import DatingWrapper from "./DatingWrapper";
+import DatingMenuWrapper from "./DatingMenuWrapper";
 import {datingMenu} from "../../../public/menuConfig";
 
 const Inbox = () => {
     return (
         <div>
-            <DatingWrapper>
+            <DatingMenuWrapper>
                 {datingMenu[1].linkName}
-            </DatingWrapper>
+            </DatingMenuWrapper>
             <h3>Inbox</h3>
         </div>
     );

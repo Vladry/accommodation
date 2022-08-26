@@ -1,5 +1,5 @@
-export default [
-    // Общее меню всего приложения (виджет слева):
+export const mainMenu = [
+
     {
         url: "/",
         linkName: "Homepage",
@@ -30,7 +30,6 @@ export default [
 ;
 
 export const datingMenu = [
-    // Меню раздела "знакомства"
 
         {
         url: "/formPages/dating",
@@ -52,7 +51,7 @@ export const datingMenu = [
         linkName: "настройка поиска",
     },
         {
-        url: "/formPages/dating/DatingUserProfileFormPage",
+        url: "/formPages/dating/UserDatingProfileFormPage",
         linkName: "Редактировать Вашу анкету",
     },
     {
