@@ -16,7 +16,7 @@ const Index = () => {
     const [allUsers, setAllUsers] = useState(null);
     const isAuthenticated = useAuth(true);
     const userDatingProfile = useSelector(state => state.userData.userDatingProfile);
-    const userId = useSelector(state => state.userData.user.id);
+    const user = useSelector(state => state.userData.user);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -26,8 +26,8 @@ const Index = () => {
 //получим datingProfile текущего currentUser:
         const logActionCurrentU = act.GET_USER_DATING_PROFILE;
         const setActionCurrentU = act.SET_USER_DATING_PROFILE;
-        dispatch(getDatingProfile(userId, logActionCurrentU, setActionCurrentU));
-    }, [userId]);
+        dispatch(getDatingProfile(user.id, logActionCurrentU, setActionCurrentU));
+    }, [dispatch, user.id]);
 
 
     if (!allUsers) return null;

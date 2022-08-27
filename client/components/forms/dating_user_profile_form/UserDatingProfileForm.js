@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import useAuth from "../../../hooks/useAuth";
 import FormMapper from "../FormMapper";
-import {datingUserProfileFormFields} from "./datingUserProfileFormFields";
+import {userDatingProfileFormFields} from "./userDatingProfileFormFields";
 import act from "../../../store/types";
 import {Context} from '../../../context';
 
@@ -11,19 +11,19 @@ const UserDatingProfileForm = ({handleSubmit}) => {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.userData.user);
     const isAuthenticated = useAuth(true);
-    const datingUserProfile = useSelector((state) => state.userData.datingUserProfile);
+    const userDatingProfile = useSelector((state) => state.userData.userDatingProfile);
     const [isRenderFormikFormAllowed, setIsRenderFormikFormAllowed] = useState(false);
     const {prepareFormData, fetchInitFormValues} = useContext(Context);
-    const formInitValues = prepareFormData(datingUserProfileFormFields, datingUserProfile);
+    const formInitValues = prepareFormData(userDatingProfileFormFields, userDatingProfile);
 
     useEffect(
         () => {
             if (!user) return;
-            const datingUserProfileURL = `/users/${user.id}/datingProfile`;
+            const userDatingProfileURL = `/users/${user.id}/datingProfile`;
             const actionType = act.SET_DATING_USER_PROFILE;
             const callback = ()=> setIsRenderFormikFormAllowed(true);
 
-            !datingUserProfile && fetchInitFormValues(datingUserProfileURL, actionType, callback, dispatch);
+            !userDatingProfile && fetchInitFormValues(userDatingProfileURL, actionType, callback, dispatch);
         }, [user]
     );
 
@@ -34,7 +34,7 @@ const UserDatingProfileForm = ({handleSubmit}) => {
     return (
         <div>
             {isRenderFormikFormAllowed && <FormMapper
-                fields={datingUserProfileFormFields}
+                fields={userDatingProfileFormFields}
                 initValues={formInitValues}
                 validation={null}
                 handleSubmit={handleSubmit}/>}

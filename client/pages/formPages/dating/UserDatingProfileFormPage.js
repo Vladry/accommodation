@@ -18,7 +18,7 @@ const loading = useSelector((state)=>state.userData.loading);
 
         await api.get(`/users/${user.id}/datingProfile`, values
         ).then((res) => {
-            console.log(res); // вывод datingUserProfile
+            console.log(res); // вывод userDatingProfile
         })
             .catch(err => {
                 console.log(err)

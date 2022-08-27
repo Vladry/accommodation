@@ -1,9 +1,9 @@
 package com.hub.accommodation.controller;
 
-import com.hub.accommodation.DTO.response.DatingUserProfileRsDto;
-import com.hub.accommodation.domain.user.DatingUserProfile;
+import com.hub.accommodation.DTO.response.UserDatingProfileRsDto;
+import com.hub.accommodation.domain.user.UserDatingProfile;
 import com.hub.accommodation.exception.CreatingEntityFailed;
-import com.hub.accommodation.facade.DatingUserProfileFacade;
+import com.hub.accommodation.facade.UserDatingProfileFacade;
 import com.hub.accommodation.facade.UserFacade;
 import com.hub.accommodation.DTO.request.UserRqDto;
 import com.hub.accommodation.DTO.response.UserRsDto;
@@ -15,9 +15,14 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 
@@ -30,13 +35,18 @@ public class UserController {
 
     private final UserService userService;
     private final UserFacade userFacade;
-    private final DatingUserProfileFacade datingUserProfileFacade;
+    private final UserDatingProfileFacade userDatingProfileFacade;
 
-    public UserController(UserService userService, UserFacade userFacade, DatingUserProfileFacade datingUserProfileFacade) {
+    private final EntityManagerFactory emf;
+
+    public UserController(EntityManagerFactory emf, UserService userService, UserFacade userFacade, UserDatingProfileFacade userDatingProfileFacade) {
+        this.emf = emf;
         this.userService = userService;
         this.userFacade = userFacade;
-        this.datingUserProfileFacade = datingUserProfileFacade;
+        this.userDatingProfileFacade = userDatingProfileFacade;
     }
+
+
 
     //------------------------------------------------
 //    @PreAuthorize("hasAuthority('read')")
@@ -56,13 +66,13 @@ public class UserController {
 
     //    @PreAuthorize("hasAuthority('read')")
     @GetMapping("/{id}/datingProfile")
-    public DatingUserProfileRsDto findUserDatingProfileById(
+    public UserDatingProfileRsDto findUserDatingProfileById(
             @PathVariable("id") Long id
     ) {
-        DatingUserProfile datingUserProfile = null;
-        if (userService.findDatingUserProfileById(id).isPresent()) {
-            datingUserProfile = userService.findDatingUserProfileById(id).get();
-            return datingUserProfileFacade.convertToDto(datingUserProfile);
+        UserDatingProfile userDatingProfile = null;
+        if (userService.findUserDatingProfileById(id).isPresent()) {
+            userDatingProfile = userService.findUserDatingProfileById(id).get();
+            return userDatingProfileFacade.convertToDto(userDatingProfile);
         } else {return null;}
 
     }
@@ -102,4 +112,16 @@ public class UserController {
     public List<UserRsDto> findAll() {
         return userService.findAll().stream().map(userFacade::convertToDto).collect(Collectors.toList());
     }
+
+
+//    public List<UserRsDto> findAllByCriteria(UserDatingProfile profile){
+//        EntityManager em = emf.createEntityManager();
+//        CriteriaBuilder cb = em.getCriteriaBuilder();
+//        CriteriaQuery<User> cq = cb.createQuery(User.class);
+//        Predicate sexCriteria = cb.equal(User.getSex(),profile.getMySex());
+//
+//        //        List<User> selectedUsers = userService.findAllByCriteria();
+//
+//        return null;
+//    }
 }

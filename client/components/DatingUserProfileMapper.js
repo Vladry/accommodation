@@ -10,7 +10,7 @@ import DatingUserList from "./dating_components/DatingUserList";
 import SideBar from "./dating_components/SideBar";
 import ArticleWindow from "./dating_components/ArticleWindow";
 
-const DatingUserProfileMapper = ({fields, values, id}) => {
+const UserDatingProfileMapper = ({fields, values, id}) => {
     const router = useRouter();
     const excludedRefs = ['pictures', 'mySex', 'seekAPersonOfSex'];
     return fields.map(({name, formikRef, label}, index) => {
@@ -34,4 +34,4 @@ const DatingUserProfileMapper = ({fields, values, id}) => {
 
 };
 
-export default DatingUserProfileMapper;
+export default UserDatingProfileMapper;

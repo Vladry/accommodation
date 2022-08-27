@@ -14,7 +14,7 @@ export const accommodationFormFields = [
         id: "accommodationType",
         name: "accommodationType",
         formikRef: "accommodationType",
-        label: "select accommodation type/ выбрать тип жилья",
+        label: "select accommodation types/ выбрать тип жилья",
         valueByDefault: "",
         type: "text",
     },
@@ -92,7 +92,7 @@ export const accommodationFormFields = [
             formikRef: "price-per-room",
             label: "price per room/цена за комнату",
             valueByDefault: "",
-            type: "number",
+            types: "number",
         },
         {
             id: "price-per-person",
@@ -100,7 +100,7 @@ export const accommodationFormFields = [
             formikRef: "price-per-person",
             label: "price per person/цена с человека",
             valueByDefault: "",
-            type: "number",
+            types: "number",
         },
         {
             id: "price-total",
@@ -108,7 +108,7 @@ export const accommodationFormFields = [
             formikRef: "price-total",
             label: "price overall/общая стоимость",
             valueByDefault: "",
-            type: "number",
+            types: "number",
         },
           {
             id: "user-id",
@@ -116,7 +116,7 @@ export const accommodationFormFields = [
             formikRef: "user-id",
             label: "user id/ id пользователя",
             valueByDefault: "",
-            type: "number",
+            types: "number",
         },*/
 
 

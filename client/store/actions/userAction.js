@@ -1,13 +1,13 @@
 import api from "../../lib/API";
-import act from "../types";
+import types from "../types";
 
 export const getProfile = () => (dispatch) => {
-    dispatch({type: act.GET_PROFILE_REQUEST});
+    dispatch({type: types.GET_PROFILE_REQUEST});
     api.get('/users/profile')
         .then(d => {
-            dispatch({type: act.GET_PROFILE_SUCCESS, payload: {user: d}})
+            dispatch({type: types.GET_PROFILE_SUCCESS, payload: {user: d}})
         }).catch(e => {
-        dispatch({type: act.GET_PROFILE_FAILURE})
+        dispatch({type: types.GET_PROFILE_FAILURE})
         console.log(e);
     });
 }
@@ -15,10 +15,10 @@ export const getProfile = () => (dispatch) => {
 /*
 возможные варианты аргументов для getDatingProfile:
 
-const logActionCurrentU =   act.GET_USER_DATING_PROFILE;
-const setActionCurrentU =   act.SET_USER_DATING_PROFILE;
-const logActionCandidateU = act.GET_CANDIDATE_DATING_PROFILE;
-const setActionCandidateU = act.SET_CANDIDATE_DATING_PROFILE;
+const logActionCurrentU =   types.GET_USER_DATING_PROFILE;
+const setActionCurrentU =   types.SET_USER_DATING_PROFILE;
+const logActionCandidateU = types.GET_CANDIDATE_DATING_PROFILE;
+const setActionCandidateU = types.SET_CANDIDATE_DATING_PROFILE;
 */
 export const getDatingProfile = (userId, logAction, setAction) =>(dispatch)=>{
     dispatch({type: logAction, payload: userId});

@@ -1,25 +1,23 @@
 package com.hub.accommodation.facade;
 
-import com.hub.accommodation.DTO.request.DatingUserProfileRqDto;
-import com.hub.accommodation.DTO.response.DatingUserProfileRsDto;
+import com.hub.accommodation.DTO.request.UserDatingProfileRqDto;
+import com.hub.accommodation.DTO.response.UserDatingProfileRsDto;
 import com.hub.accommodation.domain.accommodation.Picture;
-import com.hub.accommodation.domain.user.DatingUserProfile;
+import com.hub.accommodation.domain.user.UserDatingProfile;
 import org.modelmapper.Converter;
-import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Component
-public class DatingUserProfileFacade extends
-        GeneralFacade<DatingUserProfile, DatingUserProfileRqDto, DatingUserProfileRsDto> {
+public class UserDatingProfileFacade extends
+        GeneralFacade<UserDatingProfile, UserDatingProfileRqDto, UserDatingProfileRsDto> {
 
-    public DatingUserProfileFacade() {
-        super(DatingUserProfile.class, DatingUserProfileRsDto.class);
+    public UserDatingProfileFacade() {
+        super(UserDatingProfile.class, UserDatingProfileRsDto.class);
     }
 
     @PostConstruct
@@ -36,8 +34,8 @@ public class DatingUserProfileFacade extends
                                 ).
                         collect(Collectors.toList());
 
-        super.getMm().typeMap(DatingUserProfile.class, DatingUserProfileRsDto.class)
-                .addMappings(mappings -> mappings.using(picturesToUrls).map(DatingUserProfile::getPictures, DatingUserProfileRsDto::setPictures));
+        super.getMm().typeMap(UserDatingProfile.class, UserDatingProfileRsDto.class)
+                .addMappings(mappings -> mappings.using(picturesToUrls).map(UserDatingProfile::getPictures, UserDatingProfileRsDto::setPictures));
 
 
     }

@@ -1,22 +1,11 @@
 package com.hub.accommodation.DTO.response;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.hub.accommodation.Views;
-import com.hub.accommodation.domain.accommodation.Accommodation;
 import com.hub.accommodation.domain.BaseEntity;
-import com.hub.accommodation.domain.user.DatingUserProfile;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
-
-import javax.persistence.Temporal;
-import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.Set;
-
-import static javax.persistence.TemporalType.TIMESTAMP;
 
 @Data
 @NoArgsConstructor

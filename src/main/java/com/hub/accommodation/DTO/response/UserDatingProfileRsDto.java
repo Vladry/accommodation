@@ -1,13 +1,9 @@
 package com.hub.accommodation.DTO.response;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.hub.accommodation.domain.BaseEntity;
-import com.hub.accommodation.domain.accommodation.enums.Country;
 import com.hub.accommodation.domain.user.User;
 import lombok.*;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -17,7 +13,7 @@ import java.util.Set;
 @NoArgsConstructor
 //@AllArgsConstructor
 @ToString(of = {"mySex", "seekAPersonOfSex", "myHeight", "numberOfMyChildren", "myInterests", "myGoals"})
-public class DatingUserProfileRsDto /*extends BaseEntity */{
+public class UserDatingProfileRsDto /*extends BaseEntity */{
 
     @JsonIgnore
     private User user;

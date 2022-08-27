@@ -79,7 +79,7 @@ export const userFormFields = [
     //     formikRef: "messenger3",
     //     label: "Your nick and name of messenger1/Ваш ник и название мессенджера1",
     //     valueByDefault: "",
-    //     type: "text",
+    //     types: "text",
     // },
     // {
     //     id: "city",
@@ -87,7 +87,7 @@ export const userFormFields = [
     //     formikRef: "city",
     //     label: "City/город",
     //     valueByDefault: "",
-    //     type: "text",
+    //     types: "text",
     // },
     // {
     //     id: "country",
@@ -95,7 +95,7 @@ export const userFormFields = [
     //     formikRef: "country",
     //     label: "Country/страна",
     //     valueByDefault: "",
-    //     type: "text",
+    //     types: "text",
     // },
     {
         id: "location",

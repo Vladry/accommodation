@@ -3,10 +3,7 @@ package com.hub.accommodation.domain;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.hub.accommodation.Views;
 import com.hub.accommodation.zonedDateTime_Converters.ZonedDateTimeConverter;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -16,10 +13,9 @@ import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.ZonedDateTime;
 
-@Data
-@NoArgsConstructor
-@ToString(of = {"id"})
-@EqualsAndHashCode(of = {"id"})
+
+@Getter
+@Setter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 abstract public class BaseEntity {
@@ -36,7 +32,7 @@ abstract public class BaseEntity {
     @CreatedDate
     @Column(name = "created_date")
 //    @Convert(converter = ZonedDateTimeConverter.class)
-    private ZonedDateTime createdDate;
+    protected ZonedDateTime createdDate;
 
 
 

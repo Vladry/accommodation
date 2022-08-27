@@ -1,28 +1,24 @@
 package com.hub.accommodation.service;
 
-import com.hub.accommodation.domain.user.DatingUserProfile;
+import com.hub.accommodation.domain.user.UserDatingProfile;
 import com.hub.accommodation.domain.user.User;
-import com.hub.accommodation.repository.DatingUserProfileRepository;
+import com.hub.accommodation.repository.UserDatingProfileRepository;
 import com.hub.accommodation.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 @Service
 @Transactional
 public class UserService extends GeneralService<User> {
     private final UserRepository userRepository;
-    private final DatingUserProfileRepository datingUserProfileRepository;
+    private final UserDatingProfileRepository userDatingProfileRepository;
 
     public UserService(UserRepository userRepository,
-                       DatingUserProfileRepository datingUserProfileRepository) {
+                       UserDatingProfileRepository userDatingProfileRepository) {
         this.userRepository = userRepository;
-        this.datingUserProfileRepository = datingUserProfileRepository;
+        this.userDatingProfileRepository = userDatingProfileRepository;
     }
 
     @Transactional(readOnly = true)
@@ -30,8 +26,8 @@ public class UserService extends GeneralService<User> {
         return userRepository.findUserByEmail(email);
     }
 
-    public Optional<DatingUserProfile> findDatingUserProfileById(Long id) {
-        return datingUserProfileRepository.findDatingUserProfileById(id);
+    public Optional<UserDatingProfile> findUserDatingProfileById(Long id) {
+        return userDatingProfileRepository.findUserDatingProfileById(id);
     }
 
 }

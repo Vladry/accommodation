@@ -1,4 +1,4 @@
-export const datingUserProfileFormFields = [
+export const userDatingProfileFormFields = [
 
     {
         id: "mySex",

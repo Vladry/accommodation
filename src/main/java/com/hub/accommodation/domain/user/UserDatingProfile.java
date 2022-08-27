@@ -7,15 +7,11 @@ import com.hub.accommodation.domain.accommodation.enums.Country;
 import com.hub.accommodation.domain.user.enums.Interests;
 import com.hub.accommodation.domain.user.enums.Sex;
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.persistence.criteria.Fetch;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
-
-import static javax.persistence.TemporalType.TIMESTAMP;
 
 @Entity
 @Getter
@@ -27,7 +23,7 @@ import static javax.persistence.TemporalType.TIMESTAMP;
 @EqualsAndHashCode(callSuper = true)   //Устанавливая callSuper в true, вы можете включить методы equals и hashCode суперкласса в сгенерированные методы.    https://urvanov.ru/2015/09/18/lombok-equalsandhashcode-%D0%BE%D0%B1%D0%BB%D0%B5%D0%B3%D1%87%D0%B0%D0%B5%D0%BC-%D1%81%D1%80%D0%B0%D0%B2%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5-%D0%BE%D0%B1%D1%8A%D0%B5%D0%BA%D1%82%D0%BE%D0%B2/
 @ToString
 @Table(name = "dating_user_profiles")
-public class DatingUserProfile extends BaseEntity{
+public class UserDatingProfile extends BaseEntity{
 
     // аннотация @MapsId назначит имя этой колонки как:  user_id -по полям "user" и "id"
     @Id
@@ -110,7 +106,7 @@ public class DatingUserProfile extends BaseEntity{
     @Column(name = "goals")
     private Collection<Goals> myGoals;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "datingUserProfile")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "userDatingProfile")
     private List<Picture> pictures = new ArrayList<>();
 
 }

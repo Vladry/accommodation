@@ -4,8 +4,8 @@ import api from "../../lib/API";
 import {useDispatch, useSelector} from "react-redux";
 import useAuth from "../../hooks/useAuth";
 import {useRouter} from "next/router";
-import {datingUserProfileFormFields} from "../../components/forms/dating_user_profile_form/datingUserProfileFormFields";
-import DatingUserProfileMapper from "../../components/DatingUserProfileMapper";
+import {userDatingProfileFormFields} from "../../components/forms/dating_user_profile_form/userDatingProfileFormFields";
+import UserDatingProfileMapper from "../../components/UserDatingProfileMapper";
 import {Box, Button, Grid} from "@mui/material";
 import SideBar from "../../components/dating_components/SideBar";
 import {datingMenu} from "../../public/menuConfig";
@@ -44,7 +44,7 @@ const UserDatingProfile = () => {
 
     const title = `Profile of Candidate id: ${queriedUserId}`;
 
-    const mappedFields = <DatingUserProfileMapper fields={datingUserProfileFormFields} values={candidateDatingProfile}
+    const mappedFields = <UserDatingProfileMapper fields={userDatingProfileFormFields} values={candidateDatingProfile}
                                                   id={queriedUserId}/>;
     const backButton =
         <Box textAlign={'center'} margin={'20px'} sx={{position: 'fixed', right: '2%', top: '2%', boxShadow: '18'}}>

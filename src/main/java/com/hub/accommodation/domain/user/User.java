@@ -1,32 +1,28 @@
 package com.hub.accommodation.domain.user;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.hub.accommodation.domain.accommodation.Accommodation;
 import com.hub.accommodation.domain.BaseEntity;
 import com.hub.accommodation.domain.user.enums.Role;
-import com.hub.accommodation.domain.user.enums.Sex;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.Instant;
+import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Set;
-
-import static javax.persistence.TemporalType.TIMESTAMP;
 
 @Entity
 @Getter
 @Setter
 @RequiredArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(of={"id"})
-@ToString(of = {"name", "lastName", "email", "phoneNumber", "role"})
+@NoArgsConstructor
+//@AllArgsConstructor  -так, как Ломбок не генерирует поля от BaseEntity, то этот конструктор я создаю везде самостоятельно
 @Table(name = "users")
 public class User extends BaseEntity {
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    @PrimaryKeyJoinColumn
-    DatingUserProfile datingUserProfile;
+    UserDatingProfile userDatingProfile;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Accommodation> accommodation = new HashSet<>();
@@ -69,4 +65,52 @@ public class User extends BaseEntity {
         this.password = password;
     }
 
+    // из-за конфликта Ломбоковской генерации с суперклассом BaseEntity, всегда прописываем AllArgsConstructor руками
+    public User(Long id, Instant lastModifiedDate, ZonedDateTime createdDate, UserDatingProfile userDatingProfile, Set<Accommodation> accommodation, String name, String lastName, String email, String password, String phoneNumber, String urlSocial1, String urlSocial2, String messenger1, String messenger2, String avatar, boolean hideSocialContactData, boolean datingServiceParticipation, Role role) {
+        this.id = id;
+        this.lastModifiedDate = lastModifiedDate;
+        this.createdDate = createdDate;
+        this.userDatingProfile = userDatingProfile;
+        this.accommodation = accommodation;
+        this.name = name;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.urlSocial1 = urlSocial1;
+        this.urlSocial2 = urlSocial2;
+        this.messenger1 = messenger1;
+        this.messenger2 = messenger2;
+        this.avatar = avatar;
+        this.hideSocialContactData = hideSocialContactData;
+        this.datingServiceParticipation = datingServiceParticipation;
+        this.role = role;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        return (long) this.id == user.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", role=" + role +
+                ", id=" + id +
+                '}';
+    }
 }

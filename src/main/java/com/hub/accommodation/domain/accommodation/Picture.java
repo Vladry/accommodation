@@ -1,7 +1,7 @@
 package com.hub.accommodation.domain.accommodation;
 
 import com.hub.accommodation.domain.BaseEntity;
-import com.hub.accommodation.domain.user.DatingUserProfile;
+import com.hub.accommodation.domain.user.UserDatingProfile;
 import com.hub.accommodation.domain.user.Tenant;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,5 +30,5 @@ public class Picture extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dating_user_profile")
-    private DatingUserProfile datingUserProfile;
+    private UserDatingProfile userDatingProfile;
 }
