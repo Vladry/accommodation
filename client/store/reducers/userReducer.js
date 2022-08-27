@@ -3,7 +3,6 @@ import types from "../types";
 const initialState = {
     user: null,
     loading: false,
-    userDatingProfile: null,
     accommodationUserProfile: null,
     tenantUserProfile: null,
     userDatingProfile: null,
@@ -17,9 +16,6 @@ export default (state = initialState, action) => {
 
         case types.SET_ACCOMMODATION_USER_PROFILE:
             return {...state, accommodationUserProfile: action.payload}
-
-        case types.SET_DATING_USER_PROFILE:
-            return {...state, userDatingProfile: action.payload}
 
         case types.GET_PROFILE_REQUEST:
             return {

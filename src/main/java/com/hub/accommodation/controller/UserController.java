@@ -10,6 +10,7 @@ import com.hub.accommodation.DTO.response.UserRsDto;
 import com.hub.accommodation.domain.user.User;
 import com.hub.accommodation.exception.NoDataFoundException;
 import com.hub.accommodation.service.UserService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
@@ -17,18 +18,23 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import java.lang.reflect.Array;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 
 @Validated
 @Slf4j
 @RestController
+@RequiredArgsConstructor
 @CrossOrigin(origins = "*")
 @RequestMapping("/api/v1/users")
 public class UserController {
@@ -37,16 +43,8 @@ public class UserController {
     private final UserFacade userFacade;
     private final UserDatingProfileFacade userDatingProfileFacade;
 
-    private final EntityManagerFactory emf;
-
-    public UserController(EntityManagerFactory emf, UserService userService, UserFacade userFacade, UserDatingProfileFacade userDatingProfileFacade) {
-        this.emf = emf;
-        this.userService = userService;
-        this.userFacade = userFacade;
-        this.userDatingProfileFacade = userDatingProfileFacade;
-    }
-
-
+    @PersistenceUnit
+    private final EntityManagerFactory entityManagerFactory;
 
     //------------------------------------------------
 //    @PreAuthorize("hasAuthority('read')")
@@ -64,6 +62,20 @@ public class UserController {
     }
 //------------------------------------------------
 
+    public UserDatingProfile findUserDatingProfileEntityById(
+            Long id
+    ) {
+        UserDatingProfile userDatingProfile = null;
+        if (userService.findUserDatingProfileById(id).isPresent()) {
+            userDatingProfile = userService.findUserDatingProfileById(id).get();
+            return userDatingProfile;
+        } else {
+            return null;
+        }
+
+    }
+
+
     //    @PreAuthorize("hasAuthority('read')")
     @GetMapping("/{id}/datingProfile")
     public UserDatingProfileRsDto findUserDatingProfileById(
@@ -73,7 +85,9 @@ public class UserController {
         if (userService.findUserDatingProfileById(id).isPresent()) {
             userDatingProfile = userService.findUserDatingProfileById(id).get();
             return userDatingProfileFacade.convertToDto(userDatingProfile);
-        } else {return null;}
+        } else {
+            return null;
+        }
 
     }
 
@@ -82,10 +96,10 @@ public class UserController {
         try {
             User user = userFacade.convertToEntity(userRqDto);
             userService.save(user);
-            log.info("in createUser: new user (user.name: "+userRqDto.getName()+" "+ userRqDto.getLastName()+" created");
+            log.info("in createUser: new user (user.name: " + userRqDto.getName() + " " + userRqDto.getLastName() + " created");
             return findUserByEmail(user.getEmail());
         } catch (Exception e) {
-            log.error("error creating a new user: " +userRqDto.getName()+" "+ userRqDto.getLastName());
+            log.error("error creating a new user: " + userRqDto.getName() + " " + userRqDto.getLastName());
             throw new CreatingEntityFailed("error creating a new user");
         }
     }
@@ -113,15 +127,49 @@ public class UserController {
         return userService.findAll().stream().map(userFacade::convertToDto).collect(Collectors.toList());
     }
 
+    // запускать на:  http://localhost:8000/api/v1/users/1/test
+    @GetMapping("/{id}/test")
+    public void test(@PathVariable("id") Long id){
+        UserDatingProfile userDatingProfileSelector = findUserDatingProfileEntityById(id);
+        findAllByCriteria(userDatingProfileSelector);
+    }
 
-//    public List<UserRsDto> findAllByCriteria(UserDatingProfile profile){
-//        EntityManager em = emf.createEntityManager();
-//        CriteriaBuilder cb = em.getCriteriaBuilder();
-//        CriteriaQuery<User> cq = cb.createQuery(User.class);
-//        Predicate sexCriteria = cb.equal(User.getSex(),profile.getMySex());
-//
-//        //        List<User> selectedUsers = userService.findAllByCriteria();
-//
-//        return null;
-//    }
+
+    public void findAllByCriteria(UserDatingProfile userDatingProfileSelector) {
+        System.out.println("in findAllByCriteria, userDatingProfileSelector: " + userDatingProfileSelector);
+        EntityManager em = entityManagerFactory.createEntityManager();
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+
+        CriteriaQuery<UserDatingProfile> cq = cb.createQuery(UserDatingProfile.class);
+        Root<UserDatingProfile> userDatingProfile = cq.from(UserDatingProfile.class);
+//        Predicate minAgeCriteria = cb.equal(userDatingProfile.get("birthday"), userDatingProfileSelector.getMinPreferedAge());
+//        Predicate maxAgeCriteria = cb.equal(userDatingProfile.get("birthday"), userDatingProfileSelector.getMaxPreferedAge());
+//        Predicate lastVisitDateCriteria = cb.equal(userDatingProfile.get("????"), userDatingProfileSelector.getMaxPreferedAge());
+        Predicate sexCriteria = cb.equal(userDatingProfile.get("mySex"), userDatingProfileSelector.getSeekAPersonOfSex());
+        Predicate minHeightCriteria = cb.greaterThanOrEqualTo(userDatingProfile.get("myHeight"), userDatingProfileSelector.getMinHeightIWant());
+        Predicate maxHeightCriteria = cb.lessThanOrEqualTo(userDatingProfile.get("myHeight"), userDatingProfileSelector.getMaxHeightIWant());
+        Predicate countryCriteria = cb.equal(userDatingProfile.get("countryINowLiveIn"), userDatingProfileSelector.getWantFromCountry());
+        Predicate childrenCriteria = cb.lessThanOrEqualTo(userDatingProfile.get("numberOfMyChildren"), userDatingProfileSelector.getMaxNumberOfChildrenAllowed());
+
+        List<Predicate> predicates = new ArrayList<>();
+        predicates.add(sexCriteria);
+        if(userDatingProfileSelector.getMinHeightIWant() > 100){
+            predicates.add(minHeightCriteria);
+//            System.out.println("added Predicate: minHeightCriteria");
+        }
+        if(userDatingProfileSelector.getMaxHeightIWant() > 150){
+            predicates.add(maxHeightCriteria);
+//            System.out.println("added Predicate: maxHeightCriteria");
+        }        if(userDatingProfileSelector.getMaxNumberOfChildrenAllowed() < 100){
+            predicates.add(childrenCriteria);
+//            System.out.println("added Predicate: childrenCriteria");
+        }
+        cq.where(predicates.toArray(new Predicate[predicates.size()]));
+
+//        cq.where(sexCriteria, minHeightCriteria, maxHeightCriteria, childrenCriteria);
+        List<UserDatingProfile> selectedUsers = em.createQuery(cq).getResultList();
+        System.out.println("selectedUsers: " + selectedUsers);
+        List<Long> ids = selectedUsers.stream().map(UserDatingProfile::getId).collect(Collectors.toList());
+//        System.out.println("List<userIds>: " + ids);
+    }
 }

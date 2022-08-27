@@ -14,8 +14,8 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-@RequiredArgsConstructor
-@NoArgsConstructor
+//@RequiredArgsConstructor
+@NoArgsConstructor // TODO убрал, но надо вернуть, убрав ошибку
 //@AllArgsConstructor  -так, как Ломбок не генерирует поля от BaseEntity, то этот конструктор я создаю везде самостоятельно
 @Table(name = "users")
 public class User extends BaseEntity {

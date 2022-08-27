@@ -21,7 +21,6 @@ import java.util.*;
 //@AllArgsConstructor  // при генерации в Lombok-е  @AllArgsConstructor  не будет выполнена инициализация и не вставятся в этот конструктор аргументы полей суперкласса.
 //@EqualsAndHashCode(of = {"id"})
 @EqualsAndHashCode(callSuper = true)   //Устанавливая callSuper в true, вы можете включить методы equals и hashCode суперкласса в сгенерированные методы.    https://urvanov.ru/2015/09/18/lombok-equalsandhashcode-%D0%BE%D0%B1%D0%BB%D0%B5%D0%B3%D1%87%D0%B0%D0%B5%D0%BC-%D1%81%D1%80%D0%B0%D0%B2%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5-%D0%BE%D0%B1%D1%8A%D0%B5%D0%BA%D1%82%D0%BE%D0%B2/
-@ToString
 @Table(name = "dating_user_profiles")
 public class UserDatingProfile extends BaseEntity{
 
@@ -51,16 +50,16 @@ public class UserDatingProfile extends BaseEntity{
     private Sex seekAPersonOfSex;
 
     @Column(name = "my_height")
-    private Integer myHeight;
+    private Integer myHeight = 0;
     @Column(name = "min_height_wanted")
-    private Integer minHeightIWant;
+    private Integer minHeightIWant = 0;
     @Column(name = "max_height_wanted")
-    private Integer maxHeightIWant;
+    private Integer maxHeightIWant = 0;
 
     @Column(name = "min_pref_age")
-    private Integer minPreferedAge;
+    private Integer minPreferedAge = 0;
     @Column(name = "max_pref_age")
-    private Integer maxPreferedAge;
+    private Integer maxPreferedAge = 0;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "country_i_now_live_in")
@@ -76,9 +75,9 @@ public class UserDatingProfile extends BaseEntity{
 
 
     @Column(name = "my_children")
-    private Integer numberOfMyChildren;
+    private Integer numberOfMyChildren = 0;
     @Column(name = "their_children_allowed")
-    private Integer maxNumberOfChildrenAllowed;
+    private Integer maxNumberOfChildrenAllowed = 100;
 
 
     @Column(name = "self_description")
@@ -109,6 +108,19 @@ public class UserDatingProfile extends BaseEntity{
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "userDatingProfile")
     private List<Picture> pictures = new ArrayList<>();
 
+    @Override
+    public String toString() {
+        return "\nUserDatingProfile{" +
+                "id=" + id +
+                ", mySex=" + mySex +
+                ", seekAPersonOfSex=" + seekAPersonOfSex +
+                ", myHeight=" + myHeight +
+                ", minHeightIWant=" + minHeightIWant +
+                ", maxHeightIWant=" + maxHeightIWant +
+                ", numberOfMyChildren=" + numberOfMyChildren +
+                ", maxNumberOfChildrenAllowed=" + maxNumberOfChildrenAllowed +
+                '}';
+    }
 }
 
 

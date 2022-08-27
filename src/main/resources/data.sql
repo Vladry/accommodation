@@ -28,6 +28,8 @@ VALUES ('Vlady1', 'Ivanov', 'vlad1@ukr.net', 'rvy1', 'USER', true, true,
        ('Matvey', '', 'Matvey@ukr.net', 'pasMatvey', 'USER', true, true,
         'https://res.cloudinary.com/vladry/image/upload/v1628498610/vlad_shrunk/cat2_x0yqxm.jpg'),
        ('Danil', '', 'Danil@ukr.net', 'pasDanil', 'USER', true, true, ''),
+       ('Violetta', '', 'Violetta@ukr.net', 'pasVioletta', 'USER', true, true, ''),
+       ('Petrov', 'Nedavalka', 'Petrov@ukr.net', 'pasPetrov', 'USER', false, false, ''),
        ('Efimovna', 'Nedavalka', 'Efimovna@ukr.net', 'pasEfimovna', 'USER', false, false,
         'https://res.cloudinary.com/vladry/image/upload/v1628498610/vlad_shrunk/cat1_ygmygo.jpg');
 
@@ -46,10 +48,10 @@ VALUES (1,  'Loc1', 1, 1, 1, false, false, 1, false, false, 1),
 INSERT INTO dating_user_profiles (user_id, birthday, last_visit_date, my_sex, seek_a_person_of_sex, my_height, min_height_wanted,
                                   max_height_wanted, min_pref_age, max_pref_age,
                                   my_children, their_children_allowed)
-VALUES (1, '2022-06-23', NOW() , 'M', 'F', 173, 160, 171, 18, 30, 0, 1),
-       (2, '2022-06-22', NOW() , 'F', 'M', 163, 180, 198, 18, 30, 2, 0),
-       (3, '2022-06-21', NOW() , 'M', 'F', 193, 160, 163, 18, 30, 0, 2),
-       (4, '2022-06-20', NOW() , 'M', 'F', 170, 160, 168, 18, 30, 1, 0),
+VALUES (1, '2022-06-23', NOW() , 'M', 'F', 173, 150, 190, 16, 50, 0, 5),
+       (2, '2022-06-22', NOW() , 'F', 'M', 163, 0, 198, 18, 30, 2, 0),
+       (3, '2022-06-21', NOW() , 'M', 'F', 193, 160, 0, 18, 30, 0, 2),
+       (4, '2022-06-20', NOW() , 'M', 'F', 170, 0, 0, 18, 30, 1, 100),
        (5, '2022-06-19', NOW() , 'F', 'M', 160, 180, 198, 18, 30, 0, 0),
        (6, '2022-06-18', NOW() , 'M', 'F', 183, 160, 178, 18, 30, 1, 0),
        (17,'2022-06-17', NOW() , 'M', 'F', 173, 159, 188, 18, 30, 1, 0),
@@ -67,7 +69,7 @@ VALUES (1, 1, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_s
        (8, 17, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_haircut_ziiyxb.jpg'),
        (9, 18, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_haircut_ziiyxb.jpg');
 
-INSERT INTO user_dating_goals (DATING_USER_PROFILE_USER_ID, goals)
+INSERT INTO user_dating_goals (USER_DATING_PROFILE_USER_ID, goals)
 VALUES (1, 'TO_BUILD_FAMILY_WITH_CHILDREN'),
        (1, 'TO_BECOME_A_COUPLE_WITHOUT_CHILDREN'),
        (1, 'JOINT_RENT_OF_APARTMENT'),
@@ -77,7 +79,7 @@ VALUES (1, 'TO_BUILD_FAMILY_WITH_CHILDREN'),
        (17, 'MAKING_FRIENDS_ONLY'),
        (17, 'I_AM_JUST_BORED');
 
-INSERT INTO my_interests_list (DATING_USER_PROFILE_USER_ID, my_interests)
+INSERT INTO my_interests_list (USER_DATING_PROFILE_USER_ID, my_interests)
 VALUES (1, 'TRAVEL'),
        (1, 'PLAYING_MUSIC_INSTRUMENTS'),
        (1, 'DANCING'),
@@ -87,7 +89,7 @@ VALUES (1, 'TRAVEL'),
        (17, 'CHILDREN'),
        (17, 'CARS');
 
-INSERT INTO their_interests_list (DATING_USER_PROFILE_USER_ID, their_interests_wanted)
+INSERT INTO their_interests_list (USER_DATING_PROFILE_USER_ID, their_interests_wanted)
 VALUES (1, 'PAINTING'),
        (1, 'OTHER_ARTS'),
        (1, 'CHILDREN'),
