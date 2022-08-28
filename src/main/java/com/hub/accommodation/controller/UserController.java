@@ -15,6 +15,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -78,24 +79,22 @@ public class UserController {
 
 
     //    @PreAuthorize("hasAuthority('read')")
-    @GetMapping("/all")
+        @GetMapping("/all")
     public List<UserRsDto> findAll() {
         return userService.findAll().stream().map(userFacade::convertToDto).collect(Collectors.toList());
     }
 
-
-    public UserDatingProfile getUserDatingProfileById(
-            Long id
-    ) {
-        UserDatingProfile userDatingProfile = null;
-        if (userService.findUserDatingProfileById(id).isPresent()) {
-            userDatingProfile = userService.findUserDatingProfileById(id).get();
-            return userDatingProfile;
-        } else {
-            return null;
+    @PostMapping("/allByIds")
+    public List<UserRsDto> findAllById(@RequestBody List<Long> ids) {
+        System.out.println("in findAllById");
+        if(ids.isEmpty()){
+            System.out.println("findAllById argument ids is empty - returning empty List<UserRsDto>");
+            return new ArrayList<>();
         }
-
+        return userService.findAllById(ids).stream().map(userFacade::convertToDto).collect(Collectors.toList());
     }
+
+
 
 
 

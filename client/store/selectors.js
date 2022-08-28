@@ -1,7 +1,5 @@
-import navReducer from "./reducers/navReducer";
-
-const getCurrentSection = state=> state.navigationData.currentSection;
+const selectUser = state => state.userData.user;
 
 export default {
-    getCurrentSection,
+    selectUser,
 };

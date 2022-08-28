@@ -4,7 +4,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import { createWrapper } from "next-redux-wrapper";
 import rootReducer from "./reducers";
 import {getSession} from "next-auth/react";
-import {getProfile} from "./actions/userAction";
+import {getUser} from "./actions/userAction";
 
 // initial states here
 const initialState = {};
@@ -27,7 +27,7 @@ const makeStore = () => {
     getSession()
         .then(s => {
             if (!!s) {
-                store.dispatch(getProfile())
+                store.dispatch(getUser())
             }
         })
     return store;

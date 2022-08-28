@@ -1,8 +1,8 @@
 SET FOREIGN_KEY_CHECKS = 0;
 
 INSERT INTO users (name, last_name, email, password, role, hide_social_data, dating_participation, avatar)
-VALUES ('Vlady1', 'Ivanov', 'vlad1@ukr.net', 'rvy1', 'USER', true, true,
-        'https://res.cloudinary.com/vladry/image/upload/v1628196607/avatars/Vlad_avatar_tjrcut.jpg'),
+VALUES ('Eva', 'Brown', 'EvaBrown@ukr.net', 'Eva', 'USER', true, true,
+        'https://res.cloudinary.com/vladry/image/upload/v1628868305/avatars/Ira_yvvlml.png'),
        ('Serge', 'Goulida', 'Serge@ukr.net', 'pasSerge', 'USER', true, true,
         'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vocal-studio-bruce_fzmdlp.jpg'),
        ('Andrey', 'Strange', 'Andrey@ukr.net', 'pasAndrey', 'USER', true, true,
@@ -29,7 +29,7 @@ VALUES ('Vlady1', 'Ivanov', 'vlad1@ukr.net', 'rvy1', 'USER', true, true,
         'https://res.cloudinary.com/vladry/image/upload/v1628498610/vlad_shrunk/cat2_x0yqxm.jpg'),
        ('Danil', '', 'Danil@ukr.net', 'pasDanil', 'USER', true, true, ''),
        ('Violetta', '', 'Violetta@ukr.net', 'pasVioletta', 'USER', true, true, ''),
-       ('Petrov', 'Nedavalka', 'Petrov@ukr.net', 'pasPetrov', 'USER', false, false, ''),
+       ('Vlad', 'Ryab', 'VladRyab@ukr.net', 'pasVladRyab', 'USER', false, false, 'https://res.cloudinary.com/vladry/image/upload/v1628196607/avatars/Vlad_avatar_tjrcut.jpg'),
        ('Efimovna', 'Nedavalka', 'Efimovna@ukr.net', 'pasEfimovna', 'USER', false, false,
         'https://res.cloudinary.com/vladry/image/upload/v1628498610/vlad_shrunk/cat1_ygmygo.jpg');
 
@@ -48,14 +48,14 @@ VALUES (1,  'Loc1', 1, 1, 1, false, false, 1, false, false, 1),
 INSERT INTO dating_user_profiles (user_id, birthday, last_visit_date, my_sex, seek_a_person_of_sex, my_height, min_height_wanted,
                                   max_height_wanted, min_pref_age, max_pref_age,
                                   my_children, their_children_allowed)
-VALUES (1, '2022-06-23', NOW() , 'M', 'F', 173, 150, 190, 16, 50, 0, 5),
+VALUES (1, '2022-06-23', NOW() , 'F', 'M', 173, 190, 198, 18, 30, 1, 0),
        (2, '2022-06-22', NOW() , 'F', 'M', 163, 0, 198, 18, 30, 2, 0),
        (3, '2022-06-21', NOW() , 'M', 'F', 193, 160, 0, 18, 30, 0, 2),
        (4, '2022-06-20', NOW() , 'M', 'F', 170, 0, 0, 18, 30, 1, 100),
        (5, '2022-06-19', NOW() , 'F', 'M', 160, 180, 198, 18, 30, 0, 0),
        (6, '2022-06-18', NOW() , 'M', 'F', 183, 160, 178, 18, 30, 1, 0),
        (17,'2022-06-17', NOW() , 'M', 'F', 173, 159, 188, 18, 30, 1, 0),
-       (18,'2022-04-23', NOW() , 'F', 'M', 173, 190, 198, 18, 30, 1, 0);
+       (19,'2022-04-23', NOW() , 'M', 'F', 173, 150, 190, 16, 50, 0, 5);
 
 
 INSERT INTO user_pictures (id, dating_user_profile, picture)

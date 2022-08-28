@@ -18,14 +18,14 @@ const LockedMenu = ({placement}) => {
             <MenuItem><Tooltip placement={placement}
                                title={mainMenu[1].title}>
                 <span>
-                <NavLinkProtected href={mainMenu[1].url} children={mainMenu[1].linkName}/>
+                <NavLinkProtected href={mainMenu[1].url}>{mainMenu[1].linkName}</NavLinkProtected>
                 </span></Tooltip>
             </MenuItem>
 
             <MenuItem><Tooltip placement={placement}
                                title={mainMenu[2].title}>
                 <span>
-                   <NavLinkProtected href={mainMenu[2].url} children={mainMenu[2].linkName}/>
+                   <NavLinkProtected href={mainMenu[2].url}>{mainMenu[2].linkName}</NavLinkProtected>
                 </span></Tooltip>
             </MenuItem>
 
@@ -33,14 +33,14 @@ const LockedMenu = ({placement}) => {
             <MenuItem><Tooltip placement={placement}
                                title={mainMenu[3].title}>
                 <span>
-                    <NavLinkProtected href={mainMenu[3].url} children={mainMenu[3].linkName}/>
+                    <NavLinkProtected href={mainMenu[3].url}>{mainMenu[3].linkName}</NavLinkProtected>
                 </span></Tooltip>
             </MenuItem>
 
             <MenuItem><Tooltip placement={placement}
                                title={mainMenu[4].title}>
                 <span>
-                    <NavLinkProtected href={mainMenu[4].url} children={mainMenu[4].linkName}/>
+                    <NavLinkProtected href={mainMenu[4].url}>{mainMenu[4].linkName}</NavLinkProtected>
                 </span></Tooltip>
             </MenuItem>
 

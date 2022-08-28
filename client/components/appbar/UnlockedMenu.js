@@ -3,13 +3,16 @@ import Tooltip from "@mui/material/Tooltip";
 import useAuth from "../../hooks/useAuth";
 import styled from "@emotion/styled";
 import {NavLink} from "./NavLink";
-import {mainMenu} from '../../public/menuConfig.js';
+import {datingMenu, mainMenu} from '../../public/menuConfig.js';
+import {useSelector} from "react-redux";
 
 let isAuthenticated = null;
 
 const UnlockedMenu = ({placement}) => {
 
-        isAuthenticated = useAuth(false);
+    let isRegisteredInDating = useSelector((state) => state.userData.isRegisteredInDating);
+    isRegisteredInDating = true;
+    isAuthenticated = useAuth(false);
 
 
     return (
@@ -18,14 +21,17 @@ const UnlockedMenu = ({placement}) => {
             <MenuItem><Tooltip placement={placement}
                                title={mainMenu[1].title}>
                 <span>
-                <NavLinkUnprotected href={mainMenu[1].url} children={mainMenu[1].linkName}/>
+                {isRegisteredInDating &&
+                    <NavLinkUnprotected href={mainMenu[1].url}>{mainMenu[1].linkName}</NavLinkUnprotected>}
+                    {!isRegisteredInDating &&
+                        <NavLinkProtected href={datingMenu[5].url}>{datingMenu[5].inactiveLinkName}</NavLinkProtected>}
                 </span></Tooltip>
             </MenuItem>
 
             <MenuItem><Tooltip placement={placement}
                                title={mainMenu[2].title}>
                 <span>
-                   <NavLinkUnprotected href={mainMenu[2].url} children={mainMenu[2].linkName}/>
+                   <NavLinkUnprotected href={mainMenu[2].url}>{mainMenu[2].linkName}</NavLinkUnprotected>
                 </span></Tooltip>
             </MenuItem>
 
@@ -33,14 +39,14 @@ const UnlockedMenu = ({placement}) => {
             <MenuItem><Tooltip placement={placement}
                                title={mainMenu[3].title}>
                 <span>
-                    <NavLinkUnprotected href={mainMenu[3].url} children={mainMenu[3].linkName}/>
+                    <NavLinkUnprotected href={mainMenu[3].url}>{mainMenu[3].linkName}</NavLinkUnprotected>
                 </span></Tooltip>
             </MenuItem>
 
             <MenuItem><Tooltip placement={placement}
                                title={mainMenu[4].title}>
                 <span>
-                    <NavLinkUnprotected href={mainMenu[4].url} children={mainMenu[4].linkName}/>
+                    <NavLinkUnprotected href={mainMenu[4].url}>{mainMenu[4].linkName}</NavLinkUnprotected>
                 </span></Tooltip>
             </MenuItem>
 
@@ -62,4 +68,11 @@ const MenuItem = styled.div`
 border: 2px solid #ccc;
 border-radius: 15px;
 margin: 20px 10px;
+`;
+
+const NavLinkProtected = styled(NavLink)`
+margin: 5px 10px;
+text-decoration: none;
+&:visited, &:link  {color: ${props => props.theme.palette.primary.main}   };
+&:focus, &:hover, &:active {color: ${props => props.theme.palette.error.main}   };
 `;

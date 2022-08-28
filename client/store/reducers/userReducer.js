@@ -17,25 +17,24 @@ export default (state = initialState, action) => {
         case types.SET_ACCOMMODATION_USER_PROFILE:
             return {...state, accommodationUserProfile: action.payload}
 
-        case types.GET_PROFILE_REQUEST:
+        case types.SET_LOADING_TRUE:
             return {
                 ...state,
                 loading: true
             }
-        case types.GET_PROFILE_SUCCESS:
+        case types.SET_USER_SUCCESS:
             return {
                 ...state,
-                user: action.payload.user,
+                user: action.payload,
                 loading: false
             }
-        case types.GET_PROFILE_FAILURE:
+        case types.SET_USER_FAILURE:
             return {
                 ...state,
-                user: null,
                 loading: false
             }
         case types.GET_USER_DATING_PROFILE:
-            return {...state, loading: true}
+            return {...state, loading: true, userDatingProfile: null}
         case types.SET_USER_DATING_PROFILE:
             return {...state, userDatingProfile: action.payload, loading: false}
 

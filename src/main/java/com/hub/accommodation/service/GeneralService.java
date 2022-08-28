@@ -8,12 +8,14 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @NoArgsConstructor
 @AllArgsConstructor
+@Transactional
 public abstract class GeneralService<E extends BaseEntity> implements ServiceInterface<E> {
   @Autowired
   private RepositoryInterface<E> repo;
@@ -29,11 +31,13 @@ public abstract class GeneralService<E extends BaseEntity> implements ServiceInt
   }
 
   @Override
+  @Transactional(readOnly = true)
   public List<E> findAll() {
     return repo.findAll();
   }
 
   @Override
+  @Transactional(readOnly = true)
   public Page<E> findAll(Pageable pageable) {
     return repo.findAll(pageable);
   }
@@ -50,21 +54,25 @@ public abstract class GeneralService<E extends BaseEntity> implements ServiceInt
   }
 
   @Override
+  @Transactional(readOnly = true)
   public Optional<E> findById(Long id) {
     return repo.findById(id);
   }
 
   @Override
+  @Transactional(readOnly = true)
   public E getOne(Long id) {
     return repo.getById(id);
   }
 
   @Override
+  @Transactional(readOnly = true)
   public E findEntityById(Long id) {
     return repo.findEntityById(id);
   }
 
   @Override
+  @Transactional(readOnly = true)
   public List<E> findAllById(Iterable<Long> listOfIds) {
     return repo.findAllById(listOfIds);
   }

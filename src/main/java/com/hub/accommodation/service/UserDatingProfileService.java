@@ -28,29 +28,20 @@ public class UserDatingProfileService extends GeneralService<User> {
     private final EntityManagerFactory entityManagerFactory;
 
     //-----------------methods--------------------------
+    @Transactional(readOnly = true, timeout = 1000)
     public Optional<UserDatingProfile> findUserDatingProfileById(Long id) {
         return userDatingProfileRepository.findUserDatingProfileById(id);
-    }
-
-    public UserDatingProfile getUserDatingProfileById(Long id) {
-        UserDatingProfile userDatingProfile = null;
-        if (
-                findUserDatingProfileById(id).isPresent()) {
-            userDatingProfile =
-                    findUserDatingProfileById(id).get();
-            return userDatingProfile;
-        } else {
-            return null;
-        }
     }
 
 
 
     //-----------------criteriaBuilder section---------------------
-
-
+//  https://www.baeldung.com/hibernate-criteria-queries#:~:text=The%20Criteria%20API%20allows%20us,on%20the%20JPA%20Criteria%20API.
+//  https://dev.to/bowlendev/conditional-criteriabuilder-for-optional-params-2j6
+    @Transactional(readOnly = true, timeout = 1000)
     public List<UserDatingProfile> findAllMatchingTheCriteria(UserDatingProfile currentUserDatingProfile) {
         EntityManager em = entityManagerFactory.createEntityManager();
+        em.getTransaction().begin();
         CriteriaBuilder cb = em.getCriteriaBuilder();
 
         CriteriaQuery<UserDatingProfile> cq = cb.createQuery(UserDatingProfile.class);
@@ -82,6 +73,8 @@ public class UserDatingProfileService extends GeneralService<User> {
         List<UserDatingProfile> candidatesMatchingCriteria = em.createQuery(cq).getResultList();
 
         System.out.println("candidatesMatchingCriteria: " + candidatesMatchingCriteria);
+        em.getTransaction().commit();
+        em.close();
         return candidatesMatchingCriteria;
 
     }

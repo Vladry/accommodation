@@ -9,7 +9,7 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import {signOut} from "next-auth/react";
 import {useSelector} from "react-redux";
-import {getProfile} from "../../store/actions/userAction";
+import {getUser} from "../../store/actions/userAction";
 import {Typography, useMediaQuery} from "@mui/material";
 import Greeting from "./Greeting";
 import MenuItem from "@mui/material/MenuItem";
