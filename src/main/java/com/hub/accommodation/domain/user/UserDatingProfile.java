@@ -18,9 +18,8 @@ import java.util.*;
 @Setter
 //@RequiredArgsConstructor
 @NoArgsConstructor
-//@AllArgsConstructor  // при генерации в Lombok-е  @AllArgsConstructor  не будет выполнена инициализация и не вставятся в этот конструктор аргументы полей суперкласса.
-//@EqualsAndHashCode(of = {"id"})
-@EqualsAndHashCode(callSuper = true)   //Устанавливая callSuper в true, вы можете включить методы equals и hashCode суперкласса в сгенерированные методы.    https://urvanov.ru/2015/09/18/lombok-equalsandhashcode-%D0%BE%D0%B1%D0%BB%D0%B5%D0%B3%D1%87%D0%B0%D0%B5%D0%BC-%D1%81%D1%80%D0%B0%D0%B2%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5-%D0%BE%D0%B1%D1%8A%D0%B5%D0%BA%D1%82%D0%BE%D0%B2/
+// @AllArgsConstructor  // при генерации в Lombok-е  @AllArgsConstructor  не будет выполнена инициализация и не вставятся в этот конструктор аргументы полей суперкласса.
+@EqualsAndHashCode(callSuper = true, of={"id"})   //Устанавливая callSuper в true, вы можете включить методы equals и hashCode суперкласса в сгенерированные методы.    https://urvanov.ru/2015/09/18/lombok-equalsandhashcode-%D0%BE%D0%B1%D0%BB%D0%B5%D0%B3%D1%87%D0%B0%D0%B5%D0%BC-%D1%81%D1%80%D0%B0%D0%B2%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5-%D0%BE%D0%B1%D1%8A%D0%B5%D0%BA%D1%82%D0%BE%D0%B2/
 @Table(name = "dating_user_profiles")
 public class UserDatingProfile extends BaseEntity{
 
@@ -107,6 +106,33 @@ public class UserDatingProfile extends BaseEntity{
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "userDatingProfile")
     private List<Picture> pictures = new ArrayList<>();
+
+
+    public UserDatingProfile(Long id, User user, Sex mySex, LocalDate birthday, LocalDateTime lastVisitDate, Sex seekAPersonOfSex, Integer myHeight, Integer minHeightIWant, Integer maxHeightIWant, Integer minPreferedAge, Integer maxPreferedAge, Country countryINowLiveIn, Country myCitizenship, Country wantFromCountry, Integer numberOfMyChildren, Integer maxNumberOfChildrenAllowed, String selfDescription, String traitsIWouldLoveInYou, String traitsIWouldHateInYou, Collection<Interests> myInterests, Collection<Interests> desiredWithInterests, Collection<Goals> myGoals, List<Picture> pictures) {
+        this.id = id;
+        this.user = user;
+        this.mySex = mySex;
+        this.birthday = birthday;
+        this.lastVisitDate = lastVisitDate;
+        this.seekAPersonOfSex = seekAPersonOfSex;
+        this.myHeight = myHeight;
+        this.minHeightIWant = minHeightIWant;
+        this.maxHeightIWant = maxHeightIWant;
+        this.minPreferedAge = minPreferedAge;
+        this.maxPreferedAge = maxPreferedAge;
+        this.countryINowLiveIn = countryINowLiveIn;
+        this.myCitizenship = myCitizenship;
+        this.wantFromCountry = wantFromCountry;
+        this.numberOfMyChildren = numberOfMyChildren;
+        this.maxNumberOfChildrenAllowed = maxNumberOfChildrenAllowed;
+        this.selfDescription = selfDescription;
+        this.traitsIWouldLoveInYou = traitsIWouldLoveInYou;
+        this.traitsIWouldHateInYou = traitsIWouldHateInYou;
+        this.myInterests = myInterests;
+        this.desiredWithInterests = desiredWithInterests;
+        this.myGoals = myGoals;
+        this.pictures = pictures;
+    }
 
     @Override
     public String toString() {
