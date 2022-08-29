@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 import useAuth from "../../hooks/useAuth";
 import {useDispatch, useSelector} from "react-redux";
-import {getUser} from "../../store/actions/userAction";
 
 const Index = () => {
     const isAuthenticated = useAuth(true);

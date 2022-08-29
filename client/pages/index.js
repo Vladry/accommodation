@@ -6,10 +6,14 @@ import About from "../components/About";
 
 
 import SwiperCarousel from "../components/SwiperCarousel";
+import {getDatingProfile} from "../store/actions/userAction";
+import types from "../store/types";
 
 
 export default function Home() {
     const dispatch = useDispatch();
+    //получим datingProfile текущего currentUser чтобы определить его isCurrUserRegisteredInDating:
+    // dispatch(getDatingProfile(user.id, types.GET_USER_DATING_PROFILE, types.SET_USER_DATING_PROFILE_SUCCESS));
 
 
     return (

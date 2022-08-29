@@ -29,7 +29,7 @@ const UserDatingProfile = () => {
     useEffect(() => {
         if (queriedUserId) {
             const logActionCurrentU = act.GET_USER_DATING_PROFILE;
-            const setActionCurrentU = act.SET_USER_DATING_PROFILE;
+            const setActionCurrentU = act.SET_USER_DATING_PROFILE_SUCCESS;
             const logActionCandidateU = act.GET_CANDIDATE_DATING_PROFILE;
             const setActionCandidateU = act.SET_CANDIDATE_DATING_PROFILE;
             console.log("in useEffect. Run: getDatingProfile action:");

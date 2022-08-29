@@ -35,6 +35,7 @@ public class UserDatingProfileController {
     public UserDatingProfileRsDto findUserDatingProfileById(
             @PathVariable("id") Long id
     ) {
+        System.out.println("in findUserDatingProfileById");
         if (id==null) {
             System.out.println("findUserDatingProfileById argument id is null: returning null");
             return null;
@@ -42,6 +43,7 @@ public class UserDatingProfileController {
         UserDatingProfile userDatingProfile = null;
         if (userDatingProfileService.findUserDatingProfileById(id).isPresent()) {
             userDatingProfile = userDatingProfileService.findUserDatingProfileById(id).get();
+            System.out.println("returning userDatingProfileRsDto: "+userDatingProfile);
             return userDatingProfileFacade.convertToDto(userDatingProfile);
         } else {
             return null;

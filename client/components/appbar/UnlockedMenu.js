@@ -5,13 +5,13 @@ import styled from "@emotion/styled";
 import {NavLink} from "./NavLink";
 import {datingMenu, mainMenu} from '../../public/menuConfig.js';
 import {useSelector} from "react-redux";
+import sel from "../../store/selectors";
 
 let isAuthenticated = null;
 
 const UnlockedMenu = ({placement}) => {
 
-    let isRegisteredInDating = useSelector((state) => state.userData.isRegisteredInDating);
-    isRegisteredInDating = true;
+    let isCurrUserRegisteredInDating = useSelector(sel.isCurrUserRegisteredInDating);
     isAuthenticated = useAuth(false);
 
 
@@ -21,9 +21,9 @@ const UnlockedMenu = ({placement}) => {
             <MenuItem><Tooltip placement={placement}
                                title={mainMenu[1].title}>
                 <span>
-                {isRegisteredInDating &&
+                {isCurrUserRegisteredInDating &&
                     <NavLinkUnprotected href={mainMenu[1].url}>{mainMenu[1].linkName}</NavLinkUnprotected>}
-                    {!isRegisteredInDating &&
+                    {!isCurrUserRegisteredInDating &&
                         <NavLinkProtected href={datingMenu[5].url}>{datingMenu[5].inactiveLinkName}</NavLinkProtected>}
                 </span></Tooltip>
             </MenuItem>

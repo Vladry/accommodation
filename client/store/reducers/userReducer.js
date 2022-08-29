@@ -7,6 +7,8 @@ const initialState = {
     tenantUserProfile: null,
     userDatingProfile: null,
     candidateDatingProfile: null,
+    matchingCandidatesIds: null,
+    isCurrUserRegisteredInDating: false
 }
 
 export default (state = initialState, action) => {
@@ -34,14 +36,18 @@ export default (state = initialState, action) => {
                 loading: false
             }
         case types.GET_USER_DATING_PROFILE:
-            return {...state, loading: true, userDatingProfile: null}
-        case types.SET_USER_DATING_PROFILE:
-            return {...state, userDatingProfile: action.payload, loading: false}
+            return {...state, loading: true}
+        case types.SET_USER_DATING_PROFILE_SUCCESS:
+            return {...state, userDatingProfile: action.payload, isCurrUserRegisteredInDating: true, loading: false}
+        case types.SET_USER_DATING_PROFILE_FAIL:
+            return {...state, userDatingProfile: null, isCurrUserRegisteredInDating: false, loading: false}
 
         case types.GET_CANDIDATE_DATING_PROFILE:
             return {...state, loading: true, candidateDatingProfile: null}
         case types.SET_CANDIDATE_DATING_PROFILE:
             return {...state, candidateDatingProfile: action.payload, loading: false}
+        case types.SET_MATCHING_CANDIDATES_IDS:
+            return {...state, matchingCandidatesIds: action.payload}
 
         default:
             return state;
