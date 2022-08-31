@@ -25,8 +25,6 @@ const DatingUserCard = ({user}) => {
                 sx={{border: '2px solid blue', borderRadius: '12px', width: '250px', height: '250px', padding: '10px'}}>
 
                 <div style={{position: 'relative', top: '-0.1em', ...avatarCssParam}}>
-
-                    {/*<Image name={user.name} data-id={String(user.id)} onClick={getUserDatingProfileId.bind(null, router)}*/}
                     <Image src={user.avatar ? user.avatar : '/images/users.png'}
                            alt={'user-image'} width={250} height={250}
                     />

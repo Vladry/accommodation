@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import DatingMenuWrapper from "../formPages/dating/DatingMenuWrapper";
-import api from "../../lib/API";
 import {useDispatch, useSelector} from "react-redux";
 import useAuth from "../../hooks/useAuth";
 import {useRouter} from "next/router";

@@ -12,7 +12,7 @@ import types from "../../../store/types";
 const Index = () => {
 
     const user = useSelector(sel.user);
-    const matchingCandidatesIds = useSelector(sel.matchingCandidatesIds);
+    // const matchingCandidatesIds = useSelector(sel.matchingCandidatesIds);
     const [candidatesMatchingCriteria, setCandidatesMatchingCriteria] = useState(null);
     const dispatch = useDispatch();
 
@@ -37,8 +37,8 @@ let resIds;
                 (getMatchingCandidates(resIds).then());
             }
         } catch (err) {
-            console.log(err);
-            console.log(`error fetching matchingDatingCandidatesIds with userId: ${user.id}`);
+            // console.log(err);
+            console.log(`matchingDatingCandidatesIds для userId: ${user.id} не найдены, или error`);
         }
 
     }
@@ -51,8 +51,8 @@ let resIds;
             await setCandidatesMatchingCriteria(resUsers);
             // console.log(`успешно получили matchingDatingCandidates: ${resUsers} `);
         } catch (err) {
-            console.log(err);
-            console.log(`error fetching matchingDatingCandidates with userId: ${user.id}`);
+            // console.log(err);
+            console.log(`matchingDatingCandidates для userId: ${user.id} не получены`);
         }
     }
 

@@ -8,21 +8,47 @@ import UserDatingProfileForm from "../../../components/forms/dating_user_profile
 import {Grid} from "@mui/material";
 import SideBar from "../../../components/dating_components/SideBar";
 import ArticleWindow from "../../../components/dating_components/ArticleWindow";
+import selectors from "../../../store/selectors";
 
 const UserDatingProfileFormPage = () => {
-    const user = useSelector((state)=>state.userData.user);
+    const user = useSelector(selectors.user);
     const isAuthenticated = useAuth(true);
 const loading = useSelector((state)=>state.userData.loading);
     const handleSubmit = async (values) => {
-        values = {...values, userId: user.id};
+        const udpFormValues = {...values, userId: user.id};
+        delete udpFormValues["pictures"];
+        delete udpFormValues["desiredWithInterests"];
+        delete udpFormValues["myGoals"];
 
-        await api.get(`/users/${user.id}/datingProfile`, values
+// console.log(`для юзера: ${user.id}, отправляю данные формы: `, udpFormValues)
+        await api.post(`/users/datingProfile`, udpFormValues/*,{ contentType: "application/json; charset=utf-8",
+            async: false,    //Cross-domain requests and dataType: "jsonp" requests do not support synchronous operation
+            cache: false,    //This will force requested pages not to be cached by the browser
+            processData:false}*/
         ).then((res) => {
-            console.log(res); // вывод userDatingProfile
+            console.log('in handleSubmit.then на фронте, после отправки на бЭк данных. Ответ сервера:', res); // вывод userDatingProfile
         })
             .catch(err => {
-                console.log(err)
+                console.log(err);
+                console.log('in handleSubmit.then: ошибка фронта отправки данных формы');
             });
+
+
+
+/*
+        await api.post(`/users/datingProfile`, values
+        ).then((res) => {
+            console.log('in handleSubmit.then на фронте, после отправки на бЭк данных. Ответ сервера:', res); // вывод userDatingProfile
+        })
+            .catch(err => {
+                console.log(err);
+                console.log('in handleSubmit.then: ошибка фронта отправки данных формы');
+            });
+*/
+
+
+
+
     };
 
     const title = "Edit Your Profile"

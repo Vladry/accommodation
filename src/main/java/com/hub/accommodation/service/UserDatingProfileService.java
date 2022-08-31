@@ -1,10 +1,11 @@
 package com.hub.accommodation.service;
 
-import com.hub.accommodation.domain.user.User;
+import com.hub.accommodation.DTO.request.UserDatingProfileRqDto;
 import com.hub.accommodation.domain.user.UserDatingProfile;
 import com.hub.accommodation.repository.UserDatingProfileRepository;
-import com.hub.accommodation.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,20 +23,100 @@ import java.util.Optional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class UserDatingProfileService extends GeneralService<User> {
+public class UserDatingProfileService implements ServiceInterface <UserDatingProfile> {
     private final UserDatingProfileRepository userDatingProfileRepository;
     @PersistenceUnit
     private final EntityManagerFactory entityManagerFactory;
 
     //-----------------methods--------------------------
+    public void saveById(UserDatingProfileRqDto userDatingProfile){
+        System.out.println("получили из формы следующие данные: "+ userDatingProfile);
+    }
+
+
+/*    public void saveToId(Object vals){
+//        EntityManager em = entityManagerFactory.createEntityManager();
+        System.out.println("получили из формы следующие данные: "+ vals);
+        UserDatingProfileRqDto udpRqDto = new UserDatingProfileRqDto(
+                vals.stream()
+                vals.userId,
+                vals.mySex,
+                vals.birthday,
+                vals.lastVisitDate,
+                vals.seekAPersonOfSex,
+                vals.myHeight,
+                vals.minHeightIWant,
+                vals.maxHeightIWant,
+                vals.minPreferedAge,
+                vals.maxPreferedAge,
+                vals.countryINowLiveIn,
+                vals.myCitizenship,
+                vals.wantFromCountry,
+                vals.numberOfMyChildren,
+                vals.maxNumberOfChildrenAllowed,
+                vals.selfDescription,
+                vals.traitsIWouldLoveInYou,
+                vals.traitsIWouldHateInYou,
+                vals.myInterests,
+                vals.desiredWithInterests,
+                vals.myGoals,
+                vals.pictures
+        );
+
+
+    }*/
+
+    @Override
+    public UserDatingProfile save(UserDatingProfile entity){
+        return userDatingProfileRepository.save(entity);
+    }
+
+    @Override
+    public void delete(UserDatingProfile entity) {
+
+    }
+
+    @Override
+    public void deleteById(Long id) {
+
+    }
+
+    @Override
+    public List<UserDatingProfile> findAll() {
+        return null;
+    }
+
+    @Override
+    public Page<UserDatingProfile> findAll(Pageable pageable) {
+        return null;
+    }
+
+    @Override
+    public Optional<UserDatingProfile> findById(Long id) {
+        return Optional.empty();
+    }
+
+    @Override
+    public UserDatingProfile getOne(Long id) {
+        return null;
+    }
+
+    @Override
+    public UserDatingProfile findEntityById(Long id) {
+        return null;
+    }
+
+    @Override
+    public List<UserDatingProfile> findAllById(Iterable<Long> listOfIds) {
+        return null;
+    }
+
+
     @Transactional(readOnly = true, timeout = 1000)
     public Optional<UserDatingProfile> findUserDatingProfileById(Long id) {
         return userDatingProfileRepository.findUserDatingProfileById(id);
     }
-
-
-
-    //-----------------criteriaBuilder section---------------------
+    //-----------------criteriaBuilder ---------------------
 //  https://www.baeldung.com/hibernate-criteria-queries#:~:text=The%20Criteria%20API%20allows%20us,on%20the%20JPA%20Criteria%20API.
 //  https://dev.to/bowlendev/conditional-criteriabuilder-for-optional-params-2j6
     @Transactional(readOnly = true, timeout = 1000)
@@ -72,13 +153,13 @@ public class UserDatingProfileService extends GeneralService<User> {
 
         List<UserDatingProfile> candidatesMatchingCriteria = em.createQuery(cq).getResultList();
 
-        System.out.println("candidatesMatchingCriteria: " + candidatesMatchingCriteria);
+//        System.out.println("candidatesMatchingCriteria: " + candidatesMatchingCriteria);
         em.getTransaction().commit();
         em.close();
         return candidatesMatchingCriteria;
 
     }
-//-----------------end of criteriaBuilder section---------------------
+
 
 
 }

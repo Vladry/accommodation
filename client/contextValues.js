@@ -1,4 +1,5 @@
 import api from "./lib/API";
+import types from "./store/types";
 
 const getUserDatingProfileId = (router, queriedUserId, event) => {
     console.log('queriedUser: ', queriedUserId);
@@ -22,11 +23,13 @@ const prepareFormData = (fields, persistedValues) => {
     };
 }
 
-const fetchInitFormValues = (URL, actionType, callback, dispatch) => {
+const fetchInitFormValues = (URL, loadingAct, successAct, failAct, callback, dispatch) => {
+    dispatch({type: loadingAct});
     api.get(URL).then((res) => {
-        dispatch({type: actionType, payload: res});
+        dispatch({type: successAct, payload: res});
     }).catch(err => {
         console.log(err)
+        dispatch({type: failAct});
     }).finally(
         ()=>callback()
     );

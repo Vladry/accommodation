@@ -86,7 +86,6 @@ public class UserController {
 
     @PostMapping("/allByIds")
     public List<UserRsDto> findAllById(@RequestBody List<Long> ids) {
-        System.out.println("in findAllById");
         if(ids.isEmpty()){
             System.out.println("findAllById argument ids is empty - returning empty List<UserRsDto>");
             return new ArrayList<>();

@@ -70,11 +70,13 @@ const FormMapper = ({fields, initValues, validation, handleSubmit}) => {
                     }/>);
             case 'image': //TODO -переписать весь кейс для image:
                 // https://medium.com/geekculture/how-to-upload-and-preview-images-in-react-js-4e22a903f3db
-                return (<Box key={formikRef} sx={{p: 2, border: '1px solid lightgrey', borderRadius: 1}}>
+                return null;
+                /*                return (<Box key={formikRef} sx={{p: 2, border: '1px solid lightgrey', borderRadius: 1}}>
                         - input your image here-
                         <input type='image' alt="user_images"/>
                     </Box>
-                );
+            )*/
+                ;
             default:
                 return (
                     <TextField

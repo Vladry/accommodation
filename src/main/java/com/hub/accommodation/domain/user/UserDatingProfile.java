@@ -8,29 +8,33 @@ import com.hub.accommodation.domain.user.enums.Interests;
 import com.hub.accommodation.domain.user.enums.Sex;
 import lombok.*;
 
+import javax.annotation.PostConstruct;
 import javax.persistence.*;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.util.*;
 
 @Entity
 @Getter
 @Setter
-//@RequiredArgsConstructor
 @NoArgsConstructor
 // @AllArgsConstructor  // при генерации в Lombok-е  @AllArgsConstructor  не будет выполнена инициализация и не вставятся в этот конструктор аргументы полей суперкласса.
-@EqualsAndHashCode(callSuper = true, of={"id"})   //Устанавливая callSuper в true, вы можете включить методы equals и hashCode суперкласса в сгенерированные методы.    https://urvanov.ru/2015/09/18/lombok-equalsandhashcode-%D0%BE%D0%B1%D0%BB%D0%B5%D0%B3%D1%87%D0%B0%D0%B5%D0%BC-%D1%81%D1%80%D0%B0%D0%B2%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5-%D0%BE%D0%B1%D1%8A%D0%B5%D0%BA%D1%82%D0%BE%D0%B2/
+@EqualsAndHashCode(callSuper = true, of = {"id"})
+//Устанавливая callSuper в true, вы можете включить методы equals и hashCode суперкласса в сгенерированные методы.    https://urvanov.ru/2015/09/18/lombok-equalsandhashcode-%D0%BE%D0%B1%D0%BB%D0%B5%D0%B3%D1%87%D0%B0%D0%B5%D0%BC-%D1%81%D1%80%D0%B0%D0%B2%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5-%D0%BE%D0%B1%D1%8A%D0%B5%D0%BA%D1%82%D0%BE%D0%B2/
 @Table(name = "dating_user_profiles")
-public class UserDatingProfile extends BaseEntity{
+public class UserDatingProfile extends BaseEntity {
 
-    // аннотация @MapsId назначит имя этой колонки как:  user_id -по полям "user" и "id"
-    @Id
-    private Long id; //TODO - это поле уже есть в BaseEntity - разобраться!
+//     аннотация @MapsId назначит имя этой колонки как:  user_id -по полям "user" и "id"
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @MapsId                             // https://sysout.ru/otnoshenie-onetoone-v-hibernate/
-    @JoinColumn(name = "user_id")
-    private User user;
+    @Column(name = "user_id")
+    private Long userId;
+//
+//    @OneToOne(fetch = FetchType.LAZY)
+//    @MapsId                             // https://sysout.ru/otnoshenie-onetoone-v-hibernate/
+//    @JoinColumn(name = "user_id")
+//    private User user;
 
     @Column(name = "my_sex", length = 2)
     @Enumerated(EnumType.STRING)
@@ -38,11 +42,13 @@ public class UserDatingProfile extends BaseEntity{
 
     @Column(name = "birthday")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.YYYY")
-    private LocalDate birthday = LocalDate.of(1973, 5 ,13);
+    private LocalDate birthday;
+
 
     @Column(name = "last_visit_date")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.YYYY hh.mm.ss")
-    private LocalDateTime lastVisitDate = LocalDateTime.of(2022, 6 ,13, 14, 30, 33);
+    private LocalDateTime lastVisitDate;
+
 
     @Column(name = "seek_a_person_of_sex")
     @Enumerated(EnumType.STRING)
@@ -62,15 +68,15 @@ public class UserDatingProfile extends BaseEntity{
 
     @Enumerated(EnumType.STRING)
     @Column(name = "country_i_now_live_in")
-    private Country countryINowLiveIn;
+    private Country countryINowLiveIn = Country.UKRAINE;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "my_citizenship")
-    private Country myCitizenship;
+    private Country myCitizenship = Country.UKRAINE;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "from_country_wanted")
-    private Country wantFromCountry;
+    private Country wantFromCountry = Country.UKRAINE;
 
 
     @Column(name = "my_children")
@@ -88,8 +94,8 @@ public class UserDatingProfile extends BaseEntity{
 
     @ElementCollection(fetch = FetchType.LAZY, targetClass = Interests.class)
     @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "my_interests_list")
-    @Column(name = "my_interests")
+    @CollectionTable(name = "my_interests_list", joinColumns = {@JoinColumn(name = "USER_DATING_PROFILE_ID")})
+    @Column(name = "interests") //именует колонку доп.таблицы интересов. Но не текущее поле в текущей таблице (((
     private Collection<Interests> myInterests;
 
     @ElementCollection(fetch = FetchType.LAZY, targetClass = Interests.class)
@@ -108,9 +114,8 @@ public class UserDatingProfile extends BaseEntity{
     private List<Picture> pictures = new ArrayList<>();
 
 
-    public UserDatingProfile(Long id, User user, Sex mySex, LocalDate birthday, LocalDateTime lastVisitDate, Sex seekAPersonOfSex, Integer myHeight, Integer minHeightIWant, Integer maxHeightIWant, Integer minPreferedAge, Integer maxPreferedAge, Country countryINowLiveIn, Country myCitizenship, Country wantFromCountry, Integer numberOfMyChildren, Integer maxNumberOfChildrenAllowed, String selfDescription, String traitsIWouldLoveInYou, String traitsIWouldHateInYou, Collection<Interests> myInterests, Collection<Interests> desiredWithInterests, Collection<Goals> myGoals, List<Picture> pictures) {
-        this.id = id;
-        this.user = user;
+    public UserDatingProfile(Long userId, Sex mySex, LocalDate birthday, LocalDateTime lastVisitDate, Sex seekAPersonOfSex, Integer myHeight, Integer minHeightIWant, Integer maxHeightIWant, Integer minPreferedAge, Integer maxPreferedAge, Country countryINowLiveIn, Country myCitizenship, Country wantFromCountry, Integer numberOfMyChildren, Integer maxNumberOfChildrenAllowed, String selfDescription, String traitsIWouldLoveInYou, String traitsIWouldHateInYou, List<Interests> myInterests, List<Interests> desiredWithInterests, List<Goals> myGoals, List<Picture> pictures) {
+        this.userId = userId;
         this.mySex = mySex;
         this.birthday = birthday;
         this.lastVisitDate = lastVisitDate;

@@ -28,7 +28,7 @@ export const userDatingProfileFormFields = [
         id: "myHeight",
         name: "myHeight",
         formikRef: "myHeight",
-        label: "myHeight/Ваш рост:",
+        label: "Height/Рост:",
         valueByDefault: 0,
         type: "number"
     },
@@ -114,7 +114,7 @@ export const userDatingProfileFormFields = [
         valueByDefault: "about myself freely: ...",
         type: "text"
     },
-    {
+    /*{
         id: "traitsIWouldLoveInYou",
         name: "traitsIWouldLoveInYou",
         formikRef: "traitsIWouldLoveInYou",
@@ -145,7 +145,7 @@ export const userDatingProfileFormFields = [
         label: "desiredWithInterests/Желаю человека с интересами/увлечениями",
         valueByDefault: "desiredWithInterests: ...",
         type: "text"
-    },
+    },*/
     {
         id: "myGoals",
         name: "myGoals",

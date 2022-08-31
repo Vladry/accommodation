@@ -21,7 +21,7 @@ import java.util.Optional;
     public class ApplicationBeans {
 
         //этот бин - костыль, нужен для правильной работы h2
-        @Profile("local")
+/*        @Profile("local")
         @Bean
         Server h2Server() {
             Server server = new Server();
@@ -32,9 +32,10 @@ import java.util.Optional;
                 e.printStackTrace();
             }
             return server;
-        }
+        }*/
 
 
+        // для работы Swagger -a
     @Bean
     public OpenAPI springShopOpenAPI() {
         return new OpenAPI()

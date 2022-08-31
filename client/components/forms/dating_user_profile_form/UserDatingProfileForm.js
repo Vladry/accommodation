@@ -5,13 +5,15 @@ import FormMapper from "../FormMapper";
 import {userDatingProfileFormFields} from "./userDatingProfileFormFields";
 import act from "../../../store/types";
 import {Context} from '../../../context';
+import types from "../../../store/types";
+import selectors from "../../../store/selectors";
 
 
 const UserDatingProfileForm = ({handleSubmit}) => {
     const dispatch = useDispatch();
-    const user = useSelector((state) => state.userData.user);
+    const user = useSelector(selectors.user);
     const isAuthenticated = useAuth(true);
-    const userDatingProfile = useSelector((state) => state.userData.userDatingProfile);
+    const userDatingProfile = useSelector(selectors.currUserDatingProfile);
     const [isRenderFormikFormAllowed, setIsRenderFormikFormAllowed] = useState(false);
     const {prepareFormData, fetchInitFormValues} = useContext(Context);
     const formInitValues = prepareFormData(userDatingProfileFormFields, userDatingProfile);
@@ -20,10 +22,10 @@ const UserDatingProfileForm = ({handleSubmit}) => {
         () => {
             if (!user) return;
             const userDatingProfileURL = `/users/${user.id}/datingProfile`;
-            const actionType = act.SET_DATING_USER_PROFILE;
-            const callback = ()=> setIsRenderFormikFormAllowed(true);
-
-            !userDatingProfile && fetchInitFormValues(userDatingProfileURL, actionType, callback, dispatch);
+            const callback = () => setIsRenderFormikFormAllowed(true);
+            // если нет userDatingProfile, попробуем еще раз его получить (хотя он должен быть сразу после входа в систему!)
+            !userDatingProfile && fetchInitFormValues(userDatingProfileURL, types.GET_USER_DATING_PROFILE,
+                types.SET_USER_DATING_PROFILE_SUCCESS, types.SET_USER_DATING_PROFILE_FAIL, callback, dispatch);
         }, [user]
     );
 
@@ -33,7 +35,8 @@ const UserDatingProfileForm = ({handleSubmit}) => {
 
     return (
         <div>
-            {isRenderFormikFormAllowed && <FormMapper
+            {isRenderFormikFormAllowed &&
+                <FormMapper
                 fields={userDatingProfileFormFields}
                 initValues={formInitValues}
                 validation={null}

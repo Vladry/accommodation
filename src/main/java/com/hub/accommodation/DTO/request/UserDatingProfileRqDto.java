@@ -9,13 +9,11 @@ import java.util.Set;
 
 @Getter
 @Setter
-//@RequiredArgsConstructor
-//@AllArgsConstructor
+@ToString
 @NoArgsConstructor
-public class UserDatingProfileRqDto extends BaseEntity {
+public class UserDatingProfileRqDto {
 
-    private User user;
-
+    private String userId;
     private String mySex;
 
     private String birthday;
@@ -47,6 +45,29 @@ public class UserDatingProfileRqDto extends BaseEntity {
 
     private List<String> pictures;
 
-
-
+    public UserDatingProfileRqDto(
+            String userId, String mySex, String birthday, String lastVisitDate, String seekAPersonOfSex, Integer myHeight, Integer minHeightIWant, Integer maxHeightIWant, Integer minPreferedAge, Integer maxPreferedAge, String countryINowLiveIn, String myCitizenship, String wantFromCountry, Integer numberOfMyChildren, Integer maxNumberOfChildrenAllowed, String selfDescription, String traitsIWouldLoveInYou, String traitsIWouldHateInYou, Set<String> myInterests, Set<String> desiredWithInterests, Set<String> myGoals, List<String> pictures) {
+        this.userId = userId;
+        this.mySex = mySex;
+        this.birthday = birthday;
+        this.lastVisitDate = lastVisitDate;
+        this.seekAPersonOfSex = seekAPersonOfSex;
+        this.myHeight = myHeight;
+        this.minHeightIWant = minHeightIWant;
+        this.maxHeightIWant = maxHeightIWant;
+        this.minPreferedAge = minPreferedAge;
+        this.maxPreferedAge = maxPreferedAge;
+        this.countryINowLiveIn = countryINowLiveIn;
+        this.myCitizenship = myCitizenship;
+        this.wantFromCountry = wantFromCountry;
+        this.numberOfMyChildren = numberOfMyChildren;
+        this.maxNumberOfChildrenAllowed = maxNumberOfChildrenAllowed;
+        this.selfDescription = selfDescription;
+        this.traitsIWouldLoveInYou = traitsIWouldLoveInYou;
+        this.traitsIWouldHateInYou = traitsIWouldHateInYou;
+        this.myInterests = myInterests;
+        this.desiredWithInterests = desiredWithInterests;
+        this.myGoals = myGoals;
+        this.pictures = pictures;
+    }
 }

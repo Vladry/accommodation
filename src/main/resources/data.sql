@@ -37,15 +37,15 @@ VALUES ('Eva', 'Brown', 'EvaBrown@ukr.net', 'Eva', 'USER', true, true,
 INSERT INTO accommodations (user_id, locations, acc_type, num_of_rooms, num_of_beds,
                            provide_work, provide_food, status, disab_sprt, childcare_sprt, pets)
 VALUES (1,  'Loc1', 1, 1, 1, false, false, 1, false, false, 1),
---        (1,  'Loc2', 2, 30, 30, true, true, 1, true, false, 1),
---        (1,  'Loc3', 3, 3, 30, false, true, 1, true, false, 1),
---        (1,  'Loc4', 1, 3, 3, true, true, 1, true, false, 1),
---        (1,  'Loc5', 1, 3, 3, false, true, 1, true, false, 1),
---        (1,  'Loc6', 2, 3, 3, true, true, 1, true, false, 1),
+       (1,  'Loc2', 2, 30, 30, true, true, 1, true, false, 1),
+       (1,  'Loc3', 3, 3, 30, false, true, 1, true, false, 1),
+       (1,  'Loc4', 1, 3, 3, true, true, 1, true, false, 1),
+       (1,  'Loc5', 1, 3, 3, false, true, 1, true, false, 1),
+       (1,  'Loc6', 2, 3, 3, true, true, 1, true, false, 1),
        (1,  'Loc7', 3, 3, 3, false, true, 1, true, false, 1),
        (17, 'Loc8', 1, 30, 30, true, true, 1, true, false, 1);
 
-INSERT INTO dating_user_profiles (user_id, birthday, last_visit_date, my_sex, seek_a_person_of_sex, my_height, min_height_wanted,
+/*INSERT INTO dating_user_profiles (user_id, birthday, last_visit_date, my_sex, seek_a_person_of_sex, my_height, min_height_wanted,
                                   max_height_wanted, min_pref_age, max_pref_age,
                                   my_children, their_children_allowed)
 VALUES (1, '2022-06-23', NOW() , 'F', 'M', 173, 190, 198, 18, 30, 1, 0),
@@ -55,8 +55,8 @@ VALUES (1, '2022-06-23', NOW() , 'F', 'M', 173, 190, 198, 18, 30, 1, 0),
        (5, '2022-06-19', NOW() , 'F', 'M', 160, 180, 198, 18, 30, 0, 0),
        (6, '2022-06-18', NOW() , 'M', 'F', 183, 160, 178, 18, 30, 1, 0),
        (17,'2022-06-17', NOW() , 'M', 'F', 173, 159, 188, 18, 30, 1, 0),
-       (19,'2022-04-23', NOW() , 'M', 'F', 173, 150, 190, 16, 50, 0, 5);
-
+       (19,'1973-05-13', NOW() , 'M', 'F', 173, 150, 190, 16, 50, 0, 5);
+*/
 
 INSERT INTO user_pictures (id, dating_user_profile, picture)
 VALUES (1, 1, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_haircut_ziiyxb.jpg'),
@@ -69,17 +69,17 @@ VALUES (1, 1, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_s
        (8, 17, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_haircut_ziiyxb.jpg'),
        (9, 18, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_haircut_ziiyxb.jpg');
 
-INSERT INTO user_dating_goals (USER_DATING_PROFILE_USER_ID, goals)
+/*INSERT INTO user_dating_goals (USER_DATING_PROFILE_ID, goals) //это когда userDatingProfile имел ассоциацию с User -ом
 VALUES (1, 'TO_BUILD_FAMILY_WITH_CHILDREN'),
-       (1, 'TO_BECOME_A_COUPLE_WITHOUT_CHILDREN'),
-       (1, 'JOINT_RENT_OF_APARTMENT'),
-       (1, 'I_AM_JUST_BORED'),
-       (17, 'SPONSORSHIP_BASED_RELATIONSHIP'),
-       (17, 'WANTED_WITH_SIMILAR_INTERESTS'),
-       (17, 'MAKING_FRIENDS_ONLY'),
-       (17, 'I_AM_JUST_BORED');
+    (1, 'TO_BECOME_A_COUPLE_WITHOUT_CHILDREN'),
+    (1, 'JOINT_RENT_OF_APARTMENT'),
+    (1, 'I_AM_JUST_BORED'),
+    (19, 'SPONSORSHIP_BASED_RELATIONSHIP'),
+    (19, 'WANTED_WITH_SIMILAR_INTERESTS'),
+    (19, 'MAKING_FRIENDS_ONLY'),
+    (19, 'I_AM_JUST_BORED');*/
 
-INSERT INTO my_interests_list (USER_DATING_PROFILE_USER_ID, my_interests)
+/*INSERT INTO my_interests_list (USER_DATING_PROFILE_ID, my_interests)
 VALUES (1, 'TRAVEL'),
        (1, 'PLAYING_MUSIC_INSTRUMENTS'),
        (1, 'DANCING'),
@@ -89,7 +89,7 @@ VALUES (1, 'TRAVEL'),
        (17, 'CHILDREN'),
        (17, 'CARS');
 
-INSERT INTO their_interests_list (USER_DATING_PROFILE_USER_ID, their_interests_wanted)
+INSERT INTO their_interests_list (USER_DATING_PROFILE_ID, their_interests_wanted)
 VALUES (1, 'PAINTING'),
        (1, 'OTHER_ARTS'),
        (1, 'CHILDREN'),
@@ -98,6 +98,6 @@ VALUES (1, 'PAINTING'),
        (17, 'PLAYING_MUSIC_INSTRUMENTS'),
        (17, 'DANCING'),
        (17, 'SINGING');
-
+*/
 
 SET FOREIGN_KEY_CHECKS = 1;

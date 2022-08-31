@@ -11,27 +11,44 @@ import SideBar from "./dating_components/SideBar";
 import ArticleWindow from "./dating_components/ArticleWindow";
 
 const UserDatingProfileMapper = ({fields, values, id}) => {
-    const router = useRouter();
-    const excludedRefs = ['pictures', 'mySex', 'seekAPersonOfSex'];
-    return fields.map(({name, formikRef, label}, index) => {
+
+    const lastVisit = [
+        <Box key={"lastVisit"} sx={{p: 2, border: '1px solid lightgrey', borderRadius: 1, width: '400px'}}>
+            <p>{`lastVisit: ${values["lastVisited"]}`}</p>
+        </Box>
+    ];
+
+       const age = [
+        <Box key={"age"} sx={{p: 2, border: '1px solid lightgrey', borderRadius: 1, width: '400px'}}>
+            <p>{`age/возраст: ${values["age"]}`}</p>
+        </Box>
+    ];
+
+    let val = "";
+    const excludedRefs = ['birthday', 'pictures', 'mySex', 'seekAPersonOfSex', 'minHeightIWant', 'maxHeightIWant', 'minPreferedAge', 'maxPreferedAge', 'maxNumberOfChildrenAllowed'];
+    const mappedContent = fields.map(({name, formikRef, label}, index) => {
         const isExcludingElement = excludedRefs.some((el) => formikRef === el);
         if (isExcludingElement) {
             return null;
         } else {
-            let val = "";
-            if(values!=null && values[formikRef]!=null){
+            if (values != null && values[formikRef] != null) {
                 val = values[formikRef];
             }
-            return (
-                <Box key={formikRef} sx={{p: 2, border: '1px solid lightgrey', borderRadius: 1, width: '400px'}}>
-                    <p>{label}</p>
-                    <p>{val}</p>
-                </Box>
-            )
+
+            if (val != null) {
+                return (
+                    <Box key={formikRef} sx={{p: 2, border: '1px solid lightgrey', borderRadius: 1, width: '400px'}}>
+                        <p>{label} {val}</p>
+                    </Box>
+                )
+            } else {
+                return null;
+            }
         }
 
     });
 
+    return lastVisit.concat(age).concat(mappedContent);
 };
 
 export default UserDatingProfileMapper;

@@ -15,14 +15,14 @@ import java.util.Set;
 @Getter
 @Setter
 //@RequiredArgsConstructor
-@NoArgsConstructor // TODO убрал, но надо вернуть, убрав ошибку
+@NoArgsConstructor
 //@AllArgsConstructor  -так, как Ломбок не генерирует поля от BaseEntity, то этот конструктор я создаю везде самостоятельно
 @Table(name = "users")
 public class User extends BaseEntity {
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    @PrimaryKeyJoinColumn
-    UserDatingProfile userDatingProfile;
+//    UserDatingProfile userDatingProfile;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Accommodation> accommodation = new HashSet<>();
@@ -66,11 +66,11 @@ public class User extends BaseEntity {
     }
 
     // из-за конфликта Ломбоковской генерации с суперклассом BaseEntity, всегда прописываем AllArgsConstructor руками
-    public User(Long id, Instant lastModifiedDate, ZonedDateTime createdDate, UserDatingProfile userDatingProfile, Set<Accommodation> accommodation, String name, String lastName, String email, String password, String phoneNumber, String urlSocial1, String urlSocial2, String messenger1, String messenger2, String avatar, boolean hideSocialContactData, boolean datingServiceParticipation, Role role) {
+    public User(Long id, Instant lastModifiedDate, ZonedDateTime createdDate, /*UserDatingProfile userDatingProfile, */Set<Accommodation> accommodation, String name, String lastName, String email, String password, String phoneNumber, String urlSocial1, String urlSocial2, String messenger1, String messenger2, String avatar, boolean hideSocialContactData, boolean datingServiceParticipation, Role role) {
         this.id = id;
         this.lastModifiedDate = lastModifiedDate;
         this.createdDate = createdDate;
-        this.userDatingProfile = userDatingProfile;
+//        this.userDatingProfile = userDatingProfile;
         this.accommodation = accommodation;
         this.name = name;
         this.lastName = lastName;
