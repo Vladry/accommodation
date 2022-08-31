@@ -35,6 +35,7 @@ public class AccommodationFacade extends GeneralFacade<
                 .addMapping(Accommodation::getAccommodationType, AccommodationRsDto::setAccommodationType);
     }
 
+
     @Override
     public Accommodation convertToEntity(AccommodationRqDto requestDTO) {
         return super.convertToEntity(requestDTO);
@@ -46,12 +47,12 @@ public class AccommodationFacade extends GeneralFacade<
     }
 
     @Override
-    protected void decorateEntity(Accommodation entity, AccommodationRqDto dto) {
+    public void decorateEntity(Accommodation entity, AccommodationRqDto dto) {
         super.decorateEntity(entity, dto);
     }
 
     @Override
-    protected void decorateDto(AccommodationRsDto dto, Accommodation entity) {
+    public void decorateDto(AccommodationRsDto dto, Accommodation entity) {
         super.decorateDto(dto, entity);
     }
 }

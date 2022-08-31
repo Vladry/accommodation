@@ -31,6 +31,14 @@ import java.util.List;
 @EnableTransactionManagement
 public class AccommodationApplication implements ApplicationRunner {
 
+    public static void cls() {
+        try {
+            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+        } catch (Exception E) {
+            System.out.println(E.getMessage());
+        }
+    }
+
     public static void main(String[] args) {
         System.out.println("my App 'Accommodation' is using the Spring version: " + SpringVersion.getVersion());
         SpringApplication.run(AccommodationApplication.class, args);
@@ -44,7 +52,6 @@ public class AccommodationApplication implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        System.out.print("\033[H\033[J");
         System.out.println("ZoneId.systemDefault(): " + ZoneId.systemDefault());
         List<UserDatingProfile> udps = new ArrayList<>();
         udps.add(new UserDatingProfile(1L,  Sex.F, LocalDate.parse("1965-01-14"), LocalDateTime.now(), Sex.M, 170, 190, 198, 18, 30, Country.USA, Country.UKRAINE, Country.USA, 1, 0, "nothing to say", "tall height", "smoking", null, null, null, null));

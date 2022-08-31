@@ -14,11 +14,12 @@ import java.util.Set;
 
 @Getter
 @Setter
-@ToString(of = {"mySex", "seekAPersonOfSex", "myHeight", "numberOfMyChildren", "myInterests", "myGoals"})
+@AllArgsConstructor
+//@ToString(of = {"mySex", "seekAPersonOfSex", "myHeight", "numberOfMyChildren", "myInterests", "myGoals"})
 public class UserDatingProfileRsDto /*extends BaseEntity */ {
 
-    @JsonIgnore
-    private User user;
+//    @JsonIgnore
+//    private User user;
 
     private String mySex;
 
@@ -45,7 +46,6 @@ public class UserDatingProfileRsDto /*extends BaseEntity */ {
     private Set<String> myInterests;
     private Set<String> desiredWithInterests;
     private Set<String> myGoals;
-
     private List<String> pictures;
 
 
@@ -56,17 +56,23 @@ public class UserDatingProfileRsDto /*extends BaseEntity */ {
 
 
     public UserDatingProfileRsDto() {
-        setAge();
-        setLastVisitPeriod();
+/*        setAge();
+        setLastVisitPeriod();*/
     }
 
+    @PostConstruct
     private void setAge() {
+        if(this.birthday!=null){return;}
         LocalDate dateNow = LocalDate.now();
         Period period = Period.between(this.birthday, dateNow);
         this.age = period.getYears();
     }
 
+    @PostConstruct
     private void setLastVisitPeriod() {
+        if(this.lastVisitDate!=null) {
+            return;
+        }
         LocalDateTime dateTimeNow = LocalDateTime.now();
         long years = Period.between(this.lastVisitDate.toLocalDate(), dateTimeNow.toLocalDate()).getYears();
         long months = Period.between(this.lastVisitDate.toLocalDate(), dateTimeNow.toLocalDate()).getMonths();
@@ -87,5 +93,32 @@ public class UserDatingProfileRsDto /*extends BaseEntity */ {
         }
     }
 
-
+    @Override
+    public String toString() {
+        return "UserDatingProfileRsDto{" +
+                "mySex='" + mySex + '\'' +
+                ", seekAPersonOfSex='" + seekAPersonOfSex + '\'' +
+                ", myHeight=" + myHeight +
+                ", minHeightIWant=" + minHeightIWant +
+                ", maxHeightIWant=" + maxHeightIWant +
+                ", minPreferedAge=" + minPreferedAge +
+                ", maxPreferedAge=" + maxPreferedAge +
+                ", countryINowLiveIn='" + countryINowLiveIn + '\'' +
+                ", myCitizenship='" + myCitizenship + '\'' +
+                ", wantFromCountry='" + wantFromCountry + '\'' +
+                ", numberOfMyChildren=" + numberOfMyChildren +
+                ", maxNumberOfChildrenAllowed=" + maxNumberOfChildrenAllowed +
+                ", selfDescription='" + selfDescription + '\'' +
+                ", traitsIWouldLoveInYou='" + traitsIWouldLoveInYou + '\'' +
+                ", traitsIWouldHateInYou='" + traitsIWouldHateInYou + '\'' +
+                ", myInterests=" + myInterests +
+                ", desiredWithInterests=" + desiredWithInterests +
+                ", myGoals=" + myGoals +
+                ", pictures=" + pictures +
+                ", birthday=" + birthday +
+                ", lastVisitDate=" + lastVisitDate +
+                ", age=" + age +
+                ", lastVisited='" + lastVisited + '\'' +
+                '}';
+    }
 }

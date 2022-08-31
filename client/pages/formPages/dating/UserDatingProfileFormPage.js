@@ -15,13 +15,13 @@ const UserDatingProfileFormPage = () => {
     const isAuthenticated = useAuth(true);
 const loading = useSelector((state)=>state.userData.loading);
     const handleSubmit = async (values) => {
-        const udpFormValues = {...values, userId: user.id};
-        delete udpFormValues["pictures"];
-        delete udpFormValues["desiredWithInterests"];
-        delete udpFormValues["myGoals"];
+        const userDatingProfileFormNewValues = {...values, userId: user.id};
+        delete userDatingProfileFormNewValues["pictures"];
+        delete userDatingProfileFormNewValues["desiredWithInterests"];
+        delete userDatingProfileFormNewValues["myGoals"];
 
 // console.log(`для юзера: ${user.id}, отправляю данные формы: `, udpFormValues)
-        await api.post(`/users/datingProfile`, udpFormValues/*,{ contentType: "application/json; charset=utf-8",
+        await api.post(`/users/datingProfile`, userDatingProfileFormNewValues/*,{ contentType: "application/json; charset=utf-8",
             async: false,    //Cross-domain requests and dataType: "jsonp" requests do not support synchronous operation
             cache: false,    //This will force requested pages not to be cached by the browser
             processData:false}*/

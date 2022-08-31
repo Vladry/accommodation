@@ -29,64 +29,74 @@ public class UserDatingProfile extends BaseEntity {
 //     аннотация @MapsId назначит имя этой колонки как:  user_id -по полям "user" и "id"
 
     @Column(name = "user_id")
-    private Long userId;
+    private Long userId; //rq String  null
+
+    public void setUserIdFromString(String userIdStr){
+        userId = Long.parseLong(userIdStr);
+    }
 //
 //    @OneToOne(fetch = FetchType.LAZY)
 //    @MapsId                             // https://sysout.ru/otnoshenie-onetoone-v-hibernate/
 //    @JoinColumn(name = "user_id")
 //    private User user;
 
-    @Column(name = "my_sex", length = 2)
+    @Column(name = "my_sex")
     @Enumerated(EnumType.STRING)
-    private Sex mySex;
+    private Sex mySex; //ok
 
     @Column(name = "birthday")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.YYYY")
-    private LocalDate birthday;
+    private LocalDate birthday; //rq String
 
+    public void setBirthdayParse(String birthday){
+        this.birthday = LocalDate.parse(birthday);
+    }
 
     @Column(name = "last_visit_date")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.YYYY hh.mm.ss")
-    private LocalDateTime lastVisitDate;
+    private LocalDateTime lastVisitDate; //rq String
 
+    public void setLastVisitDateParse(String lastVisitDate){
+        this.lastVisitDate = LocalDateTime.parse(lastVisitDate);
+    }
 
     @Column(name = "seek_a_person_of_sex")
     @Enumerated(EnumType.STRING)
-    private Sex seekAPersonOfSex;
+    private Sex seekAPersonOfSex; //ok
 
     @Column(name = "my_height")
-    private Integer myHeight = 0;
+    private Integer myHeight = 0; //ok
     @Column(name = "min_height_wanted")
-    private Integer minHeightIWant = 0;
+    private Integer minHeightIWant = 0; //ok
     @Column(name = "max_height_wanted")
-    private Integer maxHeightIWant = 0;
+    private Integer maxHeightIWant = 0; //ok
 
     @Column(name = "min_pref_age")
-    private Integer minPreferedAge = 0;
+    private Integer minPreferedAge = 0; //rq Integer
     @Column(name = "max_pref_age")
-    private Integer maxPreferedAge = 0;
+    private Integer maxPreferedAge = 0; //rq Integer
 
     @Enumerated(EnumType.STRING)
     @Column(name = "country_i_now_live_in")
-    private Country countryINowLiveIn = Country.UKRAINE;
+    private Country countryINowLiveIn = Country.UKRAINE; //rq String
 
     @Enumerated(EnumType.STRING)
     @Column(name = "my_citizenship")
-    private Country myCitizenship = Country.UKRAINE;
+    private Country myCitizenship = Country.UKRAINE; //rq String
 
     @Enumerated(EnumType.STRING)
     @Column(name = "from_country_wanted")
-    private Country wantFromCountry = Country.UKRAINE;
+    private Country wantFromCountry = Country.UKRAINE; //rq String
 
 
     @Column(name = "my_children")
-    private Integer numberOfMyChildren = 0;
+    private Integer numberOfMyChildren = 0; //ok
     @Column(name = "their_children_allowed")
-    private Integer maxNumberOfChildrenAllowed = 100;
+    private Integer maxNumberOfChildrenAllowed = 100; //ok
 
 
     @Column(name = "self_description")
-    private String selfDescription;
+    private String selfDescription; //ok
     @Column(name = "traits_i_like")
     private String traitsIWouldLoveInYou;
     @Column(name = "traits_i_hate")
@@ -141,15 +151,29 @@ public class UserDatingProfile extends BaseEntity {
 
     @Override
     public String toString() {
-        return "\nUserDatingProfile{" +
-                "id=" + id +
+        return "UserDatingProfile{" +
+                "userId=" + userId +
                 ", mySex=" + mySex +
+                ", birthday=" + birthday +
+                ", lastVisitDate=" + lastVisitDate +
                 ", seekAPersonOfSex=" + seekAPersonOfSex +
                 ", myHeight=" + myHeight +
                 ", minHeightIWant=" + minHeightIWant +
                 ", maxHeightIWant=" + maxHeightIWant +
+                ", minPreferedAge=" + minPreferedAge +
+                ", maxPreferedAge=" + maxPreferedAge +
+                ", countryINowLiveIn=" + countryINowLiveIn +
+                ", myCitizenship=" + myCitizenship +
+                ", wantFromCountry=" + wantFromCountry +
                 ", numberOfMyChildren=" + numberOfMyChildren +
                 ", maxNumberOfChildrenAllowed=" + maxNumberOfChildrenAllowed +
+                ", selfDescription='" + selfDescription + '\'' +
+                ", traitsIWouldLoveInYou='" + traitsIWouldLoveInYou + '\'' +
+                ", traitsIWouldHateInYou='" + traitsIWouldHateInYou + '\'' +
+                ", myInterests=" + myInterests +
+                ", desiredWithInterests=" + desiredWithInterests +
+                ", myGoals=" + myGoals +
+                ", pictures=" + pictures +
                 '}';
     }
 }

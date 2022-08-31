@@ -1,23 +1,17 @@
 package com.hub.accommodation.controller;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hub.accommodation.DTO.request.UserDatingProfileRqDto;
 import com.hub.accommodation.DTO.response.UserDatingProfileRsDto;
 import com.hub.accommodation.domain.user.UserDatingProfile;
 import com.hub.accommodation.exception.NoDataFoundException;
 import com.hub.accommodation.facade.UserDatingProfileFacade;
 import com.hub.accommodation.service.UserDatingProfileService;
-import com.hub.accommodation.util.JsonEntityConverter;
+import com.hub.accommodation.util.JsonToDtoConverter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.DataInput;
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -37,14 +31,11 @@ public class UserDatingProfileController {
     //------------------------------------------------
 
     @PostMapping("/datingProfile")
-    public void saveById(@RequestBody String userDatingProfileValues) throws IOException {
-//        ObjectMapper mapper = new ObjectMapper();
-//        UserDatingProfileRqDto udpRqDto = mapper.readValue(userDatingProfileValues, UserDatingProfileRqDto.class);
+    public UserDatingProfileRsDto saveById(@RequestBody String jsonString) {
+        JsonToDtoConverter<UserDatingProfileRqDto> converter = new JsonToDtoConverter<>(UserDatingProfileRqDto.class);
+        UserDatingProfileRqDto udpRqDto = converter.doConvert(jsonString);
+        return userDatingProfileService.saveById(udpRqDto);
 
-        JsonEntityConverter<UserDatingProfileRqDto> conv = new JsonEntityConverter<>(UserDatingProfileRqDto.class);
-        UserDatingProfileRqDto udpRqDto = conv.jsonConvert(userDatingProfileValues, UserDatingProfileRqDto.class);
-        System.out.println("converted from JSON udpRsDto: " + udpRqDto);
-//        userDatingProfileService.saveById(userDatingProfileValues);
     }
 
 

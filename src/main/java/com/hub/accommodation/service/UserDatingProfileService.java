@@ -1,7 +1,9 @@
 package com.hub.accommodation.service;
 
 import com.hub.accommodation.DTO.request.UserDatingProfileRqDto;
+import com.hub.accommodation.DTO.response.UserDatingProfileRsDto;
 import com.hub.accommodation.domain.user.UserDatingProfile;
+import com.hub.accommodation.facade.UserDatingProfileFacade;
 import com.hub.accommodation.repository.UserDatingProfileRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -23,51 +25,28 @@ import java.util.Optional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class UserDatingProfileService implements ServiceInterface <UserDatingProfile> {
+public class UserDatingProfileService implements ServiceInterface<UserDatingProfile> {
     private final UserDatingProfileRepository userDatingProfileRepository;
+    private final UserDatingProfileFacade userDatingProfileFacade;
     @PersistenceUnit
     private final EntityManagerFactory entityManagerFactory;
 
     //-----------------methods--------------------------
-    public void saveById(UserDatingProfileRqDto userDatingProfile){
-        System.out.println("получили из формы следующие данные: "+ userDatingProfile);
+    public UserDatingProfileRsDto saveById(UserDatingProfileRqDto udpRqDto) {
+//        System.out.println("in service.saveById() -получили из формы: " + udpRqDto);
+        UserDatingProfile userDatingProfile = userDatingProfileFacade.convertToEntity(udpRqDto);
+//        EntityManager em = entityManagerFactory.createEntityManager();
+//        em.getTransaction().begin();
+        System.out.println("userDatingProfile: "+ userDatingProfile);
+//        em.getTransaction().commit();
+        return userDatingProfileFacade.convertToDto(userDatingProfile);
+//         return null;
     }
 
 
-/*    public void saveToId(Object vals){
-//        EntityManager em = entityManagerFactory.createEntityManager();
-        System.out.println("получили из формы следующие данные: "+ vals);
-        UserDatingProfileRqDto udpRqDto = new UserDatingProfileRqDto(
-                vals.stream()
-                vals.userId,
-                vals.mySex,
-                vals.birthday,
-                vals.lastVisitDate,
-                vals.seekAPersonOfSex,
-                vals.myHeight,
-                vals.minHeightIWant,
-                vals.maxHeightIWant,
-                vals.minPreferedAge,
-                vals.maxPreferedAge,
-                vals.countryINowLiveIn,
-                vals.myCitizenship,
-                vals.wantFromCountry,
-                vals.numberOfMyChildren,
-                vals.maxNumberOfChildrenAllowed,
-                vals.selfDescription,
-                vals.traitsIWouldLoveInYou,
-                vals.traitsIWouldHateInYou,
-                vals.myInterests,
-                vals.desiredWithInterests,
-                vals.myGoals,
-                vals.pictures
-        );
-
-
-    }*/
-
+    //------  ГОТОВЫЕ МЕТОДЫ -----------
     @Override
-    public UserDatingProfile save(UserDatingProfile entity){
+    public UserDatingProfile save(UserDatingProfile entity) {
         return userDatingProfileRepository.save(entity);
     }
 
@@ -116,6 +95,7 @@ public class UserDatingProfileService implements ServiceInterface <UserDatingPro
     public Optional<UserDatingProfile> findUserDatingProfileById(Long id) {
         return userDatingProfileRepository.findUserDatingProfileById(id);
     }
+
     //-----------------criteriaBuilder ---------------------
 //  https://www.baeldung.com/hibernate-criteria-queries#:~:text=The%20Criteria%20API%20allows%20us,on%20the%20JPA%20Criteria%20API.
 //  https://dev.to/bowlendev/conditional-criteriabuilder-for-optional-params-2j6
@@ -138,14 +118,15 @@ public class UserDatingProfileService implements ServiceInterface <UserDatingPro
 
         List<Predicate> predicates = new ArrayList<>();
         predicates.add(sexCriteria);
-        if(currentUserDatingProfile.getMinHeightIWant() > 100){
+        if (currentUserDatingProfile.getMinHeightIWant() > 100) {
             predicates.add(minHeightCriteria);
 //            System.out.println("added Predicate: minHeightCriteria");
         }
-        if(currentUserDatingProfile.getMaxHeightIWant() > 150){
+        if (currentUserDatingProfile.getMaxHeightIWant() > 150) {
             predicates.add(maxHeightCriteria);
 //            System.out.println("added Predicate: maxHeightCriteria");
-        }        if(currentUserDatingProfile.getMaxNumberOfChildrenAllowed() < 100){
+        }
+        if (currentUserDatingProfile.getMaxNumberOfChildrenAllowed() < 100) {
             predicates.add(childrenCriteria);
 //            System.out.println("added Predicate: childrenCriteria");
         }
@@ -159,7 +140,6 @@ public class UserDatingProfileService implements ServiceInterface <UserDatingPro
         return candidatesMatchingCriteria;
 
     }
-
 
 
 }
