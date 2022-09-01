@@ -22,14 +22,12 @@ const Index = () => {
             console.log("user is null, returning!");
             return <p>user is undefined</p>;
         }
-
-
-let resIds;
+        let resIds;
 // получим ids кандидатов, подходящих под критерии userDatingProfile:
         try {
             const getIds = api.get(`users/${user.id}/matchingDatingCandidatesIds`);
-            // console.log(`fetched for matchingDatingCandidates with userId: ${user.id}\n Found candidates: ${resIds} `);
             resIds = await getIds;
+            console.log(`ищем ids of matchingDatingCandidates для юзера userId: ${user.id}. Нашли ids: ${resIds} `);
             dispatch({type: types.SET_MATCHING_CANDIDATES_IDS, payload: resIds});
 
             // если подходящие кандидаты существуют, по их ids вытащим и userDatingProfiles самих кандидатов:
@@ -38,18 +36,19 @@ let resIds;
             }
         } catch (err) {
             // console.log(err);
-            console.log(`matchingDatingCandidatesIds для userId: ${user.id} не найдены, или error`);
+            console.log(`не найдены ids of matchingDatingCandidatesIds, или error`);
         }
 
     }
+
     async function getMatchingCandidates(resIds) {
 // по найденным  candidatesIdsMatchingCriteria вытащим данных пользователей, чтобы потом отрендерить их userCards:
         try {
-            // console.log("now fetching to /users/allByIds with argument: ", resIds);
+            console.log("now fetching to /users/allByIds with argument: ", resIds);
             const getCandidates = api.post("/users/allByIds", resIds);
             const resUsers = await getCandidates;
             await setCandidatesMatchingCriteria(resUsers);
-            // console.log(`успешно получили matchingDatingCandidates: ${resUsers} `);
+            console.log(`успешно получили matchingDatingCandidates: `, resUsers);
         } catch (err) {
             // console.log(err);
             console.log(`matchingDatingCandidates для userId: ${user.id} не получены`);
@@ -61,7 +60,7 @@ let resIds;
         // Получим список подходящих под критерии поиска для текущего пользователя:
         const ids = getMatchingCandidatesIds().then(() => {
         });
-    }, [user])
+    }, [])
 
 
     return (

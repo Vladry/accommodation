@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*")
-@RequestMapping("/api/v1/users")
+@RequestMapping("/api/v1")
 public class UserController {
 
     private final UserService userService;
@@ -34,7 +34,7 @@ public class UserController {
 
     //------------------------------------------------
 //    @PreAuthorize("hasAuthority('read')")
-    @GetMapping("/{id}")
+    @GetMapping("/users/{id}")
     public UserRsDto findUserById(
             @PathVariable("id") Long id) {
         Optional<User> optionalUser = userService.findById(id);
@@ -48,7 +48,7 @@ public class UserController {
     }
 //------------------------------------------------
 
-    @PostMapping
+    @PostMapping("/users")
     public UserRsDto createUser(@RequestBody UserRqDto userRqDto) {
         try {
             User user = userFacade.convertToEntity(userRqDto);
@@ -62,14 +62,14 @@ public class UserController {
     }
 
     @PreAuthorize("hasAuthority('read')")
-    @GetMapping("/profile")
+    @GetMapping("/users/profile")
     public UserRsDto getUserProfile(Principal principal) {
         return userFacade.getUserByEmail(principal.getName());
     }
 
 
     @PreAuthorize("hasAuthority('read')")
-    @GetMapping()
+    @GetMapping("/users")
     public UserRsDto findUserByEmail(
             @RequestParam("email") String email) {
         User user = userService.getUserByEmail(email)
@@ -79,22 +79,24 @@ public class UserController {
 
 
     //    @PreAuthorize("hasAuthority('read')")
-        @GetMapping("/all")
+    @GetMapping("/users/all")
     public List<UserRsDto> findAll() {
         return userService.findAll().stream().map(userFacade::convertToDto).collect(Collectors.toList());
     }
 
-    @PostMapping("/allByIds")
+    @PostMapping("/users/allByIds")
     public List<UserRsDto> findAllById(@RequestBody List<Long> ids) {
-        if(ids.isEmpty()){
-            System.out.println("findAllById argument ids is empty - returning empty List<UserRsDto>");
+        System.out.println("in /allByIds.  ids list is: " + ids);
+        if (ids.isEmpty()) {
+            System.out.println("in /allByIds, argument ids is empty - returning empty List<UserRsDto>");
             return new ArrayList<>();
         }
-        return userService.findAllById(ids).stream().map(userFacade::convertToDto).collect(Collectors.toList());
+        List<User> users = userService.findAllByIds(ids);
+        System.out.println("in /allByIds, users: "+users);
+        List<UserRsDto> userRsDto = users.stream().map(userFacade::convertToDto).collect(Collectors.toList());
+        System.out.println("in /allByIds, userRsDto: "+userRsDto);
+        return userRsDto;
     }
-
-
-
 
 
 }

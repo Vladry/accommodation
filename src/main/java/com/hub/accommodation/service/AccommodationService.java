@@ -34,4 +34,5 @@ public class AccommodationService extends GeneralService<Accommodation> {
     public Page<Accommodation> findAll(Pageable pageable) {
         return accommodationRepository.findAll(pageable);
     }
+
 }

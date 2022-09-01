@@ -5,7 +5,6 @@ import com.hub.accommodation.exception.NoDataFoundException;
 import com.hub.accommodation.repository.RepositoryInterface;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
@@ -70,11 +69,6 @@ public abstract class GeneralService<E extends BaseEntity> implements ServiceInt
     return repo.findEntityById(id);
   }
 
-  @Override
-  @Transactional(readOnly = true)
-  public List<E> findAllById(Iterable<Long> listOfIds) {
-    return repo.findAllById(listOfIds);
-  }
 
 
 }

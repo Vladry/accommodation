@@ -1,6 +1,8 @@
 GET http://localhost:8000/api/v1/users/all
 ###
 
+GET http://localhost:8000/api/v1/users/19/datingProfile
+###
 
 POST http://localhost:8000/api/v1/users
 Content-Type: application/json

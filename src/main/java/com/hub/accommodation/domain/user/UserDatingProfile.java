@@ -102,6 +102,7 @@ public class UserDatingProfile extends BaseEntity {
     @Column(name = "traits_i_hate")
     private String traitsIWouldHateInYou;
 
+/*
     @ElementCollection(fetch = FetchType.LAZY, targetClass = Interests.class)
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "my_interests_list", joinColumns = {@JoinColumn(name = "USER_DATING_PROFILE_ID")})
@@ -119,6 +120,7 @@ public class UserDatingProfile extends BaseEntity {
     @CollectionTable(name = "user_dating_goals")
     @Column(name = "goals")
     private Collection<Goals> myGoals;
+*/
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "userDatingProfile")
     private List<Picture> pictures = new ArrayList<>();
@@ -143,9 +145,9 @@ public class UserDatingProfile extends BaseEntity {
         this.selfDescription = selfDescription;
         this.traitsIWouldLoveInYou = traitsIWouldLoveInYou;
         this.traitsIWouldHateInYou = traitsIWouldHateInYou;
-        this.myInterests = myInterests;
+/*        this.myInterests = myInterests;
         this.desiredWithInterests = desiredWithInterests;
-        this.myGoals = myGoals;
+        this.myGoals = myGoals;*/
         this.pictures = pictures;
     }
 
@@ -170,9 +172,9 @@ public class UserDatingProfile extends BaseEntity {
                 ", selfDescription='" + selfDescription + '\'' +
                 ", traitsIWouldLoveInYou='" + traitsIWouldLoveInYou + '\'' +
                 ", traitsIWouldHateInYou='" + traitsIWouldHateInYou + '\'' +
-                ", myInterests=" + myInterests +
+/*                ", myInterests=" + myInterests +
                 ", desiredWithInterests=" + desiredWithInterests +
-                ", myGoals=" + myGoals +
+                ", myGoals=" + myGoals +*/
                 ", pictures=" + pictures +
                 '}';
     }

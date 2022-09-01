@@ -1,6 +1,7 @@
 package com.hub.accommodation.DTO.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.hub.accommodation.domain.BaseEntity;
 import com.hub.accommodation.domain.user.User;
 import lombok.*;
 
@@ -14,12 +15,9 @@ import java.util.Set;
 
 @Getter
 @Setter
-@AllArgsConstructor
-//@ToString(of = {"mySex", "seekAPersonOfSex", "myHeight", "numberOfMyChildren", "myInterests", "myGoals"})
-public class UserDatingProfileRsDto /*extends BaseEntity */ {
+public class UserDatingProfileRsDto extends BaseEntity {
 
-//    @JsonIgnore
-//    private User user;
+    private String userId;
 
     private String mySex;
 
@@ -48,29 +46,36 @@ public class UserDatingProfileRsDto /*extends BaseEntity */ {
     private Set<String> myGoals;
     private List<String> pictures;
 
-
+@JsonIgnore
     private LocalDate birthday;
+    @JsonIgnore
     private LocalDateTime lastVisitDate;
     private int age;
     private String lastVisited;
 
 
     public UserDatingProfileRsDto() {
-/*        setAge();
-        setLastVisitPeriod();*/
+        setAge();
+        setLastVisitPeriod();
     }
 
-    @PostConstruct
+    public void setBirthday(LocalDate birthday){
+        this.birthday = birthday;
+        setAge();
+    }
     private void setAge() {
-        if(this.birthday!=null){return;}
+        if(this.birthday==null){return;}
         LocalDate dateNow = LocalDate.now();
         Period period = Period.between(this.birthday, dateNow);
         this.age = period.getYears();
     }
 
-    @PostConstruct
+    public void setLastVisitDate(LocalDateTime lastVisitDate){
+        this.lastVisitDate = lastVisitDate;
+        setLastVisitPeriod();
+    }
     private void setLastVisitPeriod() {
-        if(this.lastVisitDate!=null) {
+        if(this.lastVisitDate==null) {
             return;
         }
         LocalDateTime dateTimeNow = LocalDateTime.now();
@@ -96,6 +101,8 @@ public class UserDatingProfileRsDto /*extends BaseEntity */ {
     @Override
     public String toString() {
         return "UserDatingProfileRsDto{" +
+                "id='" + id + '\'' +
+                "userId='" + userId + '\'' +
                 "mySex='" + mySex + '\'' +
                 ", seekAPersonOfSex='" + seekAPersonOfSex + '\'' +
                 ", myHeight=" + myHeight +
@@ -119,6 +126,7 @@ public class UserDatingProfileRsDto /*extends BaseEntity */ {
                 ", lastVisitDate=" + lastVisitDate +
                 ", age=" + age +
                 ", lastVisited='" + lastVisited + '\'' +
+                ", createdDate='" + createdDate + '\'' +
                 '}';
     }
 }

@@ -4,6 +4,7 @@ import com.hub.accommodation.domain.BaseEntity;
 import com.hub.accommodation.exception.NoDataFoundException;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface RepositoryInterface<E extends BaseEntity> extends JpaRepository<E, Long> {
@@ -15,4 +16,7 @@ public interface RepositoryInterface<E extends BaseEntity> extends JpaRepository
         }
         return entityOptional.get();
     }
+
+
+
 }

@@ -50,10 +50,11 @@ public class UserDatingProfileController {
             return null;
         }
         UserDatingProfile userDatingProfile = null;
-        if (userDatingProfileService.findUserDatingProfileById(id).isPresent()) {
-            userDatingProfile = userDatingProfileService.findUserDatingProfileById(id).get();
+        if (userDatingProfileService.findUserDatingProfileByUserId(id).isPresent()) {
+            userDatingProfile = userDatingProfileService.findUserDatingProfileByUserId(id).get();
+//            System.out.println("найден userDatingProfile: "+ userDatingProfile);
             UserDatingProfileRsDto userDatingProfileRsDto = userDatingProfileFacade.convertToDto(userDatingProfile);
-            System.out.println("userDatingProfileRsDto: "+ userDatingProfileRsDto);
+//            System.out.println("userDatingProfileRsDto: "+ userDatingProfileRsDto);
             return userDatingProfileRsDto;
         } else {
             return null;
@@ -70,7 +71,7 @@ public class UserDatingProfileController {
             System.out.println("getMatchingDatingCandidatesIds argument currentUserId is null: returning null");
             return null;
         }
-        Optional<UserDatingProfile> currentUserDatingProfileOpt = userDatingProfileService.findUserDatingProfileById(currentUserId);
+        Optional<UserDatingProfile> currentUserDatingProfileOpt = userDatingProfileService.findUserDatingProfileByUserId(currentUserId);
 
         if (currentUserDatingProfileOpt.isPresent()) {
             List<UserDatingProfile> candidatesMatchingCriteria = userDatingProfileService.findAllMatchingTheCriteria(currentUserDatingProfileOpt.get());
