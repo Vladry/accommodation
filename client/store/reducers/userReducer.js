@@ -46,8 +46,10 @@ export default (state = initialState, action) => {
             return {...state, loading: true, candidateDatingProfile: null}
         case types.SET_CANDIDATE_DATING_PROFILE:
             return {...state, candidateDatingProfile: action.payload, loading: false}
+        case types.GET_MATCHING_CANDIDATES_IDS:
+            return {...state, matchingCandidatesIds: null, loading: true}
         case types.SET_MATCHING_CANDIDATES_IDS:
-            return {...state, matchingCandidatesIds: action.payload}
+            return {...state, matchingCandidatesIds: action.payload, loading: false}
 
         default:
             return state;

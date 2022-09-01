@@ -63,12 +63,12 @@ public class UserDatingProfileController {
     }
 
 
-    // запускать на:  http://localhost:8000/api/v1/users/1/matchingDatingCandidatesIds
+    // запускать на:  http://localhost:8000/api/v1/users/1/candidatesIds
     @CrossOrigin(origins = "*")
-    @GetMapping("/{currentUserId}/matchingDatingCandidatesIds")
+    @GetMapping("/{currentUserId}/candidatesIds")
     public List<Long> getMatchingDatingCandidatesIds(@PathVariable("currentUserId") Long currentUserId) {
         if (currentUserId == null) {
-            System.out.println("getMatchingDatingCandidatesIds argument currentUserId is null: returning null");
+            System.out.println("getCandidatesIds argument currentUserId is null: returning null");
             return null;
         }
         Optional<UserDatingProfile> currentUserDatingProfileOpt = userDatingProfileService.findUserDatingProfileByUserId(currentUserId);

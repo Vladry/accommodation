@@ -12,10 +12,11 @@ import types from "../../../store/types";
 const Index = () => {
 
     const user = useSelector(sel.user);
-    // const matchingCandidatesIds = useSelector(sel.matchingCandidatesIds);
-    const [candidatesMatchingCriteria, setCandidatesMatchingCriteria] = useState(null);
+    const matchingCandidatesIds = useSelector(sel.matchingCandidatesIds);
+    const userDatingProfile = useSelector(sel.userDatingProfile);
+    const [candidates, setCandidates] = useState(null);
     const dispatch = useDispatch();
-
+    let resUsers;
 
     async function getMatchingCandidatesIds() {
         if (!user) {
@@ -23,44 +24,49 @@ const Index = () => {
             return <p>user is undefined</p>;
         }
         let resIds;
+        dispatch({type: types.GET_MATCHING_CANDIDATES_IDS});
 // получим ids кандидатов, подходящих под критерии userDatingProfile:
         try {
-            const getIds = api.get(`users/${user.id}/matchingDatingCandidatesIds`);
+            const getIds = api.get(`users/${user.id}/candidatesIds`);
             resIds = await getIds;
-            console.log(`ищем ids of matchingDatingCandidates для юзера userId: ${user.id}. Нашли ids: ${resIds} `);
+            // console.log(`ids for candidates for userId: ${user.id}: ${resIds} `);
             dispatch({type: types.SET_MATCHING_CANDIDATES_IDS, payload: resIds});
 
-            // если подходящие кандидаты существуют, по их ids вытащим и userDatingProfiles самих кандидатов:
-            if (resIds != null) {
-                (getMatchingCandidates(resIds).then());
-            }
+            (getMatchingCandidates(resIds).then());
+
         } catch (err) {
             // console.log(err);
-            console.log(`не найдены ids of matchingDatingCandidatesIds, или error`);
+            console.log(`не найдены ids of candidates, или error`);
         }
 
     }
 
     async function getMatchingCandidates(resIds) {
+        console.log(`ids for candidates for userId: ${user.id}: ${resIds} `);
+        if (resIds == null) {
+            return;
+        }
 // по найденным  candidatesIdsMatchingCriteria вытащим данных пользователей, чтобы потом отрендерить их userCards:
         try {
-            console.log("now fetching to /users/allByIds with argument: ", resIds);
+            // console.log("now fetching to /users/allByIds with argument: ", resIds);
             const getCandidates = api.post("/users/allByIds", resIds);
-            const resUsers = await getCandidates;
-            await setCandidatesMatchingCriteria(resUsers);
+            resUsers = await getCandidates;
+            setCandidates(resUsers);
             console.log(`успешно получили matchingDatingCandidates: `, resUsers);
         } catch (err) {
             // console.log(err);
-            console.log(`matchingDatingCandidates для userId: ${user.id} не получены`);
+            console.log(`candidates для userId: ${user.id} не получены`);
         }
     }
 
 
     useEffect(() => {
         // Получим список подходящих под критерии поиска для текущего пользователя:
-        const ids = getMatchingCandidatesIds().then(() => {
-        });
-    }, [])
+        if (!matchingCandidatesIds) {
+            const ids = getMatchingCandidatesIds().then(() => {
+            });
+        }
+    }, [userDatingProfile])
 
 
     return (
@@ -73,7 +79,7 @@ const Index = () => {
             <Grid item={true} xs={7} sm={9} md={10}>
                 <Box sx={{border: '1px solid green'}}>
                     <h3 style={{textAlign: 'center'}}>Candidates matching your criteria</h3>
-                    <DatingUserList users={candidatesMatchingCriteria}/>
+                    <DatingUserList users={candidates}/>
                 </Box>
             </Grid>
         </Grid>

@@ -13,7 +13,7 @@ const UserDatingProfileForm = ({handleSubmit}) => {
     const dispatch = useDispatch();
     const user = useSelector(selectors.user);
     const isAuthenticated = useAuth(true);
-    const userDatingProfile = useSelector(selectors.currUserDatingProfile);
+    const userDatingProfile = useSelector(selectors.userDatingProfile);
     const [isRenderFormikFormAllowed, setIsRenderFormikFormAllowed] = useState(false);
     const {prepareFormData, fetchInitFormValues} = useContext(Context);
     const formInitValues = prepareFormData(userDatingProfileFormFields, userDatingProfile);

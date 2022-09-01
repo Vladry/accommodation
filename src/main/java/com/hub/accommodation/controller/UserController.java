@@ -53,10 +53,10 @@ public class UserController {
         try {
             User user = userFacade.convertToEntity(userRqDto);
             userService.save(user);
-            log.info("in createUser: new user (user.name: " + userRqDto.getName() + " " + userRqDto.getLastName() + " created");
+//            log.info("in createUser: new user (user.name: " + userRqDto.getName() + " " + userRqDto.getLastName() + " created");
             return findUserByEmail(user.getEmail());
         } catch (Exception e) {
-            log.error("error creating a new user: " + userRqDto.getName() + " " + userRqDto.getLastName());
+//            log.error("error creating a new user: " + userRqDto.getName() + " " + userRqDto.getLastName());
             throw new CreatingEntityFailed("error creating a new user");
         }
     }
@@ -86,16 +86,14 @@ public class UserController {
 
     @PostMapping("/users/allByIds")
     public List<UserRsDto> findAllById(@RequestBody List<Long> ids) {
-        System.out.println("in /allByIds.  ids list is: " + ids);
+//        System.out.println("in /allByIds.  ids list is: " + ids);
         if (ids.isEmpty()) {
-            System.out.println("in /allByIds, argument ids is empty - returning empty List<UserRsDto>");
+            log.warn("in /allByIds, argument ids is empty - returning empty List<UserRsDto>");
             return new ArrayList<>();
         }
         List<User> users = userService.findAllByIds(ids);
-        System.out.println("in /allByIds, users: "+users);
-        List<UserRsDto> userRsDto = users.stream().map(userFacade::convertToDto).collect(Collectors.toList());
-        System.out.println("in /allByIds, userRsDto: "+userRsDto);
-        return userRsDto;
+//        System.out.println("in /allByIds, users: "+users);
+        return users.stream().map(userFacade::convertToDto).collect(Collectors.toList());
     }
 
 

@@ -23,12 +23,12 @@ public class UserRepositoryImpl {
         EntityManager em = null;
         try {
             em = emf.createEntityManager();
-            em.getTransaction().begin();
+//            em.getTransaction().begin();
             Query q = em.createQuery("from User u where u.id in :ids")
                     .setParameter("ids", ids);
 
             List<User> users = q.getResultList();
-            em.getTransaction().commit();
+//            em.getTransaction().commit();
             em.close();
             return users;
 

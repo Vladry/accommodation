@@ -1,5 +1,5 @@
 const user = state => state.userData.user;
-const currUserDatingProfile = state=> state.userData.userDatingProfile;
+const userDatingProfile = state=> state.userData.userDatingProfile;
 const accommodationUserProfile = state=> state.userData.accommodationUserProfile;
 const tenantUserProfile = state=> state.userData.tenantUserProfile;
 const candidateDatingProfile = state=> state.userData.candidateDatingProfile;
@@ -8,7 +8,7 @@ const isCurrUserRegisteredInDating = state=> state.userData.isCurrUserRegistered
 
 export default {
     user,
-    currUserDatingProfile,
+    userDatingProfile,
     accommodationUserProfile,
     tenantUserProfile,
     candidateDatingProfile,

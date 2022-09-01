@@ -25,9 +25,6 @@ public class UserService extends GeneralService<User> {
 
     @Transactional(readOnly = true)
     public List<User> findAllByIds(List<Long> listOfIds) {
-        System.out.println("in service.findAllById(List<Long>:"+listOfIds+")");
-        List<User> users = userRepositoryImpl.findAllByIds(listOfIds);
-        System.out.println("in service.findAllById, users found: "+users);
-        return users;
+        return userRepositoryImpl.findAllByIds(listOfIds);
     }
 }
