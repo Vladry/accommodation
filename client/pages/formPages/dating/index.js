@@ -12,27 +12,32 @@ import types from "../../../store/types";
 const Index = () => {
 
     const user = useSelector(sel.user);
+    const loadingMatchingCandidatesIds = useSelector(sel.loadingMatchingCandidatesIds);
     const matchingCandidatesIds = useSelector(sel.matchingCandidatesIds);
     const userDatingProfile = useSelector(sel.userDatingProfile);
     const [candidates, setCandidates] = useState(null);
     const dispatch = useDispatch();
     let resUsers;
+    let denoiseFlag1 = false;
+    let denoiseFlag2 = false;
 
-    async function getMatchingCandidatesIds() {
-        if (!user) {
-            console.log("user is null, returning!");
+    async function getCandidatesIds() {
+        if (!user || denoiseFlag1) {
+            // console.log("user is null, or loadingMatchingCandidatesIds is true.    returning!");
             return <p>user is undefined</p>;
         }
+        denoiseFlag1 = true;
+        // console.log("denoiseFlag: ",denoiseFlag1);
         let resIds;
         dispatch({type: types.GET_MATCHING_CANDIDATES_IDS});
 // получим ids кандидатов, подходящих под критерии userDatingProfile:
         try {
             const getIds = api.get(`users/${user.id}/candidatesIds`);
             resIds = await getIds;
-            // console.log(`ids for candidates for userId: ${user.id}: ${resIds} `);
+            console.log(`ids for candidates for userId: ${user.id}: `, resIds);
             dispatch({type: types.SET_MATCHING_CANDIDATES_IDS, payload: resIds});
 
-            (getMatchingCandidates(resIds).then());
+            return resIds;
 
         } catch (err) {
             // console.log(err);
@@ -40,19 +45,19 @@ const Index = () => {
         }
 
     }
-
-    async function getMatchingCandidates(resIds) {
-        console.log(`ids for candidates for userId: ${user.id}: ${resIds} `);
-        if (resIds == null) {
+    async function getCandidates() {
+        if (matchingCandidatesIds == null || denoiseFlag2) {
             return;
         }
+        denoiseFlag2 = true;
+        // console.log(`ids for candidates for userId: ${user.id}: `, matchingCandidatesIds);
 // по найденным  candidatesIdsMatchingCriteria вытащим данных пользователей, чтобы потом отрендерить их userCards:
         try {
             // console.log("now fetching to /users/allByIds with argument: ", resIds);
-            const getCandidates = api.post("/users/allByIds", resIds);
+            const getCandidates = api.post("/users/allByIds", matchingCandidatesIds);
             resUsers = await getCandidates;
             setCandidates(resUsers);
-            console.log(`успешно получили matchingDatingCandidates: `, resUsers);
+            console.log(`успешно получили matchingDatingCandidates: `, matchingCandidatesIds);
         } catch (err) {
             // console.log(err);
             console.log(`candidates для userId: ${user.id} не получены`);
@@ -61,12 +66,13 @@ const Index = () => {
 
 
     useEffect(() => {
-        // Получим список подходящих под критерии поиска для текущего пользователя:
-        if (!matchingCandidatesIds) {
-            const ids = getMatchingCandidatesIds().then(() => {
-            });
-        }
+            getCandidatesIds();
     }, [userDatingProfile])
+
+    useEffect(() => {
+            getCandidates();
+    }, [matchingCandidatesIds])
+
 
 
     return (

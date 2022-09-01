@@ -23,9 +23,12 @@ const UserDatingProfile = () => {
     const candidateDatingProfile = useSelector(state => state.userData.candidateDatingProfile);
     const loading = useSelector((state)=>state.userData.loading);
     let status = true;
+    let denoiseFlag1 = false;
 
 
     useEffect(() => {
+        if(denoiseFlag1){return;}
+        denoiseFlag1 = true;
         if (queriedUserId) {
             const logActionCurrentU = act.GET_USER_DATING_PROFILE;
             const setActionCurrentU = act.SET_USER_DATING_PROFILE_SUCCESS;

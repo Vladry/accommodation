@@ -10,12 +10,12 @@ export const getUser = () => (dispatch) => {
             console.log(`in get(/users/profile. user.id: `, user.id);
             //и сразу получим (если существует) datingProfile текущего currentUser чтобы определить его isCurrUserRegisteredInDating:
             dispatch(getDatingProfile(user.id, types.GET_USER_DATING_PROFILE, types.SET_USER_DATING_PROFILE_SUCCESS));
-            dispatch(getAccommodationProfileIfExists(user.id));
-            dispatch(getTenantProfileIfExists(user.id));
-            dispatch(getVolunteerProfileIfExists(user.id));
+            // dispatch(getAccommodationProfileIfExists(user.id));
+            // dispatch(getTenantProfileIfExists(user.id));
+            // dispatch(getVolunteerProfileIfExists(user.id));
         }).catch(e => {
         dispatch({type: types.SET_USER_FAILURE})
-        console.log(e);
+        console.log("Exception in getUser -> run  dispatch({type: types.SET_USER_FAILURE})");
     });
 }
 
@@ -46,12 +46,12 @@ export const getDatingProfile = (userId, loadingAction, targetAction) =>(dispatc
 
 
 // 3 функции ниже уже задействованы в getUser вызываемом при формировании store-a!  Может быть они и не понадобятся, т.к. буду всегда вынимать эти профайлы из БД каждый раз при редактировании этих данных
-const getAccommodationProfileIfExists = (userId) => {
+const getAccommodationProfileIfExists = (userId) => (dispatch)=> {
 //TODO заполнить
 }
-const getTenantProfileIfExists = (userId) => {
+const getTenantProfileIfExists = (userId) => (dispatch)=> {
 //TODO заполнить
 }
-const getVolunteerProfileIfExists = (userId) => {
+const getVolunteerProfileIfExists = (userId) => (dispatch)=> {
 //TODO заполнить
 }
