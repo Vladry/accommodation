@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import {Box} from "@mui/material";
 
 const DatingUserList = ({users}) => {
+    // console.log("rendering DatingUserList");
     if (!users) return;
     const datingUsers = users.map(
         (user, key) => {
@@ -18,7 +19,8 @@ const DatingUserList = ({users}) => {
     );
 };
 
-export default DatingUserList;
+// export default DatingUserList;
+export default React.memo(DatingUserList);
 
 const FlexContainer = styled(Box)`
 display: flex;

@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react";
+import React, {useContext, useMemo, useRef, useState} from "react";
 import Head from "next/head";
 import {CssBaseline} from "@mui/material";
 import {ThemeProvider} from "@mui/material/styles"
@@ -14,11 +14,11 @@ import {Context} from '../context';
 
 const clientSideEmotionCache = createEmotionCache();
 
-function MyApp({Component, pageProps, emotionCache = clientSideEmotionCache }) {
-const context = useContext(Context);
-
+function MyApp({Component, pageProps, emotionCache = clientSideEmotionCache}) {
+    const context = useContext(Context);
     const [interval, setInterval] = useState(0);
-    // console.log(interval)
+
+
     React.useEffect(() => {
         // Remove the server-side injected CSS.
         const jssStyles = document.querySelector('#jss-server-side');
@@ -26,6 +26,7 @@ const context = useContext(Context);
             jssStyles.parentElement.removeChild(jssStyles);
         }
     }, []);
+
 
     return (
         <>
@@ -36,18 +37,18 @@ const context = useContext(Context);
                 </Head>
                 <SessionProvider session={pageProps.session} refetchInterval={interval}>
                     <Context.Provider value={context}>
-                    <ThemeProvider theme={theme}>
-                        <Provider store={store}>
-                            <CssBaseline/>
-                            {
-                                Component.getLayout?
-                                Component.getLayout(<Component {...pageProps} />) :
-                                <Component {...pageProps} />
-                            }
-                        </Provider>
-                    </ThemeProvider>
+                        <ThemeProvider theme={theme}>
+                            <Provider store={store}>
+                                <CssBaseline/>
+                                {
+                                    Component.getLayout ?
+                                        Component.getLayout(<Component {...pageProps} />) :
+                                        <Component {...pageProps} />
+                                }
+                            </Provider>
+                        </ThemeProvider>
                     </Context.Provider>
-                    <RefreshTokenHandler setInterval={setInterval} />
+                    <RefreshTokenHandler setInterval={setInterval}/>
                 </SessionProvider>
             </CacheProvider>
         </>

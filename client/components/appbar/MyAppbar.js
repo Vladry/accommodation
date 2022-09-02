@@ -15,7 +15,7 @@ import {ToolbarMobile} from "./ToolbarMobile";
     return { props: { data } }
 }*/
 
-export default function MyAppbar({toggleDrawer}) {
+function MyAppbar({toggleDrawer}) {
 
     const isAuthenticated = useAuth(false);
     const isMediumSize = useMediaQuery('(min-width: 601px)');
@@ -35,6 +35,7 @@ export default function MyAppbar({toggleDrawer}) {
     );
 };
 
+export default MyAppbar;
 
 MyAppbar.propTypes = {
     toggleDrawer: propTypes.func

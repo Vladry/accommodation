@@ -5,6 +5,7 @@ import {Typography} from "@mui/material";
 import {useSelector} from "react-redux";
 
 const DatingMenuWrapper = ({children}) => {
+    // console.log("render DatingMenuWrapper");
     const isAuthenticated = useAuth(false);
     const user = useSelector(state=> state.userData.user);
 
@@ -20,6 +21,7 @@ const DatingMenuWrapper = ({children}) => {
     );
 };
 
-export default DatingMenuWrapper;
+// export default DatingMenuWrapper;
+export default React.memo(DatingMenuWrapper);
 
 

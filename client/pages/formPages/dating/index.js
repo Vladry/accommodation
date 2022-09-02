@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import DatingMenuWrapper from "./DatingMenuWrapper";
 import {datingMenu} from "../../../public/menuConfig";
 import {Box, Grid} from '@mui/material';
@@ -13,66 +13,61 @@ const Index = () => {
 
     const user = useSelector(sel.user);
     const loadingMatchingCandidatesIds = useSelector(sel.loadingMatchingCandidatesIds);
-    const matchingCandidatesIds = useSelector(sel.matchingCandidatesIds);
     const userDatingProfile = useSelector(sel.userDatingProfile);
     const [candidates, setCandidates] = useState(null);
-    const dispatch = useDispatch();
+    const candidatesIds = useRef({});
     let resUsers;
-    let denoiseFlag1 = false;
-    let denoiseFlag2 = false;
 
-    async function getCandidatesIds() {
-        if (!user || denoiseFlag1) {
-            // console.log("user is null, or loadingMatchingCandidatesIds is true.    returning!");
-            return <p>user is undefined</p>;
-        }
-        denoiseFlag1 = true;
-        // console.log("denoiseFlag: ",denoiseFlag1);
-        let resIds;
-        dispatch({type: types.GET_MATCHING_CANDIDATES_IDS});
-// получим ids кандидатов, подходящих под критерии userDatingProfile:
-        try {
-            const getIds = api.get(`users/${user.id}/candidatesIds`);
-            resIds = await getIds;
-            console.log(`ids for candidates for userId: ${user.id}: `, resIds);
-            dispatch({type: types.SET_MATCHING_CANDIDATES_IDS, payload: resIds});
 
-            return resIds;
+    async function getCandidatesIds() {// получим ids кандидатов, подходящих под критерии userDatingProfile:
 
-        } catch (err) {
-            // console.log(err);
-            console.log(`не найдены ids of candidates, или error`);
+        if (!candidatesIds.current["ids"]) {//наше кэширование
+            try {
+                candidatesIds.current["loading"] = true;
+                const getIds = await api.get(url);
+                candidatesIds.current["ids"] = await getIds;
+                console.log(`ids successfully fetched: `, candidatesIds.current["ids"]);
+
+                if (candidatesIds.current["ids"]) {
+                    getCandidates(candidatesIds.current["ids"]).then();
+                }
+
+            } catch (err) {
+                candidatesIds.current["loading"] = false;
+                console.log(`error fetching ids`);
+            }
         }
 
     }
-    async function getCandidates() {
-        if (matchingCandidatesIds == null || denoiseFlag2) {
-            return;
-        }
-        denoiseFlag2 = true;
-        // console.log(`ids for candidates for userId: ${user.id}: `, matchingCandidatesIds);
-// по найденным  candidatesIdsMatchingCriteria вытащим данных пользователей, чтобы потом отрендерить их userCards:
+    const getCandidates = async (candidatesIds)=> {
+        console.log(`in getCandidates->  candidates Ids}: `, candidatesIds);
         try {
-            // console.log("now fetching to /users/allByIds with argument: ", resIds);
-            const getCandidates = api.post("/users/allByIds", matchingCandidatesIds);
+            const getCandidates = await api.post("/users/allByIds", candidatesIds);
             resUsers = await getCandidates;
             setCandidates(resUsers);
-            console.log(`успешно получили matchingDatingCandidates: `, matchingCandidatesIds);
+            // candidatesIds.current["loading"] = false;
+            // candidatesIds.current["ids"] = null;
+            // console.log('candidatesIds.current["loading"] === undefined ', Boolean(candidatesIds.current["loading"] === undefined) );
+            // console.log('candidatesIds.current["ids"] === undefined', Boolean(candidatesIds.current["ids"] === undefined) );
         } catch (err) {
-            // console.log(err);
             console.log(`candidates для userId: ${user.id} не получены`);
         }
+
     }
 
-
     useEffect(() => {
-            getCandidatesIds();
+        // console.log("in useEffect");
+        if (!candidatesIds.current["loading"] && user) {
+            getCandidatesIds().then();
+        }
     }, [userDatingProfile])
 
-    useEffect(() => {
-            getCandidates();
-    }, [matchingCandidatesIds])
 
+    if (!user) {
+        return <p>user is undefined</p>;
+        console.log("in dating/index -> user undefined, returning")
+    }
+    const url = `users/${user.id}/candidatesIds`;
 
 
     return (

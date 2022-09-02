@@ -41,16 +41,18 @@ export default (state = initialState, action) => {
         case types.SET_USER_DATING_PROFILE_SUCCESS:
             return {...state, userDatingProfile: action.payload, isCurrUserRegisteredInDating: true, loading: false}
         case types.SET_USER_DATING_PROFILE_FAIL:
-            return {...state, userDatingProfile: null, isCurrUserRegisteredInDating: false, loading: false}
+            return {...state, /*userDatingProfile: null, */isCurrUserRegisteredInDating: false, loading: false}
 
         case types.GET_CANDIDATE_DATING_PROFILE:
-            return {...state, loading: true, candidateDatingProfile: null}
+            return {...state, loading: true/*, candidateDatingProfile: null*/}
         case types.SET_CANDIDATE_DATING_PROFILE:
             return {...state, candidateDatingProfile: action.payload, loading: false}
         case types.GET_MATCHING_CANDIDATES_IDS:
-            return {...state, matchingCandidatesIds: null, loadingMatchingCandidatesIds: true}
+            return {...state, /*matchingCandidatesIds: null, */loadingMatchingCandidatesIds: true}
         case types.SET_MATCHING_CANDIDATES_IDS:
-            return {...state, matchingCandidatesIds: action.payload, loadingMatchingCandidatesIds: false}
+            const newState = {...state};
+            newState.matchingCandidatesIds = {...state.matchingCandidatesIds};// в данном случае необязательная строчка
+            return {newState, matchingCandidatesIds: action.payload, loadingMatchingCandidatesIds: false}
 
         default:
             return state;
