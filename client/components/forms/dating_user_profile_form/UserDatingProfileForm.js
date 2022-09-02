@@ -23,10 +23,12 @@ const UserDatingProfileForm = ({handleSubmit}) => {
             if (!user) return;
             const userDatingProfileURL = `/users/${user.id}/datingProfile`;
             const callback = () => setIsRenderFormikFormAllowed(true);
-            // если нет userDatingProfile, попробуем еще раз его получить (хотя он должен быть сразу после входа в систему!)
-            !userDatingProfile && fetchInitFormValues(userDatingProfileURL, types.GET_USER_DATING_PROFILE,
-                types.SET_USER_DATING_PROFILE_SUCCESS, types.SET_USER_DATING_PROFILE_FAIL, callback, dispatch);
-        }, [user]
+            if(userDatingProfile){setIsRenderFormikFormAllowed(()=>true)}
+
+            // TODO потом возможно подключить опцию дополнительного вытаскивания userDatingProfile, если его еще нет
+            /*!userDatingProfile && fetchInitFormValues(userDatingProfileURL, types.GET_USER_DATING_PROFILE,
+                types.SET_USER_DATING_PROFILE_SUCCESS, types.SET_USER_DATING_PROFILE_FAIL, callback, dispatch);*/
+        }, [user, userDatingProfile]
     );
 
     if (!isAuthenticated) return (<h3>please login/ Войтите в систему</h3>);
@@ -35,6 +37,7 @@ const UserDatingProfileForm = ({handleSubmit}) => {
 
     return (
         <div>
+            {!userDatingProfile && <p>Вы ещё не зарегистрированы в службе знакомств!  Заполните ваш новый профайл. На его основании, для Вас будут предложены кандидаты, соответствующие Вашим пожеланиям:</p>}
             {isRenderFormikFormAllowed &&
                 <FormMapper
                 fields={userDatingProfileFormFields}

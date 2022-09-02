@@ -21,7 +21,7 @@ const DatingMenuWrapper = ({children}) => {
     );
 };
 
-// export default DatingMenuWrapper;
-export default React.memo(DatingMenuWrapper);
+export default DatingMenuWrapper;
+// export default React.memo(DatingMenuWrapper);
 
 

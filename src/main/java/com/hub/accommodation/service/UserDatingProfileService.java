@@ -50,18 +50,18 @@ public class UserDatingProfileService implements ServiceInterface<UserDatingProf
     }
 
     public Optional<UserDatingProfile> findUserDatingProfileByUserId(Long userId) {
+        System.out.println("in findUserDatingProfileByUserId->  userId: "+userId);
         EntityManager em = entityManagerFactory.createEntityManager();
         UserDatingProfile udp = null;
         try {
-            em.getTransaction().begin();
             Query q = em.createQuery("select udp from UserDatingProfile udp where udp.userId = :userId")
                     .setParameter("userId", userId);
             udp = (UserDatingProfile) q.getSingleResult();
-            em.getTransaction().commit();
+            System.out.println("udp: "+udp);
             em.close();
         } catch (Exception e) {
             if(em!=null){em.close();}
-            System.out.println("Exception in service.findUserDatingProfileByUserId(Long userId)");
+            System.out.println("Exception in service.findUserDatingProfileByUserId(Long userId) Or userDatingProfile not found");
         }
         return Optional.ofNullable(udp);
     }

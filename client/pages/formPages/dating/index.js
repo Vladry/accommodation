@@ -26,7 +26,7 @@ const Index = () => {
                 candidatesIds.current["loading"] = true;
                 const getIds = await api.get(url);
                 candidatesIds.current["ids"] = await getIds;
-                console.log(`ids successfully fetched: `, candidatesIds.current["ids"]);
+                // console.log(`ids successfully fetched: `, candidatesIds.current["ids"]);
 
                 if (candidatesIds.current["ids"]) {
                     getCandidates(candidatesIds.current["ids"]).then();
@@ -39,18 +39,16 @@ const Index = () => {
         }
 
     }
-    const getCandidates = async (candidatesIds)=> {
-        console.log(`in getCandidates->  candidates Ids}: `, candidatesIds);
+    async function getCandidates (ids){
+        // console.log(`in getCandidates->  candidates Ids}: `, ids);
         try {
-            const getCandidates = await api.post("/users/allByIds", candidatesIds);
+            const getCandidates = await api.post("/users/allByIds", ids);
             resUsers = await getCandidates;
             setCandidates(resUsers);
-            // candidatesIds.current["loading"] = false;
-            // candidatesIds.current["ids"] = null;
-            // console.log('candidatesIds.current["loading"] === undefined ', Boolean(candidatesIds.current["loading"] === undefined) );
-            // console.log('candidatesIds.current["ids"] === undefined', Boolean(candidatesIds.current["ids"] === undefined) );
+            candidatesIds.current["loading"] = false;
+            candidatesIds.current["ids"] = null;
         } catch (err) {
-            console.log(`candidates для userId: ${user.id} не получены`);
+            console.log(`error in  getCandidatesIds() -> для userId: ${user.id} `);
         }
 
     }

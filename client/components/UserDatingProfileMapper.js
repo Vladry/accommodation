@@ -11,7 +11,7 @@ import SideBar from "./dating_components/SideBar";
 import ArticleWindow from "./dating_components/ArticleWindow";
 
 const UserDatingProfileMapper = ({fields, values, id}) => {
-
+console.log("values: ", values);
     const lastVisit = [
         <Box key={"lastVisit"} sx={{p: 2, border: '1px solid lightgrey', borderRadius: 1, width: '400px'}}>
             <p>{`lastVisit: ${values["lastVisited"]}`}</p>

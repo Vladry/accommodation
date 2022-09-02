@@ -1,5 +1,4 @@
 import api from "./lib/API";
-import types from "./store/types";
 
 const getUserDatingProfileId = (router, queriedUserId, event) => {
     console.log('queriedUser: ', queriedUserId);
@@ -16,7 +15,7 @@ const getUserDatingProfileId = (router, queriedUserId, event) => {
 const prepareFormData = (fields, persistedValues) => {
 
     return {
-        initialValues: fields.reduce((acc, current, index, array) => ({     //https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
+        initialValues: fields.reduce((acc, current) => ({     //https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
             ...acc,
             [current.formikRef]: (persistedValues && persistedValues[current.formikRef]) ? persistedValues[current.formikRef] : current.valueByDefault //заполняем дефолтными значениями полученными либо из fetched from persistedValues, либо из заданных по дефолту
         }), {})
@@ -24,6 +23,7 @@ const prepareFormData = (fields, persistedValues) => {
 }
 
 const fetchInitFormValues = (URL, loadingAct, successAct, failAct, callback, dispatch) => {
+    console.log("in fetchInitFormValues -> ");
     dispatch({type: loadingAct});
     api.get(URL).then((res) => {
         dispatch({type: successAct, payload: res});

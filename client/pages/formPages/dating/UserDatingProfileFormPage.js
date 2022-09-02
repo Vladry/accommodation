@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import DatingMenuWrapper from "./DatingMenuWrapper";
 import {datingMenu} from "../../../public/menuConfig";
 import api from "../../../lib/API";
@@ -20,7 +20,7 @@ const loading = useSelector((state)=>state.userData.loading);
         delete userDatingProfileFormNewValues["desiredWithInterests"];
         delete userDatingProfileFormNewValues["myGoals"];
 
-// console.log(`для юзера: ${user.id}, отправляю данные формы: `, udpFormValues)
+console.log(`для юзера: ${user.id}, отправляю данные формы: `, userDatingProfileFormNewValues)
         await api.post(`/users/datingProfile`, userDatingProfileFormNewValues/*,{ contentType: "application/json; charset=utf-8",
             async: false,    //Cross-domain requests and dataType: "jsonp" requests do not support synchronous operation
             cache: false,    //This will force requested pages not to be cached by the browser
@@ -32,27 +32,12 @@ const loading = useSelector((state)=>state.userData.loading);
                 console.log(err);
                 console.log('in handleSubmit.then: ошибка фронта отправки данных формы');
             });
-
-
-
-/*
-        await api.post(`/users/datingProfile`, values
-        ).then((res) => {
-            console.log('in handleSubmit.then на фронте, после отправки на бЭк данных. Ответ сервера:', res); // вывод userDatingProfile
-        })
-            .catch(err => {
-                console.log(err);
-                console.log('in handleSubmit.then: ошибка фронта отправки данных формы');
-            });
-*/
-
-
-
-
     };
 
     const title = "Edit Your Profile"
     const content = <UserDatingProfileForm handleSubmit={handleSubmit}/>;
+
+
 
     return (
         <Grid container={true} spacing={2}>

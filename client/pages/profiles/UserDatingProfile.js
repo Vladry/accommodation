@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import DatingMenuWrapper from "../formPages/dating/DatingMenuWrapper";
 import {useDispatch, useSelector} from "react-redux";
 import useAuth from "../../hooks/useAuth";
@@ -10,19 +10,21 @@ import SideBar from "../../components/dating_components/SideBar";
 import {datingMenu} from "../../public/menuConfig";
 import ArticleWindow from "../../components/dating_components/ArticleWindow";
 import {getDatingProfile} from "../../store/actions/userAction";
-import act from "../../store/types";
+import types from "../../store/types";
+import sel from "../../store/selectors";
 
 const UserDatingProfile = () => {
-    const user = useSelector((state) => state.userData.user);
+    const user = useSelector(sel.user);
     const dispatch = useDispatch();
     const isAuthenticated = useAuth(true);
     const router = useRouter();
     const [queriedUserId, setQueriedUserId] = useState(router.query.queriedUserId);
     console.log("queriedUserId: ", queriedUserId);
-    const userDatingProfile = useSelector(state => state.userData.userDatingProfile);
-    const candidateDatingProfile = useSelector(state => state.userData.candidateDatingProfile);
-    const loading = useSelector((state)=>state.userData.loading);
+    const userDatingProfile = useSelector(sel.userDatingProfile);
+    const candidateDatingProfile = useSelector(sel.candidateDatingProfile);
+    const loading = useSelector((state)=>sel.loading);
     let status = true;
+    const loadDatProfile = useRef({den:false});
     let denoiseFlag1 = false;
 
 
@@ -30,19 +32,17 @@ const UserDatingProfile = () => {
         if(denoiseFlag1){return;}
         denoiseFlag1 = true;
         if (queriedUserId) {
-            const logActionCurrentU = act.GET_USER_DATING_PROFILE;
-            const setActionCurrentU = act.SET_USER_DATING_PROFILE_SUCCESS;
-            const logActionCandidateU = act.GET_CANDIDATE_DATING_PROFILE;
-            const setActionCandidateU = act.SET_CANDIDATE_DATING_PROFILE;
-            console.log("in useEffect. Run: getDatingProfile action:");
-            dispatch(getDatingProfile(queriedUserId, logActionCandidateU, setActionCandidateU));
+            // console.log("in useEffect. Run: getDatingProfile action:");
+            dispatch(getDatingProfile(queriedUserId, types.GET_CANDIDATE_DATING_PROFILE, types.SET_CANDIDATE_DATING_PROFILE_SUCCESS, types.SET_CANDIDATE_DATING_PROFILE_FAIL));
         } else {
             status = false;
 
         }
     }, [queriedUserId]);
 
-    if(!status || !isAuthenticated || loading) return <p>not authenticated or queriedUserId undefined or isLoading</p>;
+    console.log("in userDatingProfile->  candidateDatingProfile to render: ", candidateDatingProfile)
+
+    if(!status || !isAuthenticated || !candidateDatingProfile) return <p>not authenticated or queriedUserId undefined or isLoading</p>;
 
     const title = `Profile of Candidate id: ${queriedUserId}`;
 
