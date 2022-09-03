@@ -19,7 +19,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -34,33 +33,57 @@ public class UserDatingProfileService implements ServiceInterface<UserDatingProf
     private final EntityManagerFactory entityManagerFactory;
 
     //-----------------methods--------------------------
-    public UserDatingProfileRsDto saveById(UserDatingProfileRqDto udpRqDto) {
-        UserDatingProfile userDatingProfile = userDatingProfileFacade.convertToEntity(udpRqDto);
-        System.out.println("userDatingProfile: " + userDatingProfile);
-        EntityManager em = entityManagerFactory.createEntityManager();
-        try {
-            em.getTransaction().begin();
-            em.persist(userDatingProfile);
-            em.getTransaction().commit();
-            return userDatingProfileFacade.convertToDto(userDatingProfile);
-        } catch (Exception e) {
-            System.out.println("Exception in service.saveById(UserDatingProfileRqDto udpRqDto)");
-            return null;
+    public UserDatingProfileRsDto saveByUserId(UserDatingProfileRqDto udpRqDto) {
+        System.out.println("in saveByUserId(UserDatingProfileRqDto udpRqDto)->");
+//        System.out.println("udpRqDto: " + udpRqDto);
+        UserDatingProfile newUserDatingProfile = userDatingProfileFacade.convertToEntity(udpRqDto);
+        System.out.println("newUserDatingProfile: " + newUserDatingProfile);
+        Optional<UserDatingProfile> oldProfileByIdOpt = findUserDatingProfileByUserId(newUserDatingProfile.getUserId());
+        Long entityId;
+        if (oldProfileByIdOpt.isPresent()) {
+            entityId = oldProfileByIdOpt.get().getId();
+            System.out.println("found oldProfileById in DB: "+oldProfileByIdOpt.get());
+            newUserDatingProfile.setId(entityId);
+//            System.out.println("newUserDatingProfile: " + newUserDatingProfile);
+            userDatingProfileRepository.save(newUserDatingProfile);
+
+
+//            EntityManager em = entityManagerFactory.createEntityManager();
+            try {
+//            em.getTransaction().begin();
+//            em.persist(newUserDatingProfile);
+//            em.getTransaction().commit();
+                Optional<UserDatingProfile> controlOpt = userDatingProfileRepository.findById(entityId);
+                if(controlOpt.isPresent()) {
+                    System.out.println("after 'save' fount controlOpt: " + controlOpt);
+                    return userDatingProfileFacade.convertToDto(newUserDatingProfile);}
+                else {return null;}
+
+            } catch (Exception e) {
+//                if(em!=null){em.close();}
+                System.out.println("Exception in service.saveById(UserDatingProfileRqDto udpRqDto)");
+                return null;
+            }
         }
+
+        return null;
     }
 
+
     public Optional<UserDatingProfile> findUserDatingProfileByUserId(Long userId) {
-        System.out.println("in findUserDatingProfileByUserId->  userId: "+userId);
+//        System.out.println("in findUserDatingProfileByUserId->  userId: " + userId);
         EntityManager em = entityManagerFactory.createEntityManager();
         UserDatingProfile udp = null;
         try {
             Query q = em.createQuery("select udp from UserDatingProfile udp where udp.userId = :userId")
                     .setParameter("userId", userId);
             udp = (UserDatingProfile) q.getSingleResult();
-            System.out.println("udp: "+udp);
+            System.out.println("udp: " + udp);
             em.close();
         } catch (Exception e) {
-            if(em!=null){em.close();}
+            if (em != null) {
+                em.close();
+            }
             System.out.println("Exception in service.findUserDatingProfileByUserId(Long userId) Or userDatingProfile not found");
         }
         return Optional.ofNullable(udp);
@@ -132,15 +155,15 @@ public class UserDatingProfileService implements ServiceInterface<UserDatingProf
             predicates.add(sexCriteria);
             if (currentUserDatingProfile.getMinHeightIWant() > 100) {
                 predicates.add(minHeightCriteria);
-    //            System.out.println("added Predicate: minHeightCriteria");
+                //            System.out.println("added Predicate: minHeightCriteria");
             }
             if (currentUserDatingProfile.getMaxHeightIWant() > 150) {
                 predicates.add(maxHeightCriteria);
-    //            System.out.println("added Predicate: maxHeightCriteria");
+                //            System.out.println("added Predicate: maxHeightCriteria");
             }
             if (currentUserDatingProfile.getMaxNumberOfChildrenAllowed() < 100) {
                 predicates.add(childrenCriteria);
-    //            System.out.println("added Predicate: childrenCriteria");
+                //            System.out.println("added Predicate: childrenCriteria");
             }
             cq.where(predicates.toArray(new Predicate[predicates.size()]));
 
@@ -153,7 +176,9 @@ public class UserDatingProfileService implements ServiceInterface<UserDatingProf
             return candidatesMatchingCriteria;
         } catch (Exception e) {
             System.out.println("Exception in service.findAllMatchingTheCriteria(UserDatingProfile currentUserDatingProfile)");
-            if(em != null){em.close();}
+            if (em != null) {
+                em.close();
+            }
             return null;
         }
     }

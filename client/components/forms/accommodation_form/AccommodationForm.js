@@ -4,14 +4,15 @@ import FormMapper from "../FormMapper";
 import useAuth from "../../../hooks/useAuth";
 import {useDispatch, useSelector} from "react-redux";
 import {Context} from "../../../context";
-import act from "../../../store/types";
+import types from "../../../store/types";
+import sel from "../../../store/selectors";
 
 
 const AccommodationForm = ({handleSubmit}) => {
     const dispatch = useDispatch();
-    const user = useSelector((state) => state.userData.user);
+    const user = useSelector(sel.user);
     const isAuthenticated = useAuth(true);
-    const accommodationUserProfile = useSelector((state) => state.userData.accommodationUserProfile);
+    const accommodationUserProfile = useSelector(sel.accommodationUserProfile);
     const [isRenderFormikFormAllowed, setIsRenderFormikFormAllowed] = useState(false);
     const {prepareFormData, fetchInitFormValues} = useContext(Context);
     const formInitValues = prepareFormData(accommodationFormFields, accommodationUserProfile);
@@ -20,16 +21,13 @@ const AccommodationForm = ({handleSubmit}) => {
         () => {
             if (!user) return;
             const accommodationUserProfileURL = `/accommodations/${user.id}`;
-            const actionType = act.SET_ACCOMMODATION_USER_PROFILE;
-            const callback = ()=> setIsRenderFormikFormAllowed(true);
-
-            !accommodationUserProfile && fetchInitFormValues(accommodationUserProfileURL, actionType, callback, dispatch);
+            const callback = () => setIsRenderFormikFormAllowed(true);
+            !accommodationUserProfile && fetchInitFormValues(accommodationUserProfileURL, types.GET_ACCOMMODATION_USER_PROFILE, types.SET_ACCOMMODATION_USER_PROFILE_SUCCESS, types.SET_ACCOMMODATION_USER_PROFILE_FAIL, callback, dispatch);
         }, [user]
     );
 
     if (!isAuthenticated) return (<h3>please login/ Войтите в систему</h3>);
-    if (user === null || user === undefined) return (<h3>user's not defined in store</h3>);
-
+    if (user === null || user === undefined) return (<h3>user is not defined in store</h3>);
 
 
     return (

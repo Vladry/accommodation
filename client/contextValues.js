@@ -1,4 +1,5 @@
 import api from "./lib/API";
+import {useDispatch} from "react-redux";
 
 const getUserDatingProfileId = (router, queriedUserId, event) => {
     console.log('queriedUser: ', queriedUserId);
@@ -10,7 +11,6 @@ const getUserDatingProfileId = (router, queriedUserId, event) => {
     // console.log("router: ", router);
     router.push(`/profiles/UserDatingProfile/?queriedUserId=${queriedUserId}`);
 }
-
 
 const prepareFormData = (fields, persistedValues) => {
 

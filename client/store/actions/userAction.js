@@ -9,7 +9,7 @@ export const getUser = () => (dispatch) => {
             // console.log("user found in DB: ", user);
             dispatch({type: types.SET_USER_SUCCESS, payload: user});
             // console.log(`in get(/users/profile. user.id: `, user.id);
-            //и сразу получим (если существует) datingProfile текущего currentUser чтобы определить его isCurrUserRegisteredInDating:
+            //и сразу получим (если существует) datingProfile текущего currentUser чтобы определить его isCurrUserHasDatingProfile:
             dispatch(getDatingProfile(user.id, types.GET_USER_DATING_PROFILE, types.SET_USER_DATING_PROFILE_SUCCESS, types.SET_USER_DATING_PROFILE_FAIL));
         }).catch(e => {
         dispatch({type: types.SET_USER_FAILURE})
@@ -19,17 +19,17 @@ export const getUser = () => (dispatch) => {
 
 
 export const getDatingProfile = (userId, loadTarget, successAction, failAction) => (dispatch) => {
-    console.log(`in getDatingProfile (userId: ${userId})`);
+    // console.log(`in getDatingProfile (userId: ${userId})`);
     dispatch({type: loadTarget});
     const url = `/users/${userId}/datingProfile`;
     api.get(url).then(duProfile => {
-        console.log("fetched duProfile: ", duProfile);
+        // console.log("fetched duProfile: ", duProfile);
 
         if (duProfile["userId"]) {
-            console.log("duProfile.userId found: ", duProfile["userId"]);
+            // console.log("duProfile.userId found: ", duProfile["userId"]);
             dispatch({type: successAction, payload: duProfile});
         } else {
-            console.log("duProfile.userId is empty!");
+            console.log("Exception in getDatingProfile(): duProfile not found or bad");
             dispatch({type: failAction});
         }
 

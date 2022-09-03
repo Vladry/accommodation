@@ -31,13 +31,11 @@ public class UserDatingProfileController {
     //------------------------------------------------
 
     @PostMapping("/datingProfile")
-    public UserDatingProfileRsDto saveById(@RequestBody String jsonString) {
-        System.out.println("in UserDatingProfileRsDto saveById(@RequestBody String jsonString)");
-        System.out.println("RequestBody: "+jsonString);
+    public UserDatingProfileRsDto saveByUserId(@RequestBody String jsonString) {
+//        System.out.println("RequestBody: "+jsonString);
         JsonToDtoConverter<UserDatingProfileRqDto> converter = new JsonToDtoConverter<>(UserDatingProfileRqDto.class);
         UserDatingProfileRqDto udpRqDto = converter.doConvert(jsonString);
-        System.out.println("udpRqDto: "+udpRqDto);
-        return userDatingProfileService.saveById(udpRqDto);
+        return userDatingProfileService.saveByUserId(udpRqDto);
 
     }
 

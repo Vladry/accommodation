@@ -19,7 +19,6 @@ const UserDatingProfile = () => {
     const isAuthenticated = useAuth(true);
     const router = useRouter();
     const [queriedUserId, setQueriedUserId] = useState(router.query.queriedUserId);
-    console.log("queriedUserId: ", queriedUserId);
     const userDatingProfile = useSelector(sel.userDatingProfile);
     const candidateDatingProfile = useSelector(sel.candidateDatingProfile);
     const loading = useSelector((state)=>sel.loading);
@@ -32,7 +31,6 @@ const UserDatingProfile = () => {
         if(denoiseFlag1){return;}
         denoiseFlag1 = true;
         if (queriedUserId) {
-            // console.log("in useEffect. Run: getDatingProfile action:");
             dispatch(getDatingProfile(queriedUserId, types.GET_CANDIDATE_DATING_PROFILE, types.SET_CANDIDATE_DATING_PROFILE_SUCCESS, types.SET_CANDIDATE_DATING_PROFILE_FAIL));
         } else {
             status = false;
@@ -40,7 +38,6 @@ const UserDatingProfile = () => {
         }
     }, [queriedUserId]);
 
-    console.log("in userDatingProfile->  candidateDatingProfile to render: ", candidateDatingProfile)
 
     if(!status || !isAuthenticated || !candidateDatingProfile) return <p>not authenticated or queriedUserId undefined or isLoading</p>;
 

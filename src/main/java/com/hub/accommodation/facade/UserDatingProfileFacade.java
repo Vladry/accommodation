@@ -60,9 +60,9 @@ public class UserDatingProfileFacade extends
         super.getMm().typeMap(UserDatingProfileRqDto.class, UserDatingProfile.class)
 //                .addMappings(mappings->mappings.using((idStr)->Long.parseLong((String)idStr.getSource())).map(UserDatingProfileRqDto::getUserId, UserDatingProfile::setUserId))
                 .addMapping(UserDatingProfileRqDto::getUserId, UserDatingProfile::setUserIdFromString)
-                .addMapping(UserDatingProfileRqDto::getLastVisitDate, UserDatingProfile::setLastVisitDateParse)
-                .addMapping(UserDatingProfileRqDto::getBirthday, UserDatingProfile::setBirthdayParse);
-
+//  TODO              .addMapping(UserDatingProfileRqDto::getLastVisitDate, UserDatingProfile::setLastVisitDateParse)
+//  TODO              .addMapping(UserDatingProfileRqDto::getBirthday, UserDatingProfile::setBirthdayParse)
+;
 
     }
 

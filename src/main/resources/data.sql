@@ -7,7 +7,7 @@ VALUES ('Eva', 'Brown', 'EvaBrown@ukr.net', 'Eva', 'USER', true, true,
         'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vocal-studio-bruce_fzmdlp.jpg'),
        ('Andrey', 'Strange', 'Andrey@ukr.net', 'pasAndrey', 'USER', true, true,
         'https://res.cloudinary.com/vladry/image/upload/v1628196607/avatars/Andrey_avatar_bxcjny.jpg'),
-       ('Anya', 'Pufikovf', 'Anya@ukr.net', 'pasAnya', 'USER', true, true,
+       ('Vlad2', 'Pufikovf', 'Vlad2@ukr.net', 'pasVlad2', 'USER', true, true,
         'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_sings1_ltbkc2.png'),
        ('Tanya', '', 'Tanya@ukr.net', 'pasTanya', 'USER', false, false,
         'https://res.cloudinary.com/vladry/image/upload/v1628868305/avatars/Tanya_mi0o0m.png'),
@@ -45,18 +45,7 @@ VALUES (1,  'Loc1', 1, 1, 1, false, false, 1, false, false, 1),
        (1,  'Loc7', 3, 3, 3, false, true, 1, true, false, 1),
        (17, 'Loc8', 1, 30, 30, true, true, 1, true, false, 1);
 
-/*INSERT INTO dating_user_profiles (user_id, birthday, last_visit_date, my_sex, seek_a_person_of_sex, my_height, min_height_wanted,
-                                  max_height_wanted, min_pref_age, max_pref_age,
-                                  my_children, their_children_allowed)
-VALUES (1, '2022-06-23', NOW() , 'F', 'M', 173, 190, 198, 18, 30, 1, 0),
-       (2, '2022-06-22', NOW() , 'F', 'M', 163, 0, 198, 18, 30, 2, 0),
-       (3, '2022-06-21', NOW() , 'M', 'F', 193, 160, 0, 18, 30, 0, 2),
-       (4, '2022-06-20', NOW() , 'M', 'F', 170, 0, 0, 18, 30, 1, 100),
-       (5, '2022-06-19', NOW() , 'F', 'M', 160, 180, 198, 18, 30, 0, 0),
-       (6, '2022-06-18', NOW() , 'M', 'F', 183, 160, 178, 18, 30, 1, 0),
-       (17,'2022-06-17', NOW() , 'M', 'F', 173, 159, 188, 18, 30, 1, 0),
-       (19,'1973-05-13', NOW() , 'M', 'F', 173, 150, 190, 16, 50, 0, 5);
-*/
+
 
 INSERT INTO user_pictures (id, dating_user_profile, picture)
 VALUES (1, 1, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_haircut_ziiyxb.jpg'),
