@@ -12,6 +12,7 @@ public class TenantRqDto {
     String desiredCity;
     String desiredCountry;
     String additionalInfo;
+    String severityStatus;
 
     int numberOfOlderChildren;
     int numberOfYoungerChildren;
@@ -20,7 +21,6 @@ public class TenantRqDto {
     int numberOfDogs;
     int numberOfCats;
     int numberOfOtherPets;
-    String severityStatus;
     int desiredLengthOfStay;
     int familyMembersRequiringSpecialCare;
 

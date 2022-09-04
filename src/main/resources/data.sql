@@ -1,4 +1,5 @@
-SET FOREIGN_KEY_CHECKS = 0;
+SET
+FOREIGN_KEY_CHECKS = 0;
 
 INSERT INTO users (name, last_name, email, password, role, hide_social_data, dating_participation, avatar)
 VALUES ('Eva', 'Brown', 'EvaBrown@ukr.net', 'Eva', 'USER', true, true,
@@ -29,22 +30,40 @@ VALUES ('Eva', 'Brown', 'EvaBrown@ukr.net', 'Eva', 'USER', true, true,
         'https://res.cloudinary.com/vladry/image/upload/v1628498610/vlad_shrunk/cat2_x0yqxm.jpg'),
        ('Danil', '', 'Danil@ukr.net', 'pasDanil', 'USER', true, true, ''),
        ('Violetta', '', 'Violetta@ukr.net', 'pasVioletta', 'USER', true, true, ''),
-       ('Vlad', 'Ryab', 'VladRyab@ukr.net', 'pasVladRyab', 'USER', false, false, 'https://res.cloudinary.com/vladry/image/upload/v1628196607/avatars/Vlad_avatar_tjrcut.jpg'),
+       ('Vlad', 'Ryab', 'VladRyab@ukr.net', 'pasVladRyab', 'USER', false, false,
+        'https://res.cloudinary.com/vladry/image/upload/v1628196607/avatars/Vlad_avatar_tjrcut.jpg'),
        ('Efimovna', 'Nedavalka', 'Efimovna@ukr.net', 'pasEfimovna', 'USER', false, false,
         'https://res.cloudinary.com/vladry/image/upload/v1628498610/vlad_shrunk/cat1_ygmygo.jpg');
 
 
 INSERT INTO accommodations (user_id, locations, acc_type, num_of_rooms, num_of_beds,
-                           provide_work, provide_food, status, disab_sprt, childcare_sprt, pets)
-VALUES (1,  'Loc1', 1, 1, 1, false, false, 1, false, false, 1),
-       (1,  'Loc2', 2, 30, 30, true, true, 1, true, false, 1),
-       (1,  'Loc3', 3, 3, 30, false, true, 1, true, false, 1),
-       (1,  'Loc4', 1, 3, 3, true, true, 1, true, false, 1),
-       (1,  'Loc5', 1, 3, 3, false, true, 1, true, false, 1),
-       (1,  'Loc6', 2, 3, 3, true, true, 1, true, false, 1),
-       (1,  'Loc7', 3, 3, 3, false, true, 1, true, false, 1),
-       (17, 'Loc8', 1, 30, 30, true, true, 1, true, false, 1);
+                            provide_work, provide_food, status, disab_sprt, childcare_sprt, pets)
+VALUES (1, 'Loc1', 1, 1, 1, false, false, 1, false, false, 1),
+       (1, 'Loc2', 2, 30, 30, true, true, 1, true, false, 1),
+       (1, 'Loc3', 3, 3, 30, false, true, 1, true, false, 1),
+       (1, 'Loc4', 1, 3, 3, true, true, 1, true, false, 1),
+       (1, 'Loc5', 1, 3, 3, false, true, 1, true, false, 1),
+       (1, 'Loc6', 2, 3, 3, true, true, 1, true, false, 1),
+       (1, 'Loc7', 3, 3, 3, false, true, 1, true, false, 1),
+       (19, 'Loc8', 1, 30, 30, true, true, 1, true, false, 1);
 
+
+INSERT INTO tenants (user_id,
+                     desired_city,
+                     desired_country,
+                     info,
+                     severity,
+                     number_of_older_children,
+                     number_of_younger_children,
+                     adults_younger_age,
+                     adults_over_age,
+                     dogs,
+                     cats,
+                     other_pets,
+                     stay_length,
+                     require_care)
+VALUES (1, 'Lvov',  'USA',    'no additional info for user  1', 'HOUSE_UNTOUCHED_IN_WAR_ZONE', 0, 1, 2, 1, 0, 1, 1, 30, 1),
+       (19, 'Kiev', 'CANADA', 'no additional info for user 19', 'HOUSE_FULLY_DESTROYED',       0, 0, 3, 0, 1, 2, 0, 90, 0);
 
 
 INSERT INTO user_pictures (id, dating_user_profile, picture)
@@ -89,4 +108,5 @@ VALUES (1, 'PAINTING'),
        (17, 'SINGING');
 */
 
-SET FOREIGN_KEY_CHECKS = 1;
+SET
+FOREIGN_KEY_CHECKS = 1;

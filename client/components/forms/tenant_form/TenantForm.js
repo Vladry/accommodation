@@ -11,24 +11,26 @@ import {accommodationFormFields} from "../accommodation_form/accommodationFormFi
 
 
 const TenantForm = ({handleSubmit}) => {
-    /*
+
         const dispatch = useDispatch();
         const user = useSelector(sel.user);
         const isAuthenticated = useAuth(true);
         const tenantUserProfile = useSelector(sel.tenantUserProfile);
         const [isRenderFormikFormAllowed, setIsRenderFormikFormAllowed] = useState(false);
-        const {prepareFormData, fetchInitFormValues} = useContext(Context);
+        const {prepareFormData, fetchData} = useContext(Context);
         const formInitValues = prepareFormData(tenantFormFields, tenantUserProfile);
 
-        useEffect(
-            () => {
-                if (!user) return;
-                const tenantUserProfileURL = `/tenants/${user.id}`;
-                const callback = () => setIsRenderFormikFormAllowed(true);
-                !accommodationUserProfile && fetchInitFormValues(tenantUserProfileURL, types.GET_TENANT_USER_PROFILE, types.SET_TENANT_USER_PROFILE_SUCCESS, types.SET_TENANT_USER_PROFILE_FAIL, callback, dispatch);
-            }, [user]
-        );
-    */
+
+    /*
+    useEffect(
+        () => {
+            if (!user) return;
+            const tenantUserProfileURL = `/tenants/${user.id}`;
+            const callback = () => setIsRenderFormikFormAllowed(true);
+            !accommodationUserProfile && fetchData(tenantUserProfileURL, types.GET_TENANT_USER_PROFILE, types.SET_TENANT_USER_PROFILE_SUCCESS, types.SET_TENANT_USER_PROFILE_FAIL, callback, dispatch);
+        }, [user]
+    );
+*/
 
 
     return (

@@ -5,7 +5,7 @@ import Image from "next/image";
 import {useRouter} from "next/router";
 
 const DatingUserCard = ({user}) => {
-    const {getUserDatingProfileId} = useContext(Context);
+    const {forwardForUdProfileId} = useContext(Context);
     const router = useRouter();
     if (!user) return null;
     let avatarCssParam;
@@ -19,7 +19,7 @@ const DatingUserCard = ({user}) => {
 
     return (
         <Box id='card' name={user.name} data-id={String(user.id)}
-             onClick={getUserDatingProfileId.bind(null, router, user.id)}>
+             onClick={forwardForUdProfileId.bind(null, router, user.id)}>
             <ListItem style={{position: 'relative'}}>{user.name}{/*, <span style={{marginLeft: '20px'}}>id:{user.id}</span>*/}</ListItem>
             <Box
                 sx={{border: '2px solid blue', borderRadius: '12px', width: '250px', height: '250px', padding: '10px'}}>

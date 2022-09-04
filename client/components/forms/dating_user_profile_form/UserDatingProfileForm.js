@@ -15,7 +15,7 @@ const UserDatingProfileForm = ({handleSubmit}) => {
     const isAuthenticated = useAuth(true);
     const userDatingProfile = useSelector(selectors.userDatingProfile);
     const [isRenderFormikFormAllowed, setIsRenderFormikFormAllowed] = useState(false);
-    const {prepareFormData, fetchInitFormValues} = useContext(Context);
+    const {prepareFormData, fetchData} = useContext(Context);
     const formInitValues = prepareFormData(userDatingProfileFormFields, userDatingProfile);
 
     useEffect(
@@ -26,7 +26,7 @@ const UserDatingProfileForm = ({handleSubmit}) => {
             if(userDatingProfile){setIsRenderFormikFormAllowed(()=>true)}
 
             // TODO потом возможно подключить опцию дополнительного вытаскивания userDatingProfile, если его еще нет
-            /*!userDatingProfile && fetchInitFormValues(userDatingProfileURL, types.GET_USER_DATING_PROFILE,
+            /*!userDatingProfile && fetchData(userDatingProfileURL, types.GET_USER_DATING_PROFILE,
                 types.SET_USER_DATING_PROFILE_SUCCESS, types.SET_USER_DATING_PROFILE_FAIL, callback, dispatch);*/
         }, [user, userDatingProfile]
     );

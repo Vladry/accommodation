@@ -14,7 +14,7 @@ const AccommodationForm = ({handleSubmit}) => {
     const isAuthenticated = useAuth(true);
     const accommodationUserProfile = useSelector(sel.accommodationUserProfile);
     const [isRenderFormikFormAllowed, setIsRenderFormikFormAllowed] = useState(false);
-    const {prepareFormData, fetchInitFormValues} = useContext(Context);
+    const {prepareFormData, fetchData} = useContext(Context);
     const formInitValues = prepareFormData(accommodationFormFields, accommodationUserProfile);
 
     useEffect(
@@ -22,7 +22,7 @@ const AccommodationForm = ({handleSubmit}) => {
             if (!user) return;
             const accommodationUserProfileURL = `/accommodations/${user.id}`;
             const callback = () => setIsRenderFormikFormAllowed(true);
-            !accommodationUserProfile && fetchInitFormValues(accommodationUserProfileURL, types.GET_ACCOMMODATION_USER_PROFILE, types.SET_ACCOMMODATION_USER_PROFILE_SUCCESS, types.SET_ACCOMMODATION_USER_PROFILE_FAIL, callback, dispatch);
+            !accommodationUserProfile && fetchData(accommodationUserProfileURL, types.GET_ACCOMMODATION_USER_PROFILE, types.SET_ACCOMMODATION_USER_PROFILE_SUCCESS, types.SET_ACCOMMODATION_USER_PROFILE_FAIL, callback, dispatch);
         }, [user]
     );
 

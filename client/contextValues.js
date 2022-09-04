@@ -1,7 +1,6 @@
 import api from "./lib/API";
-import {useDispatch} from "react-redux";
 
-const getUserDatingProfileId = (router, queriedUserId, event) => {
+const forwardForUdProfileId = (router, queriedUserId, event) => {
     console.log('queriedUser: ', queriedUserId);
     const {target} = event;// не используем, т.к. мы получили прямо айдишку queriedUserId
     // const targetUserId = Number(target.dataset.id);
@@ -22,8 +21,8 @@ const prepareFormData = (fields, persistedValues) => {
     };
 }
 
-const fetchInitFormValues = (URL, loadingAct, successAct, failAct, callback, dispatch) => {
-    console.log("in fetchInitFormValues -> ");
+const fetchData = (URL, loadingAct, successAct, failAct, callback, dispatch) => {
+    console.log("in fetchData -> ");
     dispatch({type: loadingAct});
     api.get(URL).then((res) => {
         dispatch({type: successAct, payload: res});
@@ -36,7 +35,7 @@ const fetchInitFormValues = (URL, loadingAct, successAct, failAct, callback, dis
 }
 
 export default {
-    getUserDatingProfileId,
+    forwardForUdProfileId,
     prepareFormData,
-    fetchInitFormValues,
+    fetchData: fetchData,
 }

@@ -18,19 +18,27 @@ import java.util.Set;
 @AllArgsConstructor
 @Table(name = "tenants")
 public class Tenant extends BaseEntity {
+    @Column(name="user_id")
+    Long userId;
 
+    @Column(name="desired_city")
     String desiredCity; //если не указано -подразумевается, что подходит любой город
+    @Column(name="desired_country")
     String desiredCountry; //если не указано- подразумевается, что подходит любая страна
+    @Column(name="info")
+    String additionalInfo;
     @OneToMany(mappedBy = "tenant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     Set<Picture> pictures = new HashSet<>();
 
-    @Column(name = "older_children")
+
+    @Column(name = "number_of_older_children")
     int numberOfOlderChildren;
-    @Column(name = "younger_children")
+    @Column(name = "number_of_younger_children")
     int numberOfYoungerChildren;
-    @Column(name = "younger_adults_over")
+
+    @Column(name = "adults_younger_age")
     int adultsYounger60;
-    @Column(name = "older_adults_over")
+    @Column(name = "adults_over_age")
     int adultsOver60;
     @Column(name = "dogs")
     int numberOfDogs;

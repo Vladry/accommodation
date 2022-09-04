@@ -34,33 +34,21 @@ public class UserDatingProfileService implements ServiceInterface<UserDatingProf
 
     //-----------------methods--------------------------
     public UserDatingProfileRsDto saveByUserId(UserDatingProfileRqDto udpRqDto) {
-        System.out.println("in saveByUserId(UserDatingProfileRqDto udpRqDto)->");
-//        System.out.println("udpRqDto: " + udpRqDto);
         UserDatingProfile newUserDatingProfile = userDatingProfileFacade.convertToEntity(udpRqDto);
-        System.out.println("newUserDatingProfile: " + newUserDatingProfile);
         Optional<UserDatingProfile> oldProfileByIdOpt = findUserDatingProfileByUserId(newUserDatingProfile.getUserId());
         Long entityId;
         if (oldProfileByIdOpt.isPresent()) {
             entityId = oldProfileByIdOpt.get().getId();
-            System.out.println("found oldProfileById in DB: "+oldProfileByIdOpt.get());
             newUserDatingProfile.setId(entityId);
-//            System.out.println("newUserDatingProfile: " + newUserDatingProfile);
             userDatingProfileRepository.save(newUserDatingProfile);
-
-
-//            EntityManager em = entityManagerFactory.createEntityManager();
             try {
-//            em.getTransaction().begin();
-//            em.persist(newUserDatingProfile);
-//            em.getTransaction().commit();
                 Optional<UserDatingProfile> controlOpt = userDatingProfileRepository.findById(entityId);
-                if(controlOpt.isPresent()) {
-                    System.out.println("after 'save' fount controlOpt: " + controlOpt);
-                    return userDatingProfileFacade.convertToDto(newUserDatingProfile);}
-                else {return null;}
-
+                if (controlOpt.isPresent()) {
+                    return userDatingProfileFacade.convertToDto(newUserDatingProfile);
+                } else {
+                    return null;
+                }
             } catch (Exception e) {
-//                if(em!=null){em.close();}
                 System.out.println("Exception in service.saveById(UserDatingProfileRqDto udpRqDto)");
                 return null;
             }
