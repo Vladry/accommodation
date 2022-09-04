@@ -1,4 +1,4 @@
-package com.hub.accommodation.domain.user;
+package com.hub.accommodation.domain;
 
 import com.hub.accommodation.domain.BaseEntity;
 import com.hub.accommodation.domain.accommodation.Picture;
@@ -13,11 +13,10 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-//@NoArgsConstructor
-@RequiredArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "tenants")
 public class Tenant extends BaseEntity {
+
     @Column(name="user_id")
     Long userId;
 
@@ -29,33 +28,37 @@ public class Tenant extends BaseEntity {
     String additionalInfo;
     @OneToMany(mappedBy = "tenant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     Set<Picture> pictures = new HashSet<>();
+//
 
+    @Column(name = "elder_childr")
+    Integer elderChildren;
+    @Column(name = "babies")
+    Integer babies;
 
-    @Column(name = "number_of_older_children")
-    int numberOfOlderChildren;
-    @Column(name = "number_of_younger_children")
-    int numberOfYoungerChildren;
-
-    @Column(name = "adults_younger_age")
-    int adultsYounger60;
-    @Column(name = "adults_over_age")
-    int adultsOver60;
+    @Column(name = "adults")
+    Integer adults;
+    @Column(name = "eldery")
+    Integer eldery;
     @Column(name = "dogs")
-    int numberOfDogs;
+    Integer numberOfDogs;
     @Column(name = "cats")
-    int numberOfCats;
+    Integer numberOfCats;
     @Column(name = "other_pets")
-    int numberOfOtherPets;
+    Integer otherPets;
+    @Column(name = "require_care")
+    Integer personsRequiringCare; //если есть члены семьи с инвалидность, укажите кол-во
     @Enumerated(EnumType.STRING)
     @Column(name = "severity")
     SeverityStatus severityStatus;
     @Enumerated(EnumType.STRING)
     @Column(name = "stay_length")
     LengthOfStay desiredLengthOfStay;  //требуемая продолжительность проживания в данном месте:  "-1" -не известно;  "0" -до месяца. "1000" - как можно дольше, либо укажите приблизительное количество месяцев (если известны планы)
-    @Column(name = "require_care")
-    int familyMembersRequiringSpecialCare; //если есть члены семьи с инвалидность, укажите кол-во
+
 
     public String getDesiredLengthOfStayEnum() {
         return desiredLengthOfStay.name();
     }
+
+
+
 }

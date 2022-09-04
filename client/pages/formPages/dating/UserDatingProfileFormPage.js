@@ -9,7 +9,7 @@ import {Grid} from "@mui/material";
 import SideBar from "../../../components/dating_components/SideBar";
 import ArticleWindow from "../../../components/dating_components/ArticleWindow";
 import selectors from "../../../store/selectors";
-import {fetchDatingProfile, getDatingProfile} from "../../../store/actions/userAction";
+import {fetchDatingProfile, fetchData} from "../../../store/actions/userAction";
 import types from "../../../store/types";
 import {useRouter} from "next/router";
 
@@ -33,7 +33,7 @@ const UserDatingProfileFormPage = () => {
         ).then((res) => {
             console.log('in handleSubmit.then на фронте, после отправки на Back-End данных. Ответ сервера:', res); // вывод userDatingProfile
             //обновить в локальном сторе userDatingProfile
-            dispatch(getDatingProfile(user.id, types.GET_USER_DATING_PROFILE, types.SET_USER_DATING_PROFILE_SUCCESS, types.SET_USER_DATING_PROFILE_FAIL));
+            dispatch(fetchData(user.id, types.GET_USER_DATING_PROFILE, types.SET_USER_DATING_PROFILE_SUCCESS, types.SET_USER_DATING_PROFILE_FAIL));
             router.push("http://localhost:3000/formPages/dating");
         })
             .catch(err => {

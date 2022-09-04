@@ -9,7 +9,7 @@ import {Box, Button, Grid} from "@mui/material";
 import SideBar from "../../components/dating_components/SideBar";
 import {datingMenu} from "../../public/menuConfig";
 import ArticleWindow from "../../components/dating_components/ArticleWindow";
-import {getDatingProfile} from "../../store/actions/userAction";
+import {fetchData} from "../../store/actions/userAction";
 import types from "../../store/types";
 import sel from "../../store/selectors";
 
@@ -31,7 +31,7 @@ const UserDatingProfile = () => {
         if(denoiseFlag1){return;}
         denoiseFlag1 = true;
         if (queriedUserId) {
-            dispatch(getDatingProfile(queriedUserId, types.GET_CANDIDATE_DATING_PROFILE, types.SET_CANDIDATE_DATING_PROFILE_SUCCESS, types.SET_CANDIDATE_DATING_PROFILE_FAIL));
+            dispatch(fetchData(queriedUserId, types.GET_CANDIDATE_DATING_PROFILE, types.SET_CANDIDATE_DATING_PROFILE_SUCCESS, types.SET_CANDIDATE_DATING_PROFILE_FAIL));
         } else {
             status = false;
 

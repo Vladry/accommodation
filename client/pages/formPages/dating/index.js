@@ -6,7 +6,7 @@ import DatingUserList from "../../../components/dating_components/DatingUserList
 import api from "../../../lib/API";
 import {useDispatch, useSelector} from "react-redux";
 import sel from "../../../store/selectors";
-import {getDatingProfile} from "../../../store/actions/userAction";
+import {fetchData} from "../../../store/actions/userAction";
 import types from "../../../store/types";
 
 const Index = () => {

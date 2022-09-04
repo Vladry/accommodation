@@ -10,22 +10,23 @@ import java.util.Set;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class TenantRsDto {
+
+    Long userId;
 
     String desiredCity;
     String desiredCountry;
-    Set<PictureRsDto> pictures;
+    String additionalInfo;
+//    Set<PictureRsDto> pictures;
 
-    int numberOfOlderChildren;
-    int numberOfYoungerChildren;
-    int adultsYounger60;
-    int adultsOver60;
-    int numberOfDogs;
-    int numberOfCats;
-    int numberOfOtherPets;
+    Integer elderChildren;
+    Integer babies;
+    Integer adults;
+    Integer eldery;
+    Integer numberOfDogs;
+    Integer numberOfCats;
+    Integer otherPets;
     String severityStatus;
     String desiredLengthOfStay;
-    String additionalInfo;
-    int familyMembersRequiringSpecialCare;
+    Integer personsRequiringCare;
 }

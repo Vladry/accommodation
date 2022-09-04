@@ -19,11 +19,21 @@ import java.util.Set;
 @AllArgsConstructor
 @ToString(exclude = {"pictures", "liked"})
 @Table(name = "accommodations")
-public class Accommodation extends BaseEntity {
+//@AttributeOverride(name="id", column=@Column(name="user_id"))  // https://www.baeldung.com/jpa-attributeoverride
+public class Accommodation extends BaseEntity  {
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    User user;
+//
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "user_id")
+//    User user;
+
+    @Column(name="user_id")
+    Long userId;
+
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @MapsId
+//    User user;
+//
 
     @Column(name = "locations", length = 50)
     String location;

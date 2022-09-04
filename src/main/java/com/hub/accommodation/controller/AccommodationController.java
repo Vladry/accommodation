@@ -11,11 +11,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -47,19 +46,19 @@ public class AccommodationController {
         accommodMainService.save(accInDb);
     }
 
-    @GetMapping("/{id}")
+
+
+
+
+    //-------------- завершенные рабочие методы ---------------------
+
+    @GetMapping("/{userId}")
 //    @PreAuthorize("hasAuthority('read')")
-    public AccommodationRsDto findById(@PathVariable("id") Long id) {
-        Optional<Accommodation> byId = accommodMainService.findById(id);
-        System.out.println("byId: " + byId);
-        return byId.map(accommodMainFacade::convertToDto).orElse(null);
+    public List<AccommodationRsDto> findAllAccommodationsByUserId(@PathVariable("userId") Long userId) {
+        List<Accommodation> accList = accommodMainService.findAllByUserId(userId);
+        return accList.stream().map(accommodMainFacade::convertToDto).collect(Collectors.toList());
     }
 
-    @PostMapping("/{id}")
-//    @PreAuthorize("hasAuthority('read')")
-    public List<Accommodation> findAllByUserId(@PathVariable("id") Long userId) {
-        return accommodMainService.findAllByUserId(userId);
-    }
 
     @PostMapping("/filter")
     public Page<Accommodation> findAllMatcingByFilter(@RequestBody RqAccPage rqPage) {

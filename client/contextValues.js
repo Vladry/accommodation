@@ -21,21 +21,12 @@ const prepareFormData = (fields, persistedValues) => {
     };
 }
 
-const fetchData = (URL, loadingAct, successAct, failAct, callback, dispatch) => {
-    console.log("in fetchData -> ");
-    dispatch({type: loadingAct});
-    api.get(URL).then((res) => {
-        dispatch({type: successAct, payload: res});
-    }).catch(err => {
-        console.log(err)
-        dispatch({type: failAct});
-    }).finally(
-        ()=>callback()
-    );
-}
 
+
+
+
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
     forwardForUdProfileId,
     prepareFormData,
-    fetchData: fetchData,
 }

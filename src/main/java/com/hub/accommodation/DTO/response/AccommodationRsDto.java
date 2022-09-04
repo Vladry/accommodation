@@ -15,7 +15,7 @@ import java.util.Set;
 @AllArgsConstructor
 public class AccommodationRsDto extends BaseEntity {
 
-//    Long user;
+    String userId;
     String location;
     String accommodationType;
     Integer numberOfRooms;

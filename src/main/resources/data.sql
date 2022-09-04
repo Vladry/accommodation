@@ -36,6 +36,7 @@ VALUES ('Eva', 'Brown', 'EvaBrown@ukr.net', 'Eva', 'USER', true, true,
         'https://res.cloudinary.com/vladry/image/upload/v1628498610/vlad_shrunk/cat1_ygmygo.jpg');
 
 
+
 INSERT INTO accommodations (user_id, locations, acc_type, num_of_rooms, num_of_beds,
                             provide_work, provide_food, status, disab_sprt, childcare_sprt, pets)
 VALUES (1, 'Loc1', 1, 1, 1, false, false, 1, false, false, 1),
@@ -44,26 +45,27 @@ VALUES (1, 'Loc1', 1, 1, 1, false, false, 1, false, false, 1),
        (1, 'Loc4', 1, 3, 3, true, true, 1, true, false, 1),
        (1, 'Loc5', 1, 3, 3, false, true, 1, true, false, 1),
        (1, 'Loc6', 2, 3, 3, true, true, 1, true, false, 1),
-       (1, 'Loc7', 3, 3, 3, false, true, 1, true, false, 1),
-       (19, 'Loc8', 1, 30, 30, true, true, 1, true, false, 1);
+       (19, 'Loc7', 3, 5, 2, false, true, 1, false, true, 0),
+       (19, 'Loc8', 1, 30, 15, true, false, 2, true, false, 1);
+
 
 
 INSERT INTO tenants (user_id,
                      desired_city,
                      desired_country,
                      info,
-                     severity,
-                     number_of_older_children,
-                     number_of_younger_children,
-                     adults_younger_age,
-                     adults_over_age,
+                     elder_childr,
+                     babies,
+                     adults,
+                     eldery,
                      dogs,
                      cats,
                      other_pets,
-                     stay_length,
-                     require_care)
-VALUES (1, 'Lvov',  'USA',    'no additional info for user  1', 'HOUSE_UNTOUCHED_IN_WAR_ZONE', 0, 1, 2, 1, 0, 1, 1, 30, 1),
-       (19, 'Kiev', 'CANADA', 'no additional info for user 19', 'HOUSE_FULLY_DESTROYED',       0, 0, 3, 0, 1, 2, 0, 90, 0);
+                     require_care,
+                     severity,
+                     stay_length
+)
+VALUES (19, 'Lvov', 'USA', 'no additional info for user', 0, 1, 2, 1, 0, 1, 1, 1, 'HOUSE_UNTOUCHED_IN_WAR_ZONE', 'FEW_DAYS_TRANSITIONAL_STAY');
 
 
 INSERT INTO user_pictures (id, dating_user_profile, picture)

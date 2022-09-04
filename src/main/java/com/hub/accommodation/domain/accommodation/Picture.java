@@ -2,7 +2,7 @@ package com.hub.accommodation.domain.accommodation;
 
 import com.hub.accommodation.domain.BaseEntity;
 import com.hub.accommodation.domain.user.UserDatingProfile;
-import com.hub.accommodation.domain.user.Tenant;
+import com.hub.accommodation.domain.Tenant;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

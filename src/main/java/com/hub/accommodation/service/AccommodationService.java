@@ -6,10 +6,12 @@ import com.hub.accommodation.repository.AccommodationRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class AccommodationService extends GeneralService<Accommodation> {
 
     private final AccommodationRepository accommodationRepository;
@@ -26,6 +28,10 @@ public class AccommodationService extends GeneralService<Accommodation> {
         accommodationRepository.save(accInDb);
     }
 
+
+
+
+    // ------------завершённые рабочие методы ------------------------
     public List<Accommodation> findAllByUserId(Long userId){
         return accommodationRepository.findAllByUserId(userId);
     }

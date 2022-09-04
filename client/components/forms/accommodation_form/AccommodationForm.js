@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {Context} from "../../../context";
 import types from "../../../store/types";
 import sel from "../../../store/selectors";
+import {fetchData} from "../../../store/actions/userAction";
 
 
 const AccommodationForm = ({handleSubmit}) => {
@@ -14,7 +15,7 @@ const AccommodationForm = ({handleSubmit}) => {
     const isAuthenticated = useAuth(true);
     const accommodationUserProfile = useSelector(sel.accommodationUserProfile);
     const [isRenderFormikFormAllowed, setIsRenderFormikFormAllowed] = useState(false);
-    const {prepareFormData, fetchData} = useContext(Context);
+    const {prepareFormData} = useContext(Context);
     const formInitValues = prepareFormData(accommodationFormFields, accommodationUserProfile);
 
     useEffect(
@@ -22,8 +23,8 @@ const AccommodationForm = ({handleSubmit}) => {
             if (!user) return;
             const accommodationUserProfileURL = `/accommodations/${user.id}`;
             const callback = () => setIsRenderFormikFormAllowed(true);
-            !accommodationUserProfile && fetchData(accommodationUserProfileURL, types.GET_ACCOMMODATION_USER_PROFILE, types.SET_ACCOMMODATION_USER_PROFILE_SUCCESS, types.SET_ACCOMMODATION_USER_PROFILE_FAIL, callback, dispatch);
-        }, [user]
+            !accommodationUserProfile && dispatch(fetchData(user.id, accommodationUserProfileURL, types.GET_ACCOMMODATION_USER_PROFILE, types.SET_ACCOMMODATION_USER_PROFILE_SUCCESS, types.SET_ACCOMMODATION_USER_PROFILE_FAIL, callback));
+        }, []
     );
 
     if (!isAuthenticated) return (<h3>please login/ Войтите в систему</h3>);

@@ -3,7 +3,7 @@ package com.hub.accommodation.facade;
 
 import com.hub.accommodation.DTO.request.TenantRqDto;
 import com.hub.accommodation.DTO.response.TenantRsDto;
-import com.hub.accommodation.domain.user.Tenant;
+import com.hub.accommodation.domain.Tenant;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -16,14 +16,14 @@ public class TenantFacade extends GeneralFacade<
         super(Tenant.class, TenantRsDto.class);
     }
 
-    @PostConstruct
+/*    @PostConstruct
     public void init(){
         super.getMm().typeMap(TenantRqDto.class, Tenant.class)
                 .addMapping(TenantRqDto::getLengthOfStay, Tenant::setDesiredLengthOfStay);
 
         super.getMm().typeMap(Tenant.class, TenantRsDto.class)
                 .addMapping(Tenant::getDesiredLengthOfStayEnum, TenantRsDto::setDesiredLengthOfStay);
-    }
+    }*/
 
     @Override
     public Tenant convertToEntity(TenantRqDto requestDTO) {

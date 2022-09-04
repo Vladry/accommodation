@@ -24,8 +24,8 @@ public class User extends BaseEntity {
 //    @PrimaryKeyJoinColumn
 //    UserDatingProfile userDatingProfile;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Accommodation> accommodation = new HashSet<>();
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    private Set<Accommodation> accommodation = new HashSet<>();
 
 
     @Column(name = "name", length = 20)
@@ -71,7 +71,7 @@ public class User extends BaseEntity {
         this.lastModifiedDate = lastModifiedDate;
         this.createdDate = createdDate;
 //        this.userDatingProfile = userDatingProfile;
-        this.accommodation = accommodation;
+//        this.accommodation = accommodation;
         this.name = name;
         this.lastName = lastName;
         this.email = email;

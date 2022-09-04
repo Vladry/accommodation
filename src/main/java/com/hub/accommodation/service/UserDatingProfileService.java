@@ -66,7 +66,7 @@ public class UserDatingProfileService implements ServiceInterface<UserDatingProf
             Query q = em.createQuery("select udp from UserDatingProfile udp where udp.userId = :userId")
                     .setParameter("userId", userId);
             udp = (UserDatingProfile) q.getSingleResult();
-            System.out.println("udp: " + udp);
+//            System.out.println("udp: " + udp);
             em.close();
         } catch (Exception e) {
             if (em != null) {
