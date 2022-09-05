@@ -49,7 +49,7 @@ public class TenantService  extends GeneralService<Tenant> {
 //
 //        } catch (Exception e) {
 //            System.out.println("error finding Tenant");
-//            return Optional.ofNullable(null);
+//            return Optional.empty(;
 //        }
     }
 }

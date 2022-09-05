@@ -33,6 +33,7 @@ public class UserDatingProfileService implements ServiceInterface<UserDatingProf
     private final EntityManagerFactory entityManagerFactory;
 
     //-----------------methods--------------------------
+
     public UserDatingProfileRsDto saveByUserId(UserDatingProfileRqDto udpRqDto) {
         UserDatingProfile newUserDatingProfile = userDatingProfileFacade.convertToEntity(udpRqDto);
         Optional<UserDatingProfile> oldProfileByIdOpt = findUserDatingProfileByUserId(newUserDatingProfile.getUserId());
@@ -40,8 +41,8 @@ public class UserDatingProfileService implements ServiceInterface<UserDatingProf
         if (oldProfileByIdOpt.isPresent()) {
             entityId = oldProfileByIdOpt.get().getId();
             newUserDatingProfile.setId(entityId);
-            userDatingProfileRepository.save(newUserDatingProfile);
             try {
+                userDatingProfileRepository.save(newUserDatingProfile);
                 Optional<UserDatingProfile> controlOpt = userDatingProfileRepository.findById(entityId);
                 if (controlOpt.isPresent()) {
                     return userDatingProfileFacade.convertToDto(newUserDatingProfile);
@@ -49,32 +50,45 @@ public class UserDatingProfileService implements ServiceInterface<UserDatingProf
                     return null;
                 }
             } catch (Exception e) {
-                System.out.println("Exception in service.saveById(UserDatingProfileRqDto udpRqDto)");
+                System.out.println("Exception in saveByUserId-> section 1(finding old entity)");
+                return null;
+            }
+        }else{
+            try {
+                userDatingProfileRepository.save(newUserDatingProfile);
+                Optional<UserDatingProfile> controlOpt = findUserDatingProfileByUserId(newUserDatingProfile.getUserId());
+                if (controlOpt.isPresent()) {
+                    return userDatingProfileFacade.convertToDto(controlOpt.get());
+                } else {
+                    return null;
+                }
+            } catch (Exception e) {
+                System.out.println("Exception in saveByUserId-> section 2 (saving new entity and re-getting it from DB");
                 return null;
             }
         }
-
-        return null;
     }
 
 
     public Optional<UserDatingProfile> findUserDatingProfileByUserId(Long userId) {
 //        System.out.println("in findUserDatingProfileByUserId->  userId: " + userId);
         EntityManager em = entityManagerFactory.createEntityManager();
-        UserDatingProfile udp = null;
+        UserDatingProfile udp;
         try {
             Query q = em.createQuery("select udp from UserDatingProfile udp where udp.userId = :userId")
                     .setParameter("userId", userId);
             udp = (UserDatingProfile) q.getSingleResult();
-//            System.out.println("udp: " + udp);
+            System.out.println("udp: " + udp);
             em.close();
+            return Optional.ofNullable(udp);
         } catch (Exception e) {
             if (em != null) {
                 em.close();
             }
             System.out.println("Exception in service.findUserDatingProfileByUserId(Long userId) Or userDatingProfile not found");
+            return Optional.empty();
         }
-        return Optional.ofNullable(udp);
+
     }
 
 

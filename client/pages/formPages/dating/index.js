@@ -1,10 +1,10 @@
-import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import DatingMenuWrapper from "./DatingMenuWrapper";
 import {datingMenu} from "../../../public/menuConfig";
 import {Box, Grid} from '@mui/material';
 import DatingUserList from "../../../components/dating_components/DatingUserList";
 import api from "../../../lib/API";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import sel from "../../../store/selectors";
 import {fetchData} from "../../../store/actions/userAction";
 import types from "../../../store/types";
@@ -55,13 +55,13 @@ const Index = () => {
 
     useEffect(() => {
         // console.log("in useEffect");
-        if (!candidatesIds.current["loading"] && user) {
+        if (!candidatesIds.current["loading"] && user || loadingMatchingCandidatesIds) {
             getCandidatesIds().then();
         }
     }, [userDatingProfile])
 
 
-    if (!user) {
+    if (!user || loadingMatchingCandidatesIds) {
         return <p>user is undefined</p>;
     }
 
