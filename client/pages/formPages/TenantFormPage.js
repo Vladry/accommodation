@@ -3,17 +3,14 @@ import TenantForm from "../../components/forms/tenant_form/TenantForm";
 import useAuth from "../../hooks/useAuth";
 import Layout from "../../components/Layout";
 import api from "../../lib/API";
-import {useSelector} from "react-redux";
+import urls from '../../../src/main/resources/urls.json'
 
 const TenantFormPage = () => {
-    const user = useSelector((store) => store.userData.user);
 
     const isAuthenticated = useAuth();
 
     const handleSubmit = async (values) => {
-            // alert(JSON.stringify(values, null, 2));
-        const result = await api.post("/tenants", values);
-        // console.log('resp: ', result);
+        await api.post(urls.tenantUserProfile, values);
         };
 
     if(!isAuthenticated) return (<h3>please login/ Войтите в систему</h3>);

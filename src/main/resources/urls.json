@@ -3,6 +3,7 @@
     "dating": "/formPages/dating",
     "accomodationList": "/formPages/AccommodationList",
     "tenantFormPage": "/formPages/TenantFormPage",
+    "queriedUserDatingProfile": "/profiles/UserDatingProfile/?queriedUserId=",
 
     "userUrl": "/users/profile",
     "datingProfile": "/users/datingProfile",

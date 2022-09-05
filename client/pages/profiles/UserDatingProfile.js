@@ -12,34 +12,26 @@ import ArticleWindow from "../../components/dating_components/ArticleWindow";
 import {fetchData} from "../../store/actions/userAction";
 import types from "../../store/types";
 import sel from "../../store/selectors";
+import urls from '../../../src/main/resources/urls.json'
 
 const UserDatingProfile = () => {
-    const user = useSelector(sel.user);
     const dispatch = useDispatch();
-    const isAuthenticated = useAuth(true);
     const router = useRouter();
     const [queriedUserId, setQueriedUserId] = useState(router.query.queriedUserId);
-    const userDatingProfile = useSelector(sel.userDatingProfile);
     const candidateDatingProfile = useSelector(sel.candidateDatingProfile);
-    const loading = useSelector((state)=>sel.loading);
-    let status = true;
     const loadDatProfile = useRef({den:false});
-    let denoiseFlag1 = false;
 
 
     useEffect(() => {
-        if(denoiseFlag1){return;}
-        denoiseFlag1 = true;
+        if(loadDatProfile["den"]){return;}
+        loadDatProfile["den"] = true;
         if (queriedUserId) {
-            dispatch(fetchData(queriedUserId, types.GET_CANDIDATE_DATING_PROFILE, types.SET_CANDIDATE_DATING_PROFILE_SUCCESS, types.SET_CANDIDATE_DATING_PROFILE_FAIL));
-        } else {
-            status = false;
-
+            dispatch(fetchData( urls.datingProfile, queriedUserId, types.GET_CANDIDATE_DATING_PROFILE, types.SET_CANDIDATE_DATING_PROFILE_SUCCESS, types.SET_CANDIDATE_DATING_PROFILE_FAIL));
         }
     }, [queriedUserId]);
 
 
-    if(!status || !isAuthenticated || !candidateDatingProfile) return <p>not authenticated or queriedUserId undefined or isLoading</p>;
+    if(!candidateDatingProfile) return <p>not authenticated or queriedUserId undefined or isLoading</p>;
 
     const title = `Profile of Candidate id: ${queriedUserId}`;
 

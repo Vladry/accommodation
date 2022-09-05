@@ -3,6 +3,7 @@ package com.hub.accommodation.service;
 import com.hub.accommodation.DTO.request.UserDatingProfileRqDto;
 import com.hub.accommodation.DTO.response.UserDatingProfileRsDto;
 import com.hub.accommodation.domain.user.UserDatingProfile;
+import com.hub.accommodation.domain.user.enums.Sex;
 import com.hub.accommodation.facade.UserDatingProfileFacade;
 import com.hub.accommodation.repository.UserDatingProfileRepository;
 import lombok.RequiredArgsConstructor;
@@ -53,7 +54,7 @@ public class UserDatingProfileService implements ServiceInterface<UserDatingProf
                 System.out.println("Exception in saveByUserId-> section 1(finding old entity)");
                 return null;
             }
-        }else{
+        } else {
             try {
                 userDatingProfileRepository.save(newUserDatingProfile);
                 Optional<UserDatingProfile> controlOpt = findUserDatingProfileByUserId(newUserDatingProfile.getUserId());
@@ -148,13 +149,28 @@ public class UserDatingProfileService implements ServiceInterface<UserDatingProf
 //        Predicate maxAgeCriteria = cb.equal(userDatingProfile.get("birthday"), userDatingProfileSelector.getMaxPreferedAge());
 //        Predicate lastVisitDateCriteria = cb.equal(userDatingProfile.get("????"), userDatingProfileSelector.getMaxPreferedAge());
             Predicate sexCriteria = cb.equal(userDatingProfile.get("mySex"), currentUserDatingProfile.getSeekAPersonOfSex());
+            Predicate sexCriteriaAnyM = cb.equal(userDatingProfile.get("mySex"), Sex.M);
+            Predicate sexCriteriaAnyF = cb.equal(userDatingProfile.get("mySex"), Sex.F);
+            Predicate sexCriteriaAnyOther = cb.equal(userDatingProfile.get("mySex"), Sex.OTHER);
+            Predicate sexCriteriaAny = cb.equal(userDatingProfile.get("mySex"), Sex.ANY);
             Predicate minHeightCriteria = cb.greaterThanOrEqualTo(userDatingProfile.get("myHeight"), currentUserDatingProfile.getMinHeightIWant());
             Predicate maxHeightCriteria = cb.lessThanOrEqualTo(userDatingProfile.get("myHeight"), currentUserDatingProfile.getMaxHeightIWant());
-            Predicate countryCriteria = cb.equal(userDatingProfile.get("countryINowLiveIn"), currentUserDatingProfile.getWantFromCountry());
+            Predicate citizenOfCountryCriteria = cb.equal(userDatingProfile.get("myCitizenship"), currentUserDatingProfile.getWantFromCountry());
+            Predicate liveInCountryCriteria = cb.equal(userDatingProfile.get("countryINowLiveIn"), currentUserDatingProfile.getWantFromCountry());
             Predicate childrenCriteria = cb.lessThanOrEqualTo(userDatingProfile.get("numberOfMyChildren"), currentUserDatingProfile.getMaxNumberOfChildrenAllowed());
 
             List<Predicate> predicates = new ArrayList<>();
             predicates.add(sexCriteria);
+
+
+            if(currentUserDatingProfile.getSeekAPersonOfSex() == Sex.ANY
+            || currentUserDatingProfile.getSeekAPersonOfSex() == Sex.OTHER){
+                predicates.add(sexCriteriaAnyM);
+                predicates.add(sexCriteriaAnyF);
+                predicates.add(sexCriteriaAnyOther);
+                predicates.add(sexCriteriaAny);
+            }
+
             if (currentUserDatingProfile.getMinHeightIWant() > 100) {
                 predicates.add(minHeightCriteria);
                 //            System.out.println("added Predicate: minHeightCriteria");
@@ -163,6 +179,19 @@ public class UserDatingProfileService implements ServiceInterface<UserDatingProf
                 predicates.add(maxHeightCriteria);
                 //            System.out.println("added Predicate: maxHeightCriteria");
             }
+
+/*
+            if (currentUserDatingProfile.getWantFromCountry() != null
+                    && userDatingProfile.get("myCitizenship") != null) {
+                predicates.add(citizenOfCountryCriteria);
+            }
+
+            if (currentUserDatingProfile.getWantFromCountry() != null
+                    && userDatingProfile.get("countryINowLiveIn") != null) {
+                predicates.add(liveInCountryCriteria);
+            }
+*/
+
             if (currentUserDatingProfile.getMaxNumberOfChildrenAllowed() < 100) {
                 predicates.add(childrenCriteria);
                 //            System.out.println("added Predicate: childrenCriteria");

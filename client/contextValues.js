@@ -1,4 +1,4 @@
-import api from "./lib/API";
+import urls from '../src/main/resources/urls.json'
 
 const forwardForUdProfileId = (router, queriedUserId, event) => {
     console.log('queriedUser: ', queriedUserId);
@@ -8,7 +8,7 @@ const forwardForUdProfileId = (router, queriedUserId, event) => {
     // console.log('target.name: ', target.name);
     // console.log('target.dataset.id: ', queriedUserId);
     // console.log("router: ", router);
-    router.push(`/profiles/UserDatingProfile/?queriedUserId=${queriedUserId}`);
+    router.push(`${urls.queriedUserDatingProfile}${queriedUserId}`);
 }
 
 const prepareFormData = (fields, persistedValues) => {
@@ -20,7 +20,6 @@ const prepareFormData = (fields, persistedValues) => {
         }), {})
     };
 }
-
 
 
 // eslint-disable-next-line import/no-anonymous-default-export
