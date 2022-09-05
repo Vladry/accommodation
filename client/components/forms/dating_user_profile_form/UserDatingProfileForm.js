@@ -10,12 +10,11 @@ import selectors from "../../../store/selectors";
 
 
 const UserDatingProfileForm = ({handleSubmit}) => {
-    const dispatch = useDispatch();
     const user = useSelector(selectors.user);
     const isAuthenticated = useAuth(true);
     const userDatingProfile = useSelector(selectors.userDatingProfile);
     const [isRenderFormikFormAllowed, setIsRenderFormikFormAllowed] = useState(false);
-    const {prepareFormData, fetchData} = useContext(Context);
+    const {prepareFormData} = useContext(Context);
     const formInitValues = prepareFormData(userDatingProfileFormFields, userDatingProfile);
 
     useEffect(

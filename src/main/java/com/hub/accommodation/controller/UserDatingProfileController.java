@@ -43,7 +43,7 @@ public class UserDatingProfileController {
 
 
     //    @PreAuthorize("hasAuthority('read')")
-    @GetMapping("/{id}/datingProfile")
+    @GetMapping("/datingProfile/{id}")
     public UserDatingProfileRsDto findUserDatingProfileById(
             @PathVariable("id") Long id
     ) {

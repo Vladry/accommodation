@@ -1,5 +1,6 @@
 import api from "../../lib/API";
 import types from "../types";
+// import mainConfig from 'src/main/resources/urlConfig.json'
 
 export const getUser = () => (dispatch) => { //TODO разделить фетчевание юзера и udp так ,чтобы на всё не выдавался Exception in getUser -> run  dispatch({type: types.SET_USER_FAILURE})");
     // console.log("in store-> getUser ")
@@ -11,16 +12,15 @@ export const getUser = () => (dispatch) => { //TODO разделить фетч�
             dispatch({type: types.SET_USER_SUCCESS, payload: user});
             // console.log(`in get(/users/profile. user.id: `, user.id);
 
-            const cb = () => {
-            };
-            const datingProfileUrl = `/users/${user.id}/datingProfile`;
-            dispatch(fetchData(user.id, datingProfileUrl, types.GET_USER_DATING_PROFILE, types.SET_USER_DATING_PROFILE_SUCCESS, types.SET_USER_DATING_PROFILE_FAIL, cb));
 
-            const accommodationUserProfileURL = `/accommodations/${user.id}`;
-            dispatch(fetchData(user.id, accommodationUserProfileURL, types.GET_ACCOMMODATION_USER_PROFILE, types.SET_ACCOMMODATION_USER_PROFILE_SUCCESS, types.SET_ACCOMMODATION_USER_PROFILE_FAIL, cb));
+            const datingProfileUrl = `/users/datingProfile`;
+            dispatch(fetchData(datingProfileUrl, user.id, types.GET_USER_DATING_PROFILE, types.SET_USER_DATING_PROFILE_SUCCESS, types.SET_USER_DATING_PROFILE_FAIL));
 
-            const tenantUserProfileURL = `/tenants/${user.id}`;
-            dispatch(fetchData(user.id, tenantUserProfileURL, types.GET_TENANT_USER_PROFILE, types.SET_TENANT_USER_PROFILE_SUCCESS, types.SET_TENANT_USER_PROFILE_FAIL, cb));
+            const accommodationUserProfileURL = `/accommodations`;
+            dispatch(fetchData(accommodationUserProfileURL, user.id, types.GET_ACCOMMODATION_USER_PROFILE, types.SET_ACCOMMODATION_USER_PROFILE_SUCCESS, types.SET_ACCOMMODATION_USER_PROFILE_FAIL));
+
+            const tenantUserProfileURL = `/tenants`;
+            dispatch(fetchData(tenantUserProfileURL, user.id, types.GET_TENANT_USER_PROFILE, types.SET_TENANT_USER_PROFILE_SUCCESS, types.SET_TENANT_USER_PROFILE_FAIL));
 
         }).catch(e => {
         dispatch({type: types.SET_USER_FAILURE})
@@ -29,11 +29,11 @@ export const getUser = () => (dispatch) => { //TODO разделить фетч�
 }
 
 
-export const fetchData = (userId, url, loadingAct, successAction, failAction, callback) => (dispatch) => {
+export const fetchData = (url, userId, loadingAct, successAction, failAction) => (dispatch) => {
     console.log(`in fetchData (userId: ${userId})`);
     try {
         dispatch({type: loadingAct});
-        api.get(url).then(data => {
+        api.get(`${url}/${userId}`).then(data => {
             console.log("fetched data: ", data);
             if (data && (data["userId"] || data[0]["userId"])) {
                 // console.log("data: ", data);
@@ -42,7 +42,6 @@ export const fetchData = (userId, url, loadingAct, successAction, failAction, ca
                 console.log("Exception in fetch userData");
                 dispatch({type: failAction});
             }
-            callback();
         });
     } catch (err) {
         console.log(err)
