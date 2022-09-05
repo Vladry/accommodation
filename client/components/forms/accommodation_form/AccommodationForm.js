@@ -9,36 +9,23 @@ import sel from "../../../store/selectors";
 import {fetchData} from "../../../store/actions/userAction";
 
 
-const AccommodationForm = ({handleSubmit}) => {
-    const dispatch = useDispatch();
+const AccommodationForm = ({accommodation, key, handleSubmit}) => {
     const user = useSelector(sel.user);
     const isAuthenticated = useAuth(true);
-    const accommodationUserProfile = useSelector(sel.accommodationUserProfile);
-    const [isRenderFormikFormAllowed, setIsRenderFormikFormAllowed] = useState(false);
     const {prepareFormData} = useContext(Context);
-    const formInitValues = prepareFormData(accommodationFormFields, accommodationUserProfile);
+    const formInitValues = prepareFormData(accommodationFormFields, accommodation);
 
-    useEffect(
-        () => {
-            if (!user) return;
-            const accommodationUserProfileURL = `/accommodations/${user.id}`;
-            const callback = () => setIsRenderFormikFormAllowed(true);
-            !accommodationUserProfile && dispatch(fetchData(user.id, accommodationUserProfileURL, types.GET_ACCOMMODATION_USER_PROFILE, types.SET_ACCOMMODATION_USER_PROFILE_SUCCESS, types.SET_ACCOMMODATION_USER_PROFILE_FAIL, callback));
-        }, []
-    );
-
+    if (!user) return (<h3>user is not defined in store</h3>);
     if (!isAuthenticated) return (<h3>please login/ Войтите в систему</h3>);
-    if (user === null || user === undefined) return (<h3>user is not defined in store</h3>);
-
 
     return (
-        <>
-            {isRenderFormikFormAllowed && <FormMapper
+        <div key={key} style={{border: '1px solid red'}}>
+            <FormMapper
                 fields={accommodationFormFields}
                 initValues={formInitValues}
                 validation={null}
-                handleSubmit={handleSubmit}/>}
-        </>
+                handleSubmit={handleSubmit}/>
+        </div>
     );
 };
 

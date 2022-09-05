@@ -27,7 +27,7 @@ const TenantForm = ({handleSubmit}) => {
             if (!user) return;
             const tenantUserProfileURL = `/tenants/${user.id}`;
             const callback = () => setIsRenderFormikFormAllowed(true);
-            !accommodationUserProfile && fetchData(tenantUserProfileURL, types.GET_TENANT_USER_PROFILE, types.SET_TENANT_USER_PROFILE_SUCCESS, types.SET_TENANT_USER_PROFILE_FAIL, callback, dispatch);
+            !accommodationUserProfiles && fetchData(tenantUserProfileURL, types.GET_TENANT_USER_PROFILE, types.SET_TENANT_USER_PROFILE_SUCCESS, types.SET_TENANT_USER_PROFILE_FAIL, callback, dispatch);
         }, [user]
     );
 */

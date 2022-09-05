@@ -1,0 +1,13 @@
+{
+    "hostPrefix": "http://localhost:3000",
+    "dating": "/formPages/dating",
+    "accomodationList": "/formPages/AccommodationList",
+    "tenantFormPage": "/formPages/TenantFormPage",
+
+    "userUrl": "/users/profile",
+    "datingProfile": "/users/datingProfile",
+    "accommodProfile": "/accommodations",
+    "tenantUserProfile": "/tenants",
+    "allUsersByIds" : "/users/allByIds",
+    "candidatesIds" : "/users/candidatesIds"
+}

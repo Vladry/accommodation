@@ -1,42 +1,32 @@
 import api from "../../lib/API";
 import types from "../types";
-// import mainConfig from 'src/main/resources/urlConfig.json'
+import urls from '../../../src/main/resources/urls.json'
 
 export const getUser = () => (dispatch) => { //TODO разделить фетчевание юзера и udp так ,чтобы на всё не выдавался Exception in getUser -> run  dispatch({type: types.SET_USER_FAILURE})");
     // console.log("in store-> getUser ")
-    const userUrl = '/users/profile';
     dispatch({type: types.SET_LOADING_TRUE});
-    api.get(userUrl)
+    api.get(urls.userUrl)
         .then(user => {
-            // console.log("user found in DB: ", user);
             dispatch({type: types.SET_USER_SUCCESS, payload: user});
-            // console.log(`in get(/users/profile. user.id: `, user.id);
 
-
-            const datingProfileUrl = `/users/datingProfile`;
-            dispatch(fetchData(datingProfileUrl, user.id, types.GET_USER_DATING_PROFILE, types.SET_USER_DATING_PROFILE_SUCCESS, types.SET_USER_DATING_PROFILE_FAIL));
-
-            const accommodationUserProfileURL = `/accommodations`;
-            dispatch(fetchData(accommodationUserProfileURL, user.id, types.GET_ACCOMMODATION_USER_PROFILE, types.SET_ACCOMMODATION_USER_PROFILE_SUCCESS, types.SET_ACCOMMODATION_USER_PROFILE_FAIL));
-
-            const tenantUserProfileURL = `/tenants`;
-            dispatch(fetchData(tenantUserProfileURL, user.id, types.GET_TENANT_USER_PROFILE, types.SET_TENANT_USER_PROFILE_SUCCESS, types.SET_TENANT_USER_PROFILE_FAIL));
+            dispatch(fetchData(urls.datingProfile, user.id, types.GET_USER_DATING_PROFILE, types.SET_USER_DATING_PROFILE_SUCCESS, types.SET_USER_DATING_PROFILE_FAIL));
+            dispatch(fetchData(urls.accommodProfile, user.id, types.GET_ACCOMMODATION_USER_PROFILE, types.SET_ACCOMMODATION_USER_PROFILE_SUCCESS, types.SET_ACCOMMODATION_USER_PROFILE_FAIL));
+            dispatch(fetchData(urls.tenantUserProfile, user.id, types.GET_TENANT_USER_PROFILE, types.SET_TENANT_USER_PROFILE_SUCCESS, types.SET_TENANT_USER_PROFILE_FAIL));
 
         }).catch(e => {
         dispatch({type: types.SET_USER_FAILURE})
-        console.log("Exception in getUser -> run  dispatch({type: types.SET_USER_FAILURE})");
+        console.log("Exception in getUser");
     });
 }
 
 
 export const fetchData = (url, userId, loadingAct, successAction, failAction) => (dispatch) => {
-    console.log(`in fetchData (userId: ${userId})`);
+    // console.log(`in fetchData (userId: ${userId})`);
     try {
         dispatch({type: loadingAct});
         api.get(`${url}/${userId}`).then(data => {
-            console.log("fetched data: ", data);
-            if (data && (data["userId"] || data[0]["userId"])) {
-                // console.log("data: ", data);
+            // console.log("fetched data: ", data);
+            if (data && (data["userId"] || data[0] && data[0]["userId"])) {
                 dispatch({type: successAction, payload: data});
             } else {
                 console.log("Exception in fetch userData");
@@ -45,7 +35,7 @@ export const fetchData = (url, userId, loadingAct, successAction, failAction) =>
         });
     } catch (err) {
         console.log(err)
-        console.log("error fetching data by url: ${url} for user id: ", userId, " -> data not found or corrupt");
+        console.log("error fetching data for user id: ", userId);
         dispatch({type: failAction});
     }
 

@@ -11,6 +11,7 @@ import selectors from "../../../store/selectors";
 import {fetchData} from "../../../store/actions/userAction";
 import types from "../../../store/types";
 import {useRouter} from "next/router";
+import urls from "../../../../src/main/resources/urls.json";
 
 const UserDatingProfileFormPage = () => {
     const user = useSelector(selectors.user);
@@ -23,16 +24,15 @@ const UserDatingProfileFormPage = () => {
         delete userDatingProfileFormNewValues["myGoals"];
 
         console.log(`для юзера: ${user.id}, отправляю данные формы: `, userDatingProfileFormNewValues)
-        await api.post(`/users/datingProfile`, userDatingProfileFormNewValues/*,{ contentType: "application/json; charset=utf-8",
+        await api.post(urls.datingProfile, userDatingProfileFormNewValues/*,{ contentType: "application/json; charset=utf-8",
             async: false,    //Cross-domain requests and dataType: "jsonp" requests do not support synchronous operation
             cache: false,    //This will force requested pages not to be cached by the browser
             processData:false}*/
         ).then((res) => {
             console.log('in handleSubmit.then на фронте, после отправки на Back-End данных. Ответ сервера:', res); // вывод userDatingProfile
             //обновить в локальном сторе userDatingProfile
-            const datingProfileUrl = `/users/datingProfile`;
-            dispatch(fetchData(datingProfileUrl, user.id, types.GET_USER_DATING_PROFILE, types.SET_USER_DATING_PROFILE_SUCCESS, types.SET_USER_DATING_PROFILE_FAIL));
-            router.push("http://localhost:3000/formPages/dating");
+            dispatch(fetchData(urls.datingProfile, user.id, types.GET_USER_DATING_PROFILE, types.SET_USER_DATING_PROFILE_SUCCESS, types.SET_USER_DATING_PROFILE_FAIL));
+            router.push(`${urls.hostPrefix}${urls.dating}`);
         })
             .catch(err => {
                 console.log(err);
@@ -40,9 +40,10 @@ const UserDatingProfileFormPage = () => {
             });
     };
 
+
+
     const title = "Edit Your Profile"
     const content = <UserDatingProfileForm handleSubmit={handleSubmit}/>;
-
 
     return (
         <Grid container={true} spacing={2}>

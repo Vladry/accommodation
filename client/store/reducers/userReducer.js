@@ -3,7 +3,7 @@ import types from "../types";
 const initialState = {
     user: null,
     loading: false,
-    accommodationUserProfile: null,
+    accommodationUserProfiles: null,
     loadingAccommodationUserProfile: false,
     isCurrUserHasAccommodationProfile: false,
     
@@ -34,9 +34,9 @@ export default (state = initialState, action) => {
         case types.GET_ACCOMMODATION_USER_PROFILE:
             return {...state, loadingAccommodationUserProfile: true}
         case types.SET_ACCOMMODATION_USER_PROFILE_SUCCESS:
-            return {...state, accommodationUserProfile: action.payload, loadingAccommodationUserProfile: false, isCurrUserHasAccommodationProfile: true}
+            return {...state, accommodationUserProfiles: action.payload, loadingAccommodationUserProfile: false, isCurrUserHasAccommodationProfile: true}
         case types.SET_ACCOMMODATION_USER_PROFILE_FAIL:
-            return {...state, accommodationUserProfile: null, loadingAccommodationUserProfile: false, isCurrUserHasAccommodationProfile: false}
+            return {...state, accommodationUserProfiles: null, loadingAccommodationUserProfile: false, isCurrUserHasAccommodationProfile: false}
 
 
         case types.SET_LOADING_TRUE:

@@ -8,6 +8,7 @@ import {useDispatch, useSelector} from "react-redux";
 import sel from "../../../store/selectors";
 import {fetchData} from "../../../store/actions/userAction";
 import types from "../../../store/types";
+import urls from '../../../../src/main/resources/urls.json';
 
 const Index = () => {
 
@@ -18,13 +19,12 @@ const Index = () => {
     const candidatesIds = useRef({});
     let resUsers;
 
-
     async function getCandidatesIds() {// получим ids кандидатов, подходящих под критерии userDatingProfile:
 
         if (!candidatesIds.current["ids"]) {//наше кэширование
             try {
                 candidatesIds.current["loading"] = true;
-                const getIds = await api.get(url);
+                const getIds = await api.get(`${urls.candidatesIds}/${user.id}`);
                 candidatesIds.current["ids"] = await getIds;
                 // console.log(`ids successfully fetched: `, candidatesIds.current["ids"]);
 
@@ -42,7 +42,7 @@ const Index = () => {
     async function getCandidates (ids){
         // console.log(`in getCandidates->  candidates Ids}: `, ids);
         try {
-            const getCandidates = await api.post("/users/allByIds", ids);
+            const getCandidates = await api.post(urls.allUsersByIds, ids);
             resUsers = await getCandidates;
             setCandidates(resUsers);
             candidatesIds.current["loading"] = false;
@@ -63,9 +63,7 @@ const Index = () => {
 
     if (!user) {
         return <p>user is undefined</p>;
-        console.log("in dating/index -> user undefined, returning")
     }
-    const url = `users/${user.id}/candidatesIds`;
 
 
     return (
