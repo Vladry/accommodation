@@ -139,36 +139,40 @@ public class UserDatingProfileService implements ServiceInterface<UserDatingProf
 //  https://www.baeldung.com/hibernate-criteria-queries#:~:text=The%20Criteria%20API%20allows%20us,on%20the%20JPA%20Criteria%20API.
 //  https://dev.to/bowlendev/conditional-criteriabuilder-for-optional-params-2j6
     public List<UserDatingProfile> findAllMatchingTheCriteria(UserDatingProfile currentUserDatingProfile) {
+//  https://www.baeldung.com/jpa-and-or-criteria-predicates
         EntityManager em = entityManagerFactory.createEntityManager();
         try {
             CriteriaBuilder cb = em.getCriteriaBuilder();
 
             CriteriaQuery<UserDatingProfile> cq = cb.createQuery(UserDatingProfile.class);
-            Root<UserDatingProfile> userDatingProfile = cq.from(UserDatingProfile.class);
-//        Predicate minAgeCriteria = cb.equal(userDatingProfile.get("birthday"), userDatingProfileSelector.getMinPreferedAge());
-//        Predicate maxAgeCriteria = cb.equal(userDatingProfile.get("birthday"), userDatingProfileSelector.getMaxPreferedAge());
-//        Predicate lastVisitDateCriteria = cb.equal(userDatingProfile.get("????"), userDatingProfileSelector.getMaxPreferedAge());
-            Predicate sexCriteria = cb.equal(userDatingProfile.get("mySex"), currentUserDatingProfile.getSeekAPersonOfSex());
-            Predicate sexCriteriaAnyM = cb.equal(userDatingProfile.get("mySex"), Sex.M);
-            Predicate sexCriteriaAnyF = cb.equal(userDatingProfile.get("mySex"), Sex.F);
-            Predicate sexCriteriaAnyOther = cb.equal(userDatingProfile.get("mySex"), Sex.OTHER);
-            Predicate sexCriteriaAny = cb.equal(userDatingProfile.get("mySex"), Sex.ANY);
-            Predicate minHeightCriteria = cb.greaterThanOrEqualTo(userDatingProfile.get("myHeight"), currentUserDatingProfile.getMinHeightIWant());
-            Predicate maxHeightCriteria = cb.lessThanOrEqualTo(userDatingProfile.get("myHeight"), currentUserDatingProfile.getMaxHeightIWant());
-            Predicate citizenOfCountryCriteria = cb.equal(userDatingProfile.get("myCitizenship"), currentUserDatingProfile.getWantFromCountry());
-            Predicate liveInCountryCriteria = cb.equal(userDatingProfile.get("countryINowLiveIn"), currentUserDatingProfile.getWantFromCountry());
-            Predicate childrenCriteria = cb.lessThanOrEqualTo(userDatingProfile.get("numberOfMyChildren"), currentUserDatingProfile.getMaxNumberOfChildrenAllowed());
+            Root<UserDatingProfile> userDatingProfileRoot = cq.from(UserDatingProfile.class);
+            Predicate minAgeCriteria = cb.greaterThanOrEqualTo(userDatingProfileRoot.get("age"), currentUserDatingProfile.getMinPreferedAge());
+            Predicate maxAgeCriteria = cb.lessThanOrEqualTo(userDatingProfileRoot.get("age"), currentUserDatingProfile.getMaxPreferedAge());
+//        Predicate lastVisitDateCriteria = cb.equal(userDatingProfile.get("????"), userDatingProfileSelector.get????????());
+            Predicate sexCriteria = cb.equal(userDatingProfileRoot.get("mySex"), currentUserDatingProfile.getSeekAPersonOfSex());
+            Predicate minHeightCriteria = cb.greaterThanOrEqualTo(userDatingProfileRoot.get("myHeight"), currentUserDatingProfile.getMinHeightIWant());
+            Predicate maxHeightCriteria = cb.lessThanOrEqualTo(userDatingProfileRoot.get("myHeight"), currentUserDatingProfile.getMaxHeightIWant());
+            Predicate citizenOfCountryCriteria = cb.equal(userDatingProfileRoot.get("myCitizenship"), currentUserDatingProfile.getWantFromCountry());
+            Predicate liveInCountryCriteria = cb.equal(userDatingProfileRoot.get("countryINowLiveIn"), currentUserDatingProfile.getWantFromCountry());
+            Predicate countrySelect = cb.or(citizenOfCountryCriteria, liveInCountryCriteria);
+            Predicate childrenCriteria = cb.lessThanOrEqualTo(userDatingProfileRoot.get("numberOfMyChildren"), currentUserDatingProfile.getMaxNumberOfChildrenAllowed());
 
             List<Predicate> predicates = new ArrayList<>();
-            predicates.add(sexCriteria);
 
+     /*       if (currentUserDatingProfile.getMinPreferedAge() > 0) {
+                predicates.add(minAgeCriteria);
+            }
+            if (currentUserDatingProfile.getMaxPreferedAge() > 0) {
+                predicates.add(maxAgeCriteria);
+            }*/
 
-            if(currentUserDatingProfile.getSeekAPersonOfSex() == Sex.ANY
-            || currentUserDatingProfile.getSeekAPersonOfSex() == Sex.OTHER){
-                predicates.add(sexCriteriaAnyM);
-                predicates.add(sexCriteriaAnyF);
-                predicates.add(sexCriteriaAnyOther);
-                predicates.add(sexCriteriaAny);
+            if (currentUserDatingProfile.getWantFromCountry() != null) {
+                predicates.add(countrySelect);
+            }
+
+            if (!(currentUserDatingProfile.getSeekAPersonOfSex() == Sex.ANY
+                    || currentUserDatingProfile.getSeekAPersonOfSex() == Sex.OTHER)) {
+                predicates.add(sexCriteria);
             }
 
             if (currentUserDatingProfile.getMinHeightIWant() > 100) {
@@ -180,17 +184,6 @@ public class UserDatingProfileService implements ServiceInterface<UserDatingProf
                 //            System.out.println("added Predicate: maxHeightCriteria");
             }
 
-/*
-            if (currentUserDatingProfile.getWantFromCountry() != null
-                    && userDatingProfile.get("myCitizenship") != null) {
-                predicates.add(citizenOfCountryCriteria);
-            }
-
-            if (currentUserDatingProfile.getWantFromCountry() != null
-                    && userDatingProfile.get("countryINowLiveIn") != null) {
-                predicates.add(liveInCountryCriteria);
-            }
-*/
 
             if (currentUserDatingProfile.getMaxNumberOfChildrenAllowed() < 100) {
                 predicates.add(childrenCriteria);

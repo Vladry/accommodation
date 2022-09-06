@@ -3,7 +3,7 @@ import {Container} from "@mui/material";
 import Layout from "../components/Layout";
 import About from "../components/About";
 import {useEffect, useRef} from "react";
-import SwiperCarousel from "../components/SwiperCarousel";
+import SwiperCarouselMain from "../components/SwiperCarouselMain";
 import api from "../lib/API";
 
 export default function Home() {
@@ -42,7 +42,7 @@ const flag = useRef({done: false});
                 <title>Home page</title>
                 <meta name="description" content="Home page"/>
 
-                <SwiperCarousel/>
+                <SwiperCarouselMain/>
 
                 <About/>
 

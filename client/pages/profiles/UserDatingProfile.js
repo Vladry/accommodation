@@ -1,7 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import DatingMenuWrapper from "../formPages/dating/DatingMenuWrapper";
 import {useDispatch, useSelector} from "react-redux";
-import useAuth from "../../hooks/useAuth";
 import {useRouter} from "next/router";
 import {userDatingProfileFormFields} from "../../components/forms/dating_user_profile_form/userDatingProfileFormFields";
 import UserDatingProfileMapper from "../../components/UserDatingProfileMapper";
@@ -13,6 +12,7 @@ import {fetchData} from "../../store/actions/userAction";
 import types from "../../store/types";
 import sel from "../../store/selectors";
 import urls from '../../../src/main/resources/urls.json'
+import SwiperUserPic from "../../components/dating_components/swiper_carousel/SwiperUserPic";
 
 const UserDatingProfile = () => {
     const dispatch = useDispatch();
@@ -38,8 +38,8 @@ const UserDatingProfile = () => {
     const mappedFields = <UserDatingProfileMapper fields={userDatingProfileFormFields} values={candidateDatingProfile}
                                                   id={queriedUserId}/>;
     const backButton =
-        <Box textAlign={'center'} margin={'20px'} sx={{position: 'fixed', right: '2%', top: '2%', boxShadow: '18'}}>
-            <Button variant="contained" onClick={router.back}>Back / Обратно</Button>
+        <Box textAlign={'center'} margin={'4px'} sx={{zIndex:'1', position: 'fixed', right: '1px', top: '1px', boxShadow: '18'}}>
+            <Button variant="contained" size={'small'} onClick={router.back}>Back / Обратно</Button>
         </Box>;
 
 
@@ -53,6 +53,7 @@ const UserDatingProfile = () => {
                 </SideBar>
 
                 <ArticleWindow title={title} content={mappedFields}>
+                    <SwiperUserPic pictures ={candidateDatingProfile.pictures}/>
                     {backButton}
                 </ArticleWindow>
             </Grid>

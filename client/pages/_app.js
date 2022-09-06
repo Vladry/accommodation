@@ -10,7 +10,7 @@ import {CacheProvider} from "@emotion/react";
 import theme from "../utils/theme";
 import RefreshTokenHandler from "../components/RefreshTokenHandler";
 import {Context} from '../context';
-
+import './_app.css';
 
 const clientSideEmotionCache = createEmotionCache();
 

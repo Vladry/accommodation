@@ -28,6 +28,7 @@ public class UserDatingProfile extends BaseEntity {
 
 //     аннотация @MapsId назначит имя этой колонки как:  user_id -по полям "user" и "id"
 
+
     @Column(name = "user_id")
     private Long userId; //rq String  null
 
@@ -125,6 +126,14 @@ public class UserDatingProfile extends BaseEntity {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "userDatingProfile")
     private List<Picture> pictures = new ArrayList<>();
 
+    private int age;
+
+    private void setAge(){
+        if(this.birthday==null){return;}
+        LocalDate now = LocalDate.now();
+        Period period = Period.between(this.birthday, now);
+        this.age = period.getYears();
+    }
 
     public UserDatingProfile(Long userId, Sex mySex, LocalDate birthday, LocalDateTime lastVisitDate, Sex seekAPersonOfSex, Integer myHeight, Integer minHeightIWant, Integer maxHeightIWant, Integer minPreferedAge, Integer maxPreferedAge, Country countryINowLiveIn, Country myCitizenship, Country wantFromCountry, Integer numberOfMyChildren, Integer maxNumberOfChildrenAllowed, String selfDescription, String traitsIWouldLoveInYou, String traitsIWouldHateInYou, List<Interests> myInterests, List<Interests> desiredWithInterests, List<Goals> myGoals, List<Picture> pictures) {
         this.userId = userId;

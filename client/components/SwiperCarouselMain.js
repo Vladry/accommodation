@@ -11,7 +11,7 @@ import styled from '@emotion/styled';
 import {carouselCards, fontSize, carouselTextColor, slidesDelay} from '../public/carouselConfig.js';
 import Image from 'next/image';
 
-const SwiperCarousel = () => {
+const SwiperCarouselMain = () => {
     const theme = useTheme();
     // const testSlides = (
     //     <>
@@ -165,7 +165,7 @@ const SwiperCarousel = () => {
     );
 };
 
-export default SwiperCarousel;
+export default SwiperCarouselMain;
 
 const FontBox = styled.span`
     font-family: 'RobotoSlab', serif;

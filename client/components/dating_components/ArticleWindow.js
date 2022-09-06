@@ -6,7 +6,7 @@ const ArticleWindow = ({title, content, children}) => {
         <Grid item={true} xs={7} sm={9} md={10}>
             <Box sx={{border: '1px solid green'}}>
                 <h3 style={{textAlign: 'center'}}>{title}</h3>
-
+                {children}
                 <Grid sx={{
                     display: 'grid',
                     justifyContent: "space-around",
@@ -16,7 +16,7 @@ const ArticleWindow = ({title, content, children}) => {
                 }} container>
                     {content}
                 </Grid>
-                {children}
+
             </Box>
         </Grid>
     );

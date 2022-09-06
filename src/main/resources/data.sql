@@ -69,26 +69,36 @@ VALUES (19, 'Lvov', 'USA', 'no additional info for user', 0, 1, 2, 1, 0, 1, 1, 1
 
 
 INSERT INTO user_pictures (id, dating_user_profile, picture)
-VALUES (1, 1, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_haircut_ziiyxb.jpg'),
-       (2, 1, null),
-       (3, 1, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_arsenalna_befcu2.jpg'),
-       (4, 1, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_arsenalna_befcu2.jpg'),
-       (5, 1, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_arsenalna_befcu2.jpg'),
-       (6, 1, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_arsenalna_befcu2.jpg'),
-       (7, 1, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_arsenalna_befcu2.jpg'),
+VALUES (1, 19, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_haircut_ziiyxb.jpg'),
+       (2, 17, 'https://res.cloudinary.com/vladry/image/upload/v1628498610/vlad_shrunk/bicycle1_r0rlek.jpg'),
+       (3, 19, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_arsenalna_befcu2.jpg'),
+       (4, 19, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_arsenalna_befcu2.jpg'),
+       (5, 19, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_arsenalna_befcu2.jpg'),
+       (6, 17, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_arsenalna_befcu2.jpg'),
+       (7, 17, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_arsenalna_befcu2.jpg'),
        (8, 17, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_haircut_ziiyxb.jpg'),
-       (9, 18, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_haircut_ziiyxb.jpg');
+       (9, 19, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_haircut_ziiyxb.jpg'),
+       (10, 4, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vocal-studio-bruce_fzmdlp.jpg'),
+       (11, 4, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_in_car_rtzqzp.jpg'),
+       (12, 4, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_sings2_tyligr.png'),
+       (13, 4, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_guitar_jqhojn.png'),
+       (14, 4, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/guitar_and_cat_painting_tbjpdl.jpg'),
+       (15, 5, 'https://res.cloudinary.com/vladry/image/upload/v1628498610/vlad_shrunk/bicycle1_r0rlek.jpg'),
+       (16, 5, 'https://res.cloudinary.com/vladry/image/upload/v1628498610/vlad_shrunk/tosya_tanya_s3w0kl.jpg'),
+       (17, 5, 'https://res.cloudinary.com/vladry/image/upload/v1628498610/vlad_shrunk/bicycle2_wo1i08.jpg'),
+       (18, 5, 'https://res.cloudinary.com/vladry/image/upload/v1628499313/ilya_shrunk/4d7eea3c8660aac877338190a88144bc_fitted_400x300_jubjvd.jpg');
+
 
 /*INSERT INTO user_dating_goals (USER_DATING_PROFILE_ID, goals) //это когда userDatingProfile имел ассоциацию с User -ом
-VALUES (1, 'TO_BUILD_FAMILY_WITH_CHILDREN'),
-    (1, 'TO_BECOME_A_COUPLE_WITHOUT_CHILDREN'),
-    (1, 'JOINT_RENT_OF_APARTMENT'),
-    (1, 'I_AM_JUST_BORED'),
+VALUES (4, 'TO_BUILD_FAMILY_WITH_CHILDREN'),
+    (5, 'TO_BECOME_A_COUPLE_WITHOUT_CHILDREN'),
+    (5, 'JOINT_RENT_OF_APARTMENT'),
+    (5, 'I_AM_JUST_BORED'),
     (19, 'SPONSORSHIP_BASED_RELATIONSHIP'),
     (19, 'WANTED_WITH_SIMILAR_INTERESTS'),
-    (19, 'MAKING_FRIENDS_ONLY'),
-    (19, 'I_AM_JUST_BORED');*/
-
+    (4, 'MAKING_FRIENDS_ONLY'),
+    (4, 'I_AM_JUST_BORED');
+*/
 /*INSERT INTO my_interests_list (USER_DATING_PROFILE_ID, my_interests)
 VALUES (1, 'TRAVEL'),
        (1, 'PLAYING_MUSIC_INSTRUMENTS'),
