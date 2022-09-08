@@ -3,10 +3,12 @@ package com.hub.accommodation.DTO.request;
 import com.hub.accommodation.domain.BaseEntity;
 import com.hub.accommodation.domain.user.User;
 import lombok.*;
+import lombok.experimental.Accessors;
 
 import java.util.List;
 import java.util.Set;
 
+@Accessors(chain=true)
 @Getter
 @Setter
 @ToString

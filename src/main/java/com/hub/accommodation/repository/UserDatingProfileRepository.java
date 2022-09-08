@@ -7,5 +7,5 @@ import java.util.Optional;
 
 @Repository
 public interface UserDatingProfileRepository extends RepositoryInterface<UserDatingProfile> {
-
+  Optional<UserDatingProfile> findUserDatingProfileByUserId(Long userId);
 }

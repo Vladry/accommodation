@@ -35,6 +35,12 @@ public class UserDatingProfileService implements ServiceInterface<UserDatingProf
 
     //-----------------methods--------------------------
 
+
+
+
+
+
+    //------  ГОТОВЫЕ МЕТОДЫ -----------
     public UserDatingProfileRsDto saveByUserId(UserDatingProfileRqDto udpRqDto) {
         UserDatingProfile newUserDatingProfile = userDatingProfileFacade.convertToEntity(udpRqDto);
         Optional<UserDatingProfile> oldProfileByIdOpt = findUserDatingProfileByUserId(newUserDatingProfile.getUserId());
@@ -70,10 +76,11 @@ public class UserDatingProfileService implements ServiceInterface<UserDatingProf
         }
     }
 
-
     public Optional<UserDatingProfile> findUserDatingProfileByUserId(Long userId) {
-//        System.out.println("in findUserDatingProfileByUserId->  userId: " + userId);
-        EntityManager em = entityManagerFactory.createEntityManager();
+        System.out.println("in findUserDatingProfileByUserId->  userId: " + userId);
+        return userDatingProfileRepository.findUserDatingProfileByUserId(userId);
+
+/*        EntityManager em = entityManagerFactory.createEntityManager();
         UserDatingProfile udp;
         try {
             Query q = em.createQuery("select udp from UserDatingProfile udp where udp.userId = :userId")
@@ -88,12 +95,10 @@ public class UserDatingProfileService implements ServiceInterface<UserDatingProf
             }
             System.out.println("Exception in service.findUserDatingProfileByUserId(Long userId) Or userDatingProfile not found");
             return Optional.empty();
-        }
+        }*/
 
     }
 
-
-    //------  ГОТОВЫЕ МЕТОДЫ -----------
     @Override
     public UserDatingProfile save(UserDatingProfile entity) {
         return userDatingProfileRepository.save(entity);
@@ -116,21 +121,6 @@ public class UserDatingProfileService implements ServiceInterface<UserDatingProf
 
     @Override
     public Page<UserDatingProfile> findAll(Pageable pageable) {
-        return null;
-    }
-
-    @Override
-    public Optional<UserDatingProfile> findById(Long id) {
-        return Optional.empty();
-    }
-
-    @Override
-    public UserDatingProfile getOne(Long id) {
-        return null;
-    }
-
-    @Override
-    public UserDatingProfile findEntityById(Long id) {
         return null;
     }
 
@@ -207,5 +197,22 @@ public class UserDatingProfileService implements ServiceInterface<UserDatingProf
         }
     }
 
+
+// -------------не задействованные переопределения из CrudRepository--------------
+
+    @Override
+    public Optional<UserDatingProfile> findById(Long id) {
+        return Optional.empty();
+    }
+
+    @Override
+    public UserDatingProfile getOne(Long id) {
+        return null;
+    }
+
+    @Override
+    public UserDatingProfile findEntityById(Long id) {
+        return null;
+    }
 
 }

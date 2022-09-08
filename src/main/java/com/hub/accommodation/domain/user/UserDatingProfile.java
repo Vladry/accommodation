@@ -28,6 +28,8 @@ public class UserDatingProfile extends BaseEntity {
 
 //     аннотация @MapsId назначит имя этой колонки как:  user_id -по полям "user" и "id"
 
+    @Column(name="deleted")
+    Boolean deleted=false; //правильное удаление сущностей из БД - это пометка поля сущности deleted=true; и вычитка всех, у кого поле deleted=false;
 
     @Column(name = "user_id")
     private Long userId; //rq String  null

@@ -17,7 +17,9 @@ const SwiperUserPic = ({pictures}) => { // https://swiperjs.com/react
 
     const {classNames} = useContext(Context);
 
-    /*    useEffect(() => {
+    if(!pictures || pictures.length < 0){return null;}// обязательно выйти, иначе полезут ошибки по classList и некорректен же метод pictures.map!
+
+    /*    useEffect(() => { // https://stackoverflow.com/questions/65590148/swiperjs-how-do-you-style-the-pagination-bullets
             const stylesheet = document.styleSheets[0];
             stylesheet.insertRule(".swiper-pagination-bullet {\n" +
                 "    width: 20px;\n" +
@@ -69,8 +71,7 @@ const SwiperUserPic = ({pictures}) => { // https://swiperjs.com/react
 
     const imgContent = pictures.map((el, i) => (
         <SwiperSlide className={`${styles['swiper-slide']}`} key={i}><img className={`${styles['swiper-slide img']}`}
-                                                                          src={el} /*width={width} height={height} */
-                                                                          alt={'carousel-picture'}/></SwiperSlide>
+                                                                          src={el} alt={'carousel-picture'}/></SwiperSlide>
     ));
 
     return (
@@ -90,7 +91,7 @@ const SwiperUserPic = ({pictures}) => { // https://swiperjs.com/react
                 pagination={pagination}  // pagination={{clickable: true}}   //pagination={false}
                 autoplay={false}
                 // autoplay={{
-                //     delay: 2000,
+                //     delay: 3000,
                 //     disableOnInteraction: true,
                 // }}
             >

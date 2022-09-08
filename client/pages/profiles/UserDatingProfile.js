@@ -20,7 +20,7 @@ const UserDatingProfile = () => {
     const [queriedUserId, setQueriedUserId] = useState(router.query.queriedUserId);
     const candidateDatingProfile = useSelector(sel.candidateDatingProfile);
     const loadDatProfile = useRef({den:false});
-
+    const isCandidateHasPictures = !!(candidateDatingProfile && candidateDatingProfile.pictures.length > 0);
 
     useEffect(() => {
         if(loadDatProfile["den"]){return;}
@@ -53,7 +53,7 @@ const UserDatingProfile = () => {
                 </SideBar>
 
                 <ArticleWindow title={title} content={mappedFields}>
-                    <SwiperUserPic pictures ={candidateDatingProfile.pictures}/>
+                    {isCandidateHasPictures && <SwiperUserPic pictures={candidateDatingProfile.pictures}/>}
                     {backButton}
                 </ArticleWindow>
             </Grid>
