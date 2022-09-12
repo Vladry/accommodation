@@ -1,7 +1,7 @@
 import urls from '../src/main/resources/urls.json'
 
 const forwardForUdProfileId = (router, queriedUserId, event) => {
-    console.log('queriedUser: ', queriedUserId);
+    // console.log('queriedUser: ', queriedUserId);
     const {target} = event;// не используем, т.к. мы получили прямо айдишку queriedUserId
     // const targetUserId = Number(target.dataset.id);
     // console.log('target: ', target);

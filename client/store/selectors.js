@@ -2,6 +2,7 @@ const user = state => state.userData.user;
 const loading = state => state.userData.loading;
 const loadingMatchingCandidatesIds = state => state.userData.loadingMatchingCandidatesIds;
 const userDatingProfile = state=> state.userData.userDatingProfile;
+const loadingUserDatingProfile = state=> state.userData.loadingUserDatingProfile;
 const accommodationUserProfiles = state=> state.userData.accommodationUserProfiles;
 const isCurrUserHasAccommodationProfile = state=>state.userData.isCurrUserHasAccommodationProfile;
 const tenantUserProfile = state=> state.userData.tenantUserProfile;
@@ -15,6 +16,7 @@ export default {
     loading,
     loadingMatchingCandidatesIds,
     userDatingProfile,
+    loadingUserDatingProfile,
     accommodationUserProfiles,
     isCurrUserHasAccommodationProfile,
     tenantUserProfile,

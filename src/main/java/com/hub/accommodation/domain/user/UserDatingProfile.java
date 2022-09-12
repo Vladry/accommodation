@@ -7,6 +7,7 @@ import com.hub.accommodation.domain.accommodation.enums.Country;
 import com.hub.accommodation.domain.user.enums.Interests;
 import com.hub.accommodation.domain.user.enums.Sex;
 import lombok.*;
+import lombok.experimental.Accessors;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.*;
@@ -17,11 +18,12 @@ import java.time.Period;
 import java.util.*;
 
 @Entity
+@Accessors(chain=true)
 @Getter
 @Setter
 @NoArgsConstructor
 // @AllArgsConstructor  // при генерации в Lombok-е  @AllArgsConstructor  не будет выполнена инициализация и не вставятся в этот конструктор аргументы полей суперкласса.
-@EqualsAndHashCode(callSuper = true, of = {"id"})
+@EqualsAndHashCode(of = {"userId"}, callSuper=false)
 //Устанавливая callSuper в true, вы можете включить методы equals и hashCode суперкласса в сгенерированные методы.    https://urvanov.ru/2015/09/18/lombok-equalsandhashcode-%D0%BE%D0%B1%D0%BB%D0%B5%D0%B3%D1%87%D0%B0%D0%B5%D0%BC-%D1%81%D1%80%D0%B0%D0%B2%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5-%D0%BE%D0%B1%D1%8A%D0%B5%D0%BA%D1%82%D0%BE%D0%B2/
 @Table(name = "dating_user_profiles")
 public class UserDatingProfile extends BaseEntity {

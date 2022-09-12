@@ -31,12 +31,17 @@ const UserDatingProfileFormPage = () => {
         ).then((res) => {
             console.log('in handleSubmit.then на фронте, после отправки на Back-End данных. Ответ сервера:', res); // вывод userDatingProfile
             //обновить в локальном сторе userDatingProfile
-            dispatch(fetchData(urls.datingProfile, user.id, types.GET_USER_DATING_PROFILE, types.SET_USER_DATING_PROFILE_SUCCESS, types.SET_USER_DATING_PROFILE_FAIL));
+            if(res!=null){
+                dispatch({type: types.SET_USER_DATING_PROFILE_SUCCESS, payload: res});
+            }else{
+                console.log("error getting&dispatching updated userDatingProfile!. The store contains old version of userDatingProfile");
+            }
+            // dispatch(fetchData(urls.datingProfile, user.id, types.GET_USER_DATING_PROFILE, types.SET_USER_DATING_PROFILE_SUCCESS, types.SET_USER_DATING_PROFILE_FAIL));
             router.push(`${urls.hostPrefix}${urls.dating}`);
         })
             .catch(err => {
                 console.log(err);
-                console.log('in handleSubmit.then: ошибка фронта отправки данных формы');
+                console.log(`in api.post(${urls.datingProfile}).then: ошибка фронта отправки данных формы userDatingProfile`);
             });
     };
 

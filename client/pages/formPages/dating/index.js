@@ -14,6 +14,7 @@ const Index = () => {
 
     const user = useSelector(sel.user);
     const loadingMatchingCandidatesIds = useSelector(sel.loadingMatchingCandidatesIds);
+    const loadingUserDatingProfile = useSelector(sel.loadingUserDatingProfile);
     const userDatingProfile = useSelector(sel.userDatingProfile);
     const [candidates, setCandidates] = useState(null);
     const candidatesIds = useRef({});
@@ -24,10 +25,14 @@ const Index = () => {
         if (!candidatesIds.current["ids"]) {//наше кэширование
             try {
                 candidatesIds.current["loading"] = true;
-                const getIds = await api.get(`${urls.candidatesIds}/${user.id}`);
-                candidatesIds.current["ids"] = await getIds;
-                // console.log(`ids successfully fetched: `, candidatesIds.current["ids"]);
+                const getIds = await api.post(`${urls.candidatesIds}?currentUserId=${user.id}`, userDatingProfile);
 
+//TODO -версия, когда udp на бЭк не передается с фронта, а отдельно фЭтчуется из бЭка доп.запросом из БД:
+                // const getIds = await api.get(`${urls.candidatesIds}/${user.id}`);
+//TODO -версия, когда сразу передаем udp с фронта на бЭк:
+                candidatesIds.current["ids"] = await getIds;
+
+                // console.log(`ids successfully fetched: `, candidatesIds.current["ids"]);
                 if (candidatesIds.current["ids"]) {
                     getCandidates(candidatesIds.current["ids"]).then();
                 }
@@ -39,7 +44,8 @@ const Index = () => {
         }
 
     }
-    async function getCandidates (ids){
+
+    async function getCandidates(ids) {
         // console.log(`in getCandidates->  candidates Ids}: `, ids);
         try {
             const getCandidates = await api.post(urls.allUsersByIds, ids);
@@ -55,14 +61,14 @@ const Index = () => {
 
     useEffect(() => {
         // console.log("in useEffect");
-        if (!candidatesIds.current["loading"] && user || loadingMatchingCandidatesIds) {
+        if (!loadingUserDatingProfile && !candidatesIds.current["loading"] && user || loadingMatchingCandidatesIds) {
             getCandidatesIds().then();
         }
     }, [userDatingProfile])
 
 
-    if (!user || loadingMatchingCandidatesIds) {
-        return <p>user is undefined</p>;
+    if (!user || loadingMatchingCandidatesIds || loadingUserDatingProfile) {
+        return <p>return!</p>;
     }
 
 

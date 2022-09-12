@@ -6,13 +6,13 @@ import {userDatingProfileFormFields} from "./userDatingProfileFormFields";
 import act from "../../../store/types";
 import {Context} from '../../../context';
 import types from "../../../store/types";
-import selectors from "../../../store/selectors";
+import sel from "../../../store/selectors";
 import urls from '../../../../src/main/resources/urls.json'
 
 const UserDatingProfileForm = ({handleSubmit}) => {
-    const user = useSelector(selectors.user);
+    const user = useSelector(sel.user);
     const isAuthenticated = useAuth(true);
-    const userDatingProfile = useSelector(selectors.userDatingProfile);
+    const userDatingProfile = useSelector(sel.userDatingProfile);
     const {prepareFormData} = useContext(Context);
     const formInitValues = prepareFormData(userDatingProfileFormFields, userDatingProfile);
 

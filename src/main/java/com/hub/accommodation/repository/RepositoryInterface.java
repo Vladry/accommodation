@@ -3,7 +3,11 @@ package com.hub.accommodation.repository;
 import com.hub.accommodation.domain.BaseEntity;
 import com.hub.accommodation.exception.NoDataFoundException;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,7 +20,4 @@ public interface RepositoryInterface<E extends BaseEntity> extends JpaRepository
         }
         return entityOptional.get();
     }
-
-
-
 }

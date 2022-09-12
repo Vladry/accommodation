@@ -5,6 +5,7 @@ import com.hub.accommodation.DTO.response.UserDatingProfileRsDto;
 import com.hub.accommodation.domain.user.UserDatingProfile;
 import com.hub.accommodation.domain.user.enums.Sex;
 import com.hub.accommodation.facade.UserDatingProfileFacade;
+import com.hub.accommodation.repository.UdpRepository2;
 import com.hub.accommodation.repository.UserDatingProfileRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -15,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
-import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -30,18 +30,20 @@ import java.util.Optional;
 public class UserDatingProfileService implements ServiceInterface<UserDatingProfile> {
     private final UserDatingProfileRepository userDatingProfileRepository;
     private final UserDatingProfileFacade userDatingProfileFacade;
-    @PersistenceUnit
-    private final EntityManagerFactory entityManagerFactory;
+    private final UdpRepository2 udpRepository2;
 
-    //-----------------methods--------------------------
-
-
-
+    //-----------------пишу новые методы:--------------------------
 
 
 
     //------  ГОТОВЫЕ МЕТОДЫ -----------
-    public UserDatingProfileRsDto saveByUserId(UserDatingProfileRqDto udpRqDto) {
+    public UserDatingProfileRsDto saveOrUpdate(UserDatingProfile entity) {
+//        System.out.println("in userDatingProfileService.saveOnly ->");
+        return userDatingProfileFacade.convertToDto(udpRepository2.saveCustom(entity));
+    }
+/*    // старый метод сохранения, с некорректным использованием CrudRepo методом save:
+    public UserDatingProfileRsDto saveByUserId(UserDatingProfileRqDto udpRqDto)
+{
         UserDatingProfile newUserDatingProfile = userDatingProfileFacade.convertToEntity(udpRqDto);
         Optional<UserDatingProfile> oldProfileByIdOpt = findUserDatingProfileByUserId(newUserDatingProfile.getUserId());
         Long entityId;
@@ -64,19 +66,19 @@ public class UserDatingProfileService implements ServiceInterface<UserDatingProf
             try {
                 userDatingProfileRepository.save(newUserDatingProfile);
                 Optional<UserDatingProfile> controlOpt = findUserDatingProfileByUserId(newUserDatingProfile.getUserId());
-                if (controlOpt.isPresent()) {
-                    return userDatingProfileFacade.convertToDto(controlOpt.get());
-                } else {
-                    return null;
-                }
+                return controlOpt.map(userDatingProfileFacade::convertToDto).orElse(null);
             } catch (Exception e) {
                 System.out.println("Exception in saveByUserId-> section 2 (saving new entity and re-getting it from DB");
                 return null;
             }
         }
-    }
+    }*/
+
 
     public Optional<UserDatingProfile> findUserDatingProfileByUserId(Long userId) {
+        if (userId == null) {
+            return Optional.empty();
+        }
         System.out.println("in findUserDatingProfileByUserId->  userId: " + userId);
         return userDatingProfileRepository.findUserDatingProfileByUserId(userId);
 
@@ -109,10 +111,6 @@ public class UserDatingProfileService implements ServiceInterface<UserDatingProf
 
     }
 
-    @Override
-    public void deleteById(Long id) {
-
-    }
 
     @Override
     public List<UserDatingProfile> findAll() {
@@ -125,76 +123,8 @@ public class UserDatingProfileService implements ServiceInterface<UserDatingProf
     }
 
 
-    //-----------------criteriaBuilder ---------------------
-//  https://www.baeldung.com/hibernate-criteria-queries#:~:text=The%20Criteria%20API%20allows%20us,on%20the%20JPA%20Criteria%20API.
-//  https://dev.to/bowlendev/conditional-criteriabuilder-for-optional-params-2j6
     public List<UserDatingProfile> findAllMatchingTheCriteria(UserDatingProfile currentUserDatingProfile) {
-//  https://www.baeldung.com/jpa-and-or-criteria-predicates
-        EntityManager em = entityManagerFactory.createEntityManager();
-        try {
-            CriteriaBuilder cb = em.getCriteriaBuilder();
-
-            CriteriaQuery<UserDatingProfile> cq = cb.createQuery(UserDatingProfile.class);
-            Root<UserDatingProfile> userDatingProfileRoot = cq.from(UserDatingProfile.class);
-            Predicate minAgeCriteria = cb.greaterThanOrEqualTo(userDatingProfileRoot.get("age"), currentUserDatingProfile.getMinPreferedAge());
-            Predicate maxAgeCriteria = cb.lessThanOrEqualTo(userDatingProfileRoot.get("age"), currentUserDatingProfile.getMaxPreferedAge());
-//        Predicate lastVisitDateCriteria = cb.equal(userDatingProfile.get("????"), userDatingProfileSelector.get????????());
-            Predicate sexCriteria = cb.equal(userDatingProfileRoot.get("mySex"), currentUserDatingProfile.getSeekAPersonOfSex());
-            Predicate minHeightCriteria = cb.greaterThanOrEqualTo(userDatingProfileRoot.get("myHeight"), currentUserDatingProfile.getMinHeightIWant());
-            Predicate maxHeightCriteria = cb.lessThanOrEqualTo(userDatingProfileRoot.get("myHeight"), currentUserDatingProfile.getMaxHeightIWant());
-            Predicate citizenOfCountryCriteria = cb.equal(userDatingProfileRoot.get("myCitizenship"), currentUserDatingProfile.getWantFromCountry());
-            Predicate liveInCountryCriteria = cb.equal(userDatingProfileRoot.get("countryINowLiveIn"), currentUserDatingProfile.getWantFromCountry());
-            Predicate countrySelect = cb.or(citizenOfCountryCriteria, liveInCountryCriteria);
-            Predicate childrenCriteria = cb.lessThanOrEqualTo(userDatingProfileRoot.get("numberOfMyChildren"), currentUserDatingProfile.getMaxNumberOfChildrenAllowed());
-
-            List<Predicate> predicates = new ArrayList<>();
-
-     /*       if (currentUserDatingProfile.getMinPreferedAge() > 0) {
-                predicates.add(minAgeCriteria);
-            }
-            if (currentUserDatingProfile.getMaxPreferedAge() > 0) {
-                predicates.add(maxAgeCriteria);
-            }*/
-
-            if (currentUserDatingProfile.getWantFromCountry() != null) {
-                predicates.add(countrySelect);
-            }
-
-            if (!(currentUserDatingProfile.getSeekAPersonOfSex() == Sex.ANY
-                    || currentUserDatingProfile.getSeekAPersonOfSex() == Sex.OTHER)) {
-                predicates.add(sexCriteria);
-            }
-
-            if (currentUserDatingProfile.getMinHeightIWant() > 100) {
-                predicates.add(minHeightCriteria);
-                //            System.out.println("added Predicate: minHeightCriteria");
-            }
-            if (currentUserDatingProfile.getMaxHeightIWant() > 150) {
-                predicates.add(maxHeightCriteria);
-                //            System.out.println("added Predicate: maxHeightCriteria");
-            }
-
-
-            if (currentUserDatingProfile.getMaxNumberOfChildrenAllowed() < 100) {
-                predicates.add(childrenCriteria);
-                //            System.out.println("added Predicate: childrenCriteria");
-            }
-            cq.where(predicates.toArray(new Predicate[predicates.size()]));
-
-            em.getTransaction().begin();
-            List<UserDatingProfile> candidatesMatchingCriteria = em.createQuery(cq).getResultList();
-
-//        System.out.println("candidatesMatchingCriteria: " + candidatesMatchingCriteria);
-            em.getTransaction().commit();
-            em.close();
-            return candidatesMatchingCriteria;
-        } catch (Exception e) {
-            System.out.println("Exception in service.findAllMatchingTheCriteria(UserDatingProfile currentUserDatingProfile)");
-            if (em != null) {
-                em.close();
-            }
-            return null;
-        }
+        return udpRepository2.findAllMatchingTheCriteria(currentUserDatingProfile);
     }
 
 
@@ -214,5 +144,11 @@ public class UserDatingProfileService implements ServiceInterface<UserDatingProf
     public UserDatingProfile findEntityById(Long id) {
         return null;
     }
+
+    @Override
+    public void deleteById(Long id) {
+
+    }
+
 
 }
