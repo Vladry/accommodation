@@ -9,6 +9,7 @@ import com.hub.accommodation.service.UserDatingProfileService;
 import com.hub.accommodation.util.JsonToDtoConverter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,6 +31,7 @@ public class UserDatingProfileController {
 
     //------------------------------------------------
 
+    @ResponseStatus(code = HttpStatus.CREATED) // https://www.baeldung.com/spring-response-status
     @PostMapping("/datingProfile")
     public UserDatingProfileRsDto saveByUserId(@RequestBody String jsonString) {
 //        System.out.println("in controller.saveByUserId-> RequestBody: "+jsonString);
