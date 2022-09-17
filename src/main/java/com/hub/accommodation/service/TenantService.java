@@ -44,7 +44,7 @@ public class TenantService  extends GeneralService<Tenant> {
 //            Optional<Tenant> tOpt = Optional.ofNullable(te);
 //            em.close();
         Optional<Tenant> tOpt = tenantRepository.findByUserId(userId);
-            System.out.println("returning from service.findTenantProfileById,  tOpt:"+ tOpt);
+//            System.out.println("returning from service.findTenantProfileById,  tOpt:"+ tOpt);
             return tOpt;
 //
 //        } catch (Exception e) {

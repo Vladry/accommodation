@@ -52,7 +52,7 @@ public class AccommodationApplication implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        System.out.println("ZoneId.systemDefault(): " + ZoneId.systemDefault());
+//        System.out.println("ZoneId.systemDefault(): " + ZoneId.systemDefault());
         List<UserDatingProfile> udps = new ArrayList<>();
         udps.add(new UserDatingProfile(1L,  Sex.F, LocalDate.parse("1965-01-14"), LocalDateTime.now(), Sex.M, 170, 190, 198, 18, 30, Country.USA, Country.USA, Country.USA, 1, 1, "nothing to say", "tall height", "smoking", null, null, null, null));
         udps.add(new UserDatingProfile(2L,  Sex.M, LocalDate.parse("1996-08-09"), LocalDateTime.now(), Sex.ANY, 175, 0,   168, 18, 50, Country.CANADA, Country.UKRAINE, Country.CHINA, 2, 3, "romance is my all", null, null, null, null,  new ArrayList<>(List.of(Goals.MAKING_FRIENDS_ONLY , Goals.SPONSORSHIP_BASED_RELATIONSHIP)), null));
