@@ -9,7 +9,7 @@ import sel from "../../../store/selectors";
 import {fetchData} from "../../../store/actions/userAction";
 
 
-const AccommodationForm = ({accommodation, key, handleSubmit}) => {
+const AccommodationForm = ({accommodation, index, handleSubmit}) => {
     const user = useSelector(sel.user);
     const isAuthenticated = useAuth(true);
     const {prepareFormData} = useContext(Context);
@@ -19,7 +19,7 @@ const AccommodationForm = ({accommodation, key, handleSubmit}) => {
     if (!isAuthenticated) return (<h3>please login/ Войтите в систему</h3>);
 
     return (
-        <div key={key} style={{border: '1px solid red'}}>
+        <div key={index} style={{border: '1px solid red'}}>
             <FormMapper
                 fields={accommodationFormFields}
                 initValues={formInitValues}

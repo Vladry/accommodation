@@ -1,7 +1,9 @@
 package com.hub.accommodation.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.hub.accommodation.DTO.request.UserDatingProfileRqDto;
 import com.hub.accommodation.DTO.response.UserDatingProfileRsDto;
+import com.hub.accommodation.Views;
 import com.hub.accommodation.domain.user.UserDatingProfile;
 import com.hub.accommodation.exception.NoDataFoundException;
 import com.hub.accommodation.facade.UserDatingProfileFacade;
@@ -44,10 +46,9 @@ public class UserDatingProfileController {
 
 
     //    @PreAuthorize("hasAuthority('read')")
+    @JsonView(Views.Public.class)
     @GetMapping("/datingProfile/{id}")
-    public UserDatingProfileRsDto findUserDatingProfileById(
-            @PathVariable("id") Long id
-    ) {
+    public UserDatingProfileRsDto findUserDatingProfileById(@PathVariable("id") Long id) {
         if (id == null) {
             return null;
         }

@@ -48,14 +48,14 @@ const FormMapper = ({fields, initValues, validation, handleSubmit}) => {
                         key={formikRef}
                         defaultCountry={'ua'}
                         onChange={e => formik.setFieldValue(formikRef, e)}
-                        value={getIn(formik.values, formikRef)}
+                        value={getIn(formik.values, formikRef)? getIn(formik.values, formikRef):""}
                         {...input}
                     />
                 );
             case 'checkbox':
                 return (<Box key={formikRef} sx={{p: 2, border: '1px solid lightgrey', borderRadius: 1}}>
                         <FormControlLabel control={<Checkbox/>}
-                                          value={getIn(formik.values, formikRef)} {...input} {...defaultProps.checkbox}
+                                          value={getIn(formik.values, formikRef)?getIn(formik.values, formikRef):false} {...input} {...defaultProps.checkbox}
                         /></Box>
                 );
             case 'autocompleteFromMapBox':
@@ -63,7 +63,7 @@ const FormMapper = ({fields, initValues, validation, handleSubmit}) => {
                     error={getIn(formik.touched, formikRef) && Boolean(getIn(formik.errors, formikRef))}
                     helperText={getIn(formik.touched, formikRef) ? getIn(formik.errors, formikRef) : ''}
                     key={formikRef}
-                    value={getIn(formik.values, formikRef)}
+                    value={getIn(formik.values, formikRef)?getIn(formik.values, formikRef):""}
                     onChange={e => {
                         formik.setFieldValue(formikRef, e, true)
                     }
@@ -84,7 +84,7 @@ const FormMapper = ({fields, initValues, validation, handleSubmit}) => {
                         key={formikRef}
                         helperText={getIn(formik.touched, formikRef) ? getIn(formik.errors, formikRef) : ''}
                         error={getIn(formik.touched, formikRef) && Boolean(getIn(formik.errors, formikRef))}
-                        value={getIn(formik.values, formikRef)}
+                        value={getIn(formik.values, formikRef)?getIn(formik.values, formikRef):""}
                         {...input}
                         {...defaultProps.textField}
                     />

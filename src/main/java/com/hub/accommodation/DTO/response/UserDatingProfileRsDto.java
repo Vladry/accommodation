@@ -1,6 +1,8 @@
 package com.hub.accommodation.DTO.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.hub.accommodation.Views;
 import com.hub.accommodation.domain.BaseEntity;
 import com.hub.accommodation.domain.user.User;
 import lombok.*;
@@ -17,40 +19,54 @@ import java.util.Set;
 @Setter
 public class UserDatingProfileRsDto extends BaseEntity {
 
+    @JsonView(Views.Public.class)
     private String userId;
-
+    @JsonView(Views.Public.class)
     private String mySex;
-
+    @JsonView(Views.Public.class)
     private String seekAPersonOfSex;
-
+    @JsonView(Views.Public.class)
     private Integer myHeight;
+    @JsonView(Views.Public.class)
     private Integer minHeightIWant;
+    @JsonView(Views.Public.class)
     private Integer maxHeightIWant;
-
+    @JsonView(Views.Public.class)
     private Integer minPreferedAge;
+    @JsonView(Views.Public.class)
     private Integer maxPreferedAge;
-
+    @JsonView(Views.Public.class)
     private String countryINowLiveIn;
+    @JsonView(Views.Public.class)
     private String myCitizenship;
+    @JsonView(Views.Public.class)
     private String wantFromCountry;
-
+    @JsonView(Views.Public.class)
     private Integer numberOfMyChildren;
+    @JsonView(Views.Public.class)
     private Integer maxNumberOfChildrenAllowed;
 
+    @JsonView(Views.Additional.class)
     private String selfDescription;
+    @JsonView(Views.Additional.class)
     private String traitsIWouldLoveInYou;
+    @JsonView(Views.Additional.class)
     private String traitsIWouldHateInYou;
-
+    @JsonView(Views.Additional.class)
     private Set<String> myInterests;
+    @JsonView(Views.Additional.class)
     private Set<String> desiredWithInterests;
+    @JsonView(Views.Public.class)
     private Set<String> myGoals;
+    @JsonView(Views.Public.class)
     private List<String> pictures;
-
-@JsonIgnore
+    @JsonView(Views.Public.class)
     private LocalDate birthday;
     @JsonIgnore
     private LocalDateTime lastVisitDate;
+    @JsonView(Views.Public.class)
     private int age;
+    @JsonView(Views.Public.class)
     private String lastVisited;
 
 
@@ -59,23 +75,27 @@ public class UserDatingProfileRsDto extends BaseEntity {
         setLastVisitPeriod();
     }
 
-    public void setBirthday(LocalDate birthday){
+    public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
         setAge();
     }
+
     private void setAge() {
-        if(this.birthday==null){return;}
+        if (this.birthday == null) {
+            return;
+        }
         LocalDate dateNow = LocalDate.now();
         Period period = Period.between(this.birthday, dateNow);
         this.age = period.getYears();
     }
 
-    public void setLastVisitDate(LocalDateTime lastVisitDate){
+    public void setLastVisitDate(LocalDateTime lastVisitDate) {
         this.lastVisitDate = lastVisitDate;
         setLastVisitPeriod();
     }
+
     private void setLastVisitPeriod() {
-        if(this.lastVisitDate==null) {
+        if (this.lastVisitDate == null) {
             return;
         }
         LocalDateTime dateTimeNow = LocalDateTime.now();

@@ -32,7 +32,7 @@ const AccommodationList = () => {
                 <>
                     <h3 style={{textAlign: 'center', marginTop: '10px'}}
                     >Option/Вариант: ${index + 1}</h3>
-                    <AccommodationForm accommodation={accommodation} key={index} handleSubmit={handleSubmit}/>
+                    <AccommodationForm accommodation={accommodation} index={index} handleSubmit={handleSubmit}/>
                 </>
             )
         );
