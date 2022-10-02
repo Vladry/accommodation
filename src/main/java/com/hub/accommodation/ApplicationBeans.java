@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.auditing.DateTimeProvider;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -23,7 +23,7 @@ import java.util.Optional;
         //этот бин - костыль, нужен для правильной работы h2
         @Profile("local")
         @Bean
-        Server h2Server() {
+        Server h2Server() { //чтобы server прописался -в pom.xml нужно отключить <scope> в настройке h2
             Server server = new Server();
             try {
                 server.runTool("-tcp");

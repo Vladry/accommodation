@@ -78,7 +78,7 @@ public class AuthService {
         return tokens;
     }
 
-    public Map<Object, Object> authenticate(String email, String password) {
+    public Map<Object, Object> authenticate(String email, String password) throws NoDataFoundException {
         User user = userRepository.findUserByEmail(email).orElseThrow(() -> new NoDataFoundException("user doesn't exists"));
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
         return createTokens(user);
@@ -98,7 +98,7 @@ public class AuthService {
     }
 
 
-    public Map<Object, Object> refresh(String refreshToken) throws JwtAuthenticationException {
+    public Map<Object, Object> refresh(String refreshToken) throws JwtAuthenticationException, NoDataFoundException {
         Long refreshTokenId = jwtTokenProvider.getRefreshTokenId(refreshToken);
         RefreshToken rt = readRefreshToken(refreshTokenId);
 

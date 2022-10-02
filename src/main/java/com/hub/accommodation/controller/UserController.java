@@ -47,6 +47,11 @@ public class UserController {
 
     }
 //------------------------------------------------
+@GetMapping("/users/visits/{id}")
+public void registerVisitToDating(@PathVariable("id") Long id){
+    userService.registerVisitToDating(id);
+}
+
 
     @PostMapping("/users")
     public UserRsDto createUser(@RequestBody UserRqDto userRqDto) {

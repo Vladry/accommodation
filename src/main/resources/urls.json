@@ -1,6 +1,7 @@
 {
     "hostPrefix": "http://localhost:3000",
     "dating": "/formPages/dating",
+    "setLastVisitDating": "/users/visits",
     "accomodationList": "/formPages/AccommodationList",
     "tenantFormPage": "/formPages/TenantFormPage",
     "queriedUserDatingProfile": "/profiles/UserDatingProfile/?queriedUserId=",

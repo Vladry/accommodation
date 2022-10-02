@@ -7,14 +7,14 @@ import UserDatingProfileForm from "../../../components/forms/dating_user_profile
 import {Grid} from "@mui/material";
 import SideBar from "../../../components/dating_components/SideBar";
 import ArticleWindow from "../../../components/dating_components/ArticleWindow";
-import selectors from "../../../store/selectors";
+import sel from "../../../store/selectors";
 import {fetchData} from "../../../store/actions/userAction";
 import types from "../../../store/types";
 import {useRouter} from "next/router";
 import urls from "../../../../src/main/resources/urls.json";
 
 const UserDatingProfileFormPage = () => {
-    const user = useSelector(selectors.user);
+    const user = useSelector(sel.user);
     const dispatch = useDispatch();
     const router = useRouter();
     const handleSubmit = async (values) => {
@@ -49,6 +49,8 @@ const UserDatingProfileFormPage = () => {
 
     const title = "Edit Your Profile"
     const content = <UserDatingProfileForm handleSubmit={handleSubmit}/>;
+
+
 
     return (
         <Grid container={true} spacing={2}>

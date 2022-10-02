@@ -12,8 +12,8 @@ export const userDatingProfileFormFields = [
         id: "birthday",
         name: "birthday",
         formikRef: "birthday",
-        label: "birthday/Дата Рождения",
-        valueByDefault: "",
+        label: "birthday: 'dd.mm.yyyy' /Дата Рождения: 'dd.mm.yyyy'",
+        valueByDefault: "01.01.2000",
         type: "text"
     },
     {
@@ -54,7 +54,7 @@ export const userDatingProfileFormFields = [
         name: "minPreferedAge",
         formikRef: "minPreferedAge",
         label: "minPreferedAge/Возрастом ОТ:",
-        valueByDefault: 20,
+        valueByDefault: 0,
         type: "number"
     },
 
@@ -63,7 +63,7 @@ export const userDatingProfileFormFields = [
         name: "maxPreferedAge",
         formikRef: "maxPreferedAge",
         label: "maxPreferedAge/Возрастом ДО:",
-        valueByDefault: 30,
+        valueByDefault: 0,
         type: "number"
     },
     {
@@ -71,14 +71,14 @@ export const userDatingProfileFormFields = [
         name: "countryINowLiveIn",
         formikRef: "countryINowLiveIn",
         label: "countryINowLiveIn/Я, сейчас в стране:",
-        valueByDefault: "UNITED_KINGDOM",
+        valueByDefault: "UKRAINE",
         type: "text"
     },
     {
         id: "myCitizenship",
         name: "myCitizenship",
         formikRef: "myCitizenship",
-        label: "myCitizenship/Я гражданин страны:",
+        label: "myCitizenship/Я гражданин:",
         valueByDefault: "UKRAINE",
         type: "text"
     },
@@ -86,7 +86,7 @@ export const userDatingProfileFormFields = [
         id: "wantFromCountry",
         name: "wantFromCountry",
         formikRef: "wantFromCountry",
-        label: "wantFromCountry/Желаю найти человека гражданства страны:",
+        label: "wantFromCountry/Желаю найти из:",
         valueByDefault: "UNITED_KINGDOM",
         type: "text"
     },
@@ -102,7 +102,7 @@ export const userDatingProfileFormFields = [
         id: "maxNumberOfChildrenAllowed",
         name: "maxNumberOfChildrenAllowed",
         formikRef: "maxNumberOfChildrenAllowed",
-        label: "maxNumberOfChildrenAllowed/Желаю найти человека с детьми, не более чем:",
+        label: "maxNumberOfChildrenAllowed/У кандидата(тки) детей, не более:",
         valueByDefault: 1,
         type: "number"
     },
@@ -113,6 +113,22 @@ export const userDatingProfileFormFields = [
         label: "selfDescription/Кратко о себе ( не более ... знаков):",
         valueByDefault: "about myself freely: ...",
         type: "text"
+    },
+    {
+        id: "myGoals",
+        name: "myGoals",
+        formikRef: "myGoals",
+        label: "myGoals/Цели моего знакомства",
+        valueByDefault: "myGoals: ...",
+        type: "text"
+    },
+    {
+        id: "pictures",
+        name: "pictures",
+        formikRef: "pictures",
+        label: "pictures/Загрузить еще одну мою фотографию",
+        valueByDefault: "load your pictures here",
+        type: "image"
     },
     /*{
         id: "traitsIWouldLoveInYou",
@@ -146,22 +162,7 @@ export const userDatingProfileFormFields = [
         valueByDefault: "desiredWithInterests: ...",
         type: "text"
     },*/
-    {
-        id: "myGoals",
-        name: "myGoals",
-        formikRef: "myGoals",
-        label: "myGoals/Цели моего знакомства",
-        valueByDefault: "myGoals: ...",
-        type: "text"
-    },
-    {
-        id: "pictures",
-        name: "pictures",
-        formikRef: "pictures",
-        label: "pictures/Загрузить еще одну мою фотографию",
-        valueByDefault: "load your pictures here",
-        type: "image"
-    },
+
 
 
 ];

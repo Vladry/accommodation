@@ -22,6 +22,9 @@ public class UserService extends GeneralService<User> {
     }
 
 
+    public void registerVisitToDating(Long id){
+        userRepositoryImpl.registerVisitToDating(id);
+    }
 
     @Transactional(readOnly = true)
     public List<User> findAllByIds(List<Long> listOfIds) {

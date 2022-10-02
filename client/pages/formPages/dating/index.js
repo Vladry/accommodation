@@ -56,11 +56,19 @@ const Index = () => {
         } catch (err) {
             console.log(`error in  getCandidatesIds() -> для userId: ${user.id} `);
         }
+    }
 
+    const setLastVisitDateTime = () => {
+        api.get(`${urls.setLastVisitDating}/${user.id}`).then();
     }
 
     useEffect(() => {
-        // console.log("in useEffect");
+        if (!loadingUserDatingProfile && !candidatesIds.current["loading"] && user || loadingMatchingCandidatesIds) {
+            setLastVisitDateTime();
+        }
+    }, []);
+
+    useEffect(() => {
         if (!loadingUserDatingProfile && !candidatesIds.current["loading"] && user || loadingMatchingCandidatesIds) {
             getCandidatesIds().then();
         }

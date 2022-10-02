@@ -41,9 +41,12 @@ public class UserDatingProfileController {
         UserDatingProfileRqDto udpRqDto = converter.doConvert(jsonString);
 //        return userDatingProfileService.saveByUserId(udpRqDto);
         return userDatingProfileService.saveOrUpdate(userDatingProfileFacade.convertToEntity(udpRqDto));
-
     }
-
+  //  http://localhost:8000/api/v1/datingProfile/visits/19
+    @GetMapping("/datingProfile/visits/{id}")
+    public void registerVisitToDating(@PathVariable("id") Long id){
+        userDatingProfileService.registerVisitToDating(id);
+    }
 
     //    @PreAuthorize("hasAuthority('read')")
     @JsonView(Views.Public.class)

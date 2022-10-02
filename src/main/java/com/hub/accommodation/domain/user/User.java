@@ -1,5 +1,6 @@
 package com.hub.accommodation.domain.user;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.hub.accommodation.domain.accommodation.Accommodation;
 import com.hub.accommodation.domain.BaseEntity;
 import com.hub.accommodation.domain.user.enums.Role;
@@ -26,6 +27,18 @@ public class User extends BaseEntity {
 
 //    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    private Set<Accommodation> accommodation = new HashSet<>();
+
+    @Column(name = "dating_last_visit_date")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.YYYY hh.mm.ss")
+    private ZonedDateTime datingLastVisitDate; //rq String
+
+    @Column(name = "accommod_last_visit_date")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.YYYY hh.mm.ss")
+    private ZonedDateTime accommodationLastVisitDate; //rq String
+
+    @Column(name = "volunteer_last_visit_date")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.YYYY hh.mm.ss")
+    private ZonedDateTime volunteerLastVisitDate; //rq String
 
 
     @Column(name = "name", length = 20)

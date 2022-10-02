@@ -15,6 +15,7 @@ const FormMapper = ({fields, initValues, validation, handleSubmit}) => {
     })
 
     const defaultProps = React.useMemo(() => ({
+
             textField: {
                 variant: 'outlined',
                 margin: 'normal',

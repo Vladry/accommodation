@@ -11,10 +11,7 @@ import lombok.experimental.Accessors;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.*;
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Period;
+import java.time.*;
 import java.util.*;
 
 @Entity
@@ -53,17 +50,10 @@ public class UserDatingProfile extends BaseEntity {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.YYYY")
     private LocalDate birthday; //rq String
 
-    public void setBirthdayParse(String birthday){
-        this.birthday = LocalDate.parse(birthday);
-    }
-
     @Column(name = "last_visit_date")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.YYYY hh.mm.ss")
-    private LocalDateTime lastVisitDate; //rq String
+    private ZonedDateTime lastVisitDate; //rq String
 
-    public void setLastVisitDateParse(String lastVisitDate){
-        this.lastVisitDate = LocalDateTime.parse(lastVisitDate);
-    }
 
     @Column(name = "seek_a_person_of_sex")
     @Enumerated(EnumType.STRING)
@@ -139,7 +129,7 @@ public class UserDatingProfile extends BaseEntity {
         this.age = period.getYears();
     }
 
-    public UserDatingProfile(Long userId, Sex mySex, LocalDate birthday, LocalDateTime lastVisitDate, Sex seekAPersonOfSex, Integer myHeight, Integer minHeightIWant, Integer maxHeightIWant, Integer minPreferedAge, Integer maxPreferedAge, Country countryINowLiveIn, Country myCitizenship, Country wantFromCountry, Integer numberOfMyChildren, Integer maxNumberOfChildrenAllowed, String selfDescription, String traitsIWouldLoveInYou, String traitsIWouldHateInYou, List<Interests> myInterests, List<Interests> desiredWithInterests, List<Goals> myGoals, List<Picture> pictures) {
+    public UserDatingProfile(Long userId, Sex mySex, LocalDate birthday, ZonedDateTime lastVisitDate, Sex seekAPersonOfSex, Integer myHeight, Integer minHeightIWant, Integer maxHeightIWant, Integer minPreferedAge, Integer maxPreferedAge, Country countryINowLiveIn, Country myCitizenship, Country wantFromCountry, Integer numberOfMyChildren, Integer maxNumberOfChildrenAllowed, String selfDescription, String traitsIWouldLoveInYou, String traitsIWouldHateInYou, List<Interests> myInterests, List<Interests> desiredWithInterests, List<Goals> myGoals, List<Picture> pictures) {
         this.userId = userId;
         this.mySex = mySex;
         this.birthday = birthday;

@@ -12,9 +12,13 @@ spring:
       settings:
         trace: false
 logging:  # https://habr.com/ru/post/521950/
-#  file.name: application.log
   level:
-    org: off
+    root: info
+    com: error
+    org: error
+#    file: appLog.log
+
+
 
 ---
 spring:

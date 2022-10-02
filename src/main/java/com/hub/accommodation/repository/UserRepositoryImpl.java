@@ -1,12 +1,14 @@
 package com.hub.accommodation.repository;
 
 import com.hub.accommodation.domain.user.User;
+import com.hub.accommodation.domain.user.UserDatingProfile;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,14 +35,30 @@ public class UserRepositoryImpl {
             return users;
 
         } catch (Exception e) {
+
+            System.out.println("Exception in UserRepositoryImpl.findAllByIds(ids)");
+            return new ArrayList<>();
+        } finally {
             if (em != null) {
                 em.close();
             }
-            System.out.println("Exception in UserRepositoryImpl.findAllByIds(ids)");
-            return new ArrayList<>();
         }
     }
 
-
-
+    public void registerVisitToDating(Long id) {
+//        System.out.println("in registerVisitToDating(Long "+id+")");
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            User u = em.find(User.class, id);
+            u.setDatingLastVisitDate(ZonedDateTime.now());
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
 }
