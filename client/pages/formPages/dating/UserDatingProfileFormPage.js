@@ -23,13 +23,13 @@ const UserDatingProfileFormPage = () => {
         delete userDatingProfileFormNewValues["desiredWithInterests"];
         delete userDatingProfileFormNewValues["myGoals"];
 
-        console.log(`для юзера: ${user.id}, отправляю данные формы: `, userDatingProfileFormNewValues)
+        // console.log(`для юзера: ${user.id}, отправляю данные формы: `, userDatingProfileFormNewValues)
         await api.post(urls.datingProfile, userDatingProfileFormNewValues/*,{ contentType: "application/json; charset=utf-8",
             async: false,    //Cross-domain requests and dataType: "jsonp" requests do not support synchronous operation
             cache: false,    //This will force requested pages not to be cached by the browser
             processData:false}*/
         ).then((res) => {
-            console.log('in handleSubmit.then на фронте, после отправки на Back-End данных. Ответ сервера:', res); // вывод userDatingProfile
+            // console.log('in handleSubmit.then на фронте, после отправки на Back-End данных. Ответ сервера:', res); // вывод userDatingProfile
             //обновить в локальном сторе userDatingProfile
             if(res!=null){
                 dispatch({type: types.SET_USER_DATING_PROFILE_SUCCESS, payload: res});

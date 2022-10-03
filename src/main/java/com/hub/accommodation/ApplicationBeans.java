@@ -21,7 +21,7 @@ import java.util.Optional;
     public class ApplicationBeans {
 
         //этот бин - костыль, нужен для правильной работы h2
-        @Profile("local")
+/*        @Profile("local")
         @Bean
         Server h2Server() { //чтобы server прописался -в pom.xml нужно отключить <scope> в настройке h2
             Server server = new Server();
@@ -32,7 +32,7 @@ import java.util.Optional;
                 e.printStackTrace();
             }
             return server;
-        }
+        }*/
 
 
         // для работы Swagger -a
