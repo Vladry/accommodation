@@ -10,6 +10,7 @@ const isCurrUserHasTenantProfile = state=>state.userData.isCurrUserHasTenantProf
 const candidateDatingProfile = state=> state.userData.candidateDatingProfile;
 const isCurrUserHasDatingProfile = state=> state.userData.isCurrUserHasDatingProfile;
 const matchingCandidatesIds = state=> state.userData.matchingCandidatesIds;
+const reviewedUser = state=> state.userData.reviewedUser;
 
 export default {
     user,
@@ -24,4 +25,5 @@ export default {
     candidateDatingProfile,
     isCurrUserHasDatingProfile,
     matchingCandidatesIds,
+    reviewedUser,
 };

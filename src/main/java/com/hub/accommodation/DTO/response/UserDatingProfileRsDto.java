@@ -65,7 +65,7 @@ public class UserDatingProfileRsDto extends BaseEntity {
     @JsonIgnore
     private LocalDateTime lastVisitDate;
     @JsonView(Views.Public.class)
-    private int age;
+    private Integer age;
     @JsonView(Views.Public.class)
     private String lastVisited;
 

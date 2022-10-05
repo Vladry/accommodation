@@ -100,14 +100,14 @@ public class UserDatingProfile extends BaseEntity {
 /*
     @ElementCollection(fetch = FetchType.LAZY, targetClass = Interests.class)
     @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "my_interests_list", joinColumns = {@JoinColumn(name = "USER_DATING_PROFILE_ID")})
-    @Column(name = "interests") //именует колонку доп.таблицы интересов. Но не текущее поле в текущей таблице (((
+    @CollectionTable(name = "my_Integererests_list", joinColumns = {@JoinColumn(name = "USER_DATING_PROFILE_ID")})
+    @Column(name = "Integererests") //именует колонку доп.таблицы интересов. Но не текущее поле в текущей таблице (((
     private Collection<Interests> myInterests;
 
     @ElementCollection(fetch = FetchType.LAZY, targetClass = Interests.class)
     @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "their_interests_list")
-    @Column(name = "their_interests_wanted")
+    @CollectionTable(name = "their_Integererests_list")
+    @Column(name = "their_Integererests_wanted")
     private Collection<Interests> desiredWithInterests;
 
     @ElementCollection(fetch = FetchType.LAZY, targetClass = Goals.class)
@@ -120,7 +120,7 @@ public class UserDatingProfile extends BaseEntity {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "userDatingProfile")
     private List<Picture> pictures = new ArrayList<>();
 
-    private int age;
+    private Integer age;
 
     private void setAge(){
         if(this.birthday==null){return;}

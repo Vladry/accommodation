@@ -3,9 +3,11 @@ import {Context} from '../../context';
 import {Box, ListItem} from "@mui/material";
 import Image from "next/image";
 import {useRouter} from "next/router";
+import {useDispatch} from "react-redux";
 
 const DatingUserCard = ({user}) => {
     const {forwardForUdProfileId} = useContext(Context);
+    const dispatch = useDispatch();
     const router = useRouter();
     if (!user) return null;
     let avatarCssParam;
@@ -44,7 +46,8 @@ const DatingUserCard = ({user}) => {
     }
 // TODO:  тут же, текстовую переменную 'period' можно писать в поле datingLastVisitDate для возможности последующей фильтрации по периоду отсутствия на сайте
 
-
+    user.age = 20;
+    user.location = "Kiev/Ukraine";
     const lastVisitedIndication = (
         <>
             <span style={{marginLeft: '12px', fontSize: '12px'}}>lastVisit:</span>
@@ -54,9 +57,13 @@ const DatingUserCard = ({user}) => {
 
     return (
         <Box id='card' name={user.name} data-id={String(user.id)}
-             onClick={forwardForUdProfileId.bind(null, router, user.id)}>
-            <div style={{marginLeft: '18px', position: 'relative'}}>
-                <span style={{color: 'darkred', fontWeight: 900}}> {user.name}</span>
+             onClick={forwardForUdProfileId.bind(null, router, user.id, user, dispatch)}>
+            <div style={{marginLeft: '18px', position: 'relative', marginTop: '12px'}}>
+                <span style={{color: 'darkred', fontSize: 18, fontWeight: 400, textShadow: '1px 1px #1d3557'}}> {user.name},</span>
+                <span style={{color: 'green', fontWeight: 500, marginLeft: '16px', }}>  {user.location}</span>
+                <br/>
+                <span style={{marginLeft: '1px', fontSize: '12px'}}>age: </span>
+                <span style={{color: 'gray', fontWeight: 900}}>{user.age}</span>
                 {!!user.datingLastVisitDate && ","}
                 {!!user.datingLastVisitDate && lastVisitedIndication}
             </div>

@@ -9,13 +9,16 @@ import "swiper/css/navigation";
 import "swiper/css/effect-fade";
 import styles from "./SwiperUserPic.module.css";
 import {Context} from "../../../context";
+import {useSelector} from "react-redux";
 // import "swiper/css/free-mode";
 // import "swiper/css/thumbs";
+
 
 const SwiperUserPic = ({pictures}) => { // https://swiperjs.com/react
     // code example: https://codesandbox.io/s/v1c96y?file=/src/App.jsx:339-349
 
     const {classNames} = useContext(Context);
+
 
     if(!pictures || pictures.length < 0){return null;}// обязательно выйти, иначе полезут ошибки по classList и некорректен же метод pictures.map!
 
@@ -69,6 +72,8 @@ const SwiperUserPic = ({pictures}) => { // https://swiperjs.com/react
         '/swiper-pictures/10.jpg'
     ];
 
+    // TODO: нарушен порядок рендера фотографий, аватарка должна быть первая!
+    //  И не всегда рендерятся приходящие фотки. При этом 'pictures' -приходит упорядоченный!
     const imgContent = pictures.map((el, i) => (
         <SwiperSlide className={`${styles['swiper-slide']}`} key={i}><img className={`${styles['swiper-slide img']}`}
                                                                           src={el} alt={'carousel-picture'}/></SwiperSlide>

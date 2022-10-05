@@ -19,11 +19,16 @@ const initialState = {
     loadingCandidateDatingProfile: false,
 
     matchingCandidatesIds: null,
-    loadingMatchingCandidatesIds: false
+    loadingMatchingCandidatesIds: false,
+
+    reviewedUser: null
 }
 
 export default (state = initialState, action) => {
     switch (action.type) {
+
+        case types.SHELF_REVIEWED_USER_DATA:
+            return {...state, reviewedUser: action.payload}
 
         case types.GET_TENANT_USER_PROFILE:
             return {...state, loadingTenantUserProfile: true}
