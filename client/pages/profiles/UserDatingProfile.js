@@ -24,11 +24,24 @@ const UserDatingProfile = () => {
     const isCandidateHasPictures = !!(candidateDatingProfile && candidateDatingProfile.pictures.length > 0);
 
     const reviewedUser = useSelector(sel.reviewedUser);
-    const pictures = candidateDatingProfile.pictures;
-    console.log("pictures before:", pictures);
-    // pictures.push(reviewedUser.avatar);
-    pictures.unshift(reviewedUser.avatar);
-    console.log("pictures after:", pictures);
+    let pictures;
+
+    if(isCandidateHasPictures){
+        pictures = candidateDatingProfile.pictures;
+        console.log("pictures before:", pictures);
+        if (reviewedUser?.avatar && !pictures.includes(reviewedUser.avatar)) {
+                pictures.unshift(reviewedUser.avatar);
+            console.log("pictures after:", pictures);
+        }
+    } else {
+        if (reviewedUser?.avatar) {
+            console.log("reviewedUser.avatar: ", reviewedUser.avatar);
+            pictures = [];
+            pictures.push(reviewedUser.avatar);
+            console.log("pictures after:", pictures);
+        }}
+
+
 
     useEffect(() => {
         if(loadDatProfile["den"]){return;}
@@ -62,7 +75,7 @@ const UserDatingProfile = () => {
                 </SideBar>
 
                 <ArticleWindow title={title} content={mappedFields}>
-                    {isCandidateHasPictures && <SwiperUserPic pictures={pictures}/>}
+                    {pictures && <SwiperUserPic pictures={pictures}/>}
                     {backButton}
                 </ArticleWindow>
             </Grid>

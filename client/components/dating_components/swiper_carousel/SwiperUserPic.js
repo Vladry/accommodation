@@ -16,11 +16,11 @@ import {useSelector} from "react-redux";
 
 const SwiperUserPic = ({pictures}) => { // https://swiperjs.com/react
     // code example: https://codesandbox.io/s/v1c96y?file=/src/App.jsx:339-349
-
+    console.log("SwiperUserPic-> pictures:", pictures);
     const {classNames} = useContext(Context);
 
 
-    if(!pictures || pictures.length < 0){return null;}// обязательно выйти, иначе полезут ошибки по classList и некорректен же метод pictures.map!
+    if(!pictures || pictures.length <= 0){return null;}// обязательно выйти, иначе полезут ошибки по classList и некорректен же метод pictures.map!
 
     /*    useEffect(() => { // https://stackoverflow.com/questions/65590148/swiperjs-how-do-you-style-the-pagination-bullets
             const stylesheet = document.styleSheets[0];
@@ -73,7 +73,7 @@ const SwiperUserPic = ({pictures}) => { // https://swiperjs.com/react
     ];
 
     // TODO: нарушен порядок рендера фотографий, аватарка должна быть первая!
-    //  И не всегда рендерятся приходящие фотки. При этом 'pictures' -приходит упорядоченный!
+    //  И не всегда рендерятся приходящие фотки. При этом 'pictures' -приходит упорядоченный и бывает наложение фотки на фотку (если высокая фотка накрывается сверху короткой)
     const imgContent = pictures.map((el, i) => (
         <SwiperSlide className={`${styles['swiper-slide']}`} key={i}><img className={`${styles['swiper-slide img']}`}
                                                                           src={el} alt={'carousel-picture'}/></SwiperSlide>

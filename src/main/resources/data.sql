@@ -68,27 +68,6 @@ INSERT INTO tenants (user_id,
 VALUES (19, 'Lvov', 'USA', 'no additional info for user', 0, 1, 2, 1, 0, 1, 1, 1, 'HOUSE_UNTOUCHED_IN_WAR_ZONE', 'FEW_DAYS_TRANSITIONAL_STAY');
 
 
-INSERT INTO user_pictures (id, dating_user_profile, picture)
-VALUES (1, 19, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_haircut_ziiyxb.jpg'),
-       (2, 19, 'https://res.cloudinary.com/vladry/image/upload/v1628498610/vlad_shrunk/bicycle1_r0rlek.jpg'),
-       (3,  5, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_arsenalna_befcu2.jpg'),
-       (4, 19, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_arsenalna_befcu2.jpg'),
-       (5, 19, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_sings2_tyligr.png'),
-
-       (6, 17, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_arsenalna_befcu2.jpg'),
-       (7,  4, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_arsenalna_befcu2.jpg'),
-       (8, 17, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_haircut_ziiyxb.jpg'),
-       (9, 17, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_haircut_ziiyxb.jpg'),
-
-       (10, 4, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vocal-studio-bruce_fzmdlp.jpg'),
-       (11, 4, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_in_car_rtzqzp.jpg'),
-       (12, 4, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_sings2_tyligr.png'),
-       (13, 4, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_guitar_jqhojn.png'),
-       (14, 4, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/guitar_and_cat_painting_tbjpdl.jpg'),
-       (15, 5, 'https://res.cloudinary.com/vladry/image/upload/v1628498610/vlad_shrunk/bicycle1_r0rlek.jpg'),
-       (16, 5, 'https://res.cloudinary.com/vladry/image/upload/v1628498610/vlad_shrunk/tosya_tanya_s3w0kl.jpg'),
-       (17, 5, 'https://res.cloudinary.com/vladry/image/upload/v1628498610/vlad_shrunk/bicycle2_wo1i08.jpg'),
-       (18, 5, 'https://res.cloudinary.com/vladry/image/upload/v1628499313/ilya_shrunk/4d7eea3c8660aac877338190a88144bc_fitted_400x300_jubjvd.jpg');
 
 
 /*INSERT INTO user_dating_goals (USER_DATING_PROFILE_ID, goals) //это когда userDatingProfile имел ассоциацию с User -ом
@@ -122,5 +101,29 @@ VALUES (1, 'PAINTING'),
        (17, 'SINGING');
 */
 
+INSERT INTO user_pictures (dating_user_profile, picture)
+VALUES
+    (4, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vocal-studio-bruce_fzmdlp.jpg'),
+    (4, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_sings2_tyligr.png'),
+    (4, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_guitar_jqhojn.png'),
+
+    (5, 'https://res.cloudinary.com/vladry/image/upload/v1628498610/vlad_shrunk/tosya_tanya_s3w0kl.jpg'),
+    (5, 'https://res.cloudinary.com/vladry/image/upload/v1628498610/vlad_shrunk/bicycle2_wo1i08.jpg'),
+    (5, 'https://res.cloudinary.com/vladry/image/upload/v1628499313/ilya_shrunk/4d7eea3c8660aac877338190a88144bc_fitted_400x300_jubjvd.jpg'),
+
+    (11, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_arsenalna_befcu2.jpg'),
+    (11, 'https://res.cloudinary.com/vladry/image/upload/v1628498610/vlad_shrunk/bicycle1_r0rlek.jpg'),
+
+    (14, 'https://res.cloudinary.com/vladry/image/upload/v1628499313/ilya_shrunk/4d7eea3c8660aac877338190a88144bc_fitted_400x300_jubjvd.jpg'),
+    (14, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/guitar_and_cat_painting_tbjpdl.jpg'),
+
+    (17, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_arsenalna_befcu2.jpg'),
+    (17, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_in_car_rtzqzp.jpg'),
+
+    (19, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_haircut_ziiyxb.jpg'),
+    (19, 'https://res.cloudinary.com/vladry/image/upload/v1628498610/vlad_shrunk/bicycle1_r0rlek.jpg'),
+    (19, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_arsenalna_befcu2.jpg');
+
+
 SET
-FOREIGN_KEY_CHECKS = 1;
+    FOREIGN_KEY_CHECKS = 1;
