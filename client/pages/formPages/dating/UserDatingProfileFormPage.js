@@ -21,7 +21,7 @@ const UserDatingProfileFormPage = () => {
         const userDatingProfileFormNewValues = {...values, userId: user.id};
         delete userDatingProfileFormNewValues["pictures"];
         delete userDatingProfileFormNewValues["desiredWithInterests"];
-        delete userDatingProfileFormNewValues["myGoals"];
+        // delete userDatingProfileFormNewValues["myGoals"];
 
         // console.log(`для юзера: ${user.id}, отправляю данные формы: `, userDatingProfileFormNewValues)
         await api.post(urls.datingProfile, userDatingProfileFormNewValues/*,{ contentType: "application/json; charset=utf-8",

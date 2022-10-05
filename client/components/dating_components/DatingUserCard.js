@@ -9,6 +9,7 @@ const DatingUserCard = ({user}) => {
     const {forwardForUdProfileId} = useContext(Context);
     const dispatch = useDispatch();
     const router = useRouter();
+    const {neatUpZonedDateTime} = useContext(Context);
     if (!user) return null;
     let avatarCssParam;
 
@@ -17,11 +18,9 @@ const DatingUserCard = ({user}) => {
     } else {
         avatarCssParam = {}
     }
-    let index, visitDateConvertedStr;
-    if (user.datingLastVisitDate !== null) {
-        index = user.datingLastVisitDate.indexOf("[");
-        visitDateConvertedStr = user.datingLastVisitDate.slice(0, index); // убираем в конце:  [Europe/Helsinki]
-    }
+
+
+    let visitDateConvertedStr = neatUpZonedDateTime(user.datingLastVisitDate);
     const visitDateMs = Date.parse(visitDateConvertedStr);
 
     let period;

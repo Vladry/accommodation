@@ -107,14 +107,6 @@ export const userDatingProfileFormFields = [
         type: "number"
     },
     {
-        id: "selfDescription",
-        name: "selfDescription",
-        formikRef: "selfDescription",
-        label: "selfDescription/Кратко о себе ( не более ... знаков):",
-        valueByDefault: "about myself freely: ...",
-        type: "text"
-    },
-    {
         id: "myGoals",
         name: "myGoals",
         formikRef: "myGoals",
@@ -130,22 +122,6 @@ export const userDatingProfileFormFields = [
         valueByDefault: "load your pictures here",
         type: "image"
     },
-    /*{
-        id: "traitsIWouldLoveInYou",
-        name: "traitsIWouldLoveInYou",
-        formikRef: "traitsIWouldLoveInYou",
-        label: "traitsIWouldLoveInYou/Искомые черты характера ( не более ... знаков):",
-        valueByDefault: "Traits I Would Love In You: ...",
-        type: "text"
-    },
-    {
-        id: "traitsIWouldHateInYou",
-        name: "traitsIWouldHateInYou",
-        formikRef: "traitsIWouldHateInYou",
-        label: "traitsIWouldHateInYou/Мы точно не пара, если Вы/у Вас: ( не более ... знаков):",
-        valueByDefault: "Traits I Would Hate In You: ...",
-        type: "text"
-    },
     {
         id: "myInterests",
         name: "myInterests",
@@ -154,14 +130,38 @@ export const userDatingProfileFormFields = [
         valueByDefault: "myInterests: ...",
         type: "text"
     },
-    {
-        id: "desiredWithInterests",
-        name: "desiredWithInterests",
-        formikRef: "desiredWithInterests",
-        label: "desiredWithInterests/Желаю человека с интересами/увлечениями",
-        valueByDefault: "desiredWithInterests: ...",
-        type: "text"
-    },*/
+    /* {
+         id: "selfDescription",
+         name: "selfDescription",
+         formikRef: "selfDescription",
+         label: "selfDescription/Кратко о себе ( не более ... знаков):",
+         valueByDefault: "about myself freely: ...",
+         type: "text"
+     },
+     {
+         id: "traitsIWouldLoveInYou",
+         name: "traitsIWouldLoveInYou",
+         formikRef: "traitsIWouldLoveInYou",
+         label: "traitsIWouldLoveInYou/Искомые черты характера ( не более ... знаков):",
+         valueByDefault: "Traits I Would Love In You: ...",
+         type: "text"
+     },
+     {
+         id: "traitsIWouldHateInYou",
+         name: "traitsIWouldHateInYou",
+         formikRef: "traitsIWouldHateInYou",
+         label: "traitsIWouldHateInYou/Мы точно не пара, если Вы/у Вас: ( не более ... знаков):",
+         valueByDefault: "Traits I Would Hate In You: ...",
+         type: "text"
+     },
+     {
+         id: "desiredWithInterests",
+         name: "desiredWithInterests",
+         formikRef: "desiredWithInterests",
+         label: "desiredWithInterests/Желаю человека с интересами/увлечениями",
+         valueByDefault: "desiredWithInterests: ...",
+         type: "text"
+     },*/
 
 
 

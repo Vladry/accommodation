@@ -30,6 +30,6 @@ text-decoration: none;
 const MenuItem = styled.div`
 border: 2px solid #acc;
 border-radius: 8px;
-margin: 6px 10px;
-width: 100px;
+margin: 6px 15px;
+width: 150px;
 `;

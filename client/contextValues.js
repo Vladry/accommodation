@@ -1,6 +1,13 @@
 import urls from '../src/main/resources/urls.json'
 import types from "./store/types";
 
+const neatUpZonedDateTime = (datingLastVisitDate)=>{
+    if (datingLastVisitDate !== null) {
+        let index = datingLastVisitDate.indexOf("[");
+        return datingLastVisitDate.slice(0, index); // убираем в конце:  [Europe/Helsinki]
+    }
+}
+
 const forwardForUdProfileId = (router, queriedUserId, user, dispatch, event) => {
     // console.log('queriedUser: ', queriedUserId);
     const {target} = event;// не используем, т.к. мы получили прямо айдишку queriedUserId
@@ -54,4 +61,5 @@ export function classNames (classes) {
 export default {
     forwardForUdProfileId,
     prepareFormData,
+    neatUpZonedDateTime,
 }

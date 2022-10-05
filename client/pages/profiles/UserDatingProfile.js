@@ -22,7 +22,6 @@ const UserDatingProfile = () => {
     const candidateDatingProfile = useSelector(sel.candidateDatingProfile);
     const loadDatProfile = useRef({den:false});
     const isCandidateHasPictures = !!(candidateDatingProfile && candidateDatingProfile.pictures.length > 0);
-
     const reviewedUser = useSelector(sel.reviewedUser);
     let pictures;
 
@@ -57,7 +56,7 @@ const UserDatingProfile = () => {
     const title = `Profile of Candidate id: ${queriedUserId}`;
 
     const mappedFields = <UserDatingProfileMapper fields={userDatingProfileFormFields} values={candidateDatingProfile}
-                                                  id={queriedUserId}/>;
+                                                  id={queriedUserId} reviewedUser={reviewedUser}/>;
     const backButton =
         <Box textAlign={'center'} margin={'4px'} sx={{zIndex:'1', position: 'fixed', right: '1px', top: '1px', boxShadow: '18'}}>
             <Button variant="contained" size={'small'} onClick={router.back}>Back / Обратно</Button>

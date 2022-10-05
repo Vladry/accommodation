@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {useFormik, getIn} from 'formik';
 import MuiPhoneNumber from 'material-ui-phone-number-2';
 import {Box, Button, Checkbox, Container, FormControlLabel, Grid, TextField, useMediaQuery} from "@mui/material";
@@ -9,11 +9,28 @@ import {datingMenu} from "../public/menuConfig";
 import DatingUserList from "./dating_components/DatingUserList";
 import SideBar from "./dating_components/SideBar";
 import ArticleWindow from "./dating_components/ArticleWindow";
+import {Context} from "../context";
 
-const UserDatingProfileMapper = ({fields, values, id}) => {
+const UserDatingProfileMapper = ({fields, values, id, reviewedUser}) => {
+    const {neatUpZonedDateTime} = useContext(Context);
+
+    const name = [
+        <Box key={"name"} sx={{p: 2, border: '1px solid lightgrey', borderRadius: 1, width: '400px'}}>
+            <p>{`${reviewedUser.name} ${reviewedUser.lastName}`}</p>
+        </Box>
+    ];
+
+    const location = [
+        <Box key={"location"} sx={{p: 2, border: '1px solid lightgrey', borderRadius: 1, width: '400px'}}>
+            <p>{`current location: ${reviewedUser.location}`}</p>
+        </Box>
+    ];
+
+    const dateTimeStr = neatUpZonedDateTime(reviewedUser.datingLastVisitDate);
+    const lastVisitDate = new Date(dateTimeStr);
     const lastVisit = [
         <Box key={"lastVisit"} sx={{p: 2, border: '1px solid lightgrey', borderRadius: 1, width: '400px'}}>
-            <p>{`lastVisit: ${values["lastVisited"]}`}</p>
+            <p>{`lastVisit: ${lastVisitDate.toLocaleString()}`}</p>
         </Box>
     ];
 
@@ -47,7 +64,7 @@ const UserDatingProfileMapper = ({fields, values, id}) => {
 
     });
 
-    return lastVisit.concat(age).concat(mappedContent);
+    return name.concat(location).concat(lastVisit).concat(age).concat(mappedContent);
 };
 
 export default UserDatingProfileMapper;
