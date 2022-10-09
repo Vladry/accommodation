@@ -195,16 +195,19 @@ const InputSelect = ({formikRef, input, formik}) => {
 
     const select = (e) => {
         const value = e.target.value;
-        console.log("e: ", value);
         const remaining = leftOptions.filter((item) => item.val !== value);
         const selectedOne = leftOptions.filter((item) => item.val === value);
         setLeftOptions(remaining);
         setSelected([...selected, selectedOne[0]]);
-        formik.values[formikRef] = [...formik.values[formikRef], selectedOne[0].val];
+        if (formik.values[formikRef]) {
+            formik.values[formikRef] = [...formik.values[formikRef], selectedOne[0].val];
+        } else {
+            formik.values[formikRef] = [selectedOne[0].val];
+        }
+
     }
     const unselect = (e) => {
         const value = e.target.value;
-        console.log("unselect clicked for: ", value);
         const returnToRemaining = selected.filter((item) => item.val === value);
         const selectedUpdated = selected.filter((item) => item.val !== value);
         setLeftOptions([...leftOptions, returnToRemaining[0]]);
@@ -216,7 +219,8 @@ const InputSelect = ({formikRef, input, formik}) => {
     ));
 
     const selectedElems = selected.map((value, ind) => (
-        <Button sx={{m:'1px'}} size={'small'} variant={'outlined'} key={ind} value={value.val} onClick={unselect}>{`${value.en} (remove)`}</Button>
+        <Button sx={{m: '1px'}} size={'small'} variant={'outlined'} key={ind} value={value.val}
+                onClick={unselect}>{`${value.en} (remove)`}</Button>
     ));
 
 

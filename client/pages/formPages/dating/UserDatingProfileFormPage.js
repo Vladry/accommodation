@@ -30,16 +30,14 @@ const UserDatingProfileFormPage = () => {
 
         if (typeof (userDatingProfileFormNewValues["myGoals"]) === 'string') {
             userDatingProfileFormNewValues["myGoals"] = userDatingProfileFormNewValues["myGoals"].split(" ").join("").split(",");
-            console.log(`userDatingProfileFormNewValues["myGoals"]: `, userDatingProfileFormNewValues["myGoals"]);
         } else if (Array.isArray(userDatingProfileFormNewValues["myGoals"])) {
-            console.log(`userDatingProfileFormNewValues["myGoals"]: `, userDatingProfileFormNewValues["myGoals"]);
+            // console.log(`userDatingProfileFormNewValues["myGoals"]: `, userDatingProfileFormNewValues["myGoals"]);
         }
 
         if (typeof (userDatingProfileFormNewValues["myInterests"]) === 'string') {
             userDatingProfileFormNewValues["myInterests"] = userDatingProfileFormNewValues["myInterests"].split(" ").join("").split(",");
-            console.log(`userDatingProfileFormNewValues["myInterests"]: `, userDatingProfileFormNewValues["myInterests"]);
         } else if (Array.isArray(userDatingProfileFormNewValues["myInterests"])) {
-            console.log(`userDatingProfileFormNewValues["myInterests"]: `, userDatingProfileFormNewValues["myInterests"]);
+            // console.log(`userDatingProfileFormNewValues["myInterests"]: `, userDatingProfileFormNewValues["myInterests"]);
         }
 
 
@@ -67,7 +65,7 @@ const UserDatingProfileFormPage = () => {
             // console.log('in handleSubmit.then на фронте, после отправки на Back-End данных. Ответ сервера:', res); // вывод userDatingProfile
             //обновить в локальном сторе userDatingProfile
             if (res != null) {
-                dispatch({type: types.SET_USER_DATING_PROFILE_SUCCESS, payload: res});
+                dispatch({type: types.SET_USER_DATING_PROFILE_SUCCESS, payload: res.data});
             } else {
                 console.log("error getting&dispatching updated userDatingProfile!. The store continues holding the old version of userDatingProfile (if any)");
             }
