@@ -161,7 +161,7 @@ public class UdpRepository2 {
         try {
             em.getTransaction().begin();
             UserDatingProfile udp = em.find(UserDatingProfile.class, id);
-            udp.setLastVisitDate(ZonedDateTime.now());
+//            udp.setLastVisitDate(ZonedDateTime.now());
             em.getTransaction().commit();
         } catch (Exception e) {
             throw new RuntimeException(e);

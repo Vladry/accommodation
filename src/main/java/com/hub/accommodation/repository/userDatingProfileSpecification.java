@@ -53,9 +53,9 @@ public class userDatingProfileSpecification {
         return (r, cq, cb) -> cb.lessThanOrEqualTo(r.get("age"), currentUserDatingProfile.getMaxPreferedAge());
     }
 
-    public static Specification<UserDatingProfile> lastVisitDateCriteria(final UserDatingProfile currentUserDatingProfile) {
+/*    public static Specification<UserDatingProfile> lastVisitDateCriteria(final UserDatingProfile currentUserDatingProfile) {
         return (r, cq, cb) -> cb.equal(r.get("lastVisitDate"), currentUserDatingProfile.getLastVisitDate());
-    }
+    }*/
 }
 
 

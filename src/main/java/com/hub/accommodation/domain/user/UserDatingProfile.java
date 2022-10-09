@@ -50,9 +50,9 @@ public class UserDatingProfile extends BaseEntity {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.YYYY")
     private LocalDate birthday; //rq String
 
-    @Column(name = "last_visit_date")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.YYYY hh.mm.ss")
-    private ZonedDateTime lastVisitDate; //rq String
+//    @Column(name = "last_visit_date")
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.YYYY hh.mm.ss")
+//    private ZonedDateTime lastVisitDate; //rq String
 
 
     @Column(name = "seek_a_person_of_sex")
@@ -97,24 +97,26 @@ public class UserDatingProfile extends BaseEntity {
     @Column(name = "traits_i_hate")
     private String traitsIWouldHateInYou;
 
-/*
+
     @ElementCollection(fetch = FetchType.LAZY, targetClass = Interests.class)
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "my_Integererests_list", joinColumns = {@JoinColumn(name = "USER_DATING_PROFILE_ID")})
     @Column(name = "Integererests") //именует колонку доп.таблицы интересов. Но не текущее поле в текущей таблице (((
     private Collection<Interests> myInterests;
 
+    @ElementCollection(fetch = FetchType.LAZY, targetClass = Goals.class)
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "user_dating_goals")
+    @Column(name = "goals")
+    private Collection<Goals> myGoals;
+
+/*
     @ElementCollection(fetch = FetchType.LAZY, targetClass = Interests.class)
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "their_Integererests_list")
     @Column(name = "their_Integererests_wanted")
     private Collection<Interests> desiredWithInterests;
 
-    @ElementCollection(fetch = FetchType.LAZY, targetClass = Goals.class)
-    @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "user_dating_goals")
-    @Column(name = "goals")
-    private Collection<Goals> myGoals;
 */
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "userDatingProfile")
@@ -129,11 +131,11 @@ public class UserDatingProfile extends BaseEntity {
         this.age = period.getYears();
     }
 
-    public UserDatingProfile(Long userId, Sex mySex, LocalDate birthday, ZonedDateTime lastVisitDate, Sex seekAPersonOfSex, Integer myHeight, Integer minHeightIWant, Integer maxHeightIWant, Integer minPreferedAge, Integer maxPreferedAge, Country countryINowLiveIn, Country myCitizenship, Country wantFromCountry, Integer numberOfMyChildren, Integer maxNumberOfChildrenAllowed, String selfDescription, String traitsIWouldLoveInYou, String traitsIWouldHateInYou, List<Interests> myInterests, List<Interests> desiredWithInterests, List<Goals> myGoals, List<Picture> pictures) {
+    public UserDatingProfile(Long userId, Sex mySex, LocalDate birthday, /*ZonedDateTime lastVisitDate, */Sex seekAPersonOfSex, Integer myHeight, Integer minHeightIWant, Integer maxHeightIWant, Integer minPreferedAge, Integer maxPreferedAge, Country countryINowLiveIn, Country myCitizenship, Country wantFromCountry, Integer numberOfMyChildren, Integer maxNumberOfChildrenAllowed, String selfDescription, String traitsIWouldLoveInYou, String traitsIWouldHateInYou, List<Interests> myInterests, List<Interests> desiredWithInterests, List<Goals> myGoals, List<Picture> pictures) {
         this.userId = userId;
         this.mySex = mySex;
         this.birthday = birthday;
-        this.lastVisitDate = lastVisitDate;
+//        this.lastVisitDate = lastVisitDate;
         this.seekAPersonOfSex = seekAPersonOfSex;
         this.myHeight = myHeight;
         this.minHeightIWant = minHeightIWant;
@@ -148,10 +150,15 @@ public class UserDatingProfile extends BaseEntity {
         this.selfDescription = selfDescription;
         this.traitsIWouldLoveInYou = traitsIWouldLoveInYou;
         this.traitsIWouldHateInYou = traitsIWouldHateInYou;
-/*        this.myInterests = myInterests;
-        this.desiredWithInterests = desiredWithInterests;
-        this.myGoals = myGoals;*/
+        this.myInterests = myInterests;
+        this.myGoals = myGoals;
+//        this.desiredWithInterests = desiredWithInterests;
         this.pictures = pictures;
+    }
+
+    public void setMyGoals(Collection<Goals> myGoals){
+        System.out.println("in setMyGoals-> setting: "+ myGoals);
+        this.myGoals = myGoals;
     }
 
     @Override
@@ -160,7 +167,7 @@ public class UserDatingProfile extends BaseEntity {
                 "userId=" + userId +
                 ", mySex=" + mySex +
                 ", birthday=" + birthday +
-                ", lastVisitDate=" + lastVisitDate +
+//                ", lastVisitDate=" + lastVisitDate +
                 ", seekAPersonOfSex=" + seekAPersonOfSex +
                 ", myHeight=" + myHeight +
                 ", minHeightIWant=" + minHeightIWant +
@@ -175,10 +182,10 @@ public class UserDatingProfile extends BaseEntity {
                 ", selfDescription='" + selfDescription + '\'' +
                 ", traitsIWouldLoveInYou='" + traitsIWouldLoveInYou + '\'' +
                 ", traitsIWouldHateInYou='" + traitsIWouldHateInYou + '\'' +
-/*                ", myInterests=" + myInterests +
-                ", desiredWithInterests=" + desiredWithInterests +
-                ", myGoals=" + myGoals +*/
+                ", myInterests=" + myInterests +
+                ", myGoals=" + myGoals +
                 ", pictures=" + pictures +
+//                ", desiredWithInterests=" + desiredWithInterests +
                 '}';
     }
 }

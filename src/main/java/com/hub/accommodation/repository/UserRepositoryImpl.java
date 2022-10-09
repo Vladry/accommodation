@@ -1,7 +1,6 @@
 package com.hub.accommodation.repository;
 
 import com.hub.accommodation.domain.user.User;
-import com.hub.accommodation.domain.user.UserDatingProfile;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -52,6 +51,23 @@ public class UserRepositoryImpl {
             em.getTransaction().begin();
             User u = em.find(User.class, id);
             u.setDatingLastVisitDate(ZonedDateTime.now());
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+
+    public void setDatingParticipationFlag(Long userId, Boolean value){
+        System.out.println("in setDatingParticipationTrue(Long "+userId+")");
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            User u = em.find(User.class, userId);
+            u.setDatingServiceParticipation(value);
             em.getTransaction().commit();
         } catch (Exception e) {
             throw new RuntimeException(e);

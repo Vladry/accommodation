@@ -41,6 +41,12 @@ public class User extends BaseEntity {
     private ZonedDateTime volunteerLastVisitDate; //rq String
 
 
+    @Column(name = "hide_social_data", nullable = false)
+    private boolean hideSocialContactData = false; //снимите галочку, если хотите, чтобы Ваши социальные сети и мессенджеры были доступны соискателям. Иначе, они будут доступны только нашему сервису для взаимодействия с Вами, но скрыты от других пользователей.
+    @Column(name = "dating_participation", nullable = false)
+    private boolean datingServiceParticipation = false;
+
+
     @Column(name = "name", length = 20)
     private String name = "";
     @Column(name = "last_name", length = 25, nullable = true)
@@ -63,11 +69,6 @@ public class User extends BaseEntity {
 
     @Column(name = "avatar")
     private String avatar = "";
-
-    @Column(name = "hide_social_data", nullable = false)
-    private boolean hideSocialContactData = false; //снимите галочку, если хотите, чтобы Ваши социальные сети и мессенджеры были доступны соискателям. Иначе, они будут доступны только нашему сервису для взаимодействия с Вами, но скрыты от других пользователей.
-    @Column(name = "dating_participation", nullable = false)
-    private boolean datingServiceParticipation = false;
 
     @Enumerated(EnumType.STRING)
     private Role role = Role.USER;

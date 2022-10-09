@@ -106,29 +106,34 @@ export const userDatingProfileFormFields = [
         valueByDefault: 1,
         type: "number"
     },
-    {
-        id: "myGoals",
-        name: "myGoals",
-        formikRef: "myGoals",
-        label: "myGoals/Цели моего знакомства",
-        valueByDefault: "myGoals: ...",
-        type: "text"
-    },
-    {
+/*    {
         id: "pictures",
         name: "pictures",
         formikRef: "pictures",
         label: "pictures/Загрузить еще одну мою фотографию",
         valueByDefault: "load your pictures here",
         type: "image"
+    },*/
+    {
+        id: "myGoals",
+        name: "myGoals",
+        formikRef: "myGoals",
+        label: "myGoals/Цели знакомства",
+        valueByDefault: [],
+        // valueByDefault: ["goal1", "goal2"],
+        type: "select",
+        // type: "text"
     },
+
     {
         id: "myInterests",
         name: "myInterests",
         formikRef: "myInterests",
         label: "myInterests/Мои интересы/увлечения",
-        valueByDefault: "myInterests: ...",
-        type: "text"
+        valueByDefault: [],
+        // valueByDefault: ["interest1", "interest2"],
+        type: "select",
+        // type: "text"
     },
     /* {
          id: "selfDescription",

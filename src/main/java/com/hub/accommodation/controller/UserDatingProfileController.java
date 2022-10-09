@@ -8,6 +8,7 @@ import com.hub.accommodation.domain.user.UserDatingProfile;
 import com.hub.accommodation.exception.NoDataFoundException;
 import com.hub.accommodation.facade.UserDatingProfileFacade;
 import com.hub.accommodation.service.UserDatingProfileService;
+import com.hub.accommodation.service.UserService;
 import com.hub.accommodation.util.JsonToDtoConverter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,21 +31,34 @@ public class UserDatingProfileController {
 
     private final UserDatingProfileService userDatingProfileService;
     private final UserDatingProfileFacade userDatingProfileFacade;
+    private final UserService userService;
 
     //------------------------------------------------
 
     @ResponseStatus(code = HttpStatus.CREATED) // https://www.baeldung.com/spring-response-status
     @PostMapping("/datingProfile")
-    public UserDatingProfileRsDto saveByUserId(@RequestBody String jsonString) {
-//        System.out.println("in controller.saveByUserId-> RequestBody: "+jsonString);
+    public UserDatingProfileRsDto saveByUserId(
+            @RequestBody String jsonString,
+//            @RequestBody UserDatingProfileRqDto udpRqDto,
+            @RequestHeader("datingServiceParticipation") Boolean datingServiceParticipation) {
+//        System.out.println("in controller.saveByUserId-> RequestBody: "+udpRqDto);
+        System.out.println("in controller.saveByUserId-> RequestBody: "+jsonString);
         JsonToDtoConverter<UserDatingProfileRqDto> converter = new JsonToDtoConverter<>(UserDatingProfileRqDto.class);
         UserDatingProfileRqDto udpRqDto = converter.doConvert(jsonString);
-//        return userDatingProfileService.saveByUserId(udpRqDto);
-        return userDatingProfileService.saveOrUpdate(userDatingProfileFacade.convertToEntity(udpRqDto));
+
+        UserDatingProfile udp = userDatingProfileFacade.convertToEntity(udpRqDto);
+        System.out.println("UserDatingProfile udp = userDatingProfileFacade.convertToEntity(udpRqDto)");
+        System.out.println("udp: "+udp);
+        if (!datingServiceParticipation) {
+            userService.setDatingParticipationFlag(udp.getUserId(), true);
+        }
+        return userDatingProfileService.saveOrUpdate(udp); //        return userDatingProfileService.saveByUserId(udpRqDto);
     }
-  //  http://localhost:8000/api/v1/datingProfile/visits/19
+
+
+    //  http://localhost:8000/api/v1/datingProfile/visits/19
     @GetMapping("/datingProfile/visits/{id}")
-    public void registerVisitToDating(@PathVariable("id") Long id){
+    public void registerVisitToDating(@PathVariable("id") Long id) {
         userDatingProfileService.registerVisitToDating(id);
     }
 
@@ -84,12 +98,14 @@ public class UserDatingProfileController {
     @PostMapping("/candidatesIds")
     public List<Long> getMatchingDatingCandidatesIds(
             @RequestParam("currentUserId") String currentUserId, @RequestBody UserDatingProfileRqDto udpRqDto) {
-//        System.out.println("getCandidatesIds, param userId: " + currentUserId);
+        System.out.println("getCandidatesIds, param userId: " + currentUserId);
+        System.out.println("running: UserDatingProfile udp = userDatingProfileFacade.convertToEntity(udpRqDto);");
         UserDatingProfile udp = userDatingProfileFacade.convertToEntity(udpRqDto);
-
+        System.out.println("udp: "+ udp);
         if (udp.getMySex() != null) {
             List<UserDatingProfile> candidatesMatchingCriteria = userDatingProfileService.findAllMatchingTheCriteria(udp);
             List<Long> IDsOfSelectedCandidates = candidatesMatchingCriteria.stream().map(UserDatingProfile::getId).collect(Collectors.toList());
+            System.out.println("IDsOfSelectedCandidates: "+ IDsOfSelectedCandidates);
             return IDsOfSelectedCandidates;
         } else {
             throw new NoDataFoundException(String.format("NoDataFoundException: userDatingProfile for user %s does not exist", currentUserId));

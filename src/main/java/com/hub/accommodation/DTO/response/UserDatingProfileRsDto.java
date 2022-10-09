@@ -62,17 +62,17 @@ public class UserDatingProfileRsDto extends BaseEntity {
     private List<String> pictures;
     @JsonView(Views.Public.class)
     private LocalDate birthday;
-    @JsonIgnore
-    private LocalDateTime lastVisitDate;
+//    @JsonIgnore
+//    private LocalDateTime lastVisitDate;
     @JsonView(Views.Public.class)
     private Integer age;
-    @JsonView(Views.Public.class)
-    private String lastVisited;
+//    @JsonView(Views.Public.class)
+//    private String lastVisited;
 
 
     public UserDatingProfileRsDto() {
         setAge();
-        setLastVisitPeriod();
+//        setLastVisitPeriod();
     }
 
     public void setBirthday(LocalDate birthday) {
@@ -89,12 +89,12 @@ public class UserDatingProfileRsDto extends BaseEntity {
         this.age = period.getYears();
     }
 
-    public void setLastVisitDate(LocalDateTime lastVisitDate) {
-        this.lastVisitDate = lastVisitDate;
-        setLastVisitPeriod();
-    }
+//    public void setLastVisitDate(LocalDateTime lastVisitDate) {
+//        this.lastVisitDate = lastVisitDate;
+//        setLastVisitPeriod();
+//    }
 
-    private void setLastVisitPeriod() {
+/*    private void setLastVisitPeriod() {
         if (this.lastVisitDate == null) {
             return;
         }
@@ -116,7 +116,7 @@ public class UserDatingProfileRsDto extends BaseEntity {
         } else {
             this.lastVisited = "last visit: " + minutes + "minutes ago";
         }
-    }
+    }*/
 
     @Override
     public String toString() {
@@ -143,10 +143,10 @@ public class UserDatingProfileRsDto extends BaseEntity {
                 ", myGoals=" + myGoals +
                 ", pictures=" + pictures +
                 ", birthday=" + birthday +
-                ", lastVisitDate=" + lastVisitDate +
                 ", age=" + age +
-                ", lastVisited='" + lastVisited + '\'' +
                 ", createdDate='" + createdDate + '\'' +
+//                ", lastVisitDate=" + lastVisitDate +
+//                ", lastVisited='" + lastVisited + '\'' +
                 '}';
     }
 }

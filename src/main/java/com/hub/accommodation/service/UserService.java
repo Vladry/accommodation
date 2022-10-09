@@ -22,6 +22,10 @@ public class UserService extends GeneralService<User> {
     }
 
 
+    public void setDatingParticipationFlag(Long userId, Boolean value){
+        userRepositoryImpl.setDatingParticipationFlag(userId, value);
+    }
+
     public void registerVisitToDating(Long id){
         userRepositoryImpl.registerVisitToDating(id);
     }
