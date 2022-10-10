@@ -3,7 +3,8 @@ import {useFormik, getIn} from 'formik';
 import MuiPhoneNumber from 'material-ui-phone-number-2';
 import {Box, Button, Checkbox, Container, FormControlLabel, Grid, TextField, useMediaQuery} from "@mui/material";
 import AutocompleteFromMapbox from "../AutocompleteFromMapbox";
-import InputSelect from "./dating_user_profile_form/InputSelect";
+import InputSelectMany from "./dating_user_profile_form/InputSelectMany";
+import InputSelectOne from "./dating_user_profile_form/InputSelectOne";
 
 const FormMapper = ({fields, initValues, validation, handleSubmit}) => {
 
@@ -40,9 +41,13 @@ const FormMapper = ({fields, initValues, validation, handleSubmit}) => {
 
     const mappedFields = fields.map(({formikRef, valueByDefault, ...input}) => {
         switch (input.type) {
-            case 'select':
+            case 'select_many':
                 return (
-                    <InputSelect key={formikRef} formikRef={formikRef} input={input} formik={formik}/>
+                    <InputSelectMany key={formikRef} formikRef={formikRef} input={input} formik={formik}/>
+                );
+            case 'select_one':
+                return (
+                    <InputSelectOne key={formikRef} formikRef={formikRef} input={input} formik={formik}/>
                 );
             case 'tel':
                 return (

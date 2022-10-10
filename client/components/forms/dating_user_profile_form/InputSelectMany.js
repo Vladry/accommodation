@@ -1,6 +1,5 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button} from "@mui/material";
-
 
 const goals = [
     {
@@ -177,7 +176,7 @@ const interests = [
 ];
 
 
-const InputSelect = ({formikRef, input, formik}) => {
+const InputSelectMany = ({formikRef, input, formik}) => {
     let initValues;
 
     switch (formikRef) {
@@ -187,17 +186,47 @@ const InputSelect = ({formikRef, input, formik}) => {
         case 'myInterests':
             initValues = interests;
             break;
+            case 'myInterests':
+            initValues = interests;
+            break;
         default:
     }
 
-    const [leftOptions, setLeftOptions] = useState(initValues);
+    const [options, setOptions] = useState(initValues);
     const [selected, setSelected] = useState([]);
+
+    const init = () => {
+        let optInit = [...initValues];
+        const selectedInit = [];
+
+        formik.values[formikRef].forEach(
+            (val) => {
+                optInit = (optInit.filter(opt => opt.val !== val));
+                selectedInit.push(initValues.filter(opt => opt.val === val)[0]);
+            });
+
+        setOptions(optInit);
+        setSelected(selectedInit);
+    }
+
+    useEffect(() => {
+        {
+            // console.log("formik.values[formikRef] inside of useEffect: ", formik.values[formikRef]);
+            if (formik.values[formikRef] && formik.values[formikRef].length > 0) {
+                init();
+            }
+        }
+    }, [])
+
+
+
+
 
     const select = (e) => {
         const value = e.target.value;
-        const remaining = leftOptions.filter((item) => item.val !== value);
-        const selectedOne = leftOptions.filter((item) => item.val === value);
-        setLeftOptions(remaining);
+        const remaining = options.filter((item) => item.val !== value);
+        const selectedOne = options.filter((item) => item.val === value);
+        setOptions(remaining);
         setSelected([...selected, selectedOne[0]]);
         if (formik.values[formikRef]) {
             formik.values[formikRef] = [...formik.values[formikRef], selectedOne[0].val];
@@ -208,13 +237,15 @@ const InputSelect = ({formikRef, input, formik}) => {
     }
     const unselect = (e) => {
         const value = e.target.value;
-        const returnToRemaining = selected.filter((item) => item.val === value);
+        const returnItemToRemaining = selected.filter((item) => item.val === value);
         const selectedUpdated = selected.filter((item) => item.val !== value);
-        setLeftOptions([...leftOptions, returnToRemaining[0]]);
+        setOptions([...options, returnItemToRemaining[0]]);
         setSelected(selectedUpdated);
+        formik.values[formikRef] = formik.values[formikRef].filter((item) => item !== value);
+        // console.log("formik.values[formikRef]: ", formik.values[formikRef]);
     }
 
-    const options = leftOptions.map((opt, ind) => (
+    const optionItems = options.map((opt, ind) => (
         <option key={ind} value={opt.val}>{opt.en} </option>
     ));
 
@@ -228,7 +259,7 @@ const InputSelect = ({formikRef, input, formik}) => {
         <div key={formikRef}>
             <label> {input.label}:
                 <select multiple={true} onChange={select}>
-                    {options}
+                    {optionItems}
                 </select>
             </label>
 
@@ -239,4 +270,4 @@ const InputSelect = ({formikRef, input, formik}) => {
     );
 };
 
-export default InputSelect;
+export default InputSelectMany;

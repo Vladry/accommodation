@@ -72,7 +72,7 @@ export const userDatingProfileFormFields = [
         formikRef: "countryINowLiveIn",
         label: "countryINowLiveIn/Я, сейчас в стране:",
         valueByDefault: "UKRAINE",
-        type: "text"
+        type: "select_one"
     },
     {
         id: "myCitizenship",
@@ -80,7 +80,7 @@ export const userDatingProfileFormFields = [
         formikRef: "myCitizenship",
         label: "myCitizenship/Я гражданин:",
         valueByDefault: "UKRAINE",
-        type: "text"
+        type: "select_one"
     },
     {
         id: "wantFromCountry",
@@ -88,7 +88,7 @@ export const userDatingProfileFormFields = [
         formikRef: "wantFromCountry",
         label: "wantFromCountry/Желаю найти из:",
         valueByDefault: "UNITED_KINGDOM",
-        type: "text"
+        type: "select_one"
     },
     {
         id: "numberOfMyChildren",
@@ -121,7 +121,7 @@ export const userDatingProfileFormFields = [
         label: "myGoals/Цели знакомства",
         valueByDefault: [],
         // valueByDefault: ["goal1", "goal2"],
-        type: "select",
+        type: "select_many",
         // type: "text"
     },
 
@@ -132,7 +132,7 @@ export const userDatingProfileFormFields = [
         label: "myInterests/Мои интересы/увлечения",
         valueByDefault: [],
         // valueByDefault: ["interest1", "interest2"],
-        type: "select",
+        type: "select_many",
         // type: "text"
     },
     /* {
