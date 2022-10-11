@@ -4,8 +4,10 @@ import MuiPhoneNumber from 'material-ui-phone-number-2';
 import {Box, Button, Checkbox, Container, FormControlLabel, Grid, TextField, useMediaQuery} from "@mui/material";
 import AutocompleteFromMapbox from "../AutocompleteFromMapbox";
 import InputSelectMany from "./dating_user_profile_form/InputSelectMany";
-import InputSelectOne from "./dating_user_profile_form/InputSelectOne";
-
+import InputSelectSex from "./dating_user_profile_form/InputSelectSex";
+import InputSelectCountry from "./dating_user_profile_form/InputSelectCountry";
+import styled from "@emotion/styled";
+import stylingConfig from '../../stylingConfig'
 const FormMapper = ({fields, initValues, validation, handleSubmit}) => {
 
     const formik = useFormik({
@@ -43,47 +45,51 @@ const FormMapper = ({fields, initValues, validation, handleSubmit}) => {
         switch (input.type) {
             case 'select_many':
                 return (
-                    <InputSelectMany key={formikRef} formikRef={formikRef} input={input} formik={formik}/>
+                    <FormItem key={formikRef} ><InputSelectMany formikRef={formikRef} input={input}
+                                               formik={formik}/></FormItem>
                 );
-            case 'select_one':
+            case 'select_sex':
                 return (
-                    <InputSelectOne key={formikRef} formikRef={formikRef} input={input} formik={formik}/>
+                    <FormItem key={formikRef}><InputSelectSex formikRef={formikRef} input={input}
+                                              formik={formik}/></FormItem>
+                );
+            case 'select_country':
+                return (
+                    <FormItem key={formikRef}><InputSelectCountry formikRef={formikRef} input={input} formik={formik}/></FormItem>
                 );
             case 'number':
                 return (
-                    <label> {input.label}:<br/>
-                        <input key={formikRef} id={formikRef} name={formikRef} defaultValue={0}/>
-                </label>
+                    <FormItem key={formikRef}><Labels>{input.label}:<br/>
+                        <input id={formikRef} name={formikRef} defaultValue={0}/>
+                    </Labels></FormItem>
                 );
             case 'tel':
                 return (
-                    <MuiPhoneNumber
+                    <FormItem key={formikRef}><MuiPhoneNumber
                         variant={"outlined"}
                         fullWidth
                         margin={'normal'}
-                        key={formikRef}
                         defaultCountry={'ua'}
                         onChange={e => formik.setFieldValue(formikRef, e)}
                         value={getIn(formik.values, formikRef) ? getIn(formik.values, formikRef) : ""}
                         {...input}
-                    />
+                    /></FormItem>
                 );
             case 'checkbox':
-                return (<Box key={formikRef} sx={{p: 2, border: '1px solid lightgrey', borderRadius: 1}}>
+                return (<FormItem key={formikRef} sx={{p: 2, border: '1px solid lightgrey', borderRadius: 1}}>
                         <FormControlLabel control={<Checkbox/>}
                                           value={getIn(formik.values, formikRef) ? getIn(formik.values, formikRef) : false} {...input} {...defaultProps.checkbox}
-                        /></Box>
+                        /></FormItem>
                 );
             case 'autocompleteFromMapBox':
-                return (<AutocompleteFromMapbox
+                return (<FormItem key={formikRef}><AutocompleteFromMapbox
                     error={getIn(formik.touched, formikRef) && Boolean(getIn(formik.errors, formikRef))}
                     helperText={getIn(formik.touched, formikRef) ? getIn(formik.errors, formikRef) : ''}
-                    key={formikRef}
                     value={getIn(formik.values, formikRef) ? getIn(formik.values, formikRef) : ""}
                     onChange={e => {
                         formik.setFieldValue(formikRef, e, true)
                     }
-                    }/>);
+                    }/></FormItem>);
             case 'image': //TODO -переписать весь кейс для image:
                 // https://medium.com/geekculture/how-to-upload-and-preview-images-in-react-js-4e22a903f3db
                 return null;
@@ -95,15 +101,14 @@ const FormMapper = ({fields, initValues, validation, handleSubmit}) => {
                 ;
             default:
                 return (
-                    <TextField
+                    <FormItem key={formikRef}><TextField
                         fullWidth
-                        key={formikRef}
                         helperText={getIn(formik.touched, formikRef) ? getIn(formik.errors, formikRef) : ''}
                         error={getIn(formik.touched, formikRef) && Boolean(getIn(formik.errors, formikRef))}
                         value={getIn(formik.values, formikRef) ? getIn(formik.values, formikRef) : ""}
                         {...input}
                         {...defaultProps.textField}
-                    />
+                    /></FormItem>
                 )
         }
     })
@@ -130,3 +135,15 @@ const FormMapper = ({fields, initValues, validation, handleSubmit}) => {
 };
 
 export default FormMapper;
+
+const FormItem = styled.div`
+border: ${stylingConfig.formItem.border};
+border-radius: ${stylingConfig.formItem.borderRadius};
+margin: ${stylingConfig.formItem.blockMargin};
+`;
+
+const Labels = styled.label`
+font-size: ${stylingConfig.labels.fontSize};
+font-weight: ${stylingConfig.labels.fontWeight};
+color: ${stylingConfig.labels.color};
+`;

@@ -1,7 +1,32 @@
 [
-  "M",
-  "F",
-  "ANY",
-  "COUPLE",
-  "OTHER"
+  {
+    "val": "M",
+    "en": "Masculine",
+    "ru": "Мужск.",
+    "ua": "Чолов."
+  },
+  {
+    "val": "F",
+    "en": "Feminine",
+    "ru": "Женск.",
+    "ua": "Жiн."
+  },
+  {
+    "val": "ANY",
+    "en": "Any",
+    "ru": "Любой",
+    "ua": "Будь Який"
+  },
+  {
+    "val": "COUPLE",
+    "en": "Couple",
+    "ru": "Пара",
+    "ua": "Пара"
+  },
+  {
+    "val": "OTHER",
+    "en": "Other",
+    "ru": "Другой",
+    "ua": "Iнший"
+  }
 ]
