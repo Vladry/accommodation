@@ -21,58 +21,49 @@ const InputSelectMany = ({formikRef, input, formik}) => {
     const [options, setOptions] = useState(initValues);
     const [selected, setSelected] = useState([]);
 
-    const init = () => {
-        let optInit = [...initValues];
-        const selectedInit = [];
-
-        if (formik.values[formikRef] && formik.values[formikRef].length > 0) {
-
-            formik.values[formikRef].forEach(
-                (val) => {
-                    optInit = (optInit.filter(opt => opt.val !== val));
-                    selectedInit.push(initValues.filter(opt => opt.val === val)[0]);
-                });
-
-            setOptions(optInit);
-            setSelected(selectedInit);
-        }
-    }
-
     useEffect(() => {
-                init();
+        if (formik.values[formikRef] && formik.values[formikRef].length > 0) {
+            // console.log("formik.values[formikRef]: ", formik.values[formikRef]);
+
+            let selectedArr = [];
+            formik.values[formikRef].forEach(val => initOne(val, selectedArr));
+            // selectedArr = selectedArr.filter(val=> {
+            //     if (val && val.val && val.val !== "" && val.en && val.en !== "" ) return true;
+            // } )
+            setSelected(selectedArr);
+
+            const optionsArr = initValues.filter(val => !selectedArr.includes(val));
+            console.log("optionsArr: ", optionsArr)
+            setOptions(optionsArr);
+        }
     }, [])
 
 
-    const selectByClick = (e) => {
-        const value = e.target.value;
-        console.log("select->  value = ", value)
-
-        setOptions(options.filter((item) => item.val !== value));
-        const selectedOne = initValues.filter((item) => item.val === value);
-        setSelected([...selected, selectedOne[0]]);
-        if (formik.values[formikRef] && formik.values[formikRef].length >0) {
-            formik.values[formikRef] = [...formik.values[formikRef], selectedOne[0].val];
-        } else {
-            formik.values[formikRef] = [selectedOne[0].val];
-        }
+    const initOne = (value, selectedArr) => {
+        selectedArr.push(initValues.filter((item) => item.val === value)[0]);
     }
 
-    const processSelect = (e) => {
+
+    const handleSelect = (e) => {
         const value = e.target.value;
-        console.log("select->  value = ", value)
+        selectOne(value);
+    }
+
+    const selectOne = (value) => {
+
         setOptions(options.filter((item) => item.val !== value));
-        const selectedOne = initValues.filter((item) => item.val === value);
-        setSelected([...selected, selectedOne[0]]);
-        if (formik.values[formikRef] && formik.values[formikRef].length >0) {
-            formik.values[formikRef] = [...formik.values[formikRef], selectedOne[0].val];
+        const selectedOne = initValues.filter((item) => item.val === value)[0];
+        console.log("processSelect-> selectedOne[0]: ", selectedOne)
+        setSelected([...selected, selectedOne]);
+        if (formik.values[formikRef] && formik.values[formikRef].length > 0) {
+            formik.values[formikRef] = [...formik.values[formikRef], selectedOne.val];
         } else {
-            formik.values[formikRef] = [selectedOne[0].val];
+            formik.values[formikRef] = [selectedOne.val];
         }
     }
 
 
-
-    const unselectByClick = (e) => {
+    const unselect = (e) => {
         const value = e.target.value;
         const returnItemToRemaining = selected.filter((item) => item.val === value);
         const selectedUpdated = selected.filter((item) => item.val !== value);
@@ -88,11 +79,10 @@ const InputSelectMany = ({formikRef, input, formik}) => {
     ));
 
     const selectedElems = selected.map((value, ind) => (
-        <Button key={ind} sx={()=> stylingConfig.selectButton} size={'small'} color={"primary"}  variant={'contained'}
-                value={value?.val? value.val : ""}
-                onClick={unselectByClick}>{`${value?.en? value.en : ""}`}</Button>
+        <Button key={ind} sx={() => stylingConfig.selectButton} size={'small'} color={"primary"} variant={'contained'}
+                value={value?.val ? value.val : ""}
+                onClick={unselect}>{`${value?.en ? value.en : ""}`}</Button>
     ));
-
 
     return (
         <div key={formikRef}>
@@ -101,7 +91,7 @@ const InputSelectMany = ({formikRef, input, formik}) => {
                 <div>
                     {selectedElems}
                 </div>
-                <Select multiple={true} onChange={selectByClick}>
+                <Select multiple={true} onChange={handleSelect}>
                     {optionItems}
                 </Select>
             </Labels>

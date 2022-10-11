@@ -14,5 +14,5 @@ export default {
         blockMargin: '10px 2px 1px 2px',
         selectTopMargin: '8px',
     },
-    selectButton: {m: '1px', p: '4px', fontSize: '0.8em', fontWeight: '400'},
+    selectButton: {m: '1px', p: '4px', fontSize: '0.8em', fontWeight: '400', textTransform: 'none'},
 }
