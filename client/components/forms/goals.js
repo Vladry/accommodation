@@ -47,7 +47,6 @@ export default [
         ru: '',
         ua: '',
     },
-
     {
         val: 'NOT_YET_DECIDED',
         en: 'Uncertain. Not yet decided',
@@ -55,15 +54,16 @@ export default [
         ua: 'ще не вирiшив(ла)',
     },
     {
-        val: 'WANT_TO_RELOCATE',
-        en: 'I want to relocate',
-        ru: 'хочу переехать',
-        ua: 'бажаю переïхати',
-    },
-    {
         val: 'OTHER',
         en: 'other...',
         ru: 'другое...',
         ua: 'iньше...',
-    }
+    },
+    {
+    val: 'WANT_TO_RELOCATE',
+    en: 'I want to relocate',
+    ru: 'хочу переехать',
+    ua: 'хочу переехать',
+},
+
 ]

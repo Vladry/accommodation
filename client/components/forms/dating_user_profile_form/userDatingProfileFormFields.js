@@ -121,9 +121,7 @@ export const userDatingProfileFormFields = [
         formikRef: "myGoals",
         label: "myGoals/Цели знакомства",
         valueByDefault: [],
-        // valueByDefault: ["goal1", "goal2"],
-        type: "select_many",
-        // type: "text"
+        type: "select_goals",
     },
 
     {
@@ -132,9 +130,7 @@ export const userDatingProfileFormFields = [
         formikRef: "myInterests",
         label: "myInterests/Мои интересы/увлечения",
         valueByDefault: [],
-        // valueByDefault: ["interest1", "interest2"],
-        type: "select_many",
-        // type: "text"
+        type: "select_interests",
     },
     /* {
          id: "selfDescription",

@@ -1,27 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import {Button} from "@mui/material";
 import goals from '../goals.js'
-import interests from '../interests.js'
 import styled from "@emotion/styled";
 import stylingConfig from '../../../stylingConfig'
 
-const InputSelectMany = ({formikRef, input, formik}) => {
-    let initValues;
-
-    switch (formikRef) {
-        case 'myGoals':
-            initValues = goals;
-            break;
-        case 'myInterests':
-            initValues = interests;
-            break;
-        default:
-    }
+const InputSelectGoals = ({formikRef, input, formik}) => {
+    let initValues = goals;
 
     const [options, setOptions] = useState(initValues);
     const [selected, setSelected] = useState([]);
 
     useEffect(() => {
+        console.log("formik.values[formikRef]: ",formik.values[formikRef])
         if (formik.values[formikRef] && formik.values[formikRef].length > 0) {
             // console.log("formik.values[formikRef]: ", formik.values[formikRef]);
 
@@ -33,7 +23,6 @@ const InputSelectMany = ({formikRef, input, formik}) => {
             setSelected(selectedArr);
 
             const optionsArr = initValues.filter(val => !selectedArr.includes(val));
-            console.log("optionsArr: ", optionsArr)
             setOptions(optionsArr);
         }
     }, [])
@@ -53,7 +42,6 @@ const InputSelectMany = ({formikRef, input, formik}) => {
 
         setOptions(options.filter((item) => item.val !== value));
         const selectedOne = initValues.filter((item) => item.val === value)[0];
-        console.log("processSelect-> selectedOne[0]: ", selectedOne)
         setSelected([...selected, selectedOne]);
         if (formik.values[formikRef] && formik.values[formikRef].length > 0) {
             formik.values[formikRef] = [...formik.values[formikRef], selectedOne.val];
@@ -101,7 +89,7 @@ const InputSelectMany = ({formikRef, input, formik}) => {
     );
 };
 
-export default InputSelectMany;
+export default InputSelectGoals;
 
 const Labels = styled.label`
 font-size: ${stylingConfig.labels.fontSize};

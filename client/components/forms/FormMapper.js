@@ -3,11 +3,12 @@ import {useFormik, getIn} from 'formik';
 import MuiPhoneNumber from 'material-ui-phone-number-2';
 import {Box, Button, Checkbox, Container, FormControlLabel, Grid, TextField, useMediaQuery} from "@mui/material";
 import AutocompleteFromMapbox from "../AutocompleteFromMapbox";
-import InputSelectMany from "./dating_user_profile_form/InputSelectMany";
+import InputSelectGoals from "./dating_user_profile_form/InputSelectGoals";
 import InputSelectSex from "./dating_user_profile_form/InputSelectSex";
 import InputSelectCountry from "./dating_user_profile_form/InputSelectCountry";
 import styled from "@emotion/styled";
 import stylingConfig from '../../stylingConfig'
+import InputSelectInterests from "./dating_user_profile_form/InputSelectInterests";
 const FormMapper = ({fields, initValues, validation, handleSubmit}) => {
 
     const formik = useFormik({
@@ -43,9 +44,14 @@ const FormMapper = ({fields, initValues, validation, handleSubmit}) => {
 
     const mappedFields = fields.map(({formikRef, valueByDefault, ...input}) => {
         switch (input.type) {
-            case 'select_many':
+            case 'select_goals':
                 return (
-                    <FormItem key={formikRef} ><InputSelectMany formikRef={formikRef} input={input}
+                    <FormItem key={formikRef} ><InputSelectGoals formikRef={formikRef} input={input}
+                                                                 formik={formik}/></FormItem>
+                );
+                case 'select_interests':
+                return (
+                    <FormItem key={formikRef} ><InputSelectInterests formikRef={formikRef} input={input}
                                                formik={formik}/></FormItem>
                 );
             case 'select_sex':
