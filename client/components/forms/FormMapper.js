@@ -49,6 +49,12 @@ const FormMapper = ({fields, initValues, validation, handleSubmit}) => {
                 return (
                     <InputSelectOne key={formikRef} formikRef={formikRef} input={input} formik={formik}/>
                 );
+            case 'number':
+                return (
+                    <label> {input.label}:<br/>
+                        <input key={formikRef} id={formikRef} name={formikRef} defaultValue={0}/>
+                </label>
+                );
             case 'tel':
                 return (
                     <MuiPhoneNumber
