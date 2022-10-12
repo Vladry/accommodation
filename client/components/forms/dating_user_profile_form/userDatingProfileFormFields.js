@@ -1,6 +1,14 @@
 export const userDatingProfileFormFields = [
 
     {
+        id: "ageRange",
+        name: "ageRange",
+        formikRef: "ageRange",
+        label: "ageRange/возраст от.. до..",
+        valueByDefault: [18, 60],
+        type: "range"
+    },
+    {
         id: "mySex",
         name: "mySex",
         formikRef: "mySex",
@@ -16,15 +24,6 @@ export const userDatingProfileFormFields = [
         valueByDefault: "ANY",
         type: "select_sex"
     },
-    {
-        id: "birthday",
-        name: "birthday",
-        formikRef: "birthday",
-        label: "birthday /ДР:  ('dd.mm.yyyy')",
-        valueByDefault: "01.01.2000",
-        type: "text"
-    },
-
     {
         id: "myHeight",
         name: "myHeight",
@@ -103,18 +102,11 @@ export const userDatingProfileFormFields = [
         id: "maxNumberOfChildrenAllowed",
         name: "maxNumberOfChildrenAllowed",
         formikRef: "maxNumberOfChildrenAllowed",
-        label: "maxNumberOfChildrenAllowed/У кандидата(тки) детей, не более",
+        label: "max.children accepted/детей не более",
         valueByDefault: 1,
         type: "number"
     },
-/*    {
-        id: "pictures",
-        name: "pictures",
-        formikRef: "pictures",
-        label: "pictures/Загрузить еще одну мою фотографию",
-        valueByDefault: "load your pictures here",
-        type: "image"
-    },*/
+
     {
         id: "myGoals",
         name: "myGoals",
@@ -123,7 +115,6 @@ export const userDatingProfileFormFields = [
         valueByDefault: [],
         type: "select_goals",
     },
-
     {
         id: "myInterests",
         name: "myInterests",
@@ -132,6 +123,23 @@ export const userDatingProfileFormFields = [
         valueByDefault: [],
         type: "select_interests",
     },
+    {
+        id: "birthday",
+        name: "birthday",
+        formikRef: "birthday",
+        label: "birthday /ДР:  ('dd.mm.yyyy')",
+        valueByDefault: "01.01.2000",
+        type: "text"
+    },
+    /*    {
+        id: "pictures",
+        name: "pictures",
+        formikRef: "pictures",
+        label: "pictures/Загрузить еще одну мою фотографию",
+        valueByDefault: "load your pictures here",
+        type: "image"
+    },*/
+
     /* {
          id: "selfDescription",
          name: "selfDescription",

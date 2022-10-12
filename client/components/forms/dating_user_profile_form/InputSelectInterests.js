@@ -3,6 +3,7 @@ import {Button} from "@mui/material";
 import interests from '../interests.js'
 import styled from "@emotion/styled";
 import stylingConfig from '../../../stylingConfig'
+// import { Select } from "@mui/material";
 
 const InputSelectInterests = ({formikRef, input, formik}) => {
     let initValues = interests;
@@ -11,7 +12,7 @@ const InputSelectInterests = ({formikRef, input, formik}) => {
     const [selected, setSelected] = useState([]);
 
     useEffect(() => {
-        console.log("formik.values[formikRef]: ",formik.values[formikRef])
+        // console.log("formik.values[formikRef]: ",formik.values[formikRef])
         if (formik.values[formikRef] && formik.values[formikRef].length > 0) {
             // console.log("formik.values[formikRef]: ", formik.values[formikRef]);
 
@@ -79,7 +80,7 @@ const InputSelectInterests = ({formikRef, input, formik}) => {
                 <div>
                     {selectedElems}
                 </div>
-                <Select multiple={true} onChange={handleSelect}>
+                <Select multiple={false} onChange={handleSelect}>
                     {optionItems}
                 </Select>
             </Labels>
