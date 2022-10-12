@@ -9,7 +9,7 @@ export default {
         color: '#0f3c4c',
     },
     formItem: {
-        border: `1px solid ${bordersGlobalColor}`,
+        border: `2px solid ${bordersGlobalColor}`,
         borderRadius: `${bordersGlobalRadius}`,
         blockMargin: '10px 2px 1px 2px',
         selectTopMargin: '8px',

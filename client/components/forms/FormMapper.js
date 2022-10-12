@@ -15,11 +15,11 @@ const FormMapper = ({fields, initValues, validation, handleSubmit}) => {
 
     const formik = useFormik(
         {
-        ...initValues,
+            ...initValues,
             validationSchema: validation,
             onSubmit: (values) => {
-            handleSubmit(values);
-        }
+                handleSubmit(values);
+            }
         }
     )
 
@@ -49,14 +49,63 @@ const FormMapper = ({fields, initValues, validation, handleSubmit}) => {
     const mappedFields = fields.map(({formikRef, valueByDefault, ...input}) => {
         switch (input.type) {
             case 'range':
+                let minLim, maxLim, rangeMarks, initValue, initLower, initHigher;
+                switch (formikRef) {
+                    case 'ageRange':
+                        initLower = getIn(formik.values, 'minPreferedAge') ? getIn(formik.values, 'minPreferedAge') : 18;
+                        initHigher = getIn(formik.values, 'maxPreferedAge') ? getIn(formik.values, 'maxPreferedAge') : 60;
+                        // minLim = initLower>0? initLower-2 : 16;
+                        // maxLim = initHigher>0? initHigher+10 : 80;
+                        minLim =  16;
+                        maxLim =  70;
+                        initValue =  [initLower, initHigher];
+                        // rangeMarks = [{value: initLower + 5, label: initLower + 5}, {value: initHigher - 5, label: initHigher - 5}]
+                        break;
+                    case 'heightRange':
+                        initLower = getIn(formik.values, 'minHeightIWant') ? getIn(formik.values, 'minHeightIWant') : 160;
+                        initHigher = getIn(formik.values, 'maxHeightIWant') ? getIn(formik.values, 'maxHeightIWant') : 180;
+                        // minLim = initLower>0? initLower-2 : 150;
+                        // maxLim = initHigher>0? initHigher+10 : 200;
+                        minLim =  150;
+                        maxLim =  200;
+                        initValue =  [initLower, initHigher];
+                        // rangeMarks = [{value: initLower + 5, label: initLower + 5}, {value: initHigher - 5, label: initHigher - 5}]
+                        break;
+                    default:
+                }
+
                 return (<FormItem key={formikRef}>
                     <Labels>{input.label}
                         <Slider id={formikRef} name={formikRef}
-                        getAriaLabel={() => 'Temperature range'}
-                        value={getIn(formik.values, formikRef) ? getIn(formik.values, formikRef) : [22, 33]}
-                        onChange={formik.handleChange}
-                        valueLabelDisplay="true"
-                    /></Labels>
+                                min={minLim}
+                                max={maxLim}
+                                valueLabelDisplay="auto"  // 'auto' | 'on', 'off'
+                                // marks={rangeMarks}
+                                value={initValue}
+                            // onChange={formik.handleChange}  //- вызов вшитого handleChange для слайдера не даст возможности выполнить другие действия. Поэтому пишем коллбэк:
+                                onChange={
+                                    (e) => {//коллбЭком обновлений значения данного слайдера -> установка [min, max]
+                                        const [min, max] = e.target.value;
+                                        formik.setFieldValue(formikRef, [min, max]);
+                                        switch (formikRef) {
+                                            case 'ageRange':
+                                                //и выставляем соответств-щие поля возрастов или роста
+                                                formik.setFieldValue('minPreferedAge', min);
+                                                formik.setFieldValue('maxPreferedAge', max);
+                                                // альтернативные способы выставлять поля возрастов или роста:
+                                                // formik.values['minPreferedAge'] = formik.values[formikRef][0];
+                                                // formik.values['maxPreferedAge'] = formik.values[formikRef][1];
+                                                break;
+                                            case 'heightRange':
+                                                formik.setFieldValue('minHeightIWant', min);
+                                                formik.setFieldValue('maxHeightIWant', max);
+                                                break;
+                                            default:
+                                        }
+
+                                    }}
+
+                        /></Labels>
                 </FormItem>);
             case 'select_goals':
                 return (
@@ -88,13 +137,13 @@ const FormMapper = ({fields, initValues, validation, handleSubmit}) => {
                               error={getIn(formik.touched, formikRef) && Boolean(getIn(formik.errors, formikRef))}
                               onBlur={formik.handleBlur}>
                         <Labels>{input.label}:<br/>
-                        <input id={formikRef} name={formikRef}
-                               value={getIn(formik.values, formikRef) ? getIn(formik.values, formikRef) : ""}
-                               onChange={formik.handleChange}
+                            <input id={formikRef} name={formikRef}
+                                   value={getIn(formik.values, formikRef) ? getIn(formik.values, formikRef) : ""}
+                                   onChange={formik.handleChange}
 
 
-                        />
-                    </Labels></FormItem>
+                            />
+                        </Labels></FormItem>
                 );
             case 'tel':
                 return (
@@ -127,6 +176,12 @@ const FormMapper = ({fields, initValues, validation, handleSubmit}) => {
                         }/></FormItem>);
             case 'image': //TODO -переписать весь кейс для image:
                 // https://medium.com/geekculture/how-to-upload-and-preview-images-in-react-js-4e22a903f3db
+                return null;
+
+            case 'minHeightIWant':
+            case 'maxHeightIWant':
+            case 'minPreferedAge':
+            case 'maxPreferedAge':
                 return null;
 
             default:

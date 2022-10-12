@@ -1,13 +1,6 @@
 export const userDatingProfileFormFields = [
 
-    {
-        id: "ageRange",
-        name: "ageRange",
-        formikRef: "ageRange",
-        label: "ageRange/возраст от.. до..",
-        valueByDefault: [18, 60],
-        type: "range"
-    },
+
     {
         id: "mySex",
         name: "mySex",
@@ -23,6 +16,22 @@ export const userDatingProfileFormFields = [
         label: "seekAPersonOfSex/Я ищу",
         valueByDefault: "ANY",
         type: "select_sex"
+    },
+    {
+        id: "ageRange",
+        name: "ageRange",
+        formikRef: "ageRange",
+        label: "Age/Возраст",
+        valueByDefault: [16, 60],
+        type: "range"
+    },
+    {
+        id: "heightRange",
+        name: "heightRange",
+        formikRef: "heightRange",
+        label: "Height/Рост, cm",
+        valueByDefault: [140, 210],
+        type: "range"
     },
     {
         id: "myHeight",
@@ -87,7 +96,7 @@ export const userDatingProfileFormFields = [
         name: "wantFromCountry",
         formikRef: "wantFromCountry",
         label: "wantFromCountry/Желаю найти из",
-        valueByDefault: "UNITED_KINGDOM",
+        valueByDefault: "UKRAINE",
         type: "select_country"
     },
     {

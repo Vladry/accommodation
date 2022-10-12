@@ -20,12 +20,10 @@ const UserDatingProfileFormPage = () => {
     const router = useRouter();
     const handleSubmit = async (values) => {
         const userDatingProfileFormNewValues = {...values, userId: user.id};
+        delete userDatingProfileFormNewValues["ageRange"];//обязательно к удалению из списка аргументов на бЭк!
+        delete userDatingProfileFormNewValues["heightRange"];//обязательно к удалению из списка аргументов на бЭк!
         delete userDatingProfileFormNewValues["pictures"];
         delete userDatingProfileFormNewValues["desiredWithInterests"];
-        // delete userDatingProfileFormNewValues["myGoals"];
-        // console.log("pre-fetch header user.datingServiceParticipation: ", user.datingServiceParticipation);
-        // console.log(`для юзера: ${user.id}, отправляю данные формы: `, userDatingProfileFormNewValues)
-        // console.log("userDatingProfileFormNewValues: ", userDatingProfileFormNewValues);
 
 
         if (typeof (userDatingProfileFormNewValues["myGoals"]) === 'string') {
