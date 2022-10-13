@@ -61,7 +61,7 @@ public class UserDatingProfileRsDto extends BaseEntity {
     @JsonView(Views.Public.class)
     private List<String> pictures;
     @JsonView(Views.Public.class)
-    private LocalDate birthday;
+    private String birthday;
 //    @JsonIgnore
 //    private LocalDateTime lastVisitDate;
     @JsonView(Views.Public.class)
@@ -70,24 +70,6 @@ public class UserDatingProfileRsDto extends BaseEntity {
 //    private String lastVisited;
 
 
-    public UserDatingProfileRsDto() {
-        setAge();
-//        setLastVisitPeriod();
-    }
-
-    public void setBirthday(LocalDate birthday) {
-        this.birthday = birthday;
-        setAge();
-    }
-
-    private void setAge() {
-        if (this.birthday == null) {
-            return;
-        }
-        LocalDate dateNow = LocalDate.now();
-        Period period = Period.between(this.birthday, dateNow);
-        this.age = period.getYears();
-    }
 
 //    public void setLastVisitDate(LocalDateTime lastVisitDate) {
 //        this.lastVisitDate = lastVisitDate;

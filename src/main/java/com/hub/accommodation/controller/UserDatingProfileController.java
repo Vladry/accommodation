@@ -45,10 +45,9 @@ public class UserDatingProfileController {
         System.out.println("in controller.saveByUserId-> RequestBody: "+jsonString);
         JsonToDtoConverter<UserDatingProfileRqDto> converter = new JsonToDtoConverter<>(UserDatingProfileRqDto.class);
         UserDatingProfileRqDto udpRqDto = converter.doConvert(jsonString);
-
+        System.out.println("UserDatingProfileRqDto udpRqDto: "+udpRqDto);
         UserDatingProfile udp = userDatingProfileFacade.convertToEntity(udpRqDto);
-        System.out.println("UserDatingProfile udp = userDatingProfileFacade.convertToEntity(udpRqDto)");
-        System.out.println("udp: "+udp);
+        System.out.println("UserDatingProfile udp to be persisted now: "+udp);
         if (!datingServiceParticipation) {
             userService.setDatingParticipationFlag(udp.getUserId(), true);
         }
@@ -69,7 +68,10 @@ public class UserDatingProfileController {
         if (id == null) {
             return null;
         }
+//        System.out.println("in controller.findUserDatingProfileById-> userId:"+ id);
         Optional<UserDatingProfile> udpOpt = userDatingProfileService.findUserDatingProfileByUserId(id);
+//        System.out.println("controller.findUserDatingProfileById-> udpOpt.get():"+ udpOpt.get());
+//        System.out.println("returning udp: " + udpOpt.map(userDatingProfileFacade::convertToDto).orElse(null));
         return udpOpt.map(userDatingProfileFacade::convertToDto).orElse(null);
     }
 

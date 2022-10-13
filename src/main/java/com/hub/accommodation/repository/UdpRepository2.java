@@ -1,5 +1,6 @@
 package com.hub.accommodation.repository;
 
+import com.hub.accommodation.domain.accommodation.enums.Country;
 import com.hub.accommodation.domain.user.UserDatingProfile;
 import com.hub.accommodation.domain.user.enums.Sex;
 import lombok.extern.log4j.Log4j2;
@@ -66,7 +67,8 @@ public class UdpRepository2 {
             }
 
 
-            if (currentUserDatingProfile.getWantFromCountry() != null) {
+            if (currentUserDatingProfile.getWantFromCountry() != null
+            && currentUserDatingProfile.getWantFromCountry() != Country.ANY_COUNTRY) {
                 predicates.add(countrySelect);
             }
 
@@ -114,19 +116,19 @@ public class UdpRepository2 {
         EntityManager em = emf.createEntityManager();
         UserDatingProfile e = null;
         try {
+//            System.out.println("in 1st try-catch: trying to find existing udp of the user");
             Query q = em.createQuery("select udp from UserDatingProfile udp where udp.userId = :id")
                     .setParameter("id", entity.getUserId());
             e = (UserDatingProfile) q.getSingleResult();
+//            System.out.println("successful end of 1st try-catch -> udp found: "+ e);
         } catch (Exception ex) {
             log.info(ex.getMessage());
-//            System.out.println("saveOnly(UserDatingProfile entity)-> exception in try-catch, e not found");
-            if (em != null) {
-                em.close();
-            }
+//            System.out.println("saveOnly(UserDatingProfile entity)-> exception in 1-st try-catch, e not found");
         }
 
 //        System.out.println("got e from DB,  e: " + e);
         try {
+//            System.out.println("in 2nd try-catch: trying to find existing udp of the user");
             em.getTransaction().begin();
             if (!em.contains(e)) {
                 em.persist(entity);
@@ -139,6 +141,7 @@ public class UdpRepository2 {
 //                System.out.println("merged existing entity: " + e);
                 em.getTransaction().commit();
             }
+//            System.out.println("successful end of 2nd try-catch -> entity persisted");
         } catch (NullPointerException ex) {
             em.getTransaction().rollback();
             System.out.println(ex.getMessage());

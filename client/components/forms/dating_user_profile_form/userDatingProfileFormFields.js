@@ -47,7 +47,7 @@ export const userDatingProfileFormFields = [
         formikRef: "minHeightIWant",
         label: "minHeightIWant/Ищу ростом ОТ, см",
         valueByDefault: 0,
-        type: "number"
+        type: "--number"
     },
     {
         id: "maxHeightIWant",
@@ -55,7 +55,7 @@ export const userDatingProfileFormFields = [
         formikRef: "maxHeightIWant",
         label: "maxHeightIWant/Ищу ростом ДО, см",
         valueByDefault: 200,
-        type: "number"
+        type: "--number"
     },
 
     {
@@ -64,7 +64,7 @@ export const userDatingProfileFormFields = [
         formikRef: "minPreferedAge",
         label: "minPreferedAge/Возрастом ОТ",
         valueByDefault: 0,
-        type: "number"
+        type: "--number"
     },
 
     {
@@ -73,7 +73,7 @@ export const userDatingProfileFormFields = [
         formikRef: "maxPreferedAge",
         label: "maxPreferedAge/Возрастом ДО",
         valueByDefault: 0,
-        type: "number"
+        type: "--number"
     },
     {
         id: "countryINowLiveIn",
@@ -96,7 +96,7 @@ export const userDatingProfileFormFields = [
         name: "wantFromCountry",
         formikRef: "wantFromCountry",
         label: "wantFromCountry/Желаю найти из",
-        valueByDefault: "UKRAINE",
+        valueByDefault: "ANY_COUNTRY",
         type: "select_country"
     },
     {
@@ -138,7 +138,7 @@ export const userDatingProfileFormFields = [
         formikRef: "birthday",
         label: "birthday /ДР:  ('dd.mm.yyyy')",
         valueByDefault: "01.01.2000",
-        type: "text"
+        type: "birthday"
     },
     /*    {
         id: "pictures",

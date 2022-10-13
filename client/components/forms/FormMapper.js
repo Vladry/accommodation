@@ -45,6 +45,37 @@ const FormMapper = ({fields, initValues, validation, handleSubmit}) => {
         [formik]
     );
 
+    const dateReFormatter = (dd_MM_yyyy)=>{
+        if(!dd_MM_yyyy) {return "";}
+// console.log("in dateReFormatter-> input: ", dd_MM_yyyy)
+        let tempArr = dd_MM_yyyy.split(".");
+        const yyyy_MM_dd = tempArr.reverse().join("-");
+        tempArr = new Date(yyyy_MM_dd).toDateString().split(" ");
+        tempArr.splice(0, 1);
+        let finalArr = [];
+        finalArr.push(tempArr[1]);
+        finalArr.push(tempArr[0]);
+        finalArr.push(tempArr[2]);
+        return finalArr.join(" ");
+    }
+
+/*    const dateReFormatterVer1 = (yyyy_MM_dd)=>{
+        if(!yyyy_MM_dd) {return "";}
+
+        let tempArr = yyyy_MM_dd.split(".");
+        const dd_MM_yyyy = tempArr.reverse().join("-");
+        tempArr = new Date(dd_MM_yyyy).toDateString().split(" ");
+        tempArr.splice(0, 1);
+        let finalArr = [];
+        finalArr.push(tempArr[1]);
+        finalArr.push(tempArr[0]);
+        finalArr.push(tempArr[2]);
+        return finalArr.join(" ");
+    }*/
+
+    const checkYourBirthday = dateReFormatter(formik.values["birthday"]);
+    // formik.values['checkYourBirthday'] = dateConvert(formik.values["birthday"]);
+    // console.log("checkYourBirthday: ", formik.values['checkYourBirthday']);
 
     const mappedFields = fields.map(({formikRef, valueByDefault, ...input}) => {
         switch (input.type) {
@@ -56,9 +87,9 @@ const FormMapper = ({fields, initValues, validation, handleSubmit}) => {
                         initHigher = getIn(formik.values, 'maxPreferedAge') ? getIn(formik.values, 'maxPreferedAge') : 60;
                         // minLim = initLower>0? initLower-2 : 16;
                         // maxLim = initHigher>0? initHigher+10 : 80;
-                        minLim =  16;
-                        maxLim =  70;
-                        initValue =  [initLower, initHigher];
+                        minLim = 16;
+                        maxLim = 70;
+                        initValue = [initLower, initHigher];
                         // rangeMarks = [{value: initLower + 5, label: initLower + 5}, {value: initHigher - 5, label: initHigher - 5}]
                         break;
                     case 'heightRange':
@@ -66,9 +97,9 @@ const FormMapper = ({fields, initValues, validation, handleSubmit}) => {
                         initHigher = getIn(formik.values, 'maxHeightIWant') ? getIn(formik.values, 'maxHeightIWant') : 180;
                         // minLim = initLower>0? initLower-2 : 150;
                         // maxLim = initHigher>0? initHigher+10 : 200;
-                        minLim =  150;
-                        maxLim =  200;
-                        initValue =  [initLower, initHigher];
+                        minLim = 150;
+                        maxLim = 200;
+                        initValue = [initLower, initHigher];
                         // rangeMarks = [{value: initLower + 5, label: initLower + 5}, {value: initHigher - 5, label: initHigher - 5}]
                         break;
                     default:
@@ -80,7 +111,7 @@ const FormMapper = ({fields, initValues, validation, handleSubmit}) => {
                                 min={minLim}
                                 max={maxLim}
                                 valueLabelDisplay="auto"  // 'auto' | 'on', 'off'
-                                // marks={rangeMarks}
+                            // marks={rangeMarks}
                                 value={initValue}
                             // onChange={formik.handleChange}  //- вызов вшитого handleChange для слайдера не даст возможности выполнить другие действия. Поэтому пишем коллбэк:
                                 onChange={
@@ -178,11 +209,27 @@ const FormMapper = ({fields, initValues, validation, handleSubmit}) => {
                 // https://medium.com/geekculture/how-to-upload-and-preview-images-in-react-js-4e22a903f3db
                 return null;
 
-            case 'minHeightIWant':
-            case 'maxHeightIWant':
-            case 'minPreferedAge':
-            case 'maxPreferedAge':
+            case '--number':
                 return null;
+
+            case 'birthday':
+                return (
+                    <FormItem key={formikRef} style={{position: 'relative'}}>
+                        <TextField
+                            fullWidth
+                            helperText={getIn(formik.touched, formikRef) ? getIn(formik.errors, formikRef) : ''}
+                            error={getIn(formik.touched, formikRef) && Boolean(getIn(formik.errors, formikRef))}
+                            value={getIn(formik.values, formikRef) ? getIn(formik.values, formikRef) : ""}
+                            {...input}
+                            {...defaultProps.textField}
+                        />
+                    <span style={{position: 'absolute', top: '32px', right: '30px', color: '#00b300'}}>
+                        <span style={{color: '#ff4d4d', marginRight: '12px'}}>=</span>
+                        {checkYourBirthday && checkYourBirthday}
+                        {/*= {formik.values['checkYourBirthday'] && formik.values['checkYourBirthday']}*/}
+                    </span>
+                    </FormItem>);
+                break;
 
             default:
                 return (
@@ -211,11 +258,12 @@ const FormMapper = ({fields, initValues, validation, handleSubmit}) => {
             }} container>
                 {mappedFields}
             </Grid>
-
             <Box textAlign={'center'} margin={'20px'}>
                 <Button variant="contained" onClick={formik.submitForm}>Submit/ Отправить форму</Button>
             </Box>
 
+            {/*https://developer.mozilla.org/ru/docs/Web/HTML/Element/pre*/}
+            <pre>{JSON.stringify(formik.values, null, 4)}</pre>
         </form>
     );
 };

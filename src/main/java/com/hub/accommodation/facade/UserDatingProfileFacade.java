@@ -12,6 +12,8 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -27,25 +29,6 @@ public class UserDatingProfileFacade extends
         super(UserDatingProfile.class, UserDatingProfileRsDto.class);
     }
 
-/*    @Override
-    public UserDatingProfile convertToEntity(UserDatingProfileRqDto requestDTO){
-        return super.convertToEntity(requestDTO);
-    }
-
-    @Override
-    public UserDatingProfileRsDto convertToDto(UserDatingProfile entity){
-        return super.convertToDto(entity);
-    }*/
-
-//    @Override
-//    public void decorateEntity(final UserDatingProfile entity, final UserDatingProfileRqDto dto){
-//        super.decorateEntity(entity, dto);
-//    }
-//    @Override
-//    public void decorateDto(final UserDatingProfileRsDto dto, final UserDatingProfile entity){
-//        super.decorateDto(dto, entity);
-//    }
-
     @PostConstruct
     public void init() {
 
@@ -59,75 +42,36 @@ public class UserDatingProfileFacade extends
                                 }
                         ).collect(Collectors.toList());
 
-        Converter<Set<String>, Collection<Goals>> goalsToEnumCol =
-                mappingContext -> mappingContext.getSource().stream()
-                        .map(goalStr -> {
-                            System.out.println("in map(goalStr->");
-                            Goals res = null;
-                            for (Goals g : Goals.values()) {
-                                if (g.toString().equals(goalStr)) {
-                                    res = g;
-                                }
-                            }
-                            System.out.println("returning Goals: " + res);
-                            return res;
-                        })
-                        .collect(Collectors.toSet());
+        Converter<String, LocalDate> convBirthdayFromRqDto =
+                mappingContext -> LocalDate.parse(mappingContext.getSource(), DateTimeFormatter.ofPattern("dd.MM.yyyy"));
 
 
-/*        Converter<String, Set<Goals>> goalsToEnumCol =
-                mappingContext ->
-                    Stream.of(mappingContext.getSource().split(","))
-                            .flatMap(goalStr -> {
-                                for (Goals g : Goals.values()) {
-                                    if (g.toString().equalsIgnoreCase(goalStr.trim())) {
-                                       return Stream.of(g);
-                                    }
-                                }
-                                return Stream.empty();
-                            })
-                            .collect(Collectors.toSet());*/
+        Converter<LocalDate, String> convBirthdayToRsDto =
+                mappingContext -> {
+                    System.out.println("convBirthdayToRsDto-> input: " + mappingContext.getSource().toString());
+                    String str = mappingContext.getSource().format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+                    System.out.println("convBirthdayToRsDto-> localDateStr: " + str);
+                    return str;
+                };
 
-        Converter<Set<String>, Collection<Interests>> interestsToEnumCol =
-                mappingContext -> mappingContext.getSource().stream()
-                        .map(interestsStr -> {
-                            System.out.println("in map(interestsStr->");
-                            Interests res = null;
-                            for (Interests interest : Interests.values()) {
-                                if (interest.toString().equals(interestsStr)) {
-                                    res = interest;
-                                }
-                            }
-                            System.out.println("returning Interests: " + res);
-                            return res;
-                        })
-                        .collect(Collectors.toSet());
+        Converter<LocalDate, Integer> convAge = mappingContext ->
+        {
+            LocalDate dateNow = LocalDate.now();
 
-
-/*        Converter<String, Set<Interests>> interestsToEnumCol =
-                mappingContext ->
-                    Stream.of(mappingContext.getSource().split(","))
-                            .flatMap(interestStr -> {
-                                for (Interests interest : Interests.values()) {
-                                    if (interest.toString().equalsIgnoreCase(interestStr.trim())) {
-                                       return Stream.of(interest);
-                                    }
-                                }
-                                return Stream.empty();
-                            })
-                            .collect(Collectors.toSet());*/
-
+            Period period = Period.between(mappingContext.getSource(), dateNow);
+            return period.getYears();
+        };
 
         super.getMm().typeMap(UserDatingProfile.class, UserDatingProfileRsDto.class)
+                .addMappings(mappings -> mappings.using(convAge).map(UserDatingProfile::getBirthday, UserDatingProfileRsDto::setAge))
+                .addMappings(mappings -> mappings.using(convBirthdayToRsDto).map(UserDatingProfile::getBirthday, UserDatingProfileRsDto::setBirthday))
                 .addMappings(mappings -> mappings.using(picturesToUrls).map(UserDatingProfile::getPictures, UserDatingProfileRsDto::setPictures))
-
         ;
 
         super.getMm().typeMap(UserDatingProfileRqDto.class, UserDatingProfile.class)
+                .addMappings(mappings -> mappings.using(convBirthdayFromRqDto).map(UserDatingProfileRqDto::getBirthday, UserDatingProfile::setBirthday))
 //                .addMappings(mappings->mappings.using((idStr)->Long.parseLong((String)idStr.getSource())).map(UserDatingProfileRqDto::getUserId, UserDatingProfile::setUserId))
                 .addMapping(UserDatingProfileRqDto::getUserId, UserDatingProfile::setUserIdFromString)
-//                .addMappings(mappings -> mappings.using(goalsToEnumCol).map(UserDatingProfileRqDto::getMyGoals, UserDatingProfile::setMyGoals))
-//                .addMappings(mappings -> mappings.using(interestsToEnumCol).map(UserDatingProfileRqDto::getMyInterests, UserDatingProfile::setMyInterests))
 //  TODO              .addMapping(UserDatingProfileRqDto::getLastVisitDate, UserDatingProfile::setLastVisitDateParse)
 //  TODO              .addMapping(UserDatingProfileRqDto::getBirthday, UserDatingProfile::setBirthdayParse)
         ;

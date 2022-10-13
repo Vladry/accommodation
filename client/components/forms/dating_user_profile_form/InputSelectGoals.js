@@ -53,7 +53,6 @@ const InputSelectGoals = ({formikRef, input, formik}) => {
         setOptions([...options, returnItemToRemaining[0]]);
         setSelected(selectedUpdated);
         formik.values[formikRef] = formik.values[formikRef].filter((item) => item !== value);
-        // console.log("formik.values[formikRef]: ", formik.values[formikRef]);
     }
 
 

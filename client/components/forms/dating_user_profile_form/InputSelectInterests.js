@@ -12,19 +12,13 @@ const InputSelectInterests = ({formikRef, input, formik}) => {
     const [selected, setSelected] = useState([]);
 
     useEffect(() => {
-        // console.log("formik.values[formikRef]: ",formik.values[formikRef])
         if (formik.values[formikRef] && formik.values[formikRef].length > 0) {
-            // console.log("formik.values[formikRef]: ", formik.values[formikRef]);
 
             let selectedArr = [];
             formik.values[formikRef].forEach(val => initOne(val, selectedArr));
-            // selectedArr = selectedArr.filter(val=> {
-            //     if (val && val.val && val.val !== "" && val.en && val.en !== "" ) return true;
-            // } )
             setSelected(selectedArr);
 
             const optionsArr = initValues.filter(val => !selectedArr.includes(val));
-            console.log("optionsArr: ", optionsArr)
             setOptions(optionsArr);
         }
     }, [])

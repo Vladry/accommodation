@@ -34,7 +34,7 @@ public class TenantController {
     public TenantRsDto findTenantProfileByUserId(@PathVariable("userId") Long userId){
         Optional<Tenant> tOpt = tenantService.findTenantProfileById(userId);
         if (tOpt.isPresent()) {
-            System.out.println("tOpt: " + tOpt.get());
+//            System.out.println("tOpt: " + tOpt.get());
             TenantRsDto tRsDto = tenantFacade.convertToDto(tOpt.get());
             return tRsDto;
         } else {

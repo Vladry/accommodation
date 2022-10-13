@@ -25,7 +25,7 @@ public class UserRepositoryImpl {
         try {
             em = emf.createEntityManager();
 //            em.getTransaction().begin();
-            Query q = em.createQuery("from User u where u.id in :ids")
+            Query q = em.createQuery("select u from User u where u.id in :ids")
                     .setParameter("ids", ids);
 
             List<User> users = q.getResultList();

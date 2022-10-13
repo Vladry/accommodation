@@ -16,7 +16,7 @@ import {useSelector} from "react-redux";
 
 const SwiperUserPic = ({pictures}) => { // https://swiperjs.com/react
     // code example: https://codesandbox.io/s/v1c96y?file=/src/App.jsx:339-349
-    console.log("SwiperUserPic-> pictures:", pictures);
+    // console.log("SwiperUserPic-> pictures:", pictures);
     const {classNames} = useContext(Context);
 
 

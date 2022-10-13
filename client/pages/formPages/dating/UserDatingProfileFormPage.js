@@ -63,7 +63,10 @@ const UserDatingProfileFormPage = () => {
             // console.log('in handleSubmit.then на фронте, после отправки на Back-End данных. Ответ сервера:', res); // вывод userDatingProfile
             //обновить в локальном сторе userDatingProfile
             if (res != null) {
-                dispatch({type: types.SET_USER_DATING_PROFILE_SUCCESS, payload: res.data});
+                console.log("fetched userDatingProfile. res: ",res);
+                //записывать в state лучше не ответ сервера, а отправляемые данные, т.к. сервер возвращает birthday в стандартном (не подходящем мне) формате -будет ошибка!
+                dispatch({type: types.SET_USER_DATING_PROFILE_SUCCESS, payload: userDatingProfileFormNewValues});
+                // dispatch({type: types.SET_USER_DATING_PROFILE_SUCCESS, payload: res.data});
             } else {
                 console.log("error getting&dispatching updated userDatingProfile!. The store continues holding the old version of userDatingProfile (if any)");
             }

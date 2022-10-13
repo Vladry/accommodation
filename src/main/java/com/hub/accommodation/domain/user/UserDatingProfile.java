@@ -47,7 +47,7 @@ public class UserDatingProfile extends BaseEntity {
     private Sex mySex; //ok
 
     @Column(name = "birthday")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.YYYY")
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy") //-не работает эта конверсия!
     private LocalDate birthday; //rq String
 
 //    @Column(name = "last_visit_date")
@@ -157,7 +157,6 @@ public class UserDatingProfile extends BaseEntity {
     }
 
     public void setMyGoals(Collection<Goals> myGoals){
-        System.out.println("in setMyGoals-> setting: "+ myGoals);
         this.myGoals = myGoals;
     }
 
