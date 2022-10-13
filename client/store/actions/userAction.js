@@ -12,6 +12,33 @@ export const getUser = () => (dispatch) => { //TODO разделить фетч�
             dispatch(fetchData(urls.accommodProfile, user.id, types.GET_ACCOMMODATION_USER_PROFILE, types.SET_ACCOMMODATION_USER_PROFILE_SUCCESS, types.SET_ACCOMMODATION_USER_PROFILE_FAIL));
             dispatch(fetchData(urls.tenantUserProfile, user.id, types.GET_TENANT_USER_PROFILE, types.SET_TENANT_USER_PROFILE_SUCCESS, types.SET_TENANT_USER_PROFILE_FAIL));
 
+            fetch('http://ip-api.com/json/').then(r => r.json()).then(r => {
+               const locationWithTimeZone = r.city + ", "+ r.country + ", "+ r.timezone;
+                const location = r.city + ", "+ r.country;
+                console.log("location: ", location);
+                // формат ответа:
+                /*            {
+                                "status": "success",
+                                "country": "Ukraine",
+                                "countryCode": "UA",
+                                "region": "30",
+                                "regionName": "Kyiv City",
+                                "city": "Kyiv",
+                                "zip": "04119",
+                                "lat": 50.458,
+                                "lon": 30.5303,
+                                "timezone": "Europe/Kyiv",
+                                "isp": "UnderNet LLC",
+                                "org": "UnderNet LLC",
+                                "as": "AS41435 UnderNet LLC",
+                                "query": "79.110.133.25"
+                            }*/
+
+                api.put(`/users/${user.id}?location=${location}`, location).then(r=>console.log("fetched location with response: ", r));
+
+            }).catch((e)=>console.log("location not determined, ", e.message))
+
+
         }).catch(e => {
         dispatch({type: types.SET_USER_FAILURE})
         console.log("Exception in getUser");
@@ -20,6 +47,7 @@ export const getUser = () => (dispatch) => { //TODO разделить фетч�
 
 
 export const fetchData = (url, userId, loadingAct, successAction, failAction) => (dispatch) => {
+    if(!url || !userId || !loadingAct || !successAction || !failAction){return;}
     // console.log(`in fetchData (userId: ${userId})`);
     try {
         dispatch({type: loadingAct});

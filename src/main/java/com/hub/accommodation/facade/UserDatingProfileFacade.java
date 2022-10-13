@@ -42,9 +42,9 @@ public class UserDatingProfileFacade extends
 
         Converter<LocalDate, String> convBirthdayToRsDto =
                 mappingContext -> {
-                    System.out.println("convBirthdayToRsDto-> input: " + mappingContext.getSource().toString());
+//                    System.out.println("convBirthdayToRsDto-> input: " + mappingContext.getSource().toString());
                     String str = mappingContext.getSource().format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
-                    System.out.println("convBirthdayToRsDto-> localDateStr: " + str);
+//                    System.out.println("convBirthdayToRsDto-> localDateStr: " + str);
                     return str;
                 };
 

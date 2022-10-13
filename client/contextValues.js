@@ -7,6 +7,30 @@ const neatUpZonedDateTime = (datingLastVisitDate)=>{
         return datingLastVisitDate.slice(0, index); // убираем в конце:  [Europe/Helsinki]
     }
 }
+const getPeriod = (visitDateMs)=> {
+    let period;
+    const visitPeriodMs = Date.now() - visitDateMs;
+    if (visitPeriodMs < 3600 * 1000) {
+        period = `${Math.round(visitPeriodMs / 60 / 1000)} minutes`;
+
+    } else if (visitPeriodMs < 24 * 3600 * 1000) {
+        period = `${Math.round(visitPeriodMs / 3600 / 1000)} hours`;
+
+    } else if (visitPeriodMs < 7 * 24 * 3600 * 1000) {
+        period = `${Math.round(visitPeriodMs / 24 / 3600 / 1000)} days`;
+
+    } else if (visitPeriodMs < 30 * 24 * 3600 * 1000) {
+        period = `${Math.round(visitPeriodMs / 7 / 24 / 3600 / 1000)} weeks`;
+
+    } else if (visitPeriodMs < 365 * 24 * 3600 * 1000) {
+        period = `${Math.round(visitPeriodMs / 30 / 24 / 3600 / 1000)} months`;
+
+    } else {
+        period = `${Math.round(visitPeriodMs / 365 / 24 / 3600 / 1000)} years`;
+    }
+    return period;
+}
+
 
 const forwardForUdProfileId = (router, queriedUserId, user, dispatch, event) => {
     // console.log('queriedUser: ', queriedUserId);
@@ -25,7 +49,7 @@ const forwardForUdProfileId = (router, queriedUserId, user, dispatch, event) => 
 
 
 const prepareFormData = (fields, persistedValues) => {
-    console.log("persistedValues: ", persistedValues);
+    // console.log("persistedValues: ", persistedValues);
     if (persistedValues) {
         return {
             initialValues: fields.reduce((acc, current) => ({     //https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
@@ -66,4 +90,5 @@ export default {
     forwardForUdProfileId,
     prepareFormData,
     neatUpZonedDateTime,
+    getPeriod
 }

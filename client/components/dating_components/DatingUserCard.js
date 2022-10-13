@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import {Context} from '../../context';
-import {Box, ListItem} from "@mui/material";
+import {Box} from "@mui/material";
 import Image from "next/image";
 import {useRouter} from "next/router";
 import {useDispatch} from "react-redux";
@@ -9,10 +9,10 @@ const DatingUserCard = ({user}) => {
     const {forwardForUdProfileId} = useContext(Context);
     const dispatch = useDispatch();
     const router = useRouter();
-    const {neatUpZonedDateTime} = useContext(Context);
+    const {neatUpZonedDateTime, getPeriod} = useContext(Context);
     if (!user) return null;
-    let avatarCssParam;
 
+    let avatarCssParam;
     if (!user.avatar) {
         avatarCssParam = {filter: 'opacity(0.2)'}
     } else {
@@ -22,31 +22,10 @@ const DatingUserCard = ({user}) => {
 
     let visitDateConvertedStr = neatUpZonedDateTime(user.datingLastVisitDate);
     const visitDateMs = Date.parse(visitDateConvertedStr);
-
-    let period;
-    const visitPeriodMs = Date.now() - visitDateMs;
-    if (visitPeriodMs < 3600 * 1000) {
-        period = `${Math.round(visitPeriodMs / 60 / 1000)} minutes`;
-
-    } else if (visitPeriodMs < 24 * 3600 * 1000) {
-        period = `${Math.round(visitPeriodMs / 3600 / 1000)} hours`;
-
-    } else if (visitPeriodMs < 7 * 24 * 3600 * 1000) {
-        period = `${Math.round(visitPeriodMs / 24 / 3600 / 1000)} days`;
-
-    } else if (visitPeriodMs < 30 * 24 * 3600 * 1000) {
-        period = `${Math.round(visitPeriodMs / 7 / 24 / 3600 / 1000)} weeks`;
-
-    } else if (visitPeriodMs < 365 * 24 * 3600 * 1000) {
-        period = `${Math.round(visitPeriodMs / 30 / 24 / 3600 / 1000)} months`;
-
-    } else {
-        period = `${Math.round(visitPeriodMs / 365 / 24 / 3600 / 1000)} years`;
-    }
+    const period = getPeriod(visitDateMs);
 // TODO:  тут же, текстовую переменную 'period' можно писать в поле datingLastVisitDate для возможности последующей фильтрации по периоду отсутствия на сайте
 
     user.age = 20;
-    user.location = "Kiev/Ukraine";
     const lastVisitedIndication = (
         <>
             <span style={{marginLeft: '12px', fontSize: '12px'}}>lastVisit:</span>

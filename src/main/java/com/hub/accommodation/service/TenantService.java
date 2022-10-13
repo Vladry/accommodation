@@ -31,7 +31,7 @@ public class TenantService  extends GeneralService<Tenant> {
     }
 
     public Optional<Tenant> findTenantProfileById(Long userId) {
-        System.out.println("in findTenantProfileById(Long userId:" + userId + ")");
+//        System.out.println("in findTenantProfileById(Long userId:" + userId + ")");
 //        EntityManager em = emf.createEntityManager();
 //        try {
 //            Query q = em.createQuery("select t from Tenant t where t.userId = :userId")

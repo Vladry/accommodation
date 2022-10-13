@@ -22,29 +22,30 @@ public class UserRsDto extends BaseEntity {
     private String volunteerLastVisitDate; //rq String
 
     @JsonView(Views.Public.class)
-    String name = "";
+    private String name = "";
     @JsonView(Views.Public.class)
-    String lastName = "";
+    private String lastName = "";
     @JsonView(Views.Internal.class)
-    String email = "";
+    private String email = "";
     @JsonView(Views.Internal.class)
-    String phoneNumber = "";
+    private String phoneNumber = "";
     @JsonView(Views.Public.class)
-    String urlSocial1 = "";
+    private String urlSocial1 = "";
     @JsonView(Views.Internal.class)
-    String urlSocial2 = "";
+    private String urlSocial2 = "";
     @JsonView(Views.Public.class)
-    String messenger1 = "";
+    private String messenger1 = "";
     @JsonView(Views.Internal.class)
-    String messenger2 = "";
+    private String messenger2 = "";
     @JsonView(Views.Public.class)
-    String avatar = "";
+    private String avatar = "";
     boolean hideSocialContactData = false;
     boolean datingServiceParticipation = false;
-//    Set<AccommodationRsDto> accommodation;
+    //    Set<AccommodationRsDto> accommodation;
     private String role;
-//    private String lastModifiedDate;
+    //    private String lastModifiedDate;
 //    private String createdDate;
-
+    @JsonView(Views.Public.class)
+    private String location;
 
 }

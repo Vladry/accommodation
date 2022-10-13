@@ -1,18 +1,18 @@
 import React, {useEffect, useRef, useState} from 'react';
-import DatingMenuWrapper from "../formPages/dating/DatingMenuWrapper";
+import DatingMenuWrapper from "./formPages/dating/DatingMenuWrapper";
 import {useDispatch, useSelector} from "react-redux";
 import {useRouter} from "next/router";
-import {userDatingProfileFormFields} from "../../components/forms/dating_user_profile_form/userDatingProfileFormFields";
-import UserDatingProfileMapper from "../../components/UserDatingProfileMapper";
+import {udpFields} from "../components/forms/dating_user_profile_form/udpFields";
+import UdpMapper from "../components/UdpMapper";
 import {Box, Button, Grid} from "@mui/material";
-import SideBar from "../../components/dating_components/SideBar";
-import {datingMenu} from "../../public/menuConfig";
-import ArticleWindow from "../../components/dating_components/ArticleWindow";
-import {fetchData} from "../../store/actions/userAction";
-import types from "../../store/types";
-import sel from "../../store/selectors";
-import urls from '../../../src/main/resources/urls.json'
-import SwiperUserPic from "../../components/dating_components/swiper_carousel/SwiperUserPic";
+import SideBar from "../components/dating_components/SideBar";
+import {datingMenu} from "../public/menuConfig";
+import ArticleWindow from "../components/dating_components/ArticleWindow";
+import {fetchData} from "../store/actions/userAction";
+import types from "../store/types";
+import sel from "../store/selectors";
+import urls from '../../src/main/resources/urls.json'
+import SwiperUserPic from "../components/dating_components/swiper_carousel/SwiperUserPic";
 
 
 const UserDatingProfile = () => {
@@ -27,17 +27,17 @@ const UserDatingProfile = () => {
 
     if(isCandidateHasPictures){
         pictures = candidateDatingProfile.pictures;
-        console.log("pictures before:", pictures);
+        // console.log("pictures before:", pictures);
         if (reviewedUser?.avatar && !pictures.includes(reviewedUser.avatar)) {
                 pictures.unshift(reviewedUser.avatar);
-            console.log("pictures after:", pictures);
+            // console.log("pictures after:", pictures);
         }
     } else {
         if (reviewedUser?.avatar) {
-            console.log("reviewedUser.avatar: ", reviewedUser.avatar);
+            // console.log("reviewedUser.avatar: ", reviewedUser.avatar);
             pictures = [];
             pictures.push(reviewedUser.avatar);
-            console.log("pictures after:", pictures);
+            // console.log("pictures after:", pictures);
         }}
 
 
@@ -55,8 +55,8 @@ const UserDatingProfile = () => {
 
     const title = `Profile of Candidate id: ${queriedUserId}`;
 
-    const mappedFields = <UserDatingProfileMapper fields={userDatingProfileFormFields} values={candidateDatingProfile}
-                                                  id={queriedUserId} reviewedUser={reviewedUser}/>;
+    const mappedFields = <UdpMapper fields={udpFields} values={candidateDatingProfile}
+                                    id={queriedUserId} reviewedUser={reviewedUser}/>;
     const backButton =
         <Box textAlign={'center'} margin={'4px'} sx={{zIndex:'1', position: 'fixed', right: '1px', top: '1px', boxShadow: '18'}}>
             <Button variant="contained" size={'small'} onClick={router.back}>Back / Обратно</Button>

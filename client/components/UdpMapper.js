@@ -1,17 +1,8 @@
 import React, {useContext} from 'react';
-import {useFormik, getIn} from 'formik';
-import MuiPhoneNumber from 'material-ui-phone-number-2';
-import {Box, Button, Checkbox, Container, FormControlLabel, Grid, TextField, useMediaQuery} from "@mui/material";
-import AutocompleteFromMapbox from "./AutocompleteFromMapbox";
-import {useRouter} from "next/router";
-import DatingMenuWrapper from "../pages/formPages/dating/DatingMenuWrapper";
-import {datingMenu} from "../public/menuConfig";
-import DatingUserList from "./dating_components/DatingUserList";
-import SideBar from "./dating_components/SideBar";
-import ArticleWindow from "./dating_components/ArticleWindow";
+import {Box} from "@mui/material";
 import {Context} from "../context";
 
-const UserDatingProfileMapper = ({fields, values, id, reviewedUser}) => {
+const UdpMapper = ({fields, values, id, reviewedUser}) => {
     const {neatUpZonedDateTime} = useContext(Context);
 
     const name = [
@@ -67,4 +58,4 @@ const UserDatingProfileMapper = ({fields, values, id, reviewedUser}) => {
     return name.concat(location).concat(lastVisit).concat(age).concat(mappedContent);
 };
 
-export default UserDatingProfileMapper;
+export default UdpMapper;

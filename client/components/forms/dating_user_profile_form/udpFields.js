@@ -1,4 +1,4 @@
-export const userDatingProfileFormFields = [
+export const udpFields = [
 
 
     {

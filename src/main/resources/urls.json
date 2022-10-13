@@ -4,7 +4,7 @@
     "setLastVisitDating": "/users/visits",
     "accomodationList": "/formPages/AccommodationList",
     "tenantFormPage": "/formPages/TenantFormPage",
-    "queriedUserDatingProfile": "/profiles/UserDatingProfile/?queriedUserId=",
+    "queriedUserDatingProfile": "/UserDatingProfile/?queriedUserId=",
 
     "userUrl": "/users/profile",
     "datingProfile": "/users/datingProfile",

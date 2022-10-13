@@ -46,12 +46,18 @@ public class UserController {
         }
 
     }
-//------------------------------------------------
-@GetMapping("/users/visits/{id}")
-public void registerVisitToDating(@PathVariable("id") Long id){
-    userService.registerVisitToDating(id);
-}
 
+    //------------------------------------------------
+    @GetMapping("/users/visits/{id}")
+    public void registerVisitToDating(@PathVariable("id") Long id) {
+        userService.registerVisitToDating(id);
+    }
+
+    @PutMapping("/users/{id}")
+    public void updateUser(@PathVariable("id") Long id, @RequestParam("location") String location) {
+//        System.out.println("in updateUser ->");
+        userService.updateParamById(id, location);
+    }
 
     @PostMapping("/users")
     public UserRsDto createUser(@RequestBody UserRqDto userRqDto) {

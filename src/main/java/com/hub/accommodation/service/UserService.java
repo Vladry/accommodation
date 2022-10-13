@@ -16,17 +16,21 @@ import java.util.Optional;
 public class UserService extends GeneralService<User> {
     private final UserRepository userRepository;
     private final UserRepositoryImpl userRepositoryImpl;
+
     @Transactional(readOnly = true)
     public Optional<User> getUserByEmail(String email) {
         return userRepository.findUserByEmail(email);
     }
 
+    public void updateParamById(Long id, String location) {
+        userRepositoryImpl.updateParamById(id, location);
+    }
 
-    public void setDatingParticipationFlag(Long userId, Boolean value){
+    public void setDatingParticipationFlag(Long userId, Boolean value) {
         userRepositoryImpl.setDatingParticipationFlag(userId, value);
     }
 
-    public void registerVisitToDating(Long id){
+    public void registerVisitToDating(Long id) {
         userRepositoryImpl.registerVisitToDating(id);
     }
 

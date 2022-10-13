@@ -1,7 +1,7 @@
 import React from 'react';
-import {useFormik, getIn} from 'formik';
+import {getIn, useFormik} from 'formik';
 import MuiPhoneNumber from 'material-ui-phone-number-2';
-import {Box, Button, Checkbox, Container, FormControlLabel, Grid, TextField, useMediaQuery} from "@mui/material";
+import {Box, Button, Checkbox, FormControlLabel, Grid, Slider, TextField} from "@mui/material";
 import AutocompleteFromMapbox from "../AutocompleteFromMapbox";
 import InputSelectGoals from "./dating_user_profile_form/InputSelectGoals";
 import InputSelectSex from "./dating_user_profile_form/InputSelectSex";
@@ -9,7 +9,6 @@ import InputSelectCountry from "./dating_user_profile_form/InputSelectCountry";
 import styled from "@emotion/styled";
 import stylingConfig from '../../stylingConfig'
 import InputSelectInterests from "./dating_user_profile_form/InputSelectInterests";
-import {Slider} from '@mui/material';
 
 const FormMapper = ({fields, initValues, validation, handleSubmit}) => {
 
@@ -263,7 +262,7 @@ const FormMapper = ({fields, initValues, validation, handleSubmit}) => {
             </Box>
 
             {/*https://developer.mozilla.org/ru/docs/Web/HTML/Element/pre*/}
-            <pre>{JSON.stringify(formik.values, null, 4)}</pre>
+            {/*<pre>{JSON.stringify(formik.values, null, 4)}</pre>*/}
         </form>
     );
 };

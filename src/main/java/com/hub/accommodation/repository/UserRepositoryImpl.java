@@ -1,6 +1,7 @@
 package com.hub.accommodation.repository;
 
 import com.hub.accommodation.domain.user.User;
+import com.hub.accommodation.domain.user.UserDatingProfile;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -16,6 +17,53 @@ import java.util.List;
 public class UserRepositoryImpl {
 
     private final EntityManagerFactory emf;
+
+    public void updateParamById(long id, String location) {
+
+//        System.out.println("in UdpRepository2.updateParamById ->");
+//        System.out.println("id: " + id);
+//        System.out.println("location: " + location);
+
+        EntityManager em = emf.createEntityManager();
+        User e = null;
+        try {
+//            System.out.println("in 1st try-catch: trying to find existing user");
+            Query q = em.createQuery("select u from User u where u.id = :id")
+                    .setParameter("id", id);
+            e = (User) q.getSingleResult();
+//            System.out.println("successful end of 1st try-catch -> user found: " + e);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            System.out.println("updateParamById(long id, String param)-> exception in 1-st try-catch, u not found");
+        }
+
+        try {
+//            System.out.println("in 2nd try-catch: trying to set user param");
+            em.getTransaction().begin();
+            if (em.contains(e)) {
+                e.setLocation(location);
+                em.detach(e);
+                em.merge(e);
+//                System.out.println("merged existing entity: " + e);
+                em.getTransaction().commit();
+            }
+//            System.out.println("successful end of 2nd try-catch -> user.location persisted");
+        } catch (NullPointerException ex) {
+            em.getTransaction().rollback();
+            System.out.println(ex.getMessage());
+            System.out.println("NullPointerException in: updateParamById(long id, String location)");
+        } catch (Exception ex) {
+            em.getTransaction().rollback();
+            System.out.println(ex.getMessage());
+            System.out.println("other Exception in: updateParamById(long id, String location)");
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+
+
+    }
 
     public List<User> findAllByIds(List<Long> ids) {
         if (ids.isEmpty()) {
@@ -61,8 +109,8 @@ public class UserRepositoryImpl {
         }
     }
 
-    public void setDatingParticipationFlag(Long userId, Boolean value){
-        System.out.println("in setDatingParticipationTrue(Long "+userId+")");
+    public void setDatingParticipationFlag(Long userId, Boolean value) {
+        System.out.println("in setDatingParticipationTrue(Long " + userId + ")");
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();

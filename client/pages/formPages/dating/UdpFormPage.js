@@ -3,7 +3,7 @@ import DatingMenuWrapper from "./DatingMenuWrapper";
 import {datingMenu} from "../../../public/menuConfig";
 import api from "../../../lib/API";
 import {useDispatch, useSelector} from "react-redux";
-import UserDatingProfileForm from "../../../components/forms/dating_user_profile_form/UserDatingProfileForm";
+import UdpForm from "../../../components/forms/dating_user_profile_form/UdpForm";
 import {Grid} from "@mui/material";
 import SideBar from "../../../components/dating_components/SideBar";
 import ArticleWindow from "../../../components/dating_components/ArticleWindow";
@@ -14,7 +14,7 @@ import {useRouter} from "next/router";
 import urls from "../../../../src/main/resources/urls.json";
 import axios from "axios";
 
-const UserDatingProfileFormPage = () => {
+const UdpFormPage = () => {
     const user = useSelector(sel.user);
     const dispatch = useDispatch();
     const router = useRouter();
@@ -81,7 +81,7 @@ const UserDatingProfileFormPage = () => {
 
 
     const title = "Edit Your Profile"
-    const content = <UserDatingProfileForm handleSubmit={handleSubmit}/>;
+    const content = <UdpForm handleSubmit={handleSubmit}/>;
 
 
     return (
@@ -98,4 +98,4 @@ const UserDatingProfileFormPage = () => {
     );
 };
 
-export default UserDatingProfileFormPage;
+export default UdpFormPage;

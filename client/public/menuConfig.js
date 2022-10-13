@@ -53,7 +53,7 @@ export const datingMenu = [
         linkName: "настройка поиска",
     },
     {
-        url: `${urls.dating}/UserDatingProfileFormPage`,
+        url: `${urls.dating}/UdpFormPage`,
         linkName: "Редактировать Вашу анкету",
         inactiveLinkName: "ЗНАКОМСТВА: регистрация",
         inactiveTitle: "Для участия в службе ЗНАКОМСТВ требуется регистрация. Подбор кандидатов производится на основании регистрационных данных",

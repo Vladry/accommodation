@@ -28,7 +28,6 @@ const InputSelectCountry = ({formikRef, input, formik}) => {
     );
 
 
-
     return (
         <div key={formikRef}>
             <Labels> {input.label}:<br/>

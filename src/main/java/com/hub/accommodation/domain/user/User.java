@@ -28,6 +28,8 @@ public class User extends BaseEntity {
 //    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    private Set<Accommodation> accommodation = new HashSet<>();
 
+
+
     @Column(name = "dating_last_visit_date")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.YYYY hh.mm.ss")
     private ZonedDateTime datingLastVisitDate; //rq String
@@ -41,6 +43,8 @@ public class User extends BaseEntity {
     private ZonedDateTime volunteerLastVisitDate; //rq String
 
 
+    @Column(name="location")
+    String location;
     @Column(name = "hide_social_data", nullable = false)
     private boolean hideSocialContactData = false; //снимите галочку, если хотите, чтобы Ваши социальные сети и мессенджеры были доступны соискателям. Иначе, они будут доступны только нашему сервису для взаимодействия с Вами, но скрыты от других пользователей.
     @Column(name = "dating_participation", nullable = false)
@@ -80,12 +84,13 @@ public class User extends BaseEntity {
     }
 
     // из-за конфликта Ломбоковской генерации с суперклассом BaseEntity, всегда прописываем AllArgsConstructor руками
-    public User(Long id, Instant lastModifiedDate, ZonedDateTime createdDate, /*UserDatingProfile userDatingProfile, */Set<Accommodation> accommodation, String name, String lastName, String email, String password, String phoneNumber, String urlSocial1, String urlSocial2, String messenger1, String messenger2, String avatar, boolean hideSocialContactData, boolean datingServiceParticipation, Role role) {
+    public User(Long id, Instant lastModifiedDate, ZonedDateTime createdDate, /*UserDatingProfile userDatingProfile, */Set<Accommodation> accommodation, String name, String lastName, String email, String password, String phoneNumber, String urlSocial1, String urlSocial2, String messenger1, String messenger2, String avatar, boolean hideSocialContactData, boolean datingServiceParticipation, Role role, String location) {
         this.id = id;
         this.lastModifiedDate = lastModifiedDate;
         this.createdDate = createdDate;
 //        this.userDatingProfile = userDatingProfile;
 //        this.accommodation = accommodation;
+        this.location = location;
         this.name = name;
         this.lastName = lastName;
         this.email = email;
@@ -124,6 +129,7 @@ public class User extends BaseEntity {
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", role=" + role +
+                ", location= " + location +
                 ", id=" + id +
                 '}';
     }
