@@ -74,7 +74,7 @@ const InputSelectInterests = ({formikRef, input, formik}) => {
                 <div>
                     {selectedElems}
                 </div>
-                <Select multiple={false} onChange={handleSelect}>
+                <Select multiple={false} value={"NOT_CHOSEN"} onChange={handleSelect}>
                     {optionItems}
                 </Select>
             </Labels>

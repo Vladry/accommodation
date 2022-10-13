@@ -1,15 +1,12 @@
 package com.hub.accommodation.domain.user;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.hub.accommodation.domain.BaseEntity;
 import com.hub.accommodation.domain.accommodation.Picture;
 import com.hub.accommodation.domain.accommodation.enums.Country;
-import com.hub.accommodation.domain.user.enums.Interests;
 import com.hub.accommodation.domain.user.enums.Sex;
 import lombok.*;
 import lombok.experimental.Accessors;
 
-import javax.annotation.PostConstruct;
 import javax.persistence.*;
 import java.time.*;
 import java.util.*;
@@ -100,13 +97,14 @@ public class UserDatingProfile extends BaseEntity {
 
     @ElementCollection(fetch = FetchType.LAZY, targetClass = Interests.class)
     @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "my_Integererests_list", joinColumns = {@JoinColumn(name = "USER_DATING_PROFILE_ID")})
-    @Column(name = "Integererests") //именует колонку доп.таблицы интересов. Но не текущее поле в текущей таблице (((
+    @CollectionTable(name = "dating_interests")
+//    @CollectionTable(name = "user_dating_interests", joinColumns = {@JoinColumn(name = "USER_DATING_PROFILE_ID")})
+    @Column(name = "interests") //именует колонку доп.таблицы интересов. Но не текущее поле в текущей таблице (((
     private Collection<Interests> myInterests;
 
     @ElementCollection(fetch = FetchType.LAZY, targetClass = Goals.class)
     @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "user_dating_goals")
+    @CollectionTable(name = "dating_goals")
     @Column(name = "goals")
     private Collection<Goals> myGoals;
 
@@ -119,7 +117,7 @@ public class UserDatingProfile extends BaseEntity {
 
 */
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "userDatingProfile")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "userDatingProfile")
     private List<Picture> pictures = new ArrayList<>();
 
     private Integer age;
@@ -156,9 +154,6 @@ public class UserDatingProfile extends BaseEntity {
         this.pictures = pictures;
     }
 
-    public void setMyGoals(Collection<Goals> myGoals){
-        this.myGoals = myGoals;
-    }
 
     @Override
     public String toString() {

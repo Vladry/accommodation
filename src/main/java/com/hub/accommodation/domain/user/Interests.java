@@ -1,6 +1,7 @@
-package com.hub.accommodation.domain.user.enums;
+package com.hub.accommodation.domain.user;
 
 public enum Interests {
+    NOT_CHOSEN,
     TRAVEL,
     PLAYING_MUSIC_INSTRUMENTS,
     DANCING,
@@ -18,5 +19,6 @@ public enum Interests {
     GAMING,
     ANIME,
     READING_BOOKS,
-    MOVIES
+    MOVIES,
+
 }

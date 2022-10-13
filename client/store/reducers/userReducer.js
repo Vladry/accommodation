@@ -67,7 +67,7 @@ export default (state = initialState, action) => {
         case types.GET_USER_DATING_PROFILE:
             return {...state, loadingUserDatingProfile: true}
         case types.SET_USER_DATING_PROFILE_SUCCESS:
-            // console.log("userDatingProfile from DB: ",action.payload);
+            console.log("userDatingProfile from DB: ",action.payload);
             return {...state, userDatingProfile: action.payload, isCurrUserHasDatingProfile: true, loadingUserDatingProfile: false}
         case types.SET_USER_DATING_PROFILE_FAIL:
             return {...state, isCurrUserHasDatingProfile: false, loadingUserDatingProfile: false}

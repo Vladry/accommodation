@@ -17,6 +17,7 @@ import java.util.Set;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class UserDatingProfileRsDto extends BaseEntity {
 
     @JsonView(Views.Public.class)
@@ -46,29 +47,29 @@ public class UserDatingProfileRsDto extends BaseEntity {
     @JsonView(Views.Public.class)
     private Integer maxNumberOfChildrenAllowed;
 
-    @JsonView(Views.Additional.class)
-    private String selfDescription;
-    @JsonView(Views.Additional.class)
-    private String traitsIWouldLoveInYou;
-    @JsonView(Views.Additional.class)
-    private String traitsIWouldHateInYou;
-    @JsonView(Views.Additional.class)
+//    @JsonView(Views.Additional.class)
+//    private String selfDescription;
+//    @JsonView(Views.Additional.class)
+//    private String traitsIWouldLoveInYou;
+//    @JsonView(Views.Additional.class)
+//    private String traitsIWouldHateInYou;
+//    @JsonView(Views.Additional.class)
+//    private Set<String> desiredWithInterests;
+    @JsonView(Views.Public.class)
     private Set<String> myInterests;
-    @JsonView(Views.Additional.class)
-    private Set<String> desiredWithInterests;
     @JsonView(Views.Public.class)
     private Set<String> myGoals;
     @JsonView(Views.Public.class)
     private List<String> pictures;
     @JsonView(Views.Public.class)
     private String birthday;
-//    @JsonIgnore
-//    private LocalDateTime lastVisitDate;
+
     @JsonView(Views.Public.class)
     private Integer age;
 //    @JsonView(Views.Public.class)
 //    private String lastVisited;
-
+    //    @JsonIgnore
+//    private LocalDateTime lastVisitDate;
 
 
 //    public void setLastVisitDate(LocalDateTime lastVisitDate) {
@@ -117,11 +118,11 @@ public class UserDatingProfileRsDto extends BaseEntity {
                 ", wantFromCountry='" + wantFromCountry + '\'' +
                 ", numberOfMyChildren=" + numberOfMyChildren +
                 ", maxNumberOfChildrenAllowed=" + maxNumberOfChildrenAllowed +
-                ", selfDescription='" + selfDescription + '\'' +
-                ", traitsIWouldLoveInYou='" + traitsIWouldLoveInYou + '\'' +
-                ", traitsIWouldHateInYou='" + traitsIWouldHateInYou + '\'' +
+//                ", selfDescription='" + selfDescription + '\'' +
+//                ", traitsIWouldLoveInYou='" + traitsIWouldLoveInYou + '\'' +
+//                ", traitsIWouldHateInYou='" + traitsIWouldHateInYou + '\'' +
                 ", myInterests=" + myInterests +
-                ", desiredWithInterests=" + desiredWithInterests +
+//                ", desiredWithInterests=" + desiredWithInterests +
                 ", myGoals=" + myGoals +
                 ", pictures=" + pictures +
                 ", birthday=" + birthday +

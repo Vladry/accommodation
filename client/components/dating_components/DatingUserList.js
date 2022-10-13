@@ -5,8 +5,7 @@ import {Box} from "@mui/material";
 
 const DatingUserList = ({users}) => {
     // console.log("rendering DatingUserList");
-    if (!users) return <h3>No candidates matching your criteria <br/>
-    Не найдено кандидатов соответствующих Вашим критериям</h3>;
+    if (!users || users.length === 0) return null;
 
     const datingUsers = users.map(
         (user, key) => {

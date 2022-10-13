@@ -60,10 +60,16 @@ export default [
         ua: 'iньше...',
     },
     {
-    val: 'WANT_TO_RELOCATE',
-    en: 'I want to relocate',
-    ru: 'хочу переехать',
-    ua: 'хочу переехать',
-},
+        val: 'WANT_TO_RELOCATE',
+        en: 'I want to relocate',
+        ru: 'хочу переехать',
+        ua: 'хочу переехать',
+    },
+    {
+        val: 'NOT_CHOSEN',
+        en: '-> choose here: / выберите здесь:',
+        ru: '-> выберите здесь:',
+        ua: '-> виберіть тут:',
+    },
 
 ]

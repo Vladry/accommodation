@@ -17,3 +17,7 @@ export default {
     },
     selectButton: {m: '1px', p: '4px', fontSize: '0.8em', fontWeight: '400', textTransform: 'none'},
 }
+
+/*
+${props => props.theme.palette.primary.main}
+${props => props.theme.palette.success.dark}*/

@@ -89,8 +89,15 @@ const Index = () => {
             </Grid>
             <Grid item={true} xs={7} sm={9} md={10}>
                 <Box sx={{border: '1px solid green'}}>
-                    <h3 style={{textAlign: 'center'}}>Candidates matching your criteria</h3>
-                    <DatingUserList users={candidates}/>
+
+                    {!!candidates?.length > 0
+                        && <h3 style={{textAlign: 'center'}}>Candidates matching your criteria:</h3>
+                        && <DatingUserList users={candidates}/>}
+
+                    {!candidates?.length > 0 && <h3 style={{textAlign: 'center', color: "#b30000"}}>
+                        No candidates matching your criteria! <br/>
+                        Нет кандидатов соответствующих Вашим критериям!</h3>}
+
                 </Box>
             </Grid>
         </Grid>

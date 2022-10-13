@@ -25,6 +25,7 @@ const forwardForUdProfileId = (router, queriedUserId, user, dispatch, event) => 
 
 
 const prepareFormData = (fields, persistedValues) => {
+    console.log("persistedValues: ", persistedValues);
     if (persistedValues) {
         return {
             initialValues: fields.reduce((acc, current) => ({     //https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
@@ -33,7 +34,10 @@ const prepareFormData = (fields, persistedValues) => {
             }), {})
         }
     } else { // иначе заполняем только дефолтными значениями
+        console.log("persistedValues not found, using dafaultValues. ");
+
         return {
+
             initialValues: fields.reduce((acc, current) => ({
                 ...acc,
                 [current.formikRef]: (persistedValues && persistedValues[current.formikRef]) ? persistedValues[current.formikRef] : current.valueByDefault //заполняем дефолтными значениями полученными либо из fetched from persistedValues, либо из заданных по дефолту

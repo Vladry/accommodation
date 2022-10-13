@@ -3,10 +3,7 @@ package com.hub.accommodation.facade;
 import com.hub.accommodation.DTO.request.UserDatingProfileRqDto;
 import com.hub.accommodation.DTO.response.UserDatingProfileRsDto;
 import com.hub.accommodation.domain.accommodation.Picture;
-import com.hub.accommodation.domain.user.Goals;
-import com.hub.accommodation.domain.user.User;
 import com.hub.accommodation.domain.user.UserDatingProfile;
-import com.hub.accommodation.domain.user.enums.Interests;
 import org.modelmapper.Converter;
 import org.springframework.stereotype.Component;
 
@@ -14,10 +11,7 @@ import javax.annotation.PostConstruct;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
