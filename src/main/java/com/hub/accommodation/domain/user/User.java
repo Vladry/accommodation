@@ -42,7 +42,8 @@ public class User extends BaseEntity {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.YYYY hh.mm.ss")
     private ZonedDateTime volunteerLastVisitDate; //rq String
 
-
+    @Transient
+    private Integer age;
     @Column(name="location")
     String location;
     @Column(name = "hide_social_data", nullable = false)
@@ -84,13 +85,14 @@ public class User extends BaseEntity {
     }
 
     // из-за конфликта Ломбоковской генерации с суперклассом BaseEntity, всегда прописываем AllArgsConstructor руками
-    public User(Long id, Instant lastModifiedDate, ZonedDateTime createdDate, /*UserDatingProfile userDatingProfile, */Set<Accommodation> accommodation, String name, String lastName, String email, String password, String phoneNumber, String urlSocial1, String urlSocial2, String messenger1, String messenger2, String avatar, boolean hideSocialContactData, boolean datingServiceParticipation, Role role, String location) {
+    public User(Long id, Instant lastModifiedDate, ZonedDateTime createdDate, /*UserDatingProfile userDatingProfile, */Set<Accommodation> accommodation, String name, String lastName, String email, String password, String phoneNumber, String urlSocial1, String urlSocial2, String messenger1, String messenger2, String avatar, boolean hideSocialContactData, boolean datingServiceParticipation, Role role, Integer age, String location) {
         this.id = id;
         this.lastModifiedDate = lastModifiedDate;
         this.createdDate = createdDate;
 //        this.userDatingProfile = userDatingProfile;
 //        this.accommodation = accommodation;
         this.location = location;
+        this.age = age;
         this.name = name;
         this.lastName = lastName;
         this.email = email;
@@ -126,6 +128,7 @@ public class User extends BaseEntity {
         return "User{" +
                 "name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", age='" + age + '\'' +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", role=" + role +

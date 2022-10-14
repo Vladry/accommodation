@@ -1,6 +1,7 @@
 package com.hub.accommodation.controller;
 
 import com.hub.accommodation.DTO.request.UserRqDto;
+import com.hub.accommodation.DTO.response.UserAgeRsDto;
 import com.hub.accommodation.DTO.response.UserRsDto;
 import com.hub.accommodation.domain.user.User;
 import com.hub.accommodation.domain.user.UserDatingProfile;
@@ -104,7 +105,20 @@ public class UserController {
         }
         List<User> users = userService.findAllByIds(ids);
 //        System.out.println("in /allByIds, users: "+users);
-        return users.stream().map(userFacade::convertToDto).collect(Collectors.toList());
+        List<UserAgeRsDto> listUserAgeRsDtos = userService.getUsersAges(ids);
+        List<UserRsDto> listusers = users.stream().map(userFacade::convertToDto).collect(Collectors.toList());
+
+        listusers = listusers.stream().map(user -> {
+            for (UserAgeRsDto userAgeData : listUserAgeRsDtos) {
+                if (userAgeData.getUserId().equals(user.getId())) {
+                    user.setAge( userAgeData.getAge() );
+                    return user;
+                }
+
+            }
+            return user;
+        }).collect(Collectors.toList());
+        return listusers;
     }
 
 

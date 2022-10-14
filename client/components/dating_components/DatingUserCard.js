@@ -25,7 +25,7 @@ const DatingUserCard = ({user}) => {
     const period = getPeriod(visitDateMs);
 // TODO:  тут же, текстовую переменную 'period' можно писать в поле datingLastVisitDate для возможности последующей фильтрации по периоду отсутствия на сайте
 
-    user.age = 20;
+    // user.age = 20;
     const lastVisitedIndication = (
         <>
             <span style={{marginLeft: '12px', fontSize: '12px'}}>lastVisit:</span>

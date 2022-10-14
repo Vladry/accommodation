@@ -1,6 +1,8 @@
 package com.hub.accommodation.domain.accommodation.enums;
 
 public enum Country {
+
+    ANY_COUNTRY("Any country"),
     USA("United States of America"),
     AFGHANISTAN("Afghanistan"),
     ALBANIA("Albania"),
@@ -202,8 +204,7 @@ public enum Country {
     VIETNAM("Vietnam"),
     YEMEN("Yemen"),
     ZAMBIA("Zambia"),
-    ZIMBABWE("Zimbabwe"),
-    ANY_COUNTRY("Any country");
+    ZIMBABWE("Zimbabwe");
 
     private String country;
 

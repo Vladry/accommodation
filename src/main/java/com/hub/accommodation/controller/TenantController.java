@@ -5,11 +5,13 @@ import com.hub.accommodation.DTO.response.TenantRsDto;
 import com.hub.accommodation.domain.Tenant;
 import com.hub.accommodation.facade.TenantFacade;
 import com.hub.accommodation.service.TenantService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
+@Slf4j
 @Validated
 @RestController
 @CrossOrigin(origins = "*")
@@ -38,7 +40,7 @@ public class TenantController {
             TenantRsDto tRsDto = tenantFacade.convertToDto(tOpt.get());
             return tRsDto;
         } else {
-            System.out.println("returning Tenant: null");
+            log.error("returning Tenant: null");
             return null;
         }
 

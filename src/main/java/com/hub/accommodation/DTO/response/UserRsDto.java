@@ -1,21 +1,18 @@
 package com.hub.accommodation.DTO.response;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.hub.accommodation.Views;
-import com.hub.accommodation.domain.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import java.time.ZonedDateTime;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserRsDto extends BaseEntity {
+public class UserRsDto {
 
+    private Long id;
+    private Integer age;
     @JsonView(Views.Public.class)
     private String datingLastVisitDate; //rq String
     private String accommodationLastVisitDate; //rq String

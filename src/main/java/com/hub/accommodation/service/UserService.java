@@ -1,5 +1,6 @@
 package com.hub.accommodation.service;
 
+import com.hub.accommodation.DTO.response.UserAgeRsDto;
 import com.hub.accommodation.domain.user.User;
 import com.hub.accommodation.repository.UserRepository;
 import com.hub.accommodation.repository.UserRepositoryImpl;
@@ -16,6 +17,12 @@ import java.util.Optional;
 public class UserService extends GeneralService<User> {
     private final UserRepository userRepository;
     private final UserRepositoryImpl userRepositoryImpl;
+
+
+    public List<UserAgeRsDto> getUsersAges(List<Long> ids){
+        return userRepositoryImpl.getUsersAges(ids);
+    }
+
 
     @Transactional(readOnly = true)
     public Optional<User> getUserByEmail(String email) {

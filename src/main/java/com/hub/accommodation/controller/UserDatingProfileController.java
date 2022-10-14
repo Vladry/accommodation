@@ -100,14 +100,14 @@ public class UserDatingProfileController {
     @PostMapping("/candidatesIds")
     public List<Long> getMatchingDatingCandidatesIds(
             @RequestParam("currentUserId") String currentUserId, @RequestBody UserDatingProfileRqDto udpRqDto) {
-        System.out.println("getCandidatesIds, param userId: " + currentUserId);
-        System.out.println("running: UserDatingProfile udp = userDatingProfileFacade.convertToEntity(udpRqDto);");
+//        System.out.println("getCandidatesIds, param userId: " + currentUserId);
+//        System.out.println("running: UserDatingProfile udp = userDatingProfileFacade.convertToEntity(udpRqDto);");
         UserDatingProfile udp = userDatingProfileFacade.convertToEntity(udpRqDto);
-        System.out.println("udp: "+ udp);
+//        System.out.println("udp: "+ udp);
         if (udp.getMySex() != null) {
             List<UserDatingProfile> candidatesMatchingCriteria = userDatingProfileService.findAllMatchingTheCriteria(udp);
             List<Long> IDsOfSelectedCandidates = candidatesMatchingCriteria.stream().map(UserDatingProfile::getId).collect(Collectors.toList());
-            System.out.println("IDsOfSelectedCandidates: "+ IDsOfSelectedCandidates);
+//            System.out.println("IDsOfSelectedCandidates: "+ IDsOfSelectedCandidates);
             return IDsOfSelectedCandidates;
         } else {
             throw new NoDataFoundException(String.format("NoDataFoundException: userDatingProfile for user %s does not exist", currentUserId));

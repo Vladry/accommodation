@@ -1,8 +1,9 @@
 package com.hub.accommodation.repository;
 
+import com.hub.accommodation.DTO.response.UserAgeRsDto;
 import com.hub.accommodation.domain.user.User;
-import com.hub.accommodation.domain.user.UserDatingProfile;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -11,12 +12,33 @@ import javax.persistence.Query;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
+@Slf4j
 @Repository
 @RequiredArgsConstructor
 public class UserRepositoryImpl {
 
     private final EntityManagerFactory emf;
+
+    public List<UserAgeRsDto> getUsersAges(List<Long> ids) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            Query q = em.createQuery(
+                    "select new com.hub.accommodation.DTO.response.UserAgeRsDto(" +
+                            "udp.userId, udp.birthday) from UserDatingProfile udp where udp.userId in :ids");
+            q.setParameter("ids", ids);
+            List<UserAgeRsDto> userAgeRsDtoList = q.getResultList();
+            userAgeRsDtoList.stream().peek(UserAgeRsDto::setAge).collect(Collectors.toList());
+//        System.out.println("selected UserAgeRsDto(s) after age mapping: " + userAgeRsDtoList);
+            return userAgeRsDtoList;
+        } catch (RuntimeException e) {
+            log.error(e.getMessage());
+        } finally {
+            em.close();
+        }
+        return new ArrayList<UserAgeRsDto>();
+    }
 
     public void updateParamById(long id, String location) {
 
@@ -110,7 +132,7 @@ public class UserRepositoryImpl {
     }
 
     public void setDatingParticipationFlag(Long userId, Boolean value) {
-        System.out.println("in setDatingParticipationTrue(Long " + userId + ")");
+//        System.out.println("in setDatingParticipationTrue(Long " + userId + ")");
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
