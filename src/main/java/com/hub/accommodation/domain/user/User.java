@@ -15,7 +15,6 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-//@RequiredArgsConstructor
 @NoArgsConstructor
 //@AllArgsConstructor  -так, как Ломбок не генерирует поля от BaseEntity, то этот конструктор я создаю везде самостоятельно
 @Table(name = "users")

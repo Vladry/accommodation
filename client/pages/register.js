@@ -1,16 +1,19 @@
 import React, {useState} from 'react';
 import api from "../lib/API";
-import UserForm from "../components/forms/user_form/UserForm";
+import NewUserForm from "../components/forms/user_form/NewUserForm";
 import Router from "next/router";
 import {signIn} from "next-auth/react";
 import {Box, Typography} from "@mui/material";
 import styled from "@emotion/styled";
 import {useTheme} from "@mui/material/styles";
+import types from "../store/types";
+import {useDispatch} from "react-redux";
 
 const Register = () => {
 
         const [error, setError] = useState(false);
         const theme = useTheme();
+        const dispatch = useDispatch();
 
         const errorBox = (
             <Box margin={'0 auto'}>
@@ -29,9 +32,14 @@ const Register = () => {
 
 
         const handleSubmit = async (values) => {
-
+            // console.log("values: ", values);
             try {
-                await api.post("/auth/register", values);
+                await api.post("/auth/register", values)
+                    .then(r => {
+                        values.id = r.userId;
+                        dispatch({type: types.SET_USER_SUCCESS, payload: values});
+                    });
+
 
                 setError(false);
                 const {email, password} = values;
@@ -42,7 +50,6 @@ const Register = () => {
                 console.log('such user already exists! ');
                 setError(true);
             }
-
 
         };
 
@@ -56,7 +63,7 @@ const Register = () => {
 
                 {error && errorBox}
 
-                <UserForm handleSubmit={handleSubmit}/>
+                <NewUserForm handleSubmit={handleSubmit}/>
             </>
         );
     }

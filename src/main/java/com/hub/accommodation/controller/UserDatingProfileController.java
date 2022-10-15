@@ -39,15 +39,13 @@ public class UserDatingProfileController {
     @PostMapping("/datingProfile")
     public UserDatingProfileRsDto saveByUserId(
             @RequestBody String jsonString,
-//            @RequestBody UserDatingProfileRqDto udpRqDto,
             @RequestHeader("datingServiceParticipation") Boolean datingServiceParticipation) {
-//        System.out.println("in controller.saveByUserId-> RequestBody: "+udpRqDto);
-        System.out.println("in controller.saveByUserId-> RequestBody: "+jsonString);
+//        System.out.println("in controller.saveByUserId-> RequestBody: "+jsonString);
         JsonToDtoConverter<UserDatingProfileRqDto> converter = new JsonToDtoConverter<>(UserDatingProfileRqDto.class);
         UserDatingProfileRqDto udpRqDto = converter.doConvert(jsonString);
-        System.out.println("UserDatingProfileRqDto udpRqDto: "+udpRqDto);
+//        System.out.println("UserDatingProfileRqDto udpRqDto: "+udpRqDto);
         UserDatingProfile udp = userDatingProfileFacade.convertToEntity(udpRqDto);
-        System.out.println("UserDatingProfile udp to be persisted now: "+udp);
+//        System.out.println("UserDatingProfile udp to be persisted now: "+udp);
         if (!datingServiceParticipation) {
             userService.setDatingParticipationFlag(udp.getUserId(), true);
         }

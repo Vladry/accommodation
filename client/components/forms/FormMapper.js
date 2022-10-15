@@ -71,10 +71,8 @@ const FormMapper = ({fields, initValues, validation, handleSubmit}) => {
         finalArr.push(tempArr[2]);
         return finalArr.join(" ");
     }*/
-console.log("formik.values: ", formik.values)
-    const birthdayMonitorInputField = formik.values["birthday"]? dateReFormatter(formik.values["birthday"]) : undefined;
-    // formik.values['checkYourBirthday'] = dateConvert(formik.values["birthday"]);
-    // console.log("checkYourBirthday: ", formik.values['checkYourBirthday']);
+// console.log("formik.values: ", formik.values)
+    const birthdayMonitorInputField = (formik.values && formik.values["birthday"])? dateReFormatter(formik.values["birthday"]) : undefined;
 
     const mappedFields = fields.map(({formikRef, valueByDefault, ...input}) => {
         switch (input.type) {

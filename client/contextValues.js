@@ -58,7 +58,7 @@ const prepareFormData = (fields, persistedValues) => {
             }), {})
         }
     } else { // иначе заполняем только дефолтными значениями
-        console.log("persistedValues not found, using dafaultValues. ");
+        // console.log("persistedValues not found, using dafaultValues. ");
 
         return {
 

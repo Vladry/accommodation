@@ -6,7 +6,7 @@ import {EMAIL_REGEXP} from "../../utils/regexp";
 import MuiPhoneNumber from 'material-ui-phone-number-2';
 import {Button, Checkbox, Container, FormControlLabel, Grid, TextField} from "@mui/material";
 import {userFormValidation} from "./formsValidations";
-import {userFormFields} from "./userFormFields";
+import {userFormFields} from "./newUserFormFields";
 
 
 const UserForm = () => {

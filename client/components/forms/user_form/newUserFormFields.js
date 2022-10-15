@@ -1,9 +1,9 @@
-export const userFormFields = [
+export const newUserFormFields = [
     {
         id: "name",
         name: "name",
         formikRef: "name",
-        label: "First name/имя",
+        label: "first name/Имя",
         valueByDefault: "",
         type: "text"
     },
@@ -11,7 +11,7 @@ export const userFormFields = [
         id: "lastName",
         name: "lastName",
         formikRef: "lastName",
-        label: "Last name/фамилия",
+        label: "last name/Фамилия",
         valueByDefault: "",
         type: "text"
     },
@@ -28,7 +28,7 @@ export const userFormFields = [
         id: "password",
         name: "password",
         formikRef: "password",
-        label: "Password/пароль",
+        label: "Create Password/Создайте пароль",
         valueByDefault: "",
         type: "text"
     },
@@ -37,7 +37,7 @@ export const userFormFields = [
         name: "phoneNumber",
         formikRef: "phoneNumber",
         label: "Phone number/телефон",
-        valueByDefault: "+380",
+        valueByDefault: "+380_________",
         type: "tel"
     },
     {

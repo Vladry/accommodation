@@ -1,26 +1,30 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {userFormValidation} from "./formsValidations";
-import {userFormFields} from "./userFormFields";
+import {newUserFormFields} from "./newUserFormFields";
 import FormMapper from "../FormMapper";
 import Button from "@mui/material/Button";
 import {Box} from "@mui/material";
 import {useRouter} from "next/router";
+import {Context} from "../../../context";
+import {udpFields} from "../dating_user_profile_form/udpFields";
 
 
-const UserForm = ({handleSubmit}) => {
+const NewUserForm = ({handleSubmit}) => {
     const router = useRouter();
+    const {prepareFormData} = useContext(Context);
+    const formInitValues = prepareFormData(newUserFormFields, null);
+
 
     return (
         <>
             <Box textAlign={'center'}><Button variant={'outlined'} color={'primary'} size={'small'}
             onClick={() => router.back()}> Go Back/ Вернуться Обратно</Button></Box>
-            <FormMapper fields={userFormFields}
-                        persistedValues={null}
+            <FormMapper fields={newUserFormFields}
+                        initValues={formInitValues}
                         validation={null}
                         handleSubmit={handleSubmit}/>
-            {/* TODO <FormMapper fields={userFormFields} validation={userFormValidation} handleSubmit={handleSubmit}/>*/}
         </>
     );
 };
 
-export default UserForm;
+export default NewUserForm;

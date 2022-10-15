@@ -9,7 +9,7 @@ export default function useAuth(shouldRedirect) {
 
     useEffect(() => {
         if (session?.error === "RefreshAccessTokenError") {
-            signOut({ callbackUrl: '/', redirect: shouldRedirect });
+            signOut({ callbackUrl: '/login', redirect: shouldRedirect });
         }
 
         if (session === null) {
