@@ -32,7 +32,7 @@ const UdpMapper = ({fields, values, id, reviewedUser}) => {
     ];
 
     let val = "";
-    const excludedRefs = ['birthday', 'pictures', 'mySex', 'seekAPersonOfSex', 'minHeightIWant', 'maxHeightIWant', 'minPreferedAge', 'maxPreferedAge', 'maxNumberOfChildrenAllowed'];
+    const excludedRefs = ['birthday', 'pictures', 'mySex', 'seekAPersonOfSex', 'minHeightIWant', 'maxHeightIWant', 'minPreferredAge', 'maxPreferredAge', 'maxNumberOfChildrenAllowed'];
     const mappedContent = fields.map(({name, formikRef, label}, index) => {
         const isExcludingElement = excludedRefs.some((el) => formikRef === el);
         if (isExcludingElement) {

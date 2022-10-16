@@ -80,8 +80,8 @@ const FormMapper = ({fields, initValues, validation, handleSubmit}) => {
                 let minLim, maxLim, rangeMarks, initValue, initLower, initHigher;
                 switch (formikRef) {
                     case 'ageRange':
-                        initLower = getIn(formik.values, 'minPreferedAge') ? getIn(formik.values, 'minPreferedAge') : 18;
-                        initHigher = getIn(formik.values, 'maxPreferedAge') ? getIn(formik.values, 'maxPreferedAge') : 60;
+                        initLower = getIn(formik.values, 'minPreferredAge') ? getIn(formik.values, 'minPreferredAge') : 18;
+                        initHigher = getIn(formik.values, 'maxPreferredAge') ? getIn(formik.values, 'maxPreferredAge') : 60;
                         // minLim = initLower>0? initLower-2 : 16;
                         // maxLim = initHigher>0? initHigher+10 : 80;
                         minLim = 16;
@@ -118,11 +118,11 @@ const FormMapper = ({fields, initValues, validation, handleSubmit}) => {
                                         switch (formikRef) {
                                             case 'ageRange':
                                                 //и выставляем соответств-щие поля возрастов или роста
-                                                formik.setFieldValue('minPreferedAge', min);
-                                                formik.setFieldValue('maxPreferedAge', max);
+                                                formik.setFieldValue('minPreferredAge', min);
+                                                formik.setFieldValue('maxPreferredAge', max);
                                                 // альтернативные способы выставлять поля возрастов или роста:
-                                                // formik.values['minPreferedAge'] = formik.values[formikRef][0];
-                                                // formik.values['maxPreferedAge'] = formik.values[formikRef][1];
+                                                // formik.values['minPreferredAge'] = formik.values[formikRef][0];
+                                                // formik.values['maxPreferredAge'] = formik.values[formikRef][1];
                                                 break;
                                             case 'heightRange':
                                                 formik.setFieldValue('minHeightIWant', min);
@@ -202,10 +202,6 @@ const FormMapper = ({fields, initValues, validation, handleSubmit}) => {
                             formik.setFieldValue(formikRef, e, true)
                         }
                         }/></FormItem>);
-            case 'image': //TODO -переписать весь кейс для image:
-                // https://medium.com/geekculture/how-to-upload-and-preview-images-in-react-js-4e22a903f3db
-                return null;
-
             case '--number':
                 return null;
 
@@ -225,7 +221,6 @@ const FormMapper = ({fields, initValues, validation, handleSubmit}) => {
                         {!!birthdayMonitorInputField && birthdayMonitorInputField}
                     </span>
                     </FormItem>);
-                break;
 
             default:
                 return (

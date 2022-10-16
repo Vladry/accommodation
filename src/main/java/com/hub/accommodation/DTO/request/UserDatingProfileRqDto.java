@@ -28,8 +28,8 @@ public class UserDatingProfileRqDto {
     private Integer minHeightIWant;
     private Integer maxHeightIWant;
 
-    private Integer minPreferedAge;
-    private Integer maxPreferedAge;
+    private Integer minPreferredAge;
+    private Integer maxPreferredAge;
 
     private String countryINowLiveIn;
     private String myCitizenship;
@@ -51,7 +51,7 @@ public class UserDatingProfileRqDto {
     private List<String> pictures;
 
 //    public UserDatingProfileRqDto(
-//            String userId, String mySex, String birthday, String lastVisitDate, String seekAPersonOfSex, Integer myHeight, Integer minHeightIWant, Integer maxHeightIWant, Integer minPreferedAge, Integer maxPreferedAge, String countryINowLiveIn, String myCitizenship, String wantFromCountry, Integer numberOfMyChildren, Integer maxNumberOfChildrenAllowed, String selfDescription, String traitsIWouldLoveInYou, String traitsIWouldHateInYou, /*Set<String> myInterests,*/ String myInterests, Set<String> desiredWithInterests, /*Set<String> myGoals,*/ String myGoals, List<String> pictures) {
+//            String userId, String mySex, String birthday, String lastVisitDate, String seekAPersonOfSex, Integer myHeight, Integer minHeightIWant, Integer maxHeightIWant, Integer minPreferredAge, Integer maxPreferredAge, String countryINowLiveIn, String myCitizenship, String wantFromCountry, Integer numberOfMyChildren, Integer maxNumberOfChildrenAllowed, String selfDescription, String traitsIWouldLoveInYou, String traitsIWouldHateInYou, /*Set<String> myInterests,*/ String myInterests, Set<String> desiredWithInterests, /*Set<String> myGoals,*/ String myGoals, List<String> pictures) {
 //        this.userId = userId;
 //        this.mySex = mySex;
 //        this.birthday = birthday;
@@ -60,8 +60,8 @@ public class UserDatingProfileRqDto {
 //        this.myHeight = myHeight;
 //        this.minHeightIWant = minHeightIWant;
 //        this.maxHeightIWant = maxHeightIWant;
-//        this.minPreferedAge = minPreferedAge;
-//        this.maxPreferedAge = maxPreferedAge;
+//        this.minPreferredAge = minPreferredAge;
+//        this.maxPreferredAge = maxPreferredAge;
 //        this.countryINowLiveIn = countryINowLiveIn;
 //        this.myCitizenship = myCitizenship;
 //        this.wantFromCountry = wantFromCountry;

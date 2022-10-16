@@ -1,4 +1,4 @@
-import React, {forwardRef, useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
@@ -14,7 +14,6 @@ import Greeting from "./Greeting";
 import MenuItem from "@mui/material/MenuItem";
 import useAuth from "../../hooks/useAuth";
 import Menu from "@mui/material/Menu";
-import styled from '@emotion/styled';
 
 const UserProfileMenu = (props) => {
     const {menuId} = props;

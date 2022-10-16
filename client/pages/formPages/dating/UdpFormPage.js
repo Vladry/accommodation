@@ -48,17 +48,6 @@ const UdpFormPage = () => {
                 headers: {'datingServiceParticipation': user.datingServiceParticipation} //если еще не зарегистрирован в знакомствах-то, на бЭке по datingServiceParticipation=false запустится регистрация
             }
 
-            // axios({
-            //     method: 'post',
-            //     url: baseURL+urls.datingProfile,
-            //     data: userDatingProfileFormNewValues,
-            //         headers: {'datingServiceParticipation': user.datingServiceParticipation}
-            // }
-
-            /*,{ contentType: "application/json; charset=utf-8",
-            async: false,    //Cross-domain requests and dataType: "jsonp" requests do not support synchronous operation
-            cache: false,    //This will force requested pages not to be cached by the browser
-            processData:false}*/
         ).then((res) => {
             // console.log('in handleSubmit.then на фронте, после отправки на Back-End данных. Ответ сервера:', res); // вывод userDatingProfile
             //обновить в локальном сторе userDatingProfile

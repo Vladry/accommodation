@@ -33,9 +33,9 @@ public class UserDatingProfileRsDto extends BaseEntity {
     @JsonView(Views.Public.class)
     private Integer maxHeightIWant;
     @JsonView(Views.Public.class)
-    private Integer minPreferedAge;
+    private Integer minPreferredAge;
     @JsonView(Views.Public.class)
-    private Integer maxPreferedAge;
+    private Integer maxPreferredAge;
     @JsonView(Views.Public.class)
     private String countryINowLiveIn;
     @JsonView(Views.Public.class)
@@ -111,8 +111,8 @@ public class UserDatingProfileRsDto extends BaseEntity {
                 ", myHeight=" + myHeight +
                 ", minHeightIWant=" + minHeightIWant +
                 ", maxHeightIWant=" + maxHeightIWant +
-                ", minPreferedAge=" + minPreferedAge +
-                ", maxPreferedAge=" + maxPreferedAge +
+                ", minPreferredAge=" + minPreferredAge +
+                ", maxPreferredAge=" + maxPreferredAge +
                 ", countryINowLiveIn='" + countryINowLiveIn + '\'' +
                 ", myCitizenship='" + myCitizenship + '\'' +
                 ", wantFromCountry='" + wantFromCountry + '\'' +

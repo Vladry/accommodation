@@ -64,9 +64,9 @@ public class UserDatingProfile extends BaseEntity {
     private Integer maxHeightIWant = 0; //ok
 
     @Column(name = "min_pref_age")
-    private Integer minPreferedAge = 0; //rq Integer
+    private Integer minPreferredAge = 0; //rq Integer
     @Column(name = "max_pref_age")
-    private Integer maxPreferedAge = 0; //rq Integer
+    private Integer maxPreferredAge = 0; //rq Integer
 
     @Enumerated(EnumType.STRING)
     @Column(name = "country_i_now_live_in")
@@ -129,7 +129,7 @@ public class UserDatingProfile extends BaseEntity {
         this.age = period.getYears();
     }
 
-    public UserDatingProfile(Long userId, Sex mySex, LocalDate birthday, /*ZonedDateTime lastVisitDate, */Sex seekAPersonOfSex, Integer myHeight, Integer minHeightIWant, Integer maxHeightIWant, Integer minPreferedAge, Integer maxPreferedAge, Country countryINowLiveIn, Country myCitizenship, Country wantFromCountry, Integer numberOfMyChildren, Integer maxNumberOfChildrenAllowed, String selfDescription, String traitsIWouldLoveInYou, String traitsIWouldHateInYou, List<Interests> myInterests, List<Interests> desiredWithInterests, List<Goals> myGoals, List<Picture> pictures) {
+    public UserDatingProfile(Long userId, Sex mySex, LocalDate birthday, /*ZonedDateTime lastVisitDate, */Sex seekAPersonOfSex, Integer myHeight, Integer minHeightIWant, Integer maxHeightIWant, Integer minPreferredAge, Integer maxPreferredAge, Country countryINowLiveIn, Country myCitizenship, Country wantFromCountry, Integer numberOfMyChildren, Integer maxNumberOfChildrenAllowed, String selfDescription, String traitsIWouldLoveInYou, String traitsIWouldHateInYou, List<Interests> myInterests, List<Interests> desiredWithInterests, List<Goals> myGoals, List<Picture> pictures) {
         this.userId = userId;
         this.mySex = mySex;
         this.birthday = birthday;
@@ -138,8 +138,8 @@ public class UserDatingProfile extends BaseEntity {
         this.myHeight = myHeight;
         this.minHeightIWant = minHeightIWant;
         this.maxHeightIWant = maxHeightIWant;
-        this.minPreferedAge = minPreferedAge;
-        this.maxPreferedAge = maxPreferedAge;
+        this.minPreferredAge = minPreferredAge;
+        this.maxPreferredAge = maxPreferredAge;
         this.countryINowLiveIn = countryINowLiveIn;
         this.myCitizenship = myCitizenship;
         this.wantFromCountry = wantFromCountry;
@@ -166,8 +166,8 @@ public class UserDatingProfile extends BaseEntity {
                 ", myHeight=" + myHeight +
                 ", minHeightIWant=" + minHeightIWant +
                 ", maxHeightIWant=" + maxHeightIWant +
-                ", minPreferedAge=" + minPreferedAge +
-                ", maxPreferedAge=" + maxPreferedAge +
+                ", minPreferredAge=" + minPreferredAge +
+                ", maxPreferredAge=" + maxPreferredAge +
                 ", countryINowLiveIn=" + countryINowLiveIn +
                 ", myCitizenship=" + myCitizenship +
                 ", wantFromCountry=" + wantFromCountry +
