@@ -8,6 +8,7 @@ export default {
         fontWeight: '500',
         color: '#0f3c4c',
     },
+
     formItem: {
         border: `2px solid ${bordersGlobalColor}`,
         borderRadius: `${bordersGlobalRadius}`,
@@ -15,7 +16,15 @@ export default {
         selectTopMargin: '8px',
         minHeight: '60px',
     },
+
     selectButton: {m: '1px', p: '4px', fontSize: '0.8em', fontWeight: '400', textTransform: 'none'},
+
+    cardBoxParams:{
+        border: '2px solid blue',
+        borderRadius: '12px',
+        padding: '10px',
+    }
+
 }
 
 /*

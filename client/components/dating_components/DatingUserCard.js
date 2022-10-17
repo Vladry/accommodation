@@ -4,6 +4,8 @@ import {Box} from "@mui/material";
 import Image from "next/image";
 import {useRouter} from "next/router";
 import {useDispatch} from "react-redux";
+import stylingConfig from "../../stylingConfig";
+
 
 const DatingUserCard = ({user}) => {
     const {forwardForUdProfileId} = useContext(Context);
@@ -46,8 +48,8 @@ const DatingUserCard = ({user}) => {
                 {!!user.datingLastVisitDate && lastVisitedIndication}
             </div>
             <Box
-                sx={{border: '2px solid blue', borderRadius: '12px', width: '250px', height: '250px', padding: '10px'}}>
-
+                sx={{border: `${stylingConfig.cardBoxParams.border}`, borderRadius: `${stylingConfig.cardBoxParams.borderRadius}`,
+                    padding: `${stylingConfig.cardBoxParams.padding}`, width: '250px', height: '250px'}}>
                 <div style={{position: 'relative', top: '-0.1em', ...avatarCssParam}}>
                     <Image src={user.avatar ? user.avatar : '/images/users.png'}
                            alt={'user-image'} width={250} height={250}

@@ -6,9 +6,8 @@ import AutocompleteFromMapbox from "../AutocompleteFromMapbox";
 import InputSelectGoals from "./dating_user_profile_form/InputSelectGoals";
 import InputSelectSex from "./dating_user_profile_form/InputSelectSex";
 import InputSelectCountry from "./dating_user_profile_form/InputSelectCountry";
-import styled from "@emotion/styled";
-import stylingConfig from '../../stylingConfig'
 import InputSelectInterests from "./dating_user_profile_form/InputSelectInterests";
+import {FormItem, Label} from '../styledCompGlobal';
 
 const FormMapper = ({fields, initValues, validation, handleSubmit}) => {
 
@@ -103,7 +102,7 @@ const FormMapper = ({fields, initValues, validation, handleSubmit}) => {
                 }
 
                 return (<FormItem key={formikRef}>
-                    <Labels>{input.label}
+                    <Label>{input.label}
                         <Slider id={formikRef} name={formikRef}
                                 min={minLim}
                                 max={maxLim}
@@ -133,7 +132,7 @@ const FormMapper = ({fields, initValues, validation, handleSubmit}) => {
 
                                     }}
 
-                        /></Labels>
+                        /></Label>
                 </FormItem>);
             case 'select_goals':
                 return (
@@ -164,14 +163,14 @@ const FormMapper = ({fields, initValues, validation, handleSubmit}) => {
                               helperText={getIn(formik.touched, formikRef) ? getIn(formik.errors, formikRef) : ''}
                               error={getIn(formik.touched, formikRef) && Boolean(getIn(formik.errors, formikRef))}
                               onBlur={formik.handleBlur}>
-                        <Labels>{input.label}:<br/>
+                        <Label>{input.label}:<br/>
                             <input id={formikRef} name={formikRef}
                                    value={getIn(formik.values, formikRef) ? getIn(formik.values, formikRef) : ""}
                                    onChange={formik.handleChange}
 
 
                             />
-                        </Labels></FormItem>
+                        </Label></FormItem>
                 );
             case 'tel':
                 return (
@@ -261,15 +260,4 @@ const FormMapper = ({fields, initValues, validation, handleSubmit}) => {
 
 export default FormMapper;
 
-const FormItem = styled.div`
-border: ${stylingConfig.formItem.border};
-border-radius: ${stylingConfig.formItem.borderRadius};
-margin: ${stylingConfig.formItem.blockMargin};
-min-height: ${stylingConfig.formItem.minHeight};
-`;
 
-const Labels = styled.label`
-font-size: ${stylingConfig.labels.fontSize};
-font-weight: ${stylingConfig.labels.fontWeight};
-color: ${stylingConfig.labels.color};
-`;

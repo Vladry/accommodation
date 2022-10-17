@@ -46,11 +46,11 @@ public class userDatingProfileSpecification {
     }
 
     public static Specification<UserDatingProfile> minAgeCriteria(final UserDatingProfile currentUserDatingProfile) {
-        return (r, cq, cb) -> cb.greaterThanOrEqualTo(r.get("age"), currentUserDatingProfile.getMinPreferedAge());
+        return (r, cq, cb) -> cb.greaterThanOrEqualTo(r.get("age"), currentUserDatingProfile.getMinPreferredAge());
     }
 
     public static Specification<UserDatingProfile> maxAgeCriteria(final UserDatingProfile currentUserDatingProfile) {
-        return (r, cq, cb) -> cb.lessThanOrEqualTo(r.get("age"), currentUserDatingProfile.getMaxPreferedAge());
+        return (r, cq, cb) -> cb.lessThanOrEqualTo(r.get("age"), currentUserDatingProfile.getMaxPreferredAge());
     }
 
 /*    public static Specification<UserDatingProfile> lastVisitDateCriteria(final UserDatingProfile currentUserDatingProfile) {
@@ -63,10 +63,10 @@ public class userDatingProfileSpecification {
     /*
             List<Predicate> predicates = new ArrayList<>();
 
-//           if (currentUserDatingProfile.getMinPreferedAge() > 0) {
+//           if (currentUserDatingProfile.getMinPreferredAge() > 0) {
 //                predicates.add(minAgeCriteria);
 //            }
-//            if (currentUserDatingProfile.getMaxPreferedAge() > 0) {
+//            if (currentUserDatingProfile.getMaxPreferredAge() > 0) {
 //                predicates.add(maxAgeCriteria);
 //            }
 

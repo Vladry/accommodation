@@ -2,9 +2,9 @@ import React, {useEffect, useState} from 'react';
 import DatingMenuWrapper from "./DatingMenuWrapper";
 import {datingMenu} from "../../../public/menuConfig";
 import styled from "@emotion/styled";
-import stylingConfig from "../../../stylingConfig";
-import Image from "next/image";
 import {Box} from "@mui/material";
+import {FormItem, Label} from '../../../components/styledCompGlobal.jsx';
+import stylingConfig from "../../../stylingConfig";
 
 const AddPhotos = () => {
 
@@ -12,22 +12,28 @@ const AddPhotos = () => {
     const [imageUrls, setImageUrls] = useState([]);
     let width = 0;
     if (images.length < 2) {
-        width  = 400 / images.length;
+        width = 400 / images.length;
     } else if (images.length < 3) {
-        width  = 600 / images.length;
-    } else if(images.length < 6){
-        width  = 900 / images.length;
-    } else if(images.length < 12){
-        width  = 1400 / images.length;
-    } else if(images.length < 20){
-        width  = 2400 / images.length;
+        width = 600 / images.length;
+    } else if (images.length < 6) {
+        width = 900 / images.length;
+    } else if (images.length < 12) {
+        width = 1400 / images.length;
+    } else if (images.length < 20) {
+        width = 2400 / images.length;
     }
 
-        let photos = imageUrls.map((url, ind) =>
-            <Box key={ind} sx={{margin: '10px', alignSelf: 'center'}}>
-                <img src={url} alt={`photo under ${url}`}
-                     width={width} height={'auto'}/>
-            </Box>);
+    let photos = imageUrls.map((url, ind) =>
+        <Box key={ind} sx={{
+            margin: '10px',
+            alignSelf: 'center',
+            border: `${stylingConfig.cardBoxParams.border}`,
+            borderRadius: `${stylingConfig.cardBoxParams.borderRadius}`,
+            padding: `${stylingConfig.cardBoxParams.padding}`,
+        }}>
+            <img src={url} alt={`photo under ${url}`}
+                 width={width} height={'auto'}/>
+        </Box>);
 
     const onPhotoChange = (e) => {
         setImages([...e.target.files]);
@@ -46,7 +52,11 @@ const AddPhotos = () => {
             </DatingMenuWrapper>
                 <h3>Manage your photos</h3>
                 <FormItem>
-                    <input type={'file'} multiple accept={"/image/*"} onChange={onPhotoChange}/>
+                    <Label>
+                        <input type={'file'} multiple accept={"/image/*"} onChange={onPhotoChange}/>
+                        maximum photos in one batch: 20<br/>
+                        maximum size of each photo: 2MBt
+                    </Label>
                 </FormItem>
             </Box>
             <Box sx={{position: "relative", top: '80px', left: '20px', display: 'flex', flexWrap: 'wrap'}}>
@@ -66,10 +76,3 @@ align-items: flex-start;
 max-width: 95%
  `;
 
-const FormItem = styled.div`
-max-width: 400px;
-border: ${stylingConfig.formItem.border};
-border-radius: ${stylingConfig.formItem.borderRadius};
-margin: ${stylingConfig.formItem.blockMargin};
-min-height: ${stylingConfig.formItem.minHeight};
-`;

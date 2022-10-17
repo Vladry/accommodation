@@ -39,9 +39,9 @@ public class UdpRepository2 {
             CriteriaBuilder cb = em.getCriteriaBuilder();
             CriteriaQuery<UserDatingProfile> cq = cb.createQuery(UserDatingProfile.class);
             Root<UserDatingProfile> root = cq.from(UserDatingProfile.class);
-            Predicate ageCriteria = cb.between(root.<LocalDate>get("birthday"), LocalDate.now().minusYears(currentUserDatingProfile.getMaxPreferedAge()), LocalDate.now().minusYears(currentUserDatingProfile.getMinPreferedAge()));
-            Predicate minAgeLimit = cb.lessThanOrEqualTo(root.<LocalDate>get("birthday"), LocalDate.now().minusYears(currentUserDatingProfile.getMinPreferedAge()));
-            Predicate maxAgeLimit = cb.greaterThanOrEqualTo(root.<LocalDate>get("birthday"), LocalDate.now().minusYears(currentUserDatingProfile.getMaxPreferedAge()));
+            Predicate ageCriteria = cb.between(root.<LocalDate>get("birthday"), LocalDate.now().minusYears(currentUserDatingProfile.getMaxPreferredAge()), LocalDate.now().minusYears(currentUserDatingProfile.getMinPreferredAge()));
+            Predicate minAgeLimit = cb.lessThanOrEqualTo(root.<LocalDate>get("birthday"), LocalDate.now().minusYears(currentUserDatingProfile.getMinPreferredAge()));
+            Predicate maxAgeLimit = cb.greaterThanOrEqualTo(root.<LocalDate>get("birthday"), LocalDate.now().minusYears(currentUserDatingProfile.getMaxPreferredAge()));
 
             //        Predicate lastVisitDateCriteria = cb.equal(userDatingProfile.get("????"), userDatingProfileSelector.get????????());
             Predicate sexCriteria = cb.equal(root.get("mySex"), currentUserDatingProfile.getSeekAPersonOfSex());
@@ -55,14 +55,14 @@ public class UdpRepository2 {
             List<Predicate> predicates = new ArrayList<>();
 
 
-            if (currentUserDatingProfile.getMinPreferedAge() > 15
-                    && currentUserDatingProfile.getMaxPreferedAge() > 16) {
+            if (currentUserDatingProfile.getMinPreferredAge() > 15
+                    && currentUserDatingProfile.getMaxPreferredAge() > 16) {
                 predicates.add(ageCriteria);
             }
-            if (currentUserDatingProfile.getMinPreferedAge() > 15) {
+            if (currentUserDatingProfile.getMinPreferredAge() > 15) {
                 predicates.add(minAgeLimit);
             }
-            if (currentUserDatingProfile.getMaxPreferedAge() > 16) {
+            if (currentUserDatingProfile.getMaxPreferredAge() > 16) {
                 predicates.add(maxAgeLimit);
             }
 
