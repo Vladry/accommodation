@@ -17,6 +17,7 @@ const AddPhotos = () => {
     let nameLengthLim = 50;
 
     const handleSubmit = (e) => {
+        console.log("submitting photos: ", validPhotos)
     }
 
     const totalPhotos = validPhotos.length + oversizedPhotos.length;
@@ -100,16 +101,17 @@ const AddPhotos = () => {
                             <p>maximum size of each photo: {photoSizeLimit}MBt</p>
                         </Label>
                     </FormItem>
-                    <Button type={"submit"} variant={'contained'} color={"primary"} disable>submit</Button>
+                    <Button type={"submit"} variant={'contained'} color={"primary"}
+                            disabled={(totalPhotos <= 0)} >submit</Button>
                 </Box>
                 <Box sx={{position: "relative", top: '55px', left: '20px'}}>
-                    {!!goodPhotos && <h4>Accepted photos / Принятые фото:</h4>}
+                    {goodPhotos.length>0 && <h4>Accepted photos / Принятые фото:</h4>}
                     <Box sx={{display: 'flex', alignItems: 'flex-start', flexFlow: 'wrap'}}>
 
                         {goodPhotos}
                     </Box>
                     <hr/>
-                    {!!rejectedPhotos &&
+                    {rejectedPhotos.length>0 &&
                         <h4 style={{marginTop: '60px'}}>The following photos larger than limit of: {photoSizeLimit} mBts
                             /
                             Размер фото выше ограничения в: {photoSizeLimit} Мбт </h4>}
