@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {Button} from "@mui/material";
 import interests from '../interests.js'
-import styled from "@emotion/styled";
-import stylingConfig from '../../../stylingConfig'
-// import { Select } from "@mui/material";
+import {useTheme} from "@mui/material/styles";
+import {Label, Select} from "../../../utils/typography";
 
 const InputSelectInterests = ({formikRef, input, formik}) => {
     let initValues = interests;
+    const theme = useTheme();
 
     const [options, setOptions] = useState(initValues);
     const [selected, setSelected] = useState([]);
@@ -62,7 +62,7 @@ const InputSelectInterests = ({formikRef, input, formik}) => {
     ));
 
     const selectedElems = selected.map((value, ind) => (
-        <Button key={ind} sx={() => stylingConfig.selectButton} size={'small'} color={"primary"} variant={'contained'}
+        <Button key={ind} sx={() => theme.selectButton} size={'small'} color={"primary"} variant={'contained'}
                 value={value?.val ? value.val : ""}
                 onClick={unselect}>{`${value?.en ? value.en : ""}`}</Button>
     ));
@@ -70,14 +70,14 @@ const InputSelectInterests = ({formikRef, input, formik}) => {
     return (
         <div key={formikRef}>
 
-            <Labels> {input.label}:<br/>
+            <Label> {input.label}:<br/>
                 <div>
                     {selectedElems}
                 </div>
                 <Select multiple={false} value={"NOT_CHOSEN"} onChange={handleSelect}>
                     {optionItems}
                 </Select>
-            </Labels>
+            </Label>
 
 
         </div>
@@ -86,12 +86,3 @@ const InputSelectInterests = ({formikRef, input, formik}) => {
 
 export default InputSelectInterests;
 
-const Labels = styled.label`
-font-size: ${stylingConfig.labels.fontSize};
-font-weight: ${stylingConfig.labels.fontWeight};
-color: ${stylingConfig.labels.color};
-    `;
-
-const Select = styled.select`
-margin-top: ${stylingConfig.formItem.selectTopMargin};
-`;

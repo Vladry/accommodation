@@ -62,6 +62,12 @@ jwt:
   expirationPasswordReset: 86400
   expirationPasswordUpdate: 3600
   header: Authorization
+
+#AWS::CloudFormation::Authentication:
+#  accessKeyId: String
+#  buckets:
+#   secretKey: String
+
 ---
 spring:
   #    для включения авто_ заполнения БД, в физическую (не h2 базу) еще нужно добавить:

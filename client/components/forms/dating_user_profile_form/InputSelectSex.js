@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import sex from '../sex.json';
-import styled from "@emotion/styled";
-import stylingConfig from '../../../stylingConfig'
+import {Label, Select} from "../../../utils/typography";
 
 const InputSelectSex = ({formikRef, input, formik}) => {
     let initValues = [...sex];
@@ -48,24 +47,16 @@ const InputSelectSex = ({formikRef, input, formik}) => {
 
     return (
         <div key={formikRef}>
-            <Labels> {input.label}:
+            <Label> {input.label}:
                 <Select  style={{marginLeft: '12px'}} multiple={false}
                          value={selected?.val? selected.val: input.defaultValue} onChange={select}>
                     {optionItems}
                 </Select>
-            </Labels>
+            </Label>
         </div>
     );
 };
 
 export default InputSelectSex;
 
-const Labels = styled.label`
-font-size: ${stylingConfig.labels.fontSize};
-font-weight: ${stylingConfig.labels.fontWeight};
-color: ${stylingConfig.labels.color};
-    `;
 
-const Select = styled.select`
-margin-top: ${stylingConfig.formItem.selectTopMargin};
-`;

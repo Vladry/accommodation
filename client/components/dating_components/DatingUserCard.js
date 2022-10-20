@@ -4,7 +4,7 @@ import {Box} from "@mui/material";
 import Image from "next/image";
 import {useRouter} from "next/router";
 import {useDispatch} from "react-redux";
-import stylingConfig from "../../stylingConfig";
+import {useTheme} from "@mui/material/styles";
 
 
 const DatingUserCard = ({user}) => {
@@ -12,6 +12,7 @@ const DatingUserCard = ({user}) => {
     const dispatch = useDispatch();
     const router = useRouter();
     const {neatUpZonedDateTime, getPeriod} = useContext(Context);
+    const theme = useTheme();
     if (!user) return null;
 
     let avatarCssParam;
@@ -48,8 +49,8 @@ const DatingUserCard = ({user}) => {
                 {!!user.datingLastVisitDate && lastVisitedIndication}
             </div>
             <Box
-                sx={{border: `${stylingConfig.cardBoxParams.border}`, borderRadius: `${stylingConfig.cardBoxParams.borderRadius}`,
-                    padding: `${stylingConfig.cardBoxParams.padding}`, width: '250px', height: '250px'}}>
+                sx={{border: `${theme.cardBoxParams.border}`, borderRadius: `${theme.cardBoxParams.borderRadius}`,
+                    padding: `${theme.cardBoxParams.padding}`, width: '250px', height: '250px'}}>
                 <div style={{position: 'relative', top: '-0.1em', ...avatarCssParam}}>
                     <Image src={user.avatar ? user.avatar : '/images/users.png'}
                            alt={'user-image'} width={250} height={250}

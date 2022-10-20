@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {Button} from "@mui/material";
 import goals from '../goals.js'
-import styled from "@emotion/styled";
-import stylingConfig from '../../../stylingConfig'
+import {Label, Select} from "../../../utils/typography";
+import { useTheme } from '@mui/material/styles';
 
 const InputSelectGoals = ({formikRef, input, formik}) => {
     let initValues = goals;
+    const theme = useTheme();
 
     const [options, setOptions] = useState(initValues);
     const [selected, setSelected] = useState([]);
@@ -61,7 +62,7 @@ const InputSelectGoals = ({formikRef, input, formik}) => {
     ));
 
     const selectedElems = selected.map((value, ind) => (
-        <Button key={ind} sx={() => stylingConfig.selectButton} size={'small'} color={"primary"} variant={'contained'}
+        <Button key={ind} sx={() => theme.selectButton} size={'small'} color={"primary"} variant={'contained'}
                 value={value?.val ? value.val : ""}
                 onClick={unselect}>{`${value?.en ? value.en : ""}`}</Button>
     ));
@@ -69,14 +70,14 @@ const InputSelectGoals = ({formikRef, input, formik}) => {
     return (
         <div key={formikRef}>
 
-            <Labels> {input.label}:<br/>
+            <Label> {input.label}:<br/>
                 <div>
                     {selectedElems}
                 </div>
                 <Select multiple={false} value={"NOT_CHOSEN"} onChange={handleSelect}>
                     {optionItems}
                 </Select>
-            </Labels>
+            </Label>
 
 
         </div>
@@ -85,12 +86,3 @@ const InputSelectGoals = ({formikRef, input, formik}) => {
 
 export default InputSelectGoals;
 
-const Labels = styled.label`
-font-size: ${stylingConfig.labels.fontSize};
-font-weight: ${stylingConfig.labels.fontWeight};
-color: ${stylingConfig.labels.color};
-    `;
-
-const Select = styled.select`
-margin-top: ${stylingConfig.formItem.selectTopMargin};
-`;

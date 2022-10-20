@@ -6,13 +6,11 @@ import {Box, Divider, Typography, useMediaQuery} from "@mui/material";
 import "swiper/css/autoplay";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import {useTheme} from "@mui/material/styles";
 import styled from '@emotion/styled';
 import {carouselCards, fontSize, carouselTextColor, slidesDelay} from '../public/carouselConfig.js';
 import Image from 'next/image';
 
 const SwiperCarouselMain = () => {
-    const theme = useTheme();
     // const testSlides = (
     //     <>
     //         <SwiperSlide><img src={'../../swiper-pictures/1.jpg'} alt={'carousel-picture'}/></SwiperSlide>

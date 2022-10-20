@@ -7,6 +7,8 @@ import {Context} from "../../../context";
 import types from "../../../store/types";
 import sel from "../../../store/selectors";
 import {fetchData} from "../../../store/actions/userAction";
+import {Paper} from "@mui/material";
+import {useTheme} from "@mui/material/styles";
 
 
 const AccommodationForm = ({accommodation, index, handleSubmit}) => {
@@ -14,18 +16,19 @@ const AccommodationForm = ({accommodation, index, handleSubmit}) => {
     const isAuthenticated = useAuth(true);
     const {prepareFormData} = useContext(Context);
     const formInitValues = prepareFormData(accommodationFormFields, accommodation);
+    const theme = useTheme();
 
     if (!user) return (<h3>user is not defined in store</h3>);
     if (!isAuthenticated) return (<h3>please login/ Войтите в систему</h3>);
 
     return (
-        <div key={index} style={{border: '1px solid red'}}>
+        <>
             <FormMapper
                 fields={accommodationFormFields}
                 initValues={formInitValues}
                 validation={null}
                 handleSubmit={handleSubmit}/>
-        </div>
+        </>
     );
 };
 

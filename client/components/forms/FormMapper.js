@@ -7,7 +7,7 @@ import InputSelectGoals from "./dating_user_profile_form/InputSelectGoals";
 import InputSelectSex from "./dating_user_profile_form/InputSelectSex";
 import InputSelectCountry from "./dating_user_profile_form/InputSelectCountry";
 import InputSelectInterests from "./dating_user_profile_form/InputSelectInterests";
-import {FormItem, Label} from '../styledCompGlobal';
+import {FormItem, Label} from '../../utils/typography';
 
 const FormMapper = ({fields, initValues, validation, handleSubmit}) => {
 
@@ -76,13 +76,11 @@ const FormMapper = ({fields, initValues, validation, handleSubmit}) => {
     const mappedFields = fields.map(({formikRef, valueByDefault, ...input}) => {
         switch (input.type) {
             case 'range':
-                let minLim, maxLim, rangeMarks, initValue, initLower, initHigher;
+                let minLim, maxLim, initValue, initLower, initHigher;
                 switch (formikRef) {
                     case 'ageRange':
                         initLower = getIn(formik.values, 'minPreferredAge') ? getIn(formik.values, 'minPreferredAge') : 18;
                         initHigher = getIn(formik.values, 'maxPreferredAge') ? getIn(formik.values, 'maxPreferredAge') : 60;
-                        // minLim = initLower>0? initLower-2 : 16;
-                        // maxLim = initHigher>0? initHigher+10 : 80;
                         minLim = 16;
                         maxLim = 70;
                         initValue = [initLower, initHigher];
@@ -91,8 +89,6 @@ const FormMapper = ({fields, initValues, validation, handleSubmit}) => {
                     case 'heightRange':
                         initLower = getIn(formik.values, 'minHeightIWant') ? getIn(formik.values, 'minHeightIWant') : 160;
                         initHigher = getIn(formik.values, 'maxHeightIWant') ? getIn(formik.values, 'maxHeightIWant') : 180;
-                        // minLim = initLower>0? initLower-2 : 150;
-                        // maxLim = initHigher>0? initHigher+10 : 200;
                         minLim = 150;
                         maxLim = 200;
                         initValue = [initLower, initHigher];
@@ -109,7 +105,6 @@ const FormMapper = ({fields, initValues, validation, handleSubmit}) => {
                                 valueLabelDisplay="auto"  // 'auto' | 'on', 'off'
                             // marks={rangeMarks}
                                 value={initValue}
-                            // onChange={formik.handleChange}  //- вызов вшитого handleChange для слайдера не даст возможности выполнить другие действия. Поэтому пишем коллбэк:
                                 onChange={
                                     (e) => {//коллбЭком обновлений значения данного слайдера -> установка [min, max]
                                         const [min, max] = e.target.value;

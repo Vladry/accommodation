@@ -1,17 +1,18 @@
 import React from 'react';
 import {useSelector} from "react-redux";
-import useAuth from "../../hooks/useAuth";
 import AccommodationForm from "../../components/forms/accommodation_form/AccommodationForm";
 import api from "../../lib/API";
 import Layout from "../../components/Layout";
 import sel from "../../store/selectors";
 import urls from '../../../src/main/resources/urls.json'
+import {Paper} from "@mui/material";
+import {useTheme} from "@mui/material/styles";
 
 const AccommodationList = () => {
     const user = useSelector(sel.user);
     const accommodationUserProfiles = useSelector(sel.accommodationUserProfiles);
     let existingPages;
-
+    const theme = useTheme();
     if (!user) {
         return;
     }
@@ -29,20 +30,20 @@ const AccommodationList = () => {
 
     if (accommodationUserProfiles) {
         existingPages = accommodationUserProfiles.map((accommodation, index) => (
-                <>
+                <Paper key={index} sx={{...theme.paperProps}}>
                     <h3 style={{textAlign: 'center', marginTop: '10px'}}
                     >Option/Вариант: ${index + 1}</h3>
-                    <AccommodationForm accommodation={accommodation} index={index} handleSubmit={handleSubmit}/>
-                </>
+                    <AccommodationForm accommodation={accommodation} handleSubmit={handleSubmit}/>
+                </Paper>
             )
         );
     }
     const newPage = (
-        <>
+        <Paper key={0} sx={{...theme.paperProps}}>
             <h3 style={{textAlign: 'center', marginTop: '10px'}}
             >Create your first accommodation offer/Создать первое предложение по жилью</h3>
-            <AccommodationForm accommodation={null} key={0} handleSubmit={handleSubmit}/>
-        </>
+            <AccommodationForm accommodation={null} handleSubmit={handleSubmit}/>
+        </Paper>
     );
 
     return (

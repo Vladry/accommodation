@@ -8,6 +8,8 @@ import Link from 'next/link';
 import UnlockedMenu from "./UnlockedMenu";
 import LockedMenu from "./LockedMenu";
 import {mainMenu} from '../../public/menuConfig.js';
+import {LocalMenuItem} from "../../utils/typography";
+
 
 let isAuthenticated = null;
 
@@ -18,9 +20,9 @@ const NavBar = () => {
 
     return (
         <MenuList sx={{margin: '20px'}}>
-            {!isAuthenticated && <MenuItem><NavLinkUnprotected href={mainMenu[0].url}
+            {!isAuthenticated && <LocalMenuItem><NavLinkUnprotected href={mainMenu[0].url}
                                                               underline={'none'}>{mainMenu[0].linkName}</NavLinkUnprotected>
-            </MenuItem> }
+            </LocalMenuItem> }
 
             {!isAuthenticated && <Divider/> }
 
@@ -59,9 +61,9 @@ const NavBar = () => {
 
             </Box>
 
-            {isAuthenticated && <MenuItem><NavLinkUnprotected href={mainMenu[0].url}
+            {isAuthenticated && <LocalMenuItem><NavLinkUnprotected href={mainMenu[0].url}
                                            underline={'none'}>{mainMenu[0].linkName}</NavLinkUnprotected>
-            </MenuItem>}
+            </LocalMenuItem>}
 
 
         </MenuList>
@@ -79,11 +81,11 @@ text-decoration: none;
 `;
 
 
-const MenuItem = styled.div`
-border: 2px solid #ccc;
-border-radius: 15px;
-margin: 20px 10px;
-`;
+// const LocalMenuItem = styled.div`
+// border: 2px solid #ccc;
+// border-radius: 15px;
+// margin: 20px 10px;
+// `;
 
 const MySpan = styled.span`
 font-size: 1em;

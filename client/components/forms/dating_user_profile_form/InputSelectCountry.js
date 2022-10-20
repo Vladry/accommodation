@@ -1,13 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import country from '../countries.json';
-import styled from "@emotion/styled";
-import stylingConfig from "../../../stylingConfig";
+import {useTheme} from "@mui/material/styles";
+import {Label, Select} from "../../../utils/typography";
 
 const InputSelectCountry = ({formikRef, input, formik}) => {
     let initValues = [...country];
     const [options, setOptions] = useState(initValues);
     const [selected, setSelected] = useState("");
 
+    const theme = useTheme();
 
     useEffect(() => {
         {
@@ -30,24 +31,15 @@ const InputSelectCountry = ({formikRef, input, formik}) => {
 
     return (
         <div key={formikRef}>
-            <Labels> {input.label}:<br/>
+            <Label> {input.label}:<br/>
                 <Select multiple={false} value={selected} onChange={select}>
                     {optionItems}
                 </Select>
-            </Labels>
+            </Label>
         </div>
     );
 };
 
 export default InputSelectCountry;
 
-const Labels = styled.label`
-font-size: ${stylingConfig.labels.fontSize};
-font-weight: ${stylingConfig.labels.fontWeight};
-color: ${stylingConfig.labels.color};
-    `;
-
-const Select = styled.select`
-margin-top: ${stylingConfig.formItem.selectTopMargin};
-`;
 
