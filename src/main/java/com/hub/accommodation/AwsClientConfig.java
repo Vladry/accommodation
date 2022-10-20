@@ -12,13 +12,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AwsClientConfig {
 
-    private static final String accessKeyId = "AKIARK6ZVBSLFA42RZV4";
-//    private static final String accessKeyId = "AKIARK6ZVBSLLG7P7SOV";
-//    private static final String accessKeyId = "AKIARK6ZVBSLJ465QAOC";
-//    private static final String secretKey = "&_21SlyVlad_12#";
-//    private static final String secretKey = "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";
-    private static final String secretKey = "yGE8A4WfPgLmZ+o7vibb5Bi2MqAR35GwbJLpqnzm";
-//    private static final String secretKey = "V8g10yZha6KfQiic0UxI2tqoLTUcvEr2HfBDnvex";
+    private static final String accessKeyId = Secrets.AWS_ACCESS_KEY_ID;
+    private static final String secretKey = Secrets.AWS_SECRET_KEY;
     public static final Regions regionName = Regions.EU_WEST_2;
     public static final String regionNameStr = "eu-west-2";
 
