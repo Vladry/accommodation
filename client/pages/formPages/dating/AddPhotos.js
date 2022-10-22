@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import DatingMenuWrapper from "./DatingMenuWrapper";
 import {datingMenu} from "../../../public/menuConfig";
 import styled from "@emotion/styled";
@@ -9,37 +9,40 @@ import {v4 as uuidv4} from 'uuid';
 import api from "../../../lib/API";
 import axios from "axios";
 
-
-const getPresignedUrl = async (fileNameKey, duration)=>{
+const getPresignedUrl = async (fileNameKey, duration) => {
     return await api.get(`/presigned-url?fileNameKey=${fileNameKey}&duration=${duration}`,)
-       .then(r => r);
+        .then(r => r);
 }
 
-const sendPhotos = async (validPhotos)=>{
-    console.log("in sendPhotos->");
-    for (let file of validPhotos){
-        let fileNameKey = uuidv4();
-      let url = await getPresignedUrl(fileNameKey, 60);
-        putPhoto(url, file).then();
-    }
-}
+let storedPhotoUrlArr = [];
+const putPhoto = async (url, file) => {
+    if (!url) return;
 
-const putPhoto = async (url, file)=>{
-    if(!url) return;
-    console.log("in putPhoto, url: ", url, "photo: ", file);
-    axios.put(url, {
+    // console.log("in putPhoto, url: ", url, "\n photo: ", file);
+    await axios.put(url, {
         method: "PUT",
         headers: {
             "Content-Type": "multipart/form-data"
             // "Content-Type": "application/octet-stream"
         },
         body: file
-    }).then(r=>{console.log("PUT resultBody: ", r)});
+    }).then(r => {
+        storedPhotoUrlArr.push(url.split("?")[0])
+    });
+}
+
+const sendPhotos = async (validPhotos) => {
+    // console.log("in sendPhotos->");
+    for (let file of validPhotos) {
+        let fileNameKey = uuidv4();
+        let url = await getPresignedUrl(fileNameKey, 60);
+        await putPhoto(url, file).then();
+
+    }
 }
 
 
 const AddPhotos = () => {
-
     const theme = useTheme();
     const [validPhotos, setValidPhotos] = useState([]);
     const [oversizedPhotos, setOversizedPhotos] = useState([]);
@@ -49,12 +52,21 @@ const AddPhotos = () => {
     const sizeLimBytes = photoSizeLimit * 1024 ** 2;
     let nameLengthLim = 50;
     const fileInput = useRef(null);
+    const [storedPhotoUrls, setStoredPhotoUrls] = useState([]);
 
+    const storePhotos =
+        (validPhotos) => {
+            sendPhotos(validPhotos).then(() => setStoredPhotoUrls(storedPhotoUrlArr));
+        };
 
-    useEffect(()=>{
-        if(validPhotos.length === 0){return;}
-        sendPhotos(validPhotos).then();
-    },[validPhotos]);
+    useEffect(() => {
+        if (validPhotos.length === 0) return;
+        storePhotos(validPhotos);
+    }, [validPhotos]);
+
+    useEffect(() =>{
+        console.log("storedPhotoUrls: ",storedPhotoUrls);
+    },[storedPhotoUrls])
 
     const handleSubmit = (e) => {
         console.log("submitting photos: ", validPhotos)
