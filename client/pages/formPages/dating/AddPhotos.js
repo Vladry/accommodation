@@ -8,6 +8,9 @@ import {useTheme} from "@mui/material/styles";
 import {v4 as uuidv4} from 'uuid';
 import api from "../../../lib/API";
 import axios from "axios";
+import urls from '../../../../src/main/resources/urls.json';
+import {useSelector} from "react-redux";
+import sel from '../../../store/selectors.js';
 
 const getPresignedUrl = async (fileNameKey, duration) => {
     return await api.get(`/presigned-url?fileNameKey=${fileNameKey}&duration=${duration}`,)
@@ -41,6 +44,13 @@ const sendPhotos = async (validPhotos) => {
     }
 }
 
+const storeToDatabase = async(userId, storeToDatabase)=>{
+    try {
+        api.post(`/users/photos/${userId}?serviceGroup=DATING`, storeToDatabase).then(() => console.log("pictureUrlsSuccessfullyStoredToDatabase"));
+    } catch (e) {
+        console.log("error storing photos to database!  \n", e.message);
+    }
+};
 
 const AddPhotos = () => {
     const theme = useTheme();
@@ -53,10 +63,14 @@ const AddPhotos = () => {
     let nameLengthLim = 50;
     const fileInput = useRef(null);
     const [storedPhotoUrls, setStoredPhotoUrls] = useState([]);
+    const userId = useSelector(sel.user).id;
 
     const storePhotos =
         (validPhotos) => {
-            sendPhotos(validPhotos).then(() => setStoredPhotoUrls(storedPhotoUrlArr));
+            sendPhotos(validPhotos).then(() => {
+                setStoredPhotoUrls(storedPhotoUrlArr);
+                storeToDatabase(userId, storedPhotoUrlArr).then();
+            });
         };
 
     useEffect(() => {

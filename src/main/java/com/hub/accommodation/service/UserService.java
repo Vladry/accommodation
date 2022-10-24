@@ -1,15 +1,18 @@
 package com.hub.accommodation.service;
 
-import com.hub.accommodation.DTO.response.UserAgeRsDto;
+import com.hub.accommodation.dto.response.UserAgeRsDto;
 import com.hub.accommodation.domain.user.User;
 import com.hub.accommodation.repository.UserRepository;
 import com.hub.accommodation.repository.UserRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @Transactional(timeout = 1000)

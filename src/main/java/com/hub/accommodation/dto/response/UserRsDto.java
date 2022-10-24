@@ -1,4 +1,4 @@
-package com.hub.accommodation.DTO.response;
+package com.hub.accommodation.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.hub.accommodation.Views;

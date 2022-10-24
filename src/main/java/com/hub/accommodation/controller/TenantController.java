@@ -1,7 +1,7 @@
 package com.hub.accommodation.controller;
 
-import com.hub.accommodation.DTO.request.TenantRqDto;
-import com.hub.accommodation.DTO.response.TenantRsDto;
+import com.hub.accommodation.dto.request.TenantRqDto;
+import com.hub.accommodation.dto.response.TenantRsDto;
 import com.hub.accommodation.domain.Tenant;
 import com.hub.accommodation.facade.TenantFacade;
 import com.hub.accommodation.service.TenantService;

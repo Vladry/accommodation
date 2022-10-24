@@ -1,4 +1,4 @@
-package com.hub.accommodation.DTO.response;
+package com.hub.accommodation.dto.response;
 
 
 import lombok.Getter;

@@ -46,6 +46,10 @@ public class JwtTokenProvider {
     protected void init() {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
         secretRefreshKey = Base64.getEncoder().encodeToString(secretRefreshKey.getBytes());
+//        System.out.println("secretKey: " + secretKey);
+//        System.out.println("secretRefreshKey: " + secretRefreshKey);
+//        System.out.println("secretPasswordReset: " + secretPasswordReset);
+//        System.out.println("secretPasswordUpdate: " + secretPasswordUpdate);
     }
 
     public String createToken(String username, String role, Long id) {

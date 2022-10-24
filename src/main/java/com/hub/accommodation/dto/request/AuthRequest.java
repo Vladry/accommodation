@@ -1,9 +1,8 @@
-package com.hub.accommodation.DTO.request;
+package com.hub.accommodation.dto.request;
 
 import lombok.Data;
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Pattern;
 
 @Data
 public class AuthRequest {

@@ -3,22 +3,23 @@
 # для справки:
 #    https://www.baeldung.com/spring-boot-data-sql-and-schema-sql
 
+
 server:
   port: 8000
 spring:
+  #  config:
+  #    import: optional:file:secrets.properties[.properties]
   h2:
     console:
       enabled: true   # http://localhost:8000/h2-console/
       settings:
         trace: false
-logging:  # https://habr.com/ru/post/521950/
+logging: # https://habr.com/ru/post/521950/
   level:
     root: info
     com: error
     org: error
 #    file: appLog.log
-
-
 
 ---
 spring:
@@ -31,6 +32,11 @@ spring:
 #          time_zone: UTC
 ---
 spring:
+  config:
+    activate:
+      on-profile: local
+    import: optional:secrets.properties[.properties]
+
   datasource:
     url: jdbc:h2:mem:testdb
     username: sa
@@ -40,6 +46,10 @@ spring:
     defer-datasource-initialization: true
     properties:
       hibernate:
+#        для пакетной отправки фотографий:
+        jdbc.batch_size: 40
+#        тоже для пакетной отправки фотографий:
+        order_updates: true
         #        format_sql: true
         dialect: org.hibernate.dialect.H2Dialect
       generate_statistics: false
@@ -48,26 +58,22 @@ spring:
       ddl-auto: update
     show-sql: false
 
-  config:
-    activate:
-      on-profile: local
 
 jwt:
-  secret: ieu2rh98sdoifio3q4f
-  secretRefresh: fej981349jofqefqer
-  secretPasswordReset: hf139heiuqfhqr34
-  secretPasswordUpdate: t9k09k90qedk90q9k0
+#  secret: ${JWT_SECRET:""}
+#  secretRefresh: ${JWT_SECRET_REFRESH}
+#  secretPasswordReset: ${JWT_SECRET_PASSWORD_RESET}
+#  secretPasswordUpdate: ${JWT_SECRET_PASSWORD_UPDATE}
+
   expiration: 7200
   expirationRefresh: 604800
   expirationPasswordReset: 86400
   expirationPasswordUpdate: 3600
   header: Authorization
 
-#AWS::CloudFormation::Authentication:
-#  accessKeyId: String
-#  buckets:
-#   secretKey: String
-
+aws:
+#  access-key-id: ${AWS_ACCESS_KEY_ID}
+#  access-secret-key: ${AWS_SECRET_KEY}
 ---
 spring:
   #    для включения авто_ заполнения БД, в физическую (не h2 базу) еще нужно добавить:

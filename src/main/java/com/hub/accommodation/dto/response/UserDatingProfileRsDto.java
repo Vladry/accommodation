@@ -1,17 +1,10 @@
-package com.hub.accommodation.DTO.response;
+package com.hub.accommodation.dto.response;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.hub.accommodation.Views;
 import com.hub.accommodation.domain.BaseEntity;
-import com.hub.accommodation.domain.user.User;
 import lombok.*;
 
-import javax.annotation.PostConstruct;
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Period;
 import java.util.List;
 import java.util.Set;
 

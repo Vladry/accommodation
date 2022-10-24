@@ -1,7 +1,11 @@
 
 
 ### AWS config ###
-Secrets.java
+/**/secrets.properties
+secrets.properties
+
+src/main/resources/.env
+/**/.env
 
 
 application.log

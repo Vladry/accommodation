@@ -1,13 +1,7 @@
-package com.hub.accommodation.DTO.request;
+package com.hub.accommodation.dto.request;
 
-import com.hub.accommodation.DTO.response.PictureRsDto;
-import com.hub.accommodation.domain.accommodation.enums.LengthOfStay;
-import com.hub.accommodation.domain.user.enums.SeverityStatus;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.Set;
 
 @Data
 @NoArgsConstructor

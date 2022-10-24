@@ -1,15 +1,8 @@
-package com.hub.accommodation.DTO.request;
+package com.hub.accommodation.dto.request;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.hub.accommodation.domain.user.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.Temporal;
-import java.util.Date;
-
-import static javax.persistence.TemporalType.TIMESTAMP;
 
 
 @Data

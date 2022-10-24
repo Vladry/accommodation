@@ -1,6 +1,6 @@
 package com.hub.accommodation.service.auth;
 
-import com.hub.accommodation.DTO.request.UserRqDto;
+import com.hub.accommodation.dto.request.UserRqDto;
 import com.hub.accommodation.domain.auth.RefreshToken;
 import com.hub.accommodation.domain.user.User;
 import com.hub.accommodation.exception.JwtAuthenticationException;

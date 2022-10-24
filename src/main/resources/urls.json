@@ -11,5 +11,6 @@
     "accommodProfile": "/accommodations",
     "tenantUserProfile": "/tenants",
     "allUsersByIds" : "/users/allByIds",
-    "candidatesIds" : "/users/candidatesIds"
+    "candidatesIds" : "/users/candidatesIds",
+    "storePhotos": "/users/photos"
 }

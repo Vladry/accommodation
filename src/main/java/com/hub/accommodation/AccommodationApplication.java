@@ -12,7 +12,9 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.core.SpringVersion;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.EntityManagerFactory;
@@ -24,6 +26,7 @@ import java.util.List;
 @Slf4j
 @SpringBootApplication
 @EnableTransactionManagement
+@EnableConfigurationProperties(KeysPasswordsConfig.class)
 public class AccommodationApplication implements ApplicationRunner {
 
     public static void cls() {

@@ -1,8 +1,8 @@
 package com.hub.accommodation.controller;
 
-import com.hub.accommodation.DTO.request.AccommodationRqDto;
-import com.hub.accommodation.DTO.request.RqAccPage;
-import com.hub.accommodation.DTO.response.AccommodationRsDto;
+import com.hub.accommodation.dto.request.AccommodationRqDto;
+import com.hub.accommodation.dto.request.RqAccPage;
+import com.hub.accommodation.dto.response.AccommodationRsDto;
 import com.hub.accommodation.domain.accommodation.Accommodation;
 import com.hub.accommodation.exception.NoDataFoundException;
 import com.hub.accommodation.facade.AccommodationFacade;

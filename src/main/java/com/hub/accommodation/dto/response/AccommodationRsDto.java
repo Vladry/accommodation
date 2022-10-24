@@ -1,14 +1,9 @@
-package com.hub.accommodation.DTO.response;
+package com.hub.accommodation.dto.response;
 
 import com.hub.accommodation.domain.BaseEntity;
-import com.hub.accommodation.domain.accommodation.enums.Country;
-import com.hub.accommodation.domain.accommodation.Picture;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
-
-import java.util.Set;
 
 @Data
 @NoArgsConstructor

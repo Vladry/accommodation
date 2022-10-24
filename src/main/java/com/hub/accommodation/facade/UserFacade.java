@@ -1,7 +1,7 @@
 package com.hub.accommodation.facade;
 
-import com.hub.accommodation.DTO.request.UserRqDto;
-import com.hub.accommodation.DTO.response.UserRsDto;
+import com.hub.accommodation.dto.request.UserRqDto;
+import com.hub.accommodation.dto.response.UserRsDto;
 import com.hub.accommodation.domain.user.User;
 import com.hub.accommodation.exception.NoDataFoundException;
 import com.hub.accommodation.service.UserService;

@@ -1,6 +1,7 @@
 package com.hub.accommodation.repository;
 
-import com.hub.accommodation.DTO.response.UserAgeRsDto;
+import com.hub.accommodation.domain.user.UserDatingProfile;
+import com.hub.accommodation.dto.response.UserAgeRsDto;
 import com.hub.accommodation.domain.user.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -9,9 +10,12 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
+import java.sql.SQLException;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -25,7 +29,7 @@ public class UserRepositoryImpl {
         EntityManager em = emf.createEntityManager();
         try {
             Query q = em.createQuery(
-                    "select new com.hub.accommodation.DTO.response.UserAgeRsDto(" +
+                    "select new com.hub.accommodation.dto.response.UserAgeRsDto(" +
                             "udp.userId, udp.birthday) from UserDatingProfile udp where udp.userId in :ids");
             q.setParameter("ids", ids);
             List<UserAgeRsDto> userAgeRsDtoList = q.getResultList();
@@ -147,4 +151,8 @@ public class UserRepositoryImpl {
             }
         }
     }
+
+
+
+
 }

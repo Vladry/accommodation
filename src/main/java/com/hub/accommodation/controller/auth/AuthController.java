@@ -1,10 +1,8 @@
 package com.hub.accommodation.controller.auth;
 
-import com.hub.accommodation.DTO.request.AuthRequest;
-import com.hub.accommodation.DTO.groups.OnCreate;
-import com.hub.accommodation.DTO.request.UserRqDto;
-import com.hub.accommodation.DTO.response.UserRsDto;
-import com.hub.accommodation.domain.user.User;
+import com.hub.accommodation.dto.request.AuthRequest;
+import com.hub.accommodation.dto.groups.OnCreate;
+import com.hub.accommodation.dto.request.UserRqDto;
 import com.hub.accommodation.exception.JwtAuthenticationException;
 import com.hub.accommodation.service.auth.AuthService;
 import lombok.extern.slf4j.Slf4j;

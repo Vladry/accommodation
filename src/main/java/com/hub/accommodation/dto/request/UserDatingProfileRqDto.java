@@ -1,11 +1,8 @@
-package com.hub.accommodation.DTO.request;
+package com.hub.accommodation.dto.request;
 
-import com.hub.accommodation.domain.BaseEntity;
-import com.hub.accommodation.domain.user.User;
 import lombok.*;
 import lombok.experimental.Accessors;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 

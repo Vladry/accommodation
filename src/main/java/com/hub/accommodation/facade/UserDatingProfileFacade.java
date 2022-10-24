@@ -1,7 +1,7 @@
 package com.hub.accommodation.facade;
 
-import com.hub.accommodation.DTO.request.UserDatingProfileRqDto;
-import com.hub.accommodation.DTO.response.UserDatingProfileRsDto;
+import com.hub.accommodation.dto.request.UserDatingProfileRqDto;
+import com.hub.accommodation.dto.response.UserDatingProfileRsDto;
 import com.hub.accommodation.domain.accommodation.Picture;
 import com.hub.accommodation.domain.user.UserDatingProfile;
 import org.modelmapper.Converter;

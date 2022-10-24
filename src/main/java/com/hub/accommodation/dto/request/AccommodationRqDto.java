@@ -1,4 +1,4 @@
-package com.hub.accommodation.DTO.request;
+package com.hub.accommodation.dto.request;
 
 import com.hub.accommodation.domain.*;
 import com.hub.accommodation.domain.accommodation.enums.AccommodationStatus;

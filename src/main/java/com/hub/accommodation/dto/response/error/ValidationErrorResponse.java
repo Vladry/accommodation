@@ -1,4 +1,4 @@
-package com.hub.accommodation.DTO.response.error;
+package com.hub.accommodation.dto.response.error;
 
 import com.hub.accommodation.util.Violation;
 import lombok.AllArgsConstructor;

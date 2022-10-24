@@ -1,38 +1,48 @@
 SET
-FOREIGN_KEY_CHECKS = 0;
+    FOREIGN_KEY_CHECKS = 0;
 
-INSERT INTO users (name, last_name, email, password, role, hide_social_data, dating_participation, dating_last_visit_date, avatar, location)
+INSERT INTO users (name, last_name, email, password, role, hide_social_data, dating_participation,
+                   dating_last_visit_date, avatar, location)
 VALUES ('Eva', 'Brown', 'EvaBrown@ukr.net', 'Eva', 'USER', true, true, '2021-10-03T09:59:29.503359+03:00',
         'https://res.cloudinary.com/vladry/image/upload/v1628868305/avatars/Ira_yvvlml.png', 'KrivoyRog, UA'),
        ('Serge', 'Goulida', 'Serge@ukr.net', 'pasSerge', 'USER', true, true, '2020-06-03T09:59:29.503359+03:00',
-        'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vocal-studio-bruce_fzmdlp.jpg', 'Vilnus, LY'),
+        'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vocal-studio-bruce_fzmdlp.jpg',
+        'Vilnus, LY'),
        ('Andrey', 'Strange', 'Andrey@ukr.net', 'pasAndrey', 'USER', true, true, '2022-10-01T09:59:29.503359+03:00',
         'https://res.cloudinary.com/vladry/image/upload/v1628196607/avatars/Andrey_avatar_bxcjny.jpg', 'Krakov, PL'),
        ('Vlad2', 'Pufikovf', 'Vlad2@ukr.net', 'pasVlad2', 'USER', true, true, '2022-08-03T09:59:29.503359+03:00',
-        'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_sings1_ltbkc2.png', 'Zaporizhzhia, UA'),
+        'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_sings1_ltbkc2.png',
+        'Zaporizhzhia, UA'),
        ('Tanya', '', 'Tanya@ukr.net', 'pasTanya', 'USER', false, false, '2022-03-03T09:59:29.503359+03:00',
         'https://res.cloudinary.com/vladry/image/upload/v1628868305/avatars/Tanya_mi0o0m.png', 'Rivne, UA'),
        ('Lena', '', 'Lena@ukr.net', 'pasLena', 'USER', true, true, '2022-01-03T09:59:29.503359+03:00',
         'https://res.cloudinary.com/vladry/image/upload/v1628868304/avatars/Lena_m2gbmx.png', 'Boston, US'),
-       ('Sidora', 'Guaza', 'Sidora@ukr.net', 'pasSidora', 'USER', true, true, '2022-06-03T09:59:29.503359+03:00', '', 'Cherkassy, UA'),
+       ('Sidora', 'Guaza', 'Sidora@ukr.net', 'pasSidora', 'USER', true, true, '2022-06-03T09:59:29.503359+03:00', '',
+        'Cherkassy, UA'),
        ('Taras', '', 'Taras@ukr.net', 'pasTaras', 'USER', true, true, '2022-04-03T09:59:29.503359+03:00',
         'https://res.cloudinary.com/vladry/image/upload/v1628196607/avatars/Taras_avatar_hnldon.jpg', 'Dnerp, UA'),
        ('Larisa', 'Goliychuk', 'Larisa@ukr.net', 'pasLarisa', 'USER', false, false, '2022-10-03T09:59:29.503359+03:00',
         'https://res.cloudinary.com/vladry/image/upload/v1628868305/avatars/Ira_yvvlml.png', 'City, Sweden'),
-       ('Semyon', '', 'Semyon@ukr.net', 'pasSemyon', 'USER', true, true, '2022-10-01T09:59:29.503359+03:00', '', 'KrivoyRog, UA'),
+       ('Semyon', '', 'Semyon@ukr.net', 'pasSemyon', 'USER', true, true, '2022-10-01T09:59:29.503359+03:00', '',
+        'KrivoyRog, UA'),
        ('Kuzya', '', 'Kuzya@ukr.net', 'pasKuzya', 'USER', true, true, '2022-10-01T09:59:29.503359+03:00',
-        'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/guitar_and_cat_painting_tbjpdl.jpg', 'Lisichansk, UA'),
+        'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/guitar_and_cat_painting_tbjpdl.jpg',
+        'Lisichansk, UA'),
        ('Ilya', '', 'Ilya@ukr.net', 'pasIlya', 'USER', true, true, '2022-02-03T01:59:29.503359+03:00',
         'https://res.cloudinary.com/vladry/image/upload/v1628196848/avatars/Ilya_avatar_ecn4wr.jpg', 'Lviv, UA'),
        ('Karisa', 'Kysyl', 'Karisa@ukr.net', 'pasKarisa', 'USER', false, false, '2022-05-03T06:59:29.503359+03:00',
-        'https://res.cloudinary.com/vladry/image/upload/v1628498610/vlad_shrunk/tosya_tanya_s3w0kl.jpg', 'Tashkent, UZ'),
+        'https://res.cloudinary.com/vladry/image/upload/v1628498610/vlad_shrunk/tosya_tanya_s3w0kl.jpg',
+        'Tashkent, UZ'),
        ('Matvey', '', 'Matvey@ukr.net', 'pasMatvey', 'USER', true, true, '2022-02-03T09:39:29.503359+03:00',
         'https://res.cloudinary.com/vladry/image/upload/v1628498610/vlad_shrunk/cat2_x0yqxm.jpg', 'CityKir, KZ'),
-       ('Danil', '', 'Danil@ukr.net', 'pasDanil', 'USER', true, true, '2022-03-03T09:59:19.503359+03:00', '', 'KrivoyRog, UA'),
-       ('Violetta', '', 'Violetta@ukr.net', 'pasVioletta', 'USER', true, true,  '2022-10-03T02:59:29.503359+03:00','', 'KrivoyRog, UA'),
+       ('Danil', '', 'Danil@ukr.net', 'pasDanil', 'USER', true, true, '2022-03-03T09:59:19.503359+03:00', '',
+        'KrivoyRog, UA'),
+       ('Violetta', '', 'Violetta@ukr.net', 'pasVioletta', 'USER', true, true, '2022-10-03T02:59:29.503359+03:00', '',
+        'KrivoyRog, UA'),
        ('Vlad', 'Ryab', 'VladRyab@ukr.net', 'pasVladRyab', 'USER', false, false, '2022-07-03T09:39:29.503359+03:00',
         'https://res.cloudinary.com/vladry/image/upload/v1628196607/avatars/Vlad_avatar_tjrcut.jpg', 'Wroclaw, PL'),
-       ('Efimovna', 'Nedavalka', 'Efimovna@ukr.net', 'pasEfimovna', 'USER', false, false, '2022-04-03T09:29:29.503359+03:00',
+       ('Efimovna', 'Nedavalka', 'Efimovna@ukr.net', 'pasEfimovna', 'USER', false, false,
+        '2022-04-03T09:29:29.503359+03:00',
         'https://res.cloudinary.com/vladry/image/upload/v1628498610/vlad_shrunk/cat1_ygmygo.jpg', 'Boryspil, UA');
 
 
@@ -61,33 +71,35 @@ INSERT INTO tenants (user_id,
                      other_pets,
                      require_care,
                      severity,
-                     stay_length
-)
-VALUES (19, 'Lvov', 'USA', 'no additional info for user', 0, 1, 2, 1, 0, 1, 1, 1, 'HOUSE_UNTOUCHED_IN_WAR_ZONE', 'FEW_DAYS_TRANSITIONAL_STAY');
+                     stay_length)
+VALUES (19, 'Lvov', 'USA', 'no additional info for user', 0, 1, 2, 1, 0, 1, 1, 1, 'HOUSE_UNTOUCHED_IN_WAR_ZONE',
+        'FEW_DAYS_TRANSITIONAL_STAY');
 
 
 INSERT INTO user_pictures (dating_user_profile, picture)
-VALUES
-    (4, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vocal-studio-bruce_fzmdlp.jpg'),
-    (4, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_sings2_tyligr.png'),
-    (4, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_guitar_jqhojn.png'),
+VALUES (4, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vocal-studio-bruce_fzmdlp.jpg'),
+       (4, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_sings2_tyligr.png'),
+       (4, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_guitar_jqhojn.png'),
 
-    (5, 'https://res.cloudinary.com/vladry/image/upload/v1628498610/vlad_shrunk/tosya_tanya_s3w0kl.jpg'),
-    (5, 'https://res.cloudinary.com/vladry/image/upload/v1628498610/vlad_shrunk/bicycle2_wo1i08.jpg'),
-    (5, 'https://res.cloudinary.com/vladry/image/upload/v1628499313/ilya_shrunk/4d7eea3c8660aac877338190a88144bc_fitted_400x300_jubjvd.jpg'),
+       (5, 'https://res.cloudinary.com/vladry/image/upload/v1628498610/vlad_shrunk/tosya_tanya_s3w0kl.jpg'),
+       (5, 'https://res.cloudinary.com/vladry/image/upload/v1628498610/vlad_shrunk/bicycle2_wo1i08.jpg'),
+       (5,
+        'https://res.cloudinary.com/vladry/image/upload/v1628499313/ilya_shrunk/4d7eea3c8660aac877338190a88144bc_fitted_400x300_jubjvd.jpg'),
 
-    (11, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_arsenalna_befcu2.jpg'),
-    (11, 'https://res.cloudinary.com/vladry/image/upload/v1628498610/vlad_shrunk/bicycle1_r0rlek.jpg'),
+       (11, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_arsenalna_befcu2.jpg'),
+       (11, 'https://res.cloudinary.com/vladry/image/upload/v1628498610/vlad_shrunk/bicycle1_r0rlek.jpg'),
 
-    (14, 'https://res.cloudinary.com/vladry/image/upload/v1628499313/ilya_shrunk/4d7eea3c8660aac877338190a88144bc_fitted_400x300_jubjvd.jpg'),
-    (14, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/guitar_and_cat_painting_tbjpdl.jpg'),
+       (14,
+        'https://res.cloudinary.com/vladry/image/upload/v1628499313/ilya_shrunk/4d7eea3c8660aac877338190a88144bc_fitted_400x300_jubjvd.jpg'),
+       (14,
+        'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/guitar_and_cat_painting_tbjpdl.jpg'),
 
-    (17, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_arsenalna_befcu2.jpg'),
-    (17, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_in_car_rtzqzp.jpg'),
+       (17, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_arsenalna_befcu2.jpg'),
+       (17, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_in_car_rtzqzp.jpg'),
 
-    (19, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_haircut_ziiyxb.jpg'),
-    (19, 'https://res.cloudinary.com/vladry/image/upload/v1628498610/vlad_shrunk/bicycle1_r0rlek.jpg'),
-    (19, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_arsenalna_befcu2.jpg');
+       (19, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_haircut_ziiyxb.jpg'),
+       (19, 'https://res.cloudinary.com/vladry/image/upload/v1628498610/vlad_shrunk/bicycle1_r0rlek.jpg'),
+       (19, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_arsenalna_befcu2.jpg');
 
 
 /*INSERT INTO user_dating_goals (USER_DATING_PROFILE_ID, goals) //это когда userDatingProfile имел ассоциацию с User -ом
@@ -121,6 +133,13 @@ VALUES (1, 'PAINTING'),
        (17, 'SINGING');
 */
 
+INSERT INTO PHOTOS
+VALUES (1, null, null, 'DATING', 'url1', 19),
+       (2, null, null, 'DATING', 'url2', 19),
+       (3, null, null, 'DATING', 'url3', 19),
+       (4, null, null, 'DATING', 'url4', 19),
+       (5, null, null, 'DATING', 'url5', 19),
+       (6, null, null, 'DATING', 'url6', 19);
 
 
 SET

@@ -1,10 +1,9 @@
 package com.hub.accommodation.controller;
 
-import com.hub.accommodation.DTO.request.UserRqDto;
-import com.hub.accommodation.DTO.response.UserAgeRsDto;
-import com.hub.accommodation.DTO.response.UserRsDto;
+import com.hub.accommodation.dto.request.UserRqDto;
+import com.hub.accommodation.dto.response.UserAgeRsDto;
+import com.hub.accommodation.dto.response.UserRsDto;
 import com.hub.accommodation.domain.user.User;
-import com.hub.accommodation.domain.user.UserDatingProfile;
 import com.hub.accommodation.exception.CreatingEntityFailed;
 import com.hub.accommodation.exception.NoDataFoundException;
 import com.hub.accommodation.facade.UserFacade;
@@ -19,6 +18,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 

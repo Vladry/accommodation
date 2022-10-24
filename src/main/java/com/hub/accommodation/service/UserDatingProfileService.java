@@ -1,6 +1,6 @@
 package com.hub.accommodation.service;
 
-import com.hub.accommodation.DTO.response.UserDatingProfileRsDto;
+import com.hub.accommodation.dto.response.UserDatingProfileRsDto;
 import com.hub.accommodation.domain.user.UserDatingProfile;
 import com.hub.accommodation.facade.UserDatingProfileFacade;
 import com.hub.accommodation.repository.UdpRepository2;
@@ -11,7 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 
