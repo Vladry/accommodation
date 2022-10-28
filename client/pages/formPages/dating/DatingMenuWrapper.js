@@ -3,21 +3,22 @@ import useAuth from "../../../hooks/useAuth";
 import DatingMenu from "./DatingMenu";
 import {Typography} from "@mui/material";
 import {useSelector} from "react-redux";
+import {Box} from "@mui/joy";
 
 const DatingMenuWrapper = ({children}) => {
     // console.log("render DatingMenuWrapper");
     const isAuthenticated = useAuth(false);
-    const user = useSelector(state=> state.userData.user);
+    const user = useSelector(state => state.userData.user);
 
     if (!isAuthenticated) return (<><h3>log into your profile</h3></>);
 
     return (
-        <div>
+        <Box>
             {/*<Typography>logged: {user?.email}</Typography>*/}
             {/*<Typography>userId: {user?.id}</Typography>*/}
             <h2>{children}</h2>
             <DatingMenu/>
-        </div>
+        </Box>
     );
 };
 

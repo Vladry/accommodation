@@ -80,7 +80,7 @@ const AddPhotos = () => {
         api.get(`/users/photos/all/${queriedUserId}?serviceGroup=DATING`).then((urls) => {
             dispatch({type: types.FETCHING_PHOTOS, payload: false});
             setExistingPhotoUrls(urls);
-            console.log("fetched photoUrls:", urls)
+            // console.log("fetched photoUrls:", urls)
             fetchingFlag.current = false;
         });
     }

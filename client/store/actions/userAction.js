@@ -15,7 +15,7 @@ export const getUser = () => (dispatch) => { //TODO разделить фетч�
             fetch('http://ip-api.com/json/').then(r => r.json()).then(r => {
                const locationWithTimeZone = r.city + ", "+ r.country + ", "+ r.timezone;
                 const location = r.city + ", "+ r.country;
-                console.log("location: ", location);
+                // console.log("location: ", location);
                 // формат ответа:
                 /*            {
                                 "status": "success",

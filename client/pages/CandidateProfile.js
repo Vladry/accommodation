@@ -1,13 +1,9 @@
 import React, {useEffect, useRef, useState} from 'react';
-import DatingMenuWrapper from "./formPages/dating/DatingMenuWrapper";
 import {useDispatch, useSelector} from "react-redux";
 import {useRouter} from "next/router";
 import {udpFields} from "../components/forms/dating_user_profile_form/udpFields";
 import UdpMapper from "../components/UdpMapper";
-import {Box, Button, Grid, Paper, useMediaQuery} from "@mui/material";
-import SideBar from "../components/dating_components/SideBar";
-import {datingMenu} from "../public/menuConfig";
-import ArticleWindow from "../components/dating_components/ArticleWindow";
+import {Box, Paper, useMediaQuery} from "@mui/material";
 import {fetchData} from "../store/actions/userAction";
 import types from "../store/types";
 import sel from "../store/selectors";
@@ -15,9 +11,7 @@ import urls from '../../src/main/resources/urls.json'
 import SwiperUserPic from "../components/dating_components/swiper_carousel/SwiperUserPic";
 import api from "../lib/API";
 import BackButton from "../components/BackButton";
-import {useTheme} from "@mui/material/styles";
 import ActionPannel from "../components/dating_components/candidate_page/ActionPannel";
-import MyIcons from "./MyIcons";
 import CandidateCard from "../components/dating_components/candidate_page/CandidateCard";
 import My_Drawer from "../components/appbar/My_Drawer";
 import ToggleMenuIconButton from "../components/ToggleMenuIconButton";
@@ -32,24 +26,25 @@ const CandidateProfile = () => {
     const reviewedUser = useSelector(sel.reviewedUser);
     const [pictures, setPictures] = useState([]);
     const fetchingFlag = useRef(false);
-    const theme = useTheme();
 
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-    const toggleDrawer = () => setIsDrawerOpen(!isDrawerOpen);
+    const toggleDrawer = () => setIsDrawerOpen(() => !isDrawerOpen);
+    const isSmallScreen = useMediaQuery('(max-width:900px)');
+    const isLargeScreen = !isSmallScreen;
 
 
     const fetchExistingPhotos = (queriedUserId) => {
         fetchingFlag.current = true;
         dispatch({type: types.FETCHING_PHOTOS, payload: true});
         api.get(`/users/photos/all/${queriedUserId}?serviceGroup=DATING`).then((urls) => {
-            console.log("fetched photoUrls:", urls);
+            // console.log("fetched photoUrls:", urls);
             const pictures = [...urls];
             dispatch({type: types.FETCHING_PHOTOS, payload: false});
             fetchingFlag.current = false;
             if (reviewedUser?.avatar && !pictures.includes(reviewedUser.avatar)) {
 
                 pictures.push(reviewedUser.avatar);
-                console.log("pictures: ", pictures);
+                // console.log("pictures: ", pictures);
             }
             setPictures(pictures);
         });
@@ -89,25 +84,34 @@ const CandidateProfile = () => {
         }}>
 
 
-{/*
             {isSmallScreen &&
-                <My_Drawer
+                <Box>
+                    <Box sx={{position: 'absolute'}}>
+                        <My_Drawer isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer}>
+                            <ActionPannel/>
+                        </My_Drawer>
+                        <ToggleMenuIconButton toggleDrawer={toggleDrawer}/>
+                    </Box>
 
-                    isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer}>
-                    <ActionPannel/>
-                </My_Drawer>}
-            {isSmallScreen && <ToggleMenuIconButton toggleDrawer={toggleDrawer}/>}
-*/}
+                    <SwiperUserPic pictures={pictures}/>
+                    <BackButton xyOffset={{top: '120px', left: '1px'}}/>
+                </Box>
+            }
 
 
-            <Box sx={{display: 'flex', justifyContent: 'center', flexFlow: 'row no-wrap'}}>
-                {<ActionPannel/>}
-                {!!pictures && <SwiperUserPic pictures={pictures}/>}
+            {isLargeScreen &&
+                <Box>
+                    <Box sx={{position: 'absolute'}}>{<ActionPannel/>}</Box>
+                    <SwiperUserPic pictures={pictures}/>
+                    <BackButton/>
+                </Box>
 
-            </Box>
+            }
+
             <CandidateCard mappedFields={mappedFields}/>
 
-            <BackButton/>
+
+
         </Paper>
     );
 };

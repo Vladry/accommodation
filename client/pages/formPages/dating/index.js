@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import DatingMenuWrapper from "./DatingMenuWrapper";
 import {datingMenu} from "../../../public/menuConfig";
-import {Box, Grid} from '@mui/material';
+import {Box, Grid, useMediaQuery} from '@mui/material';
 import DatingUserList from "../../../components/dating_components/DatingUserList";
 import api from "../../../lib/API";
 import {useSelector} from "react-redux";
@@ -9,6 +9,9 @@ import sel from "../../../store/selectors";
 import {fetchData} from "../../../store/actions/userAction";
 import types from "../../../store/types";
 import urls from '../../../../src/main/resources/urls.json';
+import My_Drawer from "../../../components/appbar/My_Drawer";
+import ToggleMenuIconButton from "../../../components/ToggleMenuIconButton";
+import BackButton from "../../../components/BackButton";
 
 const Index = () => {
 
@@ -19,6 +22,10 @@ const Index = () => {
     const [candidates, setCandidates] = useState(null);
     const candidatesIds = useRef({});
     let resUsers;
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+    const toggleDrawer = () => setIsDrawerOpen(!isDrawerOpen);
+    const isSmallScreen = useMediaQuery('(max-width: 600px)');
+
 
     async function getCandidatesIds() {// получим ids кандидатов, подходящих под критерии userDatingProfile:
 
@@ -81,28 +88,43 @@ const Index = () => {
 
 
     return (
-        <Grid container={true} spacing={2}>
-            <Grid item={true} xs={5} sm={3} md={2}>
-                <Box sx={{border: '1px solid red'}}>
-                    <DatingMenuWrapper>
-                        {datingMenu[0].linkName}
-                    </DatingMenuWrapper>
-                </Box>
-            </Grid>
-            <Grid item={true} xs={7} sm={9} md={10}>
-                <Box sx={{border: '1px solid green'}}>
+        <Box sx={{display: 'flex'}}>
+            <Box>
+                {isSmallScreen &&
+                    <My_Drawer
 
-                    {!!candidates?.length > 0
-                        && <h3 style={{textAlign: 'center'}}>Candidates matching your criteria:</h3>
-                        && <DatingUserList users={candidates}/>}
+                        isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer}>
+                        <DatingMenuWrapper>
+                            {datingMenu[0].linkName}
+                        </DatingMenuWrapper>
+                    </My_Drawer>}
+                {isSmallScreen && <Box sx={{position: 'absolute', top: '1px', left: '15px'}}><ToggleMenuIconButton
+                    toggleDrawer={toggleDrawer}/></Box>}
 
-                    {!candidates?.length > 0 && <h3 style={{textAlign: 'center', color: "#b30000"}}>
-                        No candidates matching your criteria! <br/>
-                        Нет кандидатов соответствующих Вашим критериям!</h3>}
 
-                </Box>
-            </Grid>
-        </Grid>
+                {!isSmallScreen && <DatingMenuWrapper>
+                    {datingMenu[0].linkName}
+                </DatingMenuWrapper>}
+            </Box>
+
+
+            <Box>
+                {!!candidates?.length > 0
+                    && <Box>
+                        <h3 style={{textAlign: 'center', color: 'gray'}}>Matching your criteria:</h3>
+                        <DatingUserList users={candidates}/>
+                    </Box>
+                }
+
+                {!candidates?.length > 0 && <h3 style={{textAlign: 'center', color: "#b30000"}}>
+                    Try to go for more humble criteria! <br/>
+                    Видимо нет достойных...</h3>}
+
+
+            </Box>
+
+            <BackButton xyOffset={{right: '1px'}}/>
+        </Box>
     );
 };
 

@@ -19,7 +19,7 @@ const SwiperUserPic = ({pictures}) => { // https://swiperjs.com/react
     const {classNames} = useContext(Context);
     const theme = useTheme();
 
-    if (!pictures || pictures.length <= 0) {
+    if (!pictures || pictures.length === 0) {
         return null;
     }// обязательно выйти, иначе полезут ошибки по classList и некорректен же метод pictures.map!
 
@@ -77,7 +77,7 @@ const SwiperUserPic = ({pictures}) => { // https://swiperjs.com/react
     //  И не всегда рендерятся приходящие фотки. При этом 'pictures' -приходит упорядоченный и бывает наложение фотки на фотку (если высокая фотка накрывается сверху короткой)
     const imgContent = pictures.map((el, i) => (
         <SwiperSlide className={`${styles['swiper-slide']}`} key={i}>
-            <img style={{ listStyle: "none", borderRadius: `${theme.cardBoxParams.borderRadius}` }} className={`${styles['swiper-slide img']}`}
+            <img style={{ listStyle: "none", borderRadius: `${theme.cardBoxParams.borderRadius}`, overflow: 'hidden' }} className={`${styles['swiper-slide img']}`}
                                                                           src={el}
                                                                           alt={'carousel-picture'}/></SwiperSlide>
     ));
@@ -89,8 +89,8 @@ const SwiperUserPic = ({pictures}) => { // https://swiperjs.com/react
                 // className={styles.swiper}
                 className={`mySwiper ${styles.swiper}`}
                 spaceBetween={0}
-                // slidesPerView={1}
-                slidesPerView={"auto"}
+                slidesPerView={1}
+                // slidesPerView={"auto"}
                 centeredSlides={true}
                 autoHeight={true}
                 effect={"fade"}

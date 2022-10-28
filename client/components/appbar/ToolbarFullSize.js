@@ -62,6 +62,7 @@ export const ToolbarFullSize = ({toggleDrawer, handleUserProfileFullMenuOpen}) =
 
             {!isSmallScreen && !!isMediumScreen && <Greeting/>}
 
+            {/*TODO это меню справа.*/}
             <UserProfileMenu/>
 
 

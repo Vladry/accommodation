@@ -4,8 +4,10 @@ import Typography from "@mui/material/Typography";
 import MenuIcon from "@mui/icons-material/Menu";
 
 const ToggleMenuIconButton = ({toggleDrawer}) => {
+
     return (
         <IconButton
+            sx={{margin: '10px'}} // этот margin крайне важен, иначе курсор не попадает на иконку (баг!)
             size="large"
             edge="start"
             aria-label="open drawer"
@@ -18,10 +20,9 @@ const ToggleMenuIconButton = ({toggleDrawer}) => {
                 noWrap
                 component={"div"}
                 sx={{display: {xs: 'none', sm: 'block'}}}
-            >Menu
-            </Typography>
+            >Menu</Typography>
 
-            <MenuIcon sx={{display: {xs: 'block', sm: 'none'}, mr: 2}}/>
+            <MenuIcon sx={{display: {xs: 'block', sm: 'none'}}}/>
         </IconButton>
     );
 };

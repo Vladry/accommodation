@@ -20,7 +20,6 @@ export const ToolbarMobile = ({toggleDrawer}) => {
     const isSmallScreen = useMediaQuery('(max-width: 600px)');
     const isAuthenticated = useAuth(false);
     const theme = useTheme();
-    console.log("theme received in ToolbarMobile: ", theme.backgroundColorDark1);
 
     const Toolbar_styled = styled(Toolbar)(
         {

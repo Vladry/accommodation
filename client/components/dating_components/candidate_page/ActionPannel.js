@@ -13,11 +13,12 @@ import PhishingIcon from '@mui/icons-material/Phishing';
 import styled from '@emotion/styled';
 import Tooltip from "@mui/material/Tooltip";
 import {useTheme} from "@mui/material/styles";
+import BackButton from "../../BackButton";
 
 
 const ActionPannel = ({placement}) => {
-    const isSmallScreen = useMediaQuery('(max-width: 900px)');
-    const isMediumScreen = useMediaQuery('(min-width: 900px)');
+    const isSmallScreen = useMediaQuery('(max-width: 1100px)');
+    const isMediumScreen = useMediaQuery('(max-width: 900px)');
     const theme = useTheme();
 
     return (
@@ -28,8 +29,8 @@ const ActionPannel = ({placement}) => {
             mr: '10px',
             display: 'flex',
             flexFlow: 'column',
-            gap: '20px',
-            p: '15px',
+            gap: '29px',
+            p: '20px',
             borderRadius: `${theme.cardBoxParams.borderRadius}`,
         }}>
             <Box>
@@ -79,7 +80,7 @@ const ActionPannel = ({placement}) => {
                 <PhishingIcon sx={{color: 'darkred'}}/>
             </Box>*/}
 
-
+            {isMediumScreen && <BackButton xyOffset={{top: '420px', left: '70px'}}/>}
         </Box>
     );
 };
