@@ -3,11 +3,13 @@ import {Box, Grid} from "@mui/material";
 
 const SideBar = ({children}) => {
     return (
-            <Grid item={true} xs={5} sm={3} md={2}>
-                <Box sx={{border: '1px solid red'}}>
+        <Box >
+            <Grid sx={{border: '1px solid red'}} item={true} xs={12}  md={4}>
+
                     {children}
-                </Box>
+
             </Grid>
+        </Box>
 
 
     );

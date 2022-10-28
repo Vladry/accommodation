@@ -13,8 +13,8 @@ const DatingMenuWrapper = ({children}) => {
 
     return (
         <div>
-            <Typography>logged: {user?.email}</Typography>
-            <Typography>userId: {user?.id}</Typography>
+            {/*<Typography>logged: {user?.email}</Typography>*/}
+            {/*<Typography>userId: {user?.id}</Typography>*/}
             <h2>{children}</h2>
             <DatingMenu/>
         </div>

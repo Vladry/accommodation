@@ -1,17 +1,19 @@
 import React, {useContext, useMemo, useRef, useState} from "react";
 import Head from "next/head";
 import {CssBaseline} from "@mui/material";
-import {ThemeProvider} from "@mui/material/styles"
+import {createTheme, ThemeProvider} from "@mui/material/styles"
 import {Provider} from "react-redux";
 import {SessionProvider} from "next-auth/react";
 import {store, wrapper} from "../store/store";
 import createEmotionCache from "../utils/createEmotionCache";
 import {CacheProvider} from "@emotion/react";
-import theme from "../utils/theme";
 import RefreshTokenHandler from "../components/RefreshTokenHandler";
 import {Context} from '../context';
 import './_app.css';
+import myTheme from "../utils/myTheme";
 
+const theme = createTheme(myTheme);
+console.log("theme : ", theme);
 const clientSideEmotionCache = createEmotionCache();
 
 function MyApp({Component, pageProps, emotionCache = clientSideEmotionCache}) {
@@ -38,14 +40,14 @@ function MyApp({Component, pageProps, emotionCache = clientSideEmotionCache}) {
                 <SessionProvider session={pageProps.session} refetchInterval={interval}>
                     <Context.Provider value={context}>
                         <ThemeProvider theme={theme}>
-                            <Provider store={store}>
-                                <CssBaseline/>
-                                {
-                                    Component.getLayout ?
-                                        Component.getLayout(<Component {...pageProps} />) :
-                                        <Component {...pageProps} />
-                                }
-                            </Provider>
+                                <Provider store={store}>
+                                    <CssBaseline/>
+                                    {
+                                        Component.getLayout ?
+                                            Component.getLayout(<Component {...pageProps} />) :
+                                            <Component {...pageProps} />
+                                    }
+                                </Provider>
                         </ThemeProvider>
                     </Context.Provider>
                     <RefreshTokenHandler setInterval={setInterval}/>

@@ -9,8 +9,12 @@ import {v4 as uuidv4} from 'uuid';
 import api from "../../../lib/API";
 import axios from "axios";
 import urls from '../../../../src/main/resources/urls.json';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import sel from '../../../store/selectors.js';
+import types from "../../../store/types";
+import {router} from "next/client";
+import BackButton from "../../../components/BackButton";
+import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 
 const getPresignedUrl = async (fileNameKey, duration) => {
     return await api.get(`/presigned-url?fileNameKey=${fileNameKey}&duration=${duration}`,)
@@ -44,13 +48,14 @@ const sendPhotos = async (validPhotos) => {
     }
 }
 
-const storeToDatabase = async(userId, storeToDatabase)=>{
+const storeToDatabase = async (userId, storeToDatabase) => {
     try {
         api.post(`/users/photos/${userId}?serviceGroup=DATING`, storeToDatabase).then(() => console.log("pictureUrlsSuccessfullyStoredToDatabase"));
     } catch (e) {
         console.log("error storing photos to database!  \n", e.message);
     }
 };
+
 
 const AddPhotos = () => {
     const theme = useTheme();
@@ -63,13 +68,28 @@ const AddPhotos = () => {
     let nameLengthLim = 50;
     const fileInput = useRef(null);
     const [storedPhotoUrls, setStoredPhotoUrls] = useState([]);
-    const userId = useSelector(sel.user).id;
+    const user = useSelector(sel.user);
+    const [existingPhotoUrls, setExistingPhotoUrls] = useState([]);
+    const isPhotosFetching = useSelector(sel.isPhotosFetching);
+    const dispatch = useDispatch();
+    const fetchingFlag = useRef(false);
+
+    const fetchExistingPhotos = (queriedUserId) => {
+        fetchingFlag.current = true;
+        dispatch({type: types.FETCHING_PHOTOS, payload: true});
+        api.get(`/users/photos/all/${queriedUserId}?serviceGroup=DATING`).then((urls) => {
+            dispatch({type: types.FETCHING_PHOTOS, payload: false});
+            setExistingPhotoUrls(urls);
+            console.log("fetched photoUrls:", urls)
+            fetchingFlag.current = false;
+        });
+    }
 
     const storePhotos =
         (validPhotos) => {
             sendPhotos(validPhotos).then(() => {
                 setStoredPhotoUrls(storedPhotoUrlArr);
-                storeToDatabase(userId, storedPhotoUrlArr).then();
+                storeToDatabase(user.id, storedPhotoUrlArr).then();
             });
         };
 
@@ -78,9 +98,12 @@ const AddPhotos = () => {
         storePhotos(validPhotos);
     }, [validPhotos]);
 
-    useEffect(() =>{
-        console.log("storedPhotoUrls: ",storedPhotoUrls);
-    },[storedPhotoUrls])
+
+    useEffect(() => {
+        if (!fetchingFlag.current && !isPhotosFetching && existingPhotoUrls.length === 0 && user && user.id) {
+            fetchExistingPhotos(user.id);
+        }
+    }, [user])
 
     const handleSubmit = (e) => {
         console.log("submitting photos: ", validPhotos)
@@ -107,6 +130,14 @@ const AddPhotos = () => {
         width = 100;
         nameLengthLim = 6;
     }
+
+
+    const existingPhotos = existingPhotoUrls.map((url, ind) =>
+        <ContainerPhotos key={ind} borderColor={'yellow'}>
+            <img src={url} alt={`existing photo under ${ind}`}
+                 width={200} height={'auto'}/>
+            {/*<p>{data.name.slice(0, nameLengthLim)}, {Number(data.size).toFixed(1)}MBt</p>*/}
+        </ContainerPhotos>);
 
     const goodPhotos = validUrls.map((data, ind) =>
         <ContainerPhotos key={ind} borderColor={'green'}>
@@ -153,24 +184,34 @@ const AddPhotos = () => {
 
     }, [oversizedPhotos, validPhotos])
 
+
     return (
         <form onSubmit={handleSubmit} method={'post'} encType={'multipart/form-data'}>
             <FlexContainer>
-                <Box><DatingMenuWrapper>
-                    {datingMenu[6].linkName}
-                </DatingMenuWrapper>
-                    <h3>Manage your photos</h3>
-                    <FormItem>
-                        <Label>
-                            <input ref={fileInput} type={'file'} multiple accept={"/image/*"} name={'uploaded'}
-                                   onChange={onPhotoChange}/>
-                            <p>maximum size of each photo: {photoSizeLimit}MBt</p>
-                        </Label>
-                    </FormItem>
-                    <Button type={"submit"} variant={'contained'} color={"primary"}
-                            disabled={(totalPhotos <= 0)}>submit</Button>
-                </Box>
+                <h3>Manage your photos</h3>
+                <FormItem>
+                    <AddAPhotoIcon/>
+                    <Label> Select your photos here:
+                        <input ref={fileInput} type={'file'} multiple accept={"/image/*"} name={'uploaded'}
+                               onChange={onPhotoChange}/>
+                        <p>maximum size of each photo: {photoSizeLimit}MBt</p>
+                    </Label>
+                </FormItem>
+                <Button type={"submit"} variant={'contained'} color={"primary"}
+                        disabled={(totalPhotos <= 0)}>submit</Button>
                 <Box sx={{position: "relative", top: '55px', left: '20px'}}>
+                    {/*//----------------------------------------------*/}
+
+                    {existingPhotos.length > 0 && <h4>Manage your current photos: / Редактируйте Ваши фотографии:</h4>}
+                    <Paper sx={{
+                        display: 'flex', alignItems: 'flex-start', flexFlow: 'wrap',
+                        ...theme.paperProps
+                    }}>
+
+                        {existingPhotos}
+                    </Paper>
+                    {/*//----------------------------------------------*/}
+
                     {goodPhotos.length > 0 && <h4>Accepted photos / Принятые фото:</h4>}
                     <Paper sx={{
                         display: 'flex', alignItems: 'flex-start', flexFlow: 'wrap',
@@ -193,7 +234,9 @@ const AddPhotos = () => {
                     {/*<h5>image from aws   s3 bucket:</h5>*/}
                     {/*<img width={300} height={300} src={"https://accommodation-ukraine.s3.eu-west-2.amazonaws.com/22b0e8c5-9296-4c8a-88b4-3c828bd00d4d"} />*/}
                 </Box>
-            </FlexContainer></form>
+            </FlexContainer>
+            <BackButton/>
+        </form>
     );
 };
 

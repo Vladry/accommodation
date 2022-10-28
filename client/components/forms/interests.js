@@ -1,4 +1,4 @@
-export default [
+const interests = [
     {
         val: 'TRAVEL',
         en: 'travelling',
@@ -115,3 +115,5 @@ export default [
     },
 
 ];
+
+export default interests;

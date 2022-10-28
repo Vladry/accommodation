@@ -1,6 +1,5 @@
 import React from 'react';
 import {Box, Divider, MenuList, Typography, useMediaQuery} from "@mui/material";
-import {NavLink} from "./NavLink";
 import styled from '@emotion/styled';
 import useAuth from "../../hooks/useAuth";
 import LoginIcon from '@mui/icons-material/Login';
@@ -8,7 +7,7 @@ import Link from 'next/link';
 import UnlockedMenu from "./UnlockedMenu";
 import LockedMenu from "./LockedMenu";
 import {mainMenu} from '../../public/menuConfig.js';
-import {LocalMenuItem} from "../../utils/typography";
+import {LocalMenuItem, NavLink_styled} from "../../utils/typography";
 
 
 let isAuthenticated = null;
@@ -20,8 +19,8 @@ const NavBar = () => {
 
     return (
         <MenuList sx={{margin: '20px'}}>
-            {!isAuthenticated && <LocalMenuItem><NavLinkUnprotected href={mainMenu[0].url}
-                                                              underline={'none'}>{mainMenu[0].linkName}</NavLinkUnprotected>
+            {!isAuthenticated && <LocalMenuItem><NavLink_styled href={mainMenu[0].url}
+                                                              underline={'none'}>{mainMenu[0].linkName}</NavLink_styled>
             </LocalMenuItem> }
 
             {!isAuthenticated && <Divider/> }
@@ -61,31 +60,22 @@ const NavBar = () => {
 
             </Box>
 
-            {isAuthenticated && <LocalMenuItem><NavLinkUnprotected href={mainMenu[0].url}
-                                           underline={'none'}>{mainMenu[0].linkName}</NavLinkUnprotected>
+            {isAuthenticated && <LocalMenuItem><NavLink_styled href={mainMenu[0].url}
+                                                                   variant={'text'}
+                                           underline={'none'}>{mainMenu[0].linkName}</NavLink_styled>
             </LocalMenuItem>}
 
 
+
+            <LocalMenuItem><NavLink_styled href={'/MyIcons'}
+                                               underline={'none'}>MyIcons</NavLink_styled>
+            </LocalMenuItem>
         </MenuList>
     );
 };
 
 export default NavBar;
 
-
-const NavLinkUnprotected = styled(NavLink)`
-margin: 5px 10px;
-text-decoration: none;
-&:visited, &:link, &:active {color: ${props => props.theme.palette.primary.main}   };
-&:focus, &:hover {color: ${props => props.theme.palette.success.dark} };
-`;
-
-
-// const LocalMenuItem = styled.div`
-// border: 2px solid #ccc;
-// border-radius: 15px;
-// margin: 20px 10px;
-// `;
 
 const MySpan = styled.span`
 font-size: 1em;

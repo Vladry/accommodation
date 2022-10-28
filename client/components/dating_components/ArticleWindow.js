@@ -1,24 +1,32 @@
 import React from 'react';
-import {Box, Grid} from "@mui/material";
+import {Box, Grid, Paper} from "@mui/material";
+import {useTheme} from "@mui/material/styles";
 
 const ArticleWindow = ({title, content, children}) => {
-    return (
-        <Grid item={true} xs={7} sm={9} md={10}>
-            <Box sx={{border: '1px solid green'}}>
-                <h3 style={{textAlign: 'center'}}>{title}</h3>
-                {children}
-                <Grid sx={{
-                    display: 'grid',
-                    justifyContent: "space-around",
-                    alignItems: 'center',
-                    columnGap: '2px', rowGap: '8px',
-                    gridTemplateColumns: {xs: '1fr', md: '1fr 1fr'}
-                }} container>
-                    {content}
-                </Grid>
+    const theme = useTheme();
 
-            </Box>
-        </Grid>
+    return (
+        <Paper sx={{
+            display: 'flex', alignItems: 'flex-start', flexFlow: 'wrap', border: '1px solid green',
+            ...theme.paperProps
+        }}>
+            <h3 style={{textAlign: 'center'}}>{title}</h3>
+            <Grid container xs={12}  md={12}>   {/*это контейнер ArticleWindow*/}
+                    <Grid item={true}>   {/*это контейнер карусели*/}
+                        {children}
+                    </Grid>
+                    <Grid sx={{        // это контейнер таблицы
+                        display: 'grid',
+                        justifyContent: "center",
+                        // justifyContent: "space-around",
+                        alignItems: 'center',
+                        columnGap: '2px', rowGap: '8px',
+                        gridTemplateColumns: {xs: '1fr', md: '1fr 1fr'}
+                    }} container>
+                        {content}
+                    </Grid>
+            </Grid>
+        </Paper>
     );
 };
 

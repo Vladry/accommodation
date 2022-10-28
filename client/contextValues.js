@@ -44,7 +44,7 @@ const forwardForUdProfileId = (router, queriedUserId, user, dispatch, event) => 
     //поместим просматриваемого юзера в стор, чтобы использовать его данные при рендере его профайла:
     dispatch({type: types.SHELF_REVIEWED_USER_DATA, payload: user});
 
-    router.push(`${urls.queriedUserDatingProfile}${queriedUserId}`);
+    router.push(`${urls.queriedCandidateProfile}${queriedUserId}`);
 }
 
 
@@ -72,7 +72,7 @@ const prepareFormData = (fields, persistedValues) => {
     }
 }
 
-
+// эту функцию уже установил в package.json по:  npm install classnames
 export function classNames (classes) {
 // https://overcoder.net/q/3782/%D0%BA%D0%B0%D0%BA-%D0%B4%D0%BE%D0%B1%D0%B0%D0%B2%D0%B8%D1%82%D1%8C-%D0%BD%D0%B5%D1%81%D0%BA%D0%BE%D0%BB%D1%8C%D0%BA%D0%BE-%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2-%D0%B2-%D0%BA%D0%BE%D0%BC%D0%BF%D0%BE%D0%BD%D0%B5%D0%BD%D1%82-reactjs
 // https://ru.stackoverflow.com/questions/857171/react-js-%D0%92%D1%8B%D0%B7%D0%BE%D0%B2-%D0%BD%D0%B5%D1%81%D0%BA%D0%BE%D0%BB%D1%8C%D0%BA%D0%B8%D1%85-%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2-%D0%B2-classname

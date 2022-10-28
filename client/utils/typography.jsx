@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import {NavLink} from "../components/appbar/NavLink";
+import {Button} from "@mui/material";
 
 const bordersGlobalColor = '#660000';
 const bordersGlobalRadius = '5px';
@@ -23,31 +24,25 @@ const Select = styled.select`
 margin-top: theme=> theme.formItem.selectTopMargin;
 `;
 
-const NavLink_styled = styled(NavLink)`
-margin: 5px auto;
-text-decoration: none;
+// const NavLink_styled = styled(NavLink)`
+// margin: 5px auto;
+// text-decoration: none;
+const NavLink_styled = styled(Button)`
+text-transform: none;
+// text-decoration: underline;
+font-weight: 500;
 &:visited, &:link, &:active {color: ${props => props.theme.palette.primary.main}   };
 &:focus, &:hover {color: ${props => props.theme.palette.success.dark} };
 `;
 
-const NavLinkProtected = styled(NavLink)`
-margin: 5px 10px;
-text-decoration: none;
-&:visited, &:link  {color: ${props => props.theme.palette.primary.main}   };
+const NavLinkProtected = styled(NavLink_styled)`
 &:focus, &:hover, &:active {color: ${props => props.theme.palette.error.main}   };
-`;
-
-const NavLinkUnprotected = styled(NavLink)`
-margin: 5px 10px;
-text-decoration: none;
-&:visited, &:link, &:active {color: ${props => props.theme.palette.primary.main}   };
-&:focus, &:hover {color: ${props => props.theme.palette.success.dark} };
 `;
 
 
 const LocalMenuItem = styled.div`
-border: 2px solid #acc;
-border-radius: 8px;
+// border: 2px solid #acc;
+// border-radius: 4px;
 margin: 6px 15px;
 width: 150px;
 `;
@@ -58,6 +53,5 @@ export {
     Select,
     NavLink_styled,
     NavLinkProtected,
-    NavLinkUnprotected,
     LocalMenuItem,
 };

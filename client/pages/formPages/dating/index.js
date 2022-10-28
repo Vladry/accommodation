@@ -83,9 +83,11 @@ const Index = () => {
     return (
         <Grid container={true} spacing={2}>
             <Grid item={true} xs={5} sm={3} md={2}>
-                <Box sx={{border: '1px solid red'}}><DatingMenuWrapper>
-                    {datingMenu[0].linkName}
-                </DatingMenuWrapper></Box>
+                <Box sx={{border: '1px solid red'}}>
+                    <DatingMenuWrapper>
+                        {datingMenu[0].linkName}
+                    </DatingMenuWrapper>
+                </Box>
             </Grid>
             <Grid item={true} xs={7} sm={9} md={10}>
                 <Box sx={{border: '1px solid green'}}>

@@ -2,7 +2,7 @@ import * as React from 'react';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import NavBar from "./NavBar";
 
-export default function My_Drawer({isDrawerOpen, toggleDrawer}) {
+export default function My_Drawer({children, isDrawerOpen, toggleDrawer}) {
 
     return (
         <>
@@ -16,7 +16,7 @@ export default function My_Drawer({isDrawerOpen, toggleDrawer}) {
                     keepMounted: true,
                 }}
             >
-                <NavBar/>
+                {children}
             </SwipeableDrawer>
         </>
     );

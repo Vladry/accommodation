@@ -12,6 +12,7 @@ import {useMediaQuery} from "@mui/material";
 import useAuth from "../../hooks/useAuth";
 import Toolbar from '@mui/material/Toolbar';
 import UserProfileMenu from "./UserProfileMenu";
+import ToggleMenuIconButton from "../ToggleMenuIconButton";
 
 
 export const ToolbarFullSize = ({toggleDrawer, handleUserProfileFullMenuOpen}) => {
@@ -29,7 +30,7 @@ export const ToolbarFullSize = ({toggleDrawer, handleUserProfileFullMenuOpen}) =
                 width: '100%',
                 margin: '0 auto',
                 padding: '4px 24px',
-                backgroundColor: '#502211',
+                backgroundColor: theme.backgroundColorDark1,
 
                 [theme.breakpoints.down('sm')]: {
                     flexDirection: 'column',
@@ -44,24 +45,7 @@ export const ToolbarFullSize = ({toggleDrawer, handleUserProfileFullMenuOpen}) =
                 alignItems: 'center', width: {xs: '90%', sm: '8%', md: '20%'}
             }}>
 
-                <IconButton
-                    size="large"
-                    edge="start"
-                    aria-label="open drawer"
-                    color={"primary"}
-                    onClick={toggleDrawer}
-                >
-
-                    <Typography
-                        variant={"h6"}
-                        noWrap
-                        component={"div"}
-                        sx={{display: {xs: 'none', sm: 'block'}}}
-                    >Menu</Typography>
-
-                    <MenuIcon
-                        sx={{display: {xs: 'block', sm: 'none'}, mr: 2}}/>
-                </IconButton>
+                <ToggleMenuIconButton toggleDrawer={toggleDrawer}/>
 
                 {!!isSmallScreen && <Greeting/>}
 
@@ -76,7 +60,7 @@ export const ToolbarFullSize = ({toggleDrawer, handleUserProfileFullMenuOpen}) =
 
             {isAuthenticated && <SearchBar/>}
 
-            {!isSmallScreen && !!isMediumScreen && <Greeting />}
+            {!isSmallScreen && !!isMediumScreen && <Greeting/>}
 
             <UserProfileMenu/>
 

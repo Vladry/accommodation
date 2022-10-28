@@ -1,4 +1,4 @@
-export default [
+const goals = [
     {
         val: 'FAMILY_BIRTH_OF_CHILDREN',
         en: 'Building a family. Birth of children',
@@ -73,3 +73,5 @@ export default [
     },
 
 ]
+
+export default goals;

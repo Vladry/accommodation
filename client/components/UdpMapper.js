@@ -1,6 +1,7 @@
 import React, {useContext} from 'react';
 import {Box} from "@mui/material";
 import {Context} from "../context";
+import {Grid} from "swiper";
 
 const UdpMapper = ({fields, values, id, reviewedUser}) => {
     const {neatUpZonedDateTime} = useContext(Context);
@@ -25,7 +26,7 @@ const UdpMapper = ({fields, values, id, reviewedUser}) => {
         </Box>
     ];
 
-       const age = [
+    const age = [
         <Box key={"age"} sx={{p: 2, border: '1px solid lightgrey', borderRadius: 1, width: '400px'}}>
             <p>{`age/возраст: ${values["age"]}`}</p>
         </Box>
@@ -33,6 +34,8 @@ const UdpMapper = ({fields, values, id, reviewedUser}) => {
 
     let val = "";
     const excludedRefs = ['birthday', 'pictures', 'mySex', 'seekAPersonOfSex', 'minHeightIWant', 'maxHeightIWant', 'minPreferredAge', 'maxPreferredAge', 'maxNumberOfChildrenAllowed'];
+
+
     const mappedContent = fields.map(({name, formikRef, label}, index) => {
         const isExcludingElement = excludedRefs.some((el) => formikRef === el);
         if (isExcludingElement) {
@@ -44,9 +47,10 @@ const UdpMapper = ({fields, values, id, reviewedUser}) => {
 
             if (val != null) {
                 return (
-                    <Box key={formikRef} sx={{p: 2, border: '1px solid lightgrey', borderRadius: 1, width: '400px'}}>
-                        <p>{label} {val}</p>
-                    </Box>
+                        <Box key={formikRef}
+                             sx={{p: 2, border: '1px solid lightgrey', borderRadius: 1, width: '400px'}}>
+                            <p>{label} {val}</p>
+                        </Box>
                 )
             } else {
                 return null;
@@ -55,7 +59,8 @@ const UdpMapper = ({fields, values, id, reviewedUser}) => {
 
     });
 
-    return name.concat(location).concat(lastVisit).concat(age).concat(mappedContent);
+    return mappedContent;
+    // return name.concat(location).concat(lastVisit).concat(age).concat(mappedContent);
 };
 
 export default UdpMapper;

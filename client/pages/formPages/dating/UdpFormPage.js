@@ -4,7 +4,7 @@ import {datingMenu} from "../../../public/menuConfig";
 import api from "../../../lib/API";
 import {useDispatch, useSelector} from "react-redux";
 import UdpForm from "../../../components/forms/dating_user_profile_form/UdpForm";
-import {Grid} from "@mui/material";
+import {Box, Button, Grid, Paper} from "@mui/material";
 import SideBar from "../../../components/dating_components/SideBar";
 import ArticleWindow from "../../../components/dating_components/ArticleWindow";
 import sel from "../../../store/selectors";
@@ -13,11 +13,15 @@ import types from "../../../store/types";
 import {useRouter} from "next/router";
 import urls from "../../../../src/main/resources/urls.json";
 import axios from "axios";
+import DatingMenu from "./DatingMenu";
+import {useTheme} from "@mui/material/styles";
+import BackButton from "../../../components/BackButton";
 
 const UdpFormPage = () => {
     const user = useSelector(sel.user);
     const dispatch = useDispatch();
     const router = useRouter();
+    const theme = useTheme();
     const handleSubmit = async (values) => {
         const userDatingProfileFormNewValues = {...values, userId: user.id};
         delete userDatingProfileFormNewValues["ageRange"];//обязательно к удалению из списка аргументов на бЭк!
@@ -47,12 +51,11 @@ const UdpFormPage = () => {
             {
                 headers: {'datingServiceParticipation': user.datingServiceParticipation} //если еще не зарегистрирован в знакомствах-то, на бЭке по datingServiceParticipation=false запустится регистрация
             }
-
         ).then((res) => {
             // console.log('in handleSubmit.then на фронте, после отправки на Back-End данных. Ответ сервера:', res); // вывод userDatingProfile
             //обновить в локальном сторе userDatingProfile
             if (res != null) {
-                console.log("fetched userDatingProfile. res: ",res);
+                console.log("fetched userDatingProfile. res: ", res);
                 //записывать в state лучше не ответ сервера, а отправляемые данные, т.к. сервер возвращает birthday в стандартном (не подходящем мне) формате -будет ошибка!
                 dispatch({type: types.SET_USER_DATING_PROFILE_SUCCESS, payload: userDatingProfileFormNewValues});
                 // dispatch({type: types.SET_USER_DATING_PROFILE_SUCCESS, payload: res.data});
@@ -69,21 +72,14 @@ const UdpFormPage = () => {
     };
 
 
-    const title = "Edit Your Profile"
-    const content = <UdpForm handleSubmit={handleSubmit}/>;
-
-
     return (
-        <Grid container={true} spacing={2}>
-            <SideBar>
-                <DatingMenuWrapper>
-                    {datingMenu[5].linkName}
-                </DatingMenuWrapper>
-            </SideBar>
-
-            <ArticleWindow title={title} content={content}>
-            </ArticleWindow>
-        </Grid>
+        <Paper sx={{border: '1px solid green',
+            ...theme.paperProps
+        }}>
+            <h3 style={{textAlign: 'center'}}>Edit Your Profile</h3>
+            <UdpForm handleSubmit={handleSubmit}/>
+            <BackButton/>
+        </Paper>
     );
 };
 

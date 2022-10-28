@@ -5,7 +5,6 @@ import Document, {
 } from 'next/document';
 import createEmotionCache from "../utils/createEmotionCache";
 import createEmotionServer from "@emotion/server/create-instance";
-import theme from "../utils/theme";
 
 export default class MyDocument extends Document {
     render() {
@@ -13,7 +12,7 @@ export default class MyDocument extends Document {
             <Html lang="en">
                 <Head>
                     {/* PWA primary color */}
-                    <meta name="theme-color" content={theme.palette.primary.main}/>
+                    <meta name="theme-color" content={'darkgray'}/>
 
                     <link rel="icon" type="image/png" sizes="16x16" href="../favicons/favicon-16x16.png" />
                     <link rel="icon" type="image/png" sizes="32x32" href="../favicons/favicon-32x32.png" />

@@ -12,6 +12,7 @@ const candidateDatingProfile = state=> state.userData.candidateDatingProfile;
 const isCurrUserHasDatingProfile = state=> state.userData.isCurrUserHasDatingProfile;
 const matchingCandidatesIds = state=> state.userData.matchingCandidatesIds;
 const reviewedUser = state=> state.userData.reviewedUser;
+const isPhotosFetching = state=> state.userData.isPhotosFetching;
 
 export default {
     user,
@@ -28,4 +29,5 @@ export default {
     isCurrUserHasDatingProfile,
     matchingCandidatesIds,
     reviewedUser,
+    isPhotosFetching,
 };

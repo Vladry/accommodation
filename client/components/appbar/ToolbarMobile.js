@@ -12,27 +12,30 @@ import {useMediaQuery} from "@mui/material";
 import useAuth from "../../hooks/useAuth";
 import Toolbar from '@mui/material/Toolbar';
 import UserProfileMenu from "./UserProfileMenu";
+import {useTheme} from "@mui/styles";
+import ToggleMenuIconButton from "../ToggleMenuIconButton";
+
 
 export const ToolbarMobile = ({toggleDrawer}) => {
     const isSmallScreen = useMediaQuery('(max-width: 600px)');
     const isAuthenticated = useAuth(false);
+    const theme = useTheme();
+    console.log("theme received in ToolbarMobile: ", theme.backgroundColorDark1);
 
     const Toolbar_styled = styled(Toolbar)(
-        ({theme}) => (
-            {
-                display: 'flex',
-                justifyContent: 'space-around',
-                alignItems: 'center',
-                width: '100%',
-                margin: '0 auto',
-                padding: '4px 24px',
-                backgroundColor: '#502211',
-
-                [theme.breakpoints.down('sm')]: {
-                    flexDirection: 'column',
-                }
+        {
+            display: 'flex',
+            justifyContent: 'space-around',
+            alignItems: 'center',
+            width: '100%',
+            margin: '0 auto',
+            padding: '4px 24px',
+            backgroundColor: `${theme.backgroundColorDark1}`,
+            [theme.breakpoints.down('sm')]: {
+                flexDirection: 'column',
             }
-        ));
+        }
+    );
 
     return (
 
@@ -48,24 +51,7 @@ export const ToolbarMobile = ({toggleDrawer}) => {
                 alignItems: 'center', width: {xs: '90%', sm: '8%', md: '20%'}
             }}>
 
-                <IconButton
-                    size="large"
-                    edge="start"
-                    aria-label="open drawer"
-                    color={"primary"}
-                    onClick={toggleDrawer}
-                >
-
-                    <Typography
-                        variant={"h6"}
-                        noWrap
-                        component={"div"}
-                        sx={{display: {xs: 'none', sm: 'block'}}}
-                    >Menu</Typography>
-
-                    <MenuIcon
-                        sx={{display: {xs: 'block', sm: 'none'}, mr: 2}}/>
-                </IconButton>
+                <ToggleMenuIconButton toggleDrawer={toggleDrawer}/>
 
                 {!!isSmallScreen && <Greeting/>}
 

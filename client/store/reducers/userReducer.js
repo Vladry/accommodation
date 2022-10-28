@@ -21,11 +21,16 @@ const initialState = {
     matchingCandidatesIds: null,
     loadingMatchingCandidatesIds: false,
 
-    reviewedUser: null
+    reviewedUser: null,
+
+    isPhotosFetching: false,
 }
 
 export default (state = initialState, action) => {
     switch (action.type) {
+
+        case types.FETCHING_PHOTOS:
+            return{...state, isPhotosFetching: action.payload}
 
         case types.SHELF_REVIEWED_USER_DATA:
             return {...state, reviewedUser: action.payload}
