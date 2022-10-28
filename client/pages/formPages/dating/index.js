@@ -98,8 +98,9 @@ const Index = () => {
                             {datingMenu[0].linkName}
                         </DatingMenuWrapper>
                     </My_Drawer>}
-                {isSmallScreen && <Box sx={{position: 'absolute', top: '1px', left: '15px'}}><ToggleMenuIconButton
-                    toggleDrawer={toggleDrawer}/></Box>}
+                {isSmallScreen && <Box sx={{position: 'absolute', top: '1px', left: '15px'}}>
+                    <ToggleMenuIconButton
+                        color={'#333A9D'} toggleDrawer={toggleDrawer}/></Box>}
 
 
                 {!isSmallScreen && <DatingMenuWrapper>

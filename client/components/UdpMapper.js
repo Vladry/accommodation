@@ -33,7 +33,7 @@ const UdpMapper = ({fields, values, id, reviewedUser}) => {
     ];
 
     let val = "";
-    const excludedRefs = ['birthday', 'pictures', 'mySex', 'seekAPersonOfSex', 'minHeightIWant', 'maxHeightIWant', 'minPreferredAge', 'maxPreferredAge', 'maxNumberOfChildrenAllowed'];
+    const excludedRefs = ['birthday', 'pictures', 'mySex', 'heightRange', 'seekAPersonOfSex', 'minHeightIWant', 'maxHeightIWant', 'minPreferredAge', 'maxPreferredAge', 'maxNumberOfChildrenAllowed'];
 
 
     const mappedContent = fields.map(({name, formikRef, label}, index) => {
@@ -48,8 +48,16 @@ const UdpMapper = ({fields, values, id, reviewedUser}) => {
             if (val != null) {
                 return (
                         <Box key={formikRef}
-                             sx={{p: 2, border: '1px solid lightgrey', borderRadius: 1, width: '400px'}}>
-                            <p>{label} {val}</p>
+                             sx={{
+                                 p: 2,
+
+                                 border: '1px solid lightgrey',
+                                 backgroundColor: '#34495E',
+                                 borderRadius: 1,
+                                 flexBasis: {xs: '51%', md: '30%'},
+                                 // width: '300px'
+                        }}>
+                            <p>{label}: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>{val}</span></p>
                         </Box>
                 )
             } else {

@@ -1,27 +1,26 @@
 import React from 'react';
 import {Grid} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
+import {Box} from "@mui/joy";
 
 const CandidateCard = ({mappedFields}) => {
 const theme = useTheme();
 
     return (
-        <>
-
-            <Grid container
+            <Box
                   sx={{
-                      display: 'grid',
-                      justifyContent: "space-around",
+                      display: 'flex',
+                      justifyContent: "center",
+                      flexFlow: 'row wrap',
                       alignItems: 'center',
-                      columnGap: '2px',
-                      gridTemplateColumns: {xs: '1fr', md: '1fr 1fr', xl: '1fr 1fr 1fr'},
-                      backgroundColor: 'whitesmoke',
-                      borderRadius: `${theme.cardBoxParams.borderRadius}`,
+                      gap: '6px',
+                      color: '#eee',
+                      borderRadius: `${theme.cardBoxParams.borderRadius}
+                      `,
                   }}>
 
                 {mappedFields}
-            </Grid>
-        </>
+            </Box>
     );
 };
 

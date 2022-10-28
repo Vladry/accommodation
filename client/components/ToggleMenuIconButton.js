@@ -3,7 +3,7 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import MenuIcon from "@mui/icons-material/Menu";
 
-const ToggleMenuIconButton = ({toggleDrawer}) => {
+const ToggleMenuIconButton = ({color, toggleDrawer}) => {
 
     return (
         <IconButton
@@ -19,10 +19,11 @@ const ToggleMenuIconButton = ({toggleDrawer}) => {
                 variant={"h6"}
                 noWrap
                 component={"div"}
+                color={color}
                 sx={{display: {xs: 'none', sm: 'block'}}}
             >Menu</Typography>
 
-            <MenuIcon sx={{display: {xs: 'block', sm: 'none'}}}/>
+            <MenuIcon sx={{display: {xs: 'block', sm: 'none'}, color: color}}/>
         </IconButton>
     );
 };

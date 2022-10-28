@@ -45,7 +45,7 @@ export const ToolbarFullSize = ({toggleDrawer, handleUserProfileFullMenuOpen}) =
                 alignItems: 'center', width: {xs: '90%', sm: '8%', md: '20%'}
             }}>
 
-                <ToggleMenuIconButton toggleDrawer={toggleDrawer}/>
+                <ToggleMenuIconButton color={'#8F94E0'} toggleDrawer={toggleDrawer}/>
 
                 {!!isSmallScreen && <Greeting/>}
 

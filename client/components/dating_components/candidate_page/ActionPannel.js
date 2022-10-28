@@ -23,8 +23,8 @@ const ActionPannel = ({placement}) => {
 
     return (
         <Box sx={{
-            width: {xs: '200px', sm: '250px', md: '350px', lg: '450px'},
-            backgroundColor: '#281714',
+            width: {xs: '150px', sm: '220px', md: '260px', lg: '300px'},
+            backgroundColor: `${theme.backgroundColorDark2}`,
             color: 'white',
             mr: '10px',
             display: 'flex',

@@ -15,6 +15,7 @@ import ActionPannel from "../components/dating_components/candidate_page/ActionP
 import CandidateCard from "../components/dating_components/candidate_page/CandidateCard";
 import My_Drawer from "../components/appbar/My_Drawer";
 import ToggleMenuIconButton from "../components/ToggleMenuIconButton";
+import {useTheme} from "@mui/material/styles";
 
 
 const CandidateProfile = () => {
@@ -31,6 +32,7 @@ const CandidateProfile = () => {
     const toggleDrawer = () => setIsDrawerOpen(() => !isDrawerOpen);
     const isSmallScreen = useMediaQuery('(max-width:900px)');
     const isLargeScreen = !isSmallScreen;
+    const theme = useTheme();
 
 
     const fetchExistingPhotos = (queriedUserId) => {
@@ -79,8 +81,9 @@ const CandidateProfile = () => {
     return (
         <Paper sx={{
             // [theme.breakpoints.up('xl')]: {display: 'flex'},
-            // flexFlow: 'row no-wrap',
             border: '1px solid green', maxWidth: "98%",
+            // backgroundColor: `${theme.backgroundColorLight}`,
+            backgroundColor: '#666'
         }}>
 
 
@@ -90,11 +93,10 @@ const CandidateProfile = () => {
                         <My_Drawer isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer}>
                             <ActionPannel/>
                         </My_Drawer>
-                        <ToggleMenuIconButton toggleDrawer={toggleDrawer}/>
+                        <ToggleMenuIconButton color={'#000'} toggleDrawer={toggleDrawer}/>
                     </Box>
 
                     <SwiperUserPic pictures={pictures}/>
-                    <BackButton xyOffset={{top: '120px', left: '1px'}}/>
                 </Box>
             }
 
@@ -105,9 +107,9 @@ const CandidateProfile = () => {
                     <SwiperUserPic pictures={pictures}/>
                     <BackButton/>
                 </Box>
-
             }
-
+            {/* eslint-disable-next-line react/no-unescaped-entities */}
+            <h3>Bio:</h3>
             <CandidateCard mappedFields={mappedFields}/>
 
 

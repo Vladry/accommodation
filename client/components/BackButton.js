@@ -14,7 +14,7 @@ const BackButton = ({xyOffset}) => {
              sx={
                  () => {
                      const defaultVals = {zIndex: 1, position: 'fixed', boxShadow: '18'};
-                     const staticAttr = {...defaultVals, top: '1px', right: '40px'};
+                     const staticAttr = {...defaultVals, top: '1px', right: '20px'};
                      if (!xyOffset) return staticAttr;
                      let attributes = {};
                      if (xyOffset.top) {

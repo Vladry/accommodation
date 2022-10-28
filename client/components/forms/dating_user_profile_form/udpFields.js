@@ -5,7 +5,7 @@ export const udpFields = [
         id: "mySex",
         name: "mySex",
         formikRef: "mySex",
-        label: "mySex/мой пол",
+        label: "sex",
         valueByDefault: "OTHER",
         type: "select_sex"
     },
@@ -13,7 +13,7 @@ export const udpFields = [
         id: "seekAPersonOfSex",
         name: "seekAPersonOfSex",
         formikRef: "seekAPersonOfSex",
-        label: "seekAPersonOfSex/Я ищу",
+        label: "seek person of sex",
         valueByDefault: "ANY",
         type: "select_sex"
     },
@@ -21,7 +21,7 @@ export const udpFields = [
         id: "ageRange",
         name: "ageRange",
         formikRef: "ageRange",
-        label: "Age/Возраст",
+        label: "Age",
         valueByDefault: [16, 60],
         type: "range"
     },
@@ -29,7 +29,7 @@ export const udpFields = [
         id: "heightRange",
         name: "heightRange",
         formikRef: "heightRange",
-        label: "Height/Рост, cm",
+        label: "Height range,cm",
         valueByDefault: [140, 210],
         type: "range"
     },
@@ -37,7 +37,7 @@ export const udpFields = [
         id: "myHeight",
         name: "myHeight",
         formikRef: "myHeight",
-        label: "my height /мой рост",
+        label: "height",
         valueByDefault: 0,
         type: "number"
     },
@@ -45,7 +45,7 @@ export const udpFields = [
         id: "minHeightIWant",
         name: "minHeightIWant",
         formikRef: "minHeightIWant",
-        label: "minHeightIWant/Ищу ростом ОТ, см",
+        label: "candidate's min. height, cm",
         valueByDefault: 0,
         type: "--number"
     },
@@ -53,7 +53,7 @@ export const udpFields = [
         id: "maxHeightIWant",
         name: "maxHeightIWant",
         formikRef: "maxHeightIWant",
-        label: "maxHeightIWant/Ищу ростом ДО, см",
+        label: "candidate's max. height, cm",
         valueByDefault: 200,
         type: "--number"
     },
@@ -62,7 +62,7 @@ export const udpFields = [
         id: "minPreferredAge",
         name: "minPreferredAge",
         formikRef: "minPreferredAge",
-        label: "minPreferredAge/Возрастом ОТ",
+        label: "candidate's min age",
         valueByDefault: 0,
         type: "--number"
     },
@@ -71,7 +71,7 @@ export const udpFields = [
         id: "maxPreferredAge",
         name: "maxPreferredAge",
         formikRef: "maxPreferredAge",
-        label: "maxPreferredAge/Возрастом ДО",
+        label: "candidate's max age",
         valueByDefault: 0,
         type: "--number"
     },
@@ -79,7 +79,7 @@ export const udpFields = [
         id: "countryINowLiveIn",
         name: "countryINowLiveIn",
         formikRef: "countryINowLiveIn",
-        label: "countryINowLiveIn/Я, сейчас в стране",
+        label: "country I now live in",
         valueByDefault: "UKRAINE",
         type: "select_country"
     },
@@ -87,7 +87,7 @@ export const udpFields = [
         id: "myCitizenship",
         name: "myCitizenship",
         formikRef: "myCitizenship",
-        label: "myCitizenship/Я гражданин",
+        label: "my citizenship",
         valueByDefault: "UKRAINE",
         type: "select_country"
     },
@@ -95,7 +95,7 @@ export const udpFields = [
         id: "wantFromCountry",
         name: "wantFromCountry",
         formikRef: "wantFromCountry",
-        label: "wantFromCountry/Желаю найти из",
+        label: "want from country",
         valueByDefault: "ANY_COUNTRY",
         type: "select_country"
     },
@@ -103,7 +103,7 @@ export const udpFields = [
         id: "numberOfMyChildren",
         name: "numberOfMyChildren",
         formikRef: "numberOfMyChildren",
-        label: "numberOfMyChildren/У меня детей",
+        label: "number of my children",
         valueByDefault: 0,
         type: "number"
     },
@@ -111,7 +111,7 @@ export const udpFields = [
         id: "maxNumberOfChildrenAllowed",
         name: "maxNumberOfChildrenAllowed",
         formikRef: "maxNumberOfChildrenAllowed",
-        label: "max.children accepted/детей не более",
+        label: "candidate's max. num. children",
         valueByDefault: 1,
         type: "number"
     },
@@ -120,7 +120,7 @@ export const udpFields = [
         id: "myGoals",
         name: "myGoals",
         formikRef: "myGoals",
-        label: "myGoals/Цели знакомства",
+        label: "my goals",
         valueByDefault: [],
         type: "select_goals",
     },
@@ -128,7 +128,7 @@ export const udpFields = [
         id: "myInterests",
         name: "myInterests",
         formikRef: "myInterests",
-        label: "myInterests/Мои интересы/увлечения",
+        label: "my interests",
         valueByDefault: [],
         type: "select_interests",
     },
@@ -136,7 +136,7 @@ export const udpFields = [
         id: "birthday",
         name: "birthday",
         formikRef: "birthday",
-        label: "birthday /ДР:  ('dd.mm.yyyy')",
+        label: "birthday: (format 'dd.mm.yyyy')",
         valueByDefault: "01.01.2000",
         type: "birthday"
     },
