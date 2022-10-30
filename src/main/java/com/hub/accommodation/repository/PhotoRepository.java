@@ -13,13 +13,13 @@ import java.util.Set;
 
 @Repository
 public interface PhotoRepository extends RepositoryInterface<Photo> {
-    Set<Photo> findAllPhotosByUserIdAndServiceGroup(Long userId, ServiceGroup serviceGroup);
-    Optional<Photo> findOnePhotoByUrl(String photoUrl);
-
-
 //    @Modifying
 //    @Query(value="INSERT INTO photos (user_id, service_group, url) VALUES(?1, ?2, ?3)", nativeQuery=true)
-//    void saveAllPhotos(Long userId, String serviceGroup, List<String> photoUrls);
+//    void saveAllPhotos(List<Long> userId, List<String> serviceGroup, List<String> photoUrls);
+
+    Optional<Photo> findOnePhotoByUrl(String photoUrl);
+    Set<Photo> findAllPhotosByUserIdAndServiceGroup(Long userId, ServiceGroup serviceGroup);
+
 
 //    @Transactional
     @Modifying

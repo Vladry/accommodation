@@ -76,6 +76,7 @@ VALUES (19, 'Lvov', 'USA', 'no additional info for user', 0, 1, 2, 1, 0, 1, 1, 1
         'FEW_DAYS_TRANSITIONAL_STAY');
 
 
+/*
 INSERT INTO user_pictures (dating_user_profile, picture)
 VALUES (4, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vocal-studio-bruce_fzmdlp.jpg'),
        (4, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_sings2_tyligr.png'),
@@ -100,6 +101,32 @@ VALUES (4, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shru
        (19, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_haircut_ziiyxb.jpg'),
        (19, 'https://res.cloudinary.com/vladry/image/upload/v1628498610/vlad_shrunk/bicycle1_r0rlek.jpg'),
        (19, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_arsenalna_befcu2.jpg');
+
+*/
+
+
+
+
+INSERT INTO photos (LAST_MODIFIED_DATE, CREATED_DATE, SERVICE_GROUP, USER_ID, URL)
+VALUES ( null, null, 'DATING', 4, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vocal-studio-bruce_fzmdlp.jpg'),
+       ( null, null, 'DATING', 4, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_sings2_tyligr.png'),
+       ( null, null, 'DATING', 4, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_guitar_jqhojn.png'),
+       ( null, null, 'DATING', 5, 'https://res.cloudinary.com/vladry/image/upload/v1628498610/vlad_shrunk/tosya_tanya_s3w0kl.jpg'),
+       ( null, null, 'DATING', 5, 'https://res.cloudinary.com/vladry/image/upload/v1628498610/vlad_shrunk/bicycle2_wo1i08.jpg'),
+       ( null, null, 'DATING', 5,  'https://res.cloudinary.com/vladry/image/upload/v1628499313/ilya_shrunk/4d7eea3c8660aac877338190a88144bc_fitted_400x300_jubjvd.jpg'),
+       ( null, null, 'DATING', 11, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_arsenalna_befcu2.jpg'),
+       ( null, null, 'DATING', 11, 'https://res.cloudinary.com/vladry/image/upload/v1628498610/vlad_shrunk/bicycle1_r0rlek.jpg'),
+       ( null, null, 'DATING', 14, 'https://res.cloudinary.com/vladry/image/upload/v1628499313/ilya_shrunk/4d7eea3c8660aac877338190a88144bc_fitted_400x300_jubjvd.jpg'),
+       ( null, null, 'DATING', 14, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/guitar_and_cat_painting_tbjpdl.jpg'),
+       ( null, null, 'DATING', 17, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_arsenalna_befcu2.jpg'),
+       ( null, null, 'DATING', 17, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_in_car_rtzqzp.jpg'),
+       ( null, null, 'DATING', 19, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_haircut_ziiyxb.jpg'),
+       ( null, null, 'DATING', 19, 'https://res.cloudinary.com/vladry/image/upload/v1628498610/vlad_shrunk/bicycle1_r0rlek.jpg'),
+       ( null, null, 'DATING', 19, 'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_arsenalna_befcu2.jpg');
+
+
+
+SET FOREIGN_KEY_CHECKS = 1;
 
 
 /*INSERT INTO user_dating_goals (USER_DATING_PROFILE_ID, goals) //это когда userDatingProfile имел ассоциацию с User -ом
@@ -132,15 +159,3 @@ VALUES (1, 'PAINTING'),
        (17, 'DANCING'),
        (17, 'SINGING');
 */
-
-INSERT INTO PHOTOS
-VALUES (1, null, null, 'DATING', 'url1', 19),
-       (2, null, null, 'DATING', 'url2', 19),
-       (3, null, null, 'DATING', 'url3', 19),
-       (4, null, null, 'DATING', 'url4', 19),
-       (5, null, null, 'DATING', 'url5', 19),
-       (6, null, null, 'DATING', 'url6', 19);
-
-
-SET
-    FOREIGN_KEY_CHECKS = 1;

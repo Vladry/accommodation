@@ -56,9 +56,9 @@ public class UserController {
 
     @PutMapping("/users/{id}")
     public void updateUser(@PathVariable("id") Long id, @RequestParam("location") String location) {
-//        System.out.println("in updateUser ->");
         userService.updateParamById(id, location);
     }
+
 
     @PostMapping("/users")
     public UserRsDto createUser(@RequestBody UserRqDto userRqDto) {

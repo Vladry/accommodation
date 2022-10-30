@@ -1,15 +1,13 @@
 package com.hub.accommodation.domain;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.hub.accommodation.Views;
-import com.hub.accommodation.zonedDateTime_Converters.ZonedDateTimeConverter;
+import com.hub.accommodation.config.Views;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.ZonedDateTime;
 
@@ -23,6 +21,7 @@ abstract public class BaseEntity {
     @Id  // для hibernate аннотируем javax.persistence, а для spring.jdbc -аннотацией org.springframework.data.annotation.Id
     @Column(name = "id", updatable = false, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @JsonView({Views.Public.class, Views.Internal.class})
     protected Long id;
 

@@ -21,7 +21,7 @@ export const udpFields = [
         id: "ageRange",
         name: "ageRange",
         formikRef: "ageRange",
-        label: "Age",
+        label: "Ages",
         valueByDefault: [16, 60],
         type: "range"
     },

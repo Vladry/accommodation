@@ -1,4 +1,4 @@
-package com.hub.accommodation;
+package com.hub.accommodation.config;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;

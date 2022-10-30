@@ -1,4 +1,4 @@
-package com.hub.accommodation.zonedDateTime_Converters;
+package com.hub.accommodation.util.zonedDateTime_Converters;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;

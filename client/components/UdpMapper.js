@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import {Box} from "@mui/material";
 import {Context} from "../context";
-import {Grid} from "swiper";
+import {Grid} from "@mui/material";
 
 const UdpMapper = ({fields, values, id, reviewedUser}) => {
     const {neatUpZonedDateTime} = useContext(Context);
@@ -28,15 +28,23 @@ const UdpMapper = ({fields, values, id, reviewedUser}) => {
 
     const age = [
         <Box key={"age"} sx={{p: 2, border: '1px solid lightgrey', borderRadius: 1, width: '400px'}}>
-            <p>{`age/возраст: ${values["age"]}`}</p>
+            <p>{`age: ${values["age"]}`}</p>
         </Box>
     ];
 
     let val = "";
-    const excludedRefs = ['birthday', 'pictures', 'mySex', 'heightRange', 'seekAPersonOfSex', 'minHeightIWant', 'maxHeightIWant', 'minPreferredAge', 'maxPreferredAge', 'maxNumberOfChildrenAllowed'];
+    const excludedRefs = ['ageRange', 'birthday', 'pictures', 'mySex', 'heightRange', 'seekAPersonOfSex', 'minHeightIWant', 'maxHeightIWant', 'minPreferredAge', 'maxPreferredAge', 'maxNumberOfChildrenAllowed'];
 
 
     const mappedContent = fields.map(({name, formikRef, label}, index) => {
+        let girdStartCol;
+        if (index === 0) {
+            girdStartCol = 2;
+        } else if (index % 2 === 0) {
+            girdStartCol = 2;
+        } else {
+            girdStartCol = 3;
+        }
         const isExcludingElement = excludedRefs.some((el) => formikRef === el);
         if (isExcludingElement) {
             return null;
@@ -47,18 +55,27 @@ const UdpMapper = ({fields, values, id, reviewedUser}) => {
 
             if (val != null) {
                 return (
-                        <Box key={formikRef}
-                             sx={{
-                                 p: 2,
+                    <Grid item key={formikRef}  xs={12} md={6} lg={4}
 
-                                 border: '1px solid lightgrey',
-                                 backgroundColor: '#34495E',
-                                 borderRadius: 1,
-                                 flexBasis: {xs: '51%', md: '30%'},
-                                 // width: '300px'
-                        }}>
-                            <p>{label}: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>{val}</span></p>
-                        </Box>
+/*                         sx={{
+                             p: 2,
+                             border: '1px solid lightgrey',
+                             backgroundColor: '#34495E',
+                             borderRadius: 1,
+                             flexBasis: {xs: '51%', md: '30%'},
+                             // width: '300px'
+                         }}*/
+
+
+                         sx={{
+                             p: 2,
+                             border: '1px solid lightgrey',
+                             backgroundColor: '#34495E',
+                             borderRadius: 1,
+                         }}
+                    >
+                        <p>{label}: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>{val}</span></p>
+                    </Grid>
                 )
             } else {
                 return null;
@@ -67,8 +84,8 @@ const UdpMapper = ({fields, values, id, reviewedUser}) => {
 
     });
 
-    return mappedContent;
-    // return name.concat(location).concat(lastVisit).concat(age).concat(mappedContent);
+    // return mappedContent;
+    return name.concat(location).concat(lastVisit).concat(age).concat(mappedContent);
 };
 
 export default UdpMapper;

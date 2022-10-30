@@ -47,18 +47,18 @@ spring:
     properties:
       hibernate:
 #        для пакетной отправки фотографий:
-        jdbc.batch_size: 40
+        jdbc:
+          batch_size: 40
 #        тоже для пакетной отправки фотографий:
         order_updates: true
         #        format_sql: true
         dialect: org.hibernate.dialect.H2Dialect
-      generate_statistics: false
+#        generate_statistics: true
     generate-ddl: true
     hibernate:
       ddl-auto: update
     show-sql: false
-
-
+#spring.jpa.properties.hibernate.generate_statistics=true
 jwt:
 #  secret: ${JWT_SECRET:""}
 #  secretRefresh: ${JWT_SECRET_REFRESH}

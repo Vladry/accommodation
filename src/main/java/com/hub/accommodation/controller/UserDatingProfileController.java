@@ -3,7 +3,7 @@ package com.hub.accommodation.controller;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.hub.accommodation.dto.request.UserDatingProfileRqDto;
 import com.hub.accommodation.dto.response.UserDatingProfileRsDto;
-import com.hub.accommodation.Views;
+import com.hub.accommodation.config.Views;
 import com.hub.accommodation.domain.user.UserDatingProfile;
 import com.hub.accommodation.exception.NoDataFoundException;
 import com.hub.accommodation.facade.UserDatingProfileFacade;
@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 

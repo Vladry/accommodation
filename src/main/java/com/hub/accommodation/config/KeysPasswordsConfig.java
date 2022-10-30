@@ -1,4 +1,4 @@
-package com.hub.accommodation;
+package com.hub.accommodation.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

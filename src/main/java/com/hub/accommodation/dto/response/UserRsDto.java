@@ -1,7 +1,7 @@
 package com.hub.accommodation.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.hub.accommodation.Views;
+import com.hub.accommodation.config.Views;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

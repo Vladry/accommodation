@@ -4,23 +4,34 @@ import {useTheme} from "@mui/material/styles";
 import {Box} from "@mui/joy";
 
 const CandidateCard = ({mappedFields}) => {
-const theme = useTheme();
+    const theme = useTheme();
 
     return (
-            <Box
-                  sx={{
-                      display: 'flex',
-                      justifyContent: "center",
-                      flexFlow: 'row wrap',
-                      alignItems: 'center',
-                      gap: '6px',
-                      color: '#eee',
-                      borderRadius: `${theme.cardBoxParams.borderRadius}
-                      `,
-                  }}>
+        <Grid container spacing={2}
 
-                {mappedFields}
-            </Box>
+              sx={{
+                  color: '#eee',
+                  borderRadius: `${theme.cardBoxParams.borderRadius}
+                //       `,
+              }}
+
+        >
+{/*            <Grid item xs={5} sx={{border: '1px solid red'}}>
+                <p>xs=8</p>
+            </Grid>
+            <Grid item xs={2} sx={{border: '1px solid red'}}>
+                <p>xs=4</p>
+            </Grid>
+            <Grid item xs={4} sx={{border: '1px solid red'}}>
+                <p>xs=4</p>
+            </Grid>
+            <Grid item xs={8} sx={{border: '1px solid red'}}>
+                <p>xs=8</p>
+            </Grid>*/}
+
+
+            {mappedFields}
+        </Grid>
     );
 };
 

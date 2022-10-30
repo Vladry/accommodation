@@ -1,4 +1,4 @@
-package com.hub.accommodation.zonedDateTime_Converters;
+package com.hub.accommodation.util.zonedDateTime_Converters;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;

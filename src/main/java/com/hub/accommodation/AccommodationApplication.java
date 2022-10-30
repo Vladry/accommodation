@@ -1,10 +1,13 @@
 package com.hub.accommodation;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hub.accommodation.config.KeysPasswordsConfig;
 import com.hub.accommodation.domain.accommodation.enums.Country;
 import com.hub.accommodation.domain.user.Goals;
 import com.hub.accommodation.domain.user.UserDatingProfile;
 import com.hub.accommodation.domain.user.Interests;
 import com.hub.accommodation.domain.user.enums.Sex;
+import com.hub.accommodation.dto.request.UserDatingProfileRqDto;
 import com.hub.accommodation.service.UserDatingProfileService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +17,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.core.SpringVersion;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
+import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -78,12 +81,10 @@ public class AccommodationApplication implements ApplicationRunner {
 
 
         // Пример кода для считывания JSON стоки в java- сущность:
-/*
         ObjectMapper mapper = new ObjectMapper();
         UserDatingProfileRqDto udpRqDto = mapper.readValue(
                 new File("src/main/resources/test.json"), UserDatingProfileRqDto.class);
         System.out.println("converted from JSON udpRsDto: " + udpRqDto);
-*/
 
 
     }

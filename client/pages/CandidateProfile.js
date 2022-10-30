@@ -66,6 +66,7 @@ const CandidateProfile = () => {
     useEffect(() => {
         if (!fetchingFlag.current && !!queriedUserId) {
             fetchExistingPhotos(queriedUserId);
+                console.log("candidateDatingProfile: ", candidateDatingProfile);
         }
     }, [queriedUserId])
 
@@ -110,7 +111,9 @@ const CandidateProfile = () => {
             }
             {/* eslint-disable-next-line react/no-unescaped-entities */}
             <h3>Bio:</h3>
-            <CandidateCard mappedFields={mappedFields}/>
+            <Box sx={{width: '60%', margin: '0 auto'}}>
+                <CandidateCard mappedFields={mappedFields}/>
+            </Box>
 
 
 
