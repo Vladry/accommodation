@@ -1,8 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {useRouter} from "next/router";
-import {udpFields} from "../components/forms/dating_user_profile_form/udpFields";
-import UdpMapper from "../components/UdpMapper";
 import {Box, Paper, useMediaQuery} from "@mui/material";
 import {fetchData} from "../store/actions/userAction";
 import types from "../store/types";
@@ -11,29 +8,28 @@ import urls from '../../src/main/resources/urls.json'
 import SwiperUserPic from "../components/dating_components/swiper_carousel/SwiperUserPic";
 import api from "../lib/API";
 import BackButton from "../components/BackButton";
-import ActionPannel from "../components/dating_components/candidate_page/ActionPannel";
-import CandidateCard from "../components/dating_components/candidate_page/CandidateCard";
+import ActionPannel from "../components/dating_components/candidate_profile/ActionPannel";
+import CandidateDetailsTable from "../components/dating_components/candidate_profile/CandidateDetailsTable";
 import My_Drawer from "../components/appbar/My_Drawer";
 import ToggleMenuIconButton from "../components/ToggleMenuIconButton";
+import {useRouter} from "next/router";
 import {useTheme} from "@mui/material/styles";
 
 
 const CandidateProfile = () => {
+    const theme = useTheme();
     const dispatch = useDispatch();
-    const router = useRouter();
-    const [queriedUserId, setQueriedUserId] = useState(router.query.queriedUserId);
     const candidateDatingProfile = useSelector(sel.candidateDatingProfile);
     const loadDatProfile = useRef({den: false});
     const reviewedUser = useSelector(sel.reviewedUser);
     const [pictures, setPictures] = useState([]);
     const fetchingFlag = useRef(false);
-
+    const router = useRouter();
+    const queriedUserId = router.query.queriedUserId;
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const toggleDrawer = () => setIsDrawerOpen(() => !isDrawerOpen);
     const isSmallScreen = useMediaQuery('(max-width:900px)');
     const isLargeScreen = !isSmallScreen;
-    const theme = useTheme();
-
 
     const fetchExistingPhotos = (queriedUserId) => {
         fetchingFlag.current = true;
@@ -44,9 +40,7 @@ const CandidateProfile = () => {
             dispatch({type: types.FETCHING_PHOTOS, payload: false});
             fetchingFlag.current = false;
             if (reviewedUser?.avatar && !pictures.includes(reviewedUser.avatar)) {
-
                 pictures.push(reviewedUser.avatar);
-                // console.log("pictures: ", pictures);
             }
             setPictures(pictures);
         });
@@ -66,25 +60,16 @@ const CandidateProfile = () => {
     useEffect(() => {
         if (!fetchingFlag.current && !!queriedUserId) {
             fetchExistingPhotos(queriedUserId);
-                console.log("candidateDatingProfile: ", candidateDatingProfile);
+            console.log("candidateDatingProfile: ", candidateDatingProfile);
         }
     }, [queriedUserId])
-
-
-    if (!candidateDatingProfile) return <p>not authenticated or queriedUserId undefined or isLoading</p>;
-
-    const title = `Profile of Candidate id: ${queriedUserId}`;
-
-    const mappedFields = <UdpMapper fields={udpFields} values={candidateDatingProfile}
-                                    id={queriedUserId} reviewedUser={reviewedUser}/>;
 
 
     return (
         <Paper sx={{
             // [theme.breakpoints.up('xl')]: {display: 'flex'},
             border: '1px solid green', maxWidth: "98%",
-            // backgroundColor: `${theme.backgroundColorLight}`,
-            backgroundColor: '#666'
+            backgroundColor: `${theme.paperBackgroundColor}`,
         }}>
 
 
@@ -109,12 +94,10 @@ const CandidateProfile = () => {
                     <BackButton/>
                 </Box>
             }
-            {/* eslint-disable-next-line react/no-unescaped-entities */}
-            <h3>Bio:</h3>
+            <br/>
             <Box sx={{width: '60%', margin: '0 auto'}}>
-                <CandidateCard mappedFields={mappedFields}/>
+                <CandidateDetailsTable/>
             </Box>
-
 
 
         </Paper>

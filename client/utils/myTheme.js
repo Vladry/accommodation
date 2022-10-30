@@ -22,6 +22,7 @@ const myTheme = {
     backgroundColorLight: 'whitesmoke',
     backgroundColorDark1: '#502211',
     backgroundColorDark2: '#281714',
+    paperBackgroundColor: '#666',
 
 
     selectButton: {m: '1px', p: '4px', fontSize: '0.8em', fontWeight: '400', textTransform: 'none'},

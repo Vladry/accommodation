@@ -72,8 +72,12 @@ const FormMapper = ({fields, initValues, validation, handleSubmit}) => {
     }*/
 // console.log("formik.values: ", formik.values)
     const birthdayMonitorInputField = (formik.values && formik.values["birthday"])? dateReFormatter(formik.values["birthday"]) : undefined;
+    const excludedFields = ['name', 'lastVisit', 'age', 'location'];
+
 
     const mappedFields = fields.map(({formikRef, valueByDefault, ...input}) => {
+        if(excludedFields.includes(formikRef)) return null;
+
         switch (input.type) {
             case 'range':
                 let minLim, maxLim, initValue, initLower, initHigher;

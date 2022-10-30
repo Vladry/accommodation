@@ -76,14 +76,13 @@ const SwiperUserPic = ({pictures}) => { // https://swiperjs.com/react
     // TODO: нарушен порядок рендера фотографий, аватарка должна быть первая!
     //  И не всегда рендерятся приходящие фотки. При этом 'pictures' -приходит упорядоченный и бывает наложение фотки на фотку (если высокая фотка накрывается сверху короткой)
     const imgContent = pictures.map((el, i) => (
-        <SwiperSlide className={`${styles['swiper-slide']}`} key={i}>
+        <SwiperSlide sx={{backgroundColor: `${theme.paperBackgroundColor}`}} className={`${styles['swiper-slide']}`} key={i}>
             <img style={{ listStyle: "none", borderRadius: `${theme.cardBoxParams.borderRadius}`, overflow: 'hidden' }} className={`${styles['swiper-slide img']}`}
                                                                           src={el}
                                                                           alt={'carousel-picture'}/></SwiperSlide>
     ));
 
     return (
-        <>
             <Swiper
                 modules={[Autoplay, Navigation, Pagination, EffectFade]}
                 // className={styles.swiper}
@@ -105,7 +104,6 @@ const SwiperUserPic = ({pictures}) => { // https://swiperjs.com/react
             >
                 {imgContent}
             </Swiper>
-        </>
     );
 };
 

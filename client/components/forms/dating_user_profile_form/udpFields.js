@@ -1,5 +1,37 @@
 export const udpFields = [
 
+    {
+        id: "name",
+        name: "name",
+        formikRef: "name",
+        label: "name",
+        valueByDefault: "n/a",
+        type: "name"
+    },
+    {
+        id: "location",
+        name: "location",
+        formikRef: "location",
+        label: "autodetermined location",
+        valueByDefault: "n/a",
+        type: "location"
+    },
+    {
+        id: "lastVisit",
+        name: "lastVisit",
+        formikRef: "lastVisit",
+        label: "last visit",
+        valueByDefault: "lastVisit",
+        type: "lastVisit"
+    },
+    {
+        id: "age",
+        name: "age",
+        formikRef: "age",
+        label: "age",
+        valueByDefault: 0,
+        type: "age"
+    },
 
     {
         id: "mySex",

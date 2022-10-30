@@ -28,6 +28,10 @@ const UdpFormPage = () => {
         delete userDatingProfileFormNewValues["heightRange"];//обязательно к удалению из списка аргументов на бЭк!
         delete userDatingProfileFormNewValues["pictures"];
         delete userDatingProfileFormNewValues["desiredWithInterests"];
+        delete userDatingProfileFormNewValues["name"];
+        delete userDatingProfileFormNewValues["location"];
+        delete userDatingProfileFormNewValues["lastVisit"];
+        delete userDatingProfileFormNewValues["age"];
 
 
         if (typeof (userDatingProfileFormNewValues["myGoals"]) === 'string') {
