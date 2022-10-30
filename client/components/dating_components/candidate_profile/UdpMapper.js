@@ -22,7 +22,7 @@ const UdpMapper = ({udpFields, candidateDatingProfile, reviewedUser}) => {
     const excludedRefs = ['ageRange', 'birthday', 'pictures', 'mySex', 'heightRange', 'seekAPersonOfSex', 'minHeightIWant', 'maxHeightIWant', 'minPreferredAge', 'maxPreferredAge', 'maxNumberOfChildrenAllowed'];
 
 
-    const mappedContent = udpFields.map(({name, formikRef, label}) => {
+    const mappedContent = udpFields.map(({name, formikRef, profileLabel}) => {
 
         const isExcludingElement = excludedRefs.some((el) => formikRef === el);
         if (isExcludingElement) {
@@ -57,7 +57,7 @@ const UdpMapper = ({udpFields, candidateDatingProfile, reviewedUser}) => {
                           borderRadius: `${theme.cardBoxParams.borderRadius}`
                       }}
                 >
-                    <P><Span>{label}:</Span><Span>{val}</Span></P>
+                    <P><Span>{profileLabel}:</Span><Span>{val}</Span></P>
                 </Grid>
             )
         }

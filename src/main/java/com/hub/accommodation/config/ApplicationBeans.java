@@ -1,25 +1,14 @@
 package com.hub.accommodation.config;
 
-import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.oas.models.info.Contact;
-import io.swagger.v3.oas.models.info.Info;
-import io.swagger.v3.oas.models.info.License;
-import org.h2.tools.Server;   //чтобы server прописался -в pom.xml нужно отключить <scope> в настройке h2
+import org.h2.tools.Server;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.springframework.data.auditing.DateTimeProvider;
-
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
-import java.time.ZonedDateTime;
-import java.util.Optional;
 
 
 @Configuration
     public class ApplicationBeans {
-
+/*
         //этот бин - костыль, нужен для правильной работы h2
         @Profile("local")
         @Bean
@@ -32,7 +21,7 @@ import java.util.Optional;
                 e.printStackTrace();
             }
             return server;
-        }
+        }*/
 
 
 
