@@ -36,7 +36,8 @@ export const datingMenu = [
     {
         url: urls.dating,
         linkName: "знакомства",
-    }, {
+    },
+    {
         url: `${urls.dating}/Inbox`,
         linkName: "входящие",
     },
@@ -46,8 +47,16 @@ export const datingMenu = [
     },
     {
         url: `${urls.dating}/MutualLikes`,
-        linkName: "взаимно лайкаем",
+        linkName: "смотреть, лайкать",
     },
+
+    {
+        url: `${urls.dating}/LikedYou`,
+        linkName: "вы понравились",
+    },
+
+
+
     {
         url: `${urls.dating}/SearchCriteria`,
         linkName: "настройка поиска",

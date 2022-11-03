@@ -33,7 +33,7 @@ const myTheme = {
         padding: '10px',
     },
 
-    paperProps: {backgroundColor: '#f0f0f0', elevation: 2, padding: '10px'},
+    paperProps: {backgroundColor: 'whitesmoke', elevation: 2, padding: '2px'},
 
 
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Box, useMediaQuery} from "@mui/material";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -16,13 +16,15 @@ import {useTheme} from "@mui/material/styles";
 import BackButton from "../../BackButton";
 
 
-const ActionPannel = ({placement}) => {
+const ActionPannel = (props) => {
+    const {placement, isMessageDialogOpen, openMessageDialog, isBookmarked, bookmarkToFavorites, isLiked, likeAction} = props;
     const isSmallScreen = useMediaQuery('(max-width: 1100px)');
     const isMediumScreen = useMediaQuery('(max-width: 900px)');
     const theme = useTheme();
 
     return (
-        <Box sx={{
+        <Box  /*name="triggersToggling"*/  data-name="triggersToggling"
+              sx={{
             width: {xs: '150px', sm: '220px', md: '260px', lg: '300px'},
             backgroundColor: `${theme.backgroundColorDark2}`,
             color: 'white',
@@ -33,25 +35,24 @@ const ActionPannel = ({placement}) => {
             p: '20px',
             borderRadius: `${theme.cardBoxParams.borderRadius}`,
         }}>
-            <Box>
-                <FavoriteIcon sx={{color: 'red'}}/>
-                <FavoriteBorderIcon
-                />
+            <Box onClick={likeAction}>
+                {isLiked && <FavoriteIcon sx={{color: 'red'}}/>}
+                {!isLiked && <FavoriteBorderIcon/>}
                 <Span>like/unlike</Span>
             </Box>
             {/*<Box>*/}
             {/*    <Tooltip placement={placement} title={"bookmark this candidate for later messaging"}>*/}
             {/*    <BookmarkAddIcon/><Span>bookmark</Span></Tooltip>*/}
             {/*</Box>*/}
-            <Box>
+            <Box  onClick={bookmarkToFavorites}>
                 <Tooltip placement={placement} title={"bookmark this candidate for later messaging"}>
-                    <BookmarkAddIcon/></Tooltip>
-                <Tooltip placement={placement} title={"bookmark this candidate for later messaging"}>
+                    <BookmarkAddIcon sx={{color : `${isBookmarked ? 'lightgreen' : ""}` }}/></Tooltip>
+                <Tooltip placement={placement} title={"bookmark this candidate for later messaging. Добавить в \"Избранные\"."}>
                     <Span>{isSmallScreen? "bookmark" : "bookmark this candidate"}</Span></Tooltip>
             </Box>
-            <Box>
+            <Box onClick={openMessageDialog}>
                 <Tooltip placement={placement} title={"text to this candidate"}>
-                    <ChatIcon/></Tooltip>
+                    <ChatIcon  sx={{color : `${isMessageDialogOpen ? 'yellow' : ""}` }}/></Tooltip>
 
                 <Tooltip placement={placement} title={"text to this candidate"}>
                     <Span>{isSmallScreen? "message" : "message him/her"}</Span></Tooltip>

@@ -13,6 +13,7 @@ const DatingMenu = () => {
             <LocalMenuItem><NavLink_styled href={datingMenu[5].url}>{datingMenu[5].linkName}</NavLink_styled></LocalMenuItem>
             <LocalMenuItem><NavLink_styled href={datingMenu[6].url}>{datingMenu[6].linkName}</NavLink_styled></LocalMenuItem>
             <LocalMenuItem><NavLink_styled href={datingMenu[7].url}>{datingMenu[7].linkName}</NavLink_styled></LocalMenuItem>
+            <LocalMenuItem><NavLink_styled href={datingMenu[8].url}>{datingMenu[8].linkName}</NavLink_styled></LocalMenuItem>
         </div>
     );
 };

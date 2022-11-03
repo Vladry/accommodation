@@ -117,9 +117,6 @@ public class UserDatingProfile extends BaseEntity {
 
 */
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "userDatingProfile")
-    private List<Picture> pictures = new ArrayList<>();
-
     private Integer age;
 
     private void setAge(){
@@ -129,11 +126,10 @@ public class UserDatingProfile extends BaseEntity {
         this.age = period.getYears();
     }
 
-    public UserDatingProfile(Long userId, Sex mySex, LocalDate birthday, /*ZonedDateTime lastVisitDate, */Sex seekAPersonOfSex, Integer myHeight, Integer minHeightIWant, Integer maxHeightIWant, Integer minPreferredAge, Integer maxPreferredAge, Country countryINowLiveIn, Country myCitizenship, Country wantFromCountry, Integer numberOfMyChildren, Integer maxNumberOfChildrenAllowed, String selfDescription, String traitsIWouldLoveInYou, String traitsIWouldHateInYou, List<Interests> myInterests, List<Interests> desiredWithInterests, List<Goals> myGoals, List<Picture> pictures) {
+    public UserDatingProfile(Long userId, Sex mySex, LocalDate birthday, Sex seekAPersonOfSex, Integer myHeight, Integer minHeightIWant, Integer maxHeightIWant, Integer minPreferredAge, Integer maxPreferredAge, Country countryINowLiveIn, Country myCitizenship, Country wantFromCountry, Integer numberOfMyChildren, Integer maxNumberOfChildrenAllowed, String selfDescription, String traitsIWouldLoveInYou, String traitsIWouldHateInYou, List<Interests> myInterests, List<Interests> desiredWithInterests, List<Goals> myGoals) {
         this.userId = userId;
         this.mySex = mySex;
         this.birthday = birthday;
-//        this.lastVisitDate = lastVisitDate;
         this.seekAPersonOfSex = seekAPersonOfSex;
         this.myHeight = myHeight;
         this.minHeightIWant = minHeightIWant;
@@ -151,7 +147,6 @@ public class UserDatingProfile extends BaseEntity {
         this.myInterests = myInterests;
         this.myGoals = myGoals;
 //        this.desiredWithInterests = desiredWithInterests;
-        this.pictures = pictures;
     }
 
 
@@ -161,7 +156,6 @@ public class UserDatingProfile extends BaseEntity {
                 "userId=" + userId +
                 ", mySex=" + mySex +
                 ", birthday=" + birthday +
-//                ", lastVisitDate=" + lastVisitDate +
                 ", seekAPersonOfSex=" + seekAPersonOfSex +
                 ", myHeight=" + myHeight +
                 ", minHeightIWant=" + minHeightIWant +
@@ -178,7 +172,6 @@ public class UserDatingProfile extends BaseEntity {
                 ", traitsIWouldHateInYou='" + traitsIWouldHateInYou + '\'' +
                 ", myInterests=" + myInterests +
                 ", myGoals=" + myGoals +
-                ", pictures=" + pictures +
 //                ", desiredWithInterests=" + desiredWithInterests +
                 '}';
     }

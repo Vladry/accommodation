@@ -56,6 +56,15 @@ export const udpFields = [
         type: "select_sex"
     },
     {
+        id: "myHeight",
+        name: "myHeight",
+        formikRef: "myHeight",
+        label: "your height",
+        profileLabel: "height",
+        valueByDefault: 0,
+        type: "number"
+    },
+    {
         id: "ageRange",
         name: "ageRange",
         formikRef: "ageRange",
@@ -63,6 +72,15 @@ export const udpFields = [
         profileLabel: "age range",
         valueByDefault: [16, 60],
         type: "range"
+    },
+    {
+        id: "countryINowLiveIn",
+        name: "countryINowLiveIn",
+        formikRef: "countryINowLiveIn",
+        label: "country you now live in",
+        profileLabel: "lives now in",
+        valueByDefault: "UKRAINE",
+        type: "select_country"
     },
     {
         id: "heightRange",
@@ -73,15 +91,7 @@ export const udpFields = [
         valueByDefault: [150, 190],
         type: "range"
     },
-    {
-        id: "myHeight",
-        name: "myHeight",
-        formikRef: "myHeight",
-        label: "your height",
-        profileLabel: "height",
-        valueByDefault: 0,
-        type: "number"
-    },
+
     {
         id: "minHeightIWant",
         name: "minHeightIWant",
@@ -120,15 +130,7 @@ export const udpFields = [
         valueByDefault: 0,
         type: "--number"
     },
-    {
-        id: "countryINowLiveIn",
-        name: "countryINowLiveIn",
-        formikRef: "countryINowLiveIn",
-        label: "country you now live in",
-        profileLabel: "lives now in",
-        valueByDefault: "UKRAINE",
-        type: "select_country"
-    },
+
     {
         id: "myCitizenship",
         name: "myCitizenship",

@@ -53,46 +53,11 @@ public class UserDatingProfileRsDto extends BaseEntity {
     @JsonView(Views.Public.class)
     private Set<String> myGoals;
     @JsonView(Views.Public.class)
-    private List<String> pictures;
-    @JsonView(Views.Public.class)
     private String birthday;
 
     @JsonView(Views.Public.class)
     private Integer age;
-//    @JsonView(Views.Public.class)
-//    private String lastVisited;
-    //    @JsonIgnore
-//    private LocalDateTime lastVisitDate;
 
-
-//    public void setLastVisitDate(LocalDateTime lastVisitDate) {
-//        this.lastVisitDate = lastVisitDate;
-//        setLastVisitPeriod();
-//    }
-
-/*    private void setLastVisitPeriod() {
-        if (this.lastVisitDate == null) {
-            return;
-        }
-        LocalDateTime dateTimeNow = LocalDateTime.now();
-        long years = Period.between(this.lastVisitDate.toLocalDate(), dateTimeNow.toLocalDate()).getYears();
-        long months = Period.between(this.lastVisitDate.toLocalDate(), dateTimeNow.toLocalDate()).getMonths();
-        long days = Duration.between(this.lastVisitDate, dateTimeNow).toDays();
-        long hours = Duration.between(this.lastVisitDate, dateTimeNow).toHours();
-        long minutes = Duration.between(this.lastVisitDate, dateTimeNow).toMinutes();
-
-        if (years > 0) {
-            this.lastVisited = "last visit: " + years + "years ago";
-        } else if (months > 0) {
-            this.lastVisited = "last visit: " + months + "months ago";
-        } else if (days > 0) {
-            this.lastVisited = "last visit: " + days + "days ago";
-        } else if (hours > 0) {
-            this.lastVisited = "last visit: " + hours + "hours ago";
-        } else {
-            this.lastVisited = "last visit: " + minutes + "minutes ago";
-        }
-    }*/
 
     @Override
     public String toString() {
@@ -117,7 +82,6 @@ public class UserDatingProfileRsDto extends BaseEntity {
                 ", myInterests=" + myInterests +
 //                ", desiredWithInterests=" + desiredWithInterests +
                 ", myGoals=" + myGoals +
-                ", pictures=" + pictures +
                 ", birthday=" + birthday +
                 ", age=" + age +
                 ", createdDate='" + createdDate + '\'' +
