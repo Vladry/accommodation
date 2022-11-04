@@ -2,15 +2,8 @@ import React, {useEffect, useRef, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {
     Avatar,
-    Box, ButtonBase,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogContentText,
-    DialogTitle,
-    InputLabel,
+    Box,
     Paper,
-    TextField,
     useMediaQuery
 } from "@mui/material";
 import {fetchData} from "../store/actions/userAction";
@@ -28,12 +21,11 @@ import {useRouter} from "next/router";
 import {useTheme} from "@mui/material/styles";
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
-import ChatIcon from "@mui/icons-material/Chat";
+
 import Image from "next/image";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import SendIcon from "@mui/icons-material/Send";
-import Draggable from 'react-draggable';
-import CloseIcon from "@mui/icons-material/Close";
+
+import Message_toDialog from "../components/forms/Message_toDialog";
 
 let stompClient = null;
 
@@ -82,18 +74,17 @@ const CandidateProfile = () => {
     };
     const isSmallScreen = useMediaQuery('(max-width:900px)');
     const isLargeScreen = !isSmallScreen;
-    let isPaid = useSelector(sel.isPaid);
+    let isPaid = useSelector(sel.isPaid); //оплачен ли данным юзером данный вид сервиса
     // isPaid = false;
 
     const candidateId = reviewedUser.id;
 
 
-    const handleCloseMessageDialog = () => {
+    const closeMessageDialog = () => {
         setIsMessageDialogOpen(false);
     };
 
-    const [textField, setTextField] = useState("");
-    let tempTextField = useRef('');
+    let tempTextFieldValue = useRef('');
     const textFieldRef = useRef();
 
     const debounce = useRef(false);
@@ -109,7 +100,7 @@ const CandidateProfile = () => {
                 sendMessageHandler();
                 debounce.current = true;
             } else if (e.key === "Escape") {
-                handleCloseMessageDialog();
+                closeMessageDialog();
             }
 
         });
@@ -118,13 +109,13 @@ const CandidateProfile = () => {
 
 
     const handleInpChange = (e) => {
-        tempTextField.current = e.target.value;
+        tempTextFieldValue.current = e.target.value;
     }
 
     const sendMessageHandler = () => {
         textFieldRef.current.value = "";
-        console.log("message:", tempTextField.current);
-        // handleCloseMessageDialog();
+        console.log("message:", tempTextFieldValue.current);
+        // closeMessageDialog();
     };
 
 
@@ -196,15 +187,6 @@ const CandidateProfile = () => {
     const messagingWarning = isPaid ? "Type your message below:" : "your tariff plan does not cover messaging to this candidate.";
 
 
-    function PaperComponent(props) {
-        const nodeRef = useRef(null);
-        return (
-            <Draggable nodeRef={nodeRef} handle="#draggable-dialog-title" cancel={'[class*="MuiDialogContent-root"]'}>
-                <Paper ref={nodeRef} {...props} />
-            </Draggable>
-        );
-    }
-
 
     return (
         <Paper sx={{
@@ -253,70 +235,17 @@ const CandidateProfile = () => {
             }
 
 
-            <Dialog
-                aria-labelledby="draggable-dialog-title"
-                PaperComponent={PaperComponent}
-                fullWidth={true}
-                maxWidth={'sm'}
-                sx={{borderRadius: `${theme.cardBoxParams.borderRadius}`}}
-                open={isMessageDialogOpen}
-                onClose={handleCloseMessageDialog}
-                aria-describedby="dialog-description"
-            >
-
-
-                <DialogTitle style={{cursor: 'move'}} id="draggable-dialog-title">
-
-                    <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', m: 4}}>
-                        <ChatIcon sx={{width: '50px', height: '50px'}}/>
-
-                        <Box sx={{
-                            m: '0 auto',
-                            color: isPaid ? 'green' : `${theme.palette.error.custom3}`
-                        }}>
-                            {messagingWarning}
-                        </Box>
-
-                        {candidateAvatar}
-                        <CloseIcon sx={{marginLeft: '30px', cursor: 'pointer'}} onClick={handleCloseMessageDialog}/>
-                    </Box>
-
-
-                </DialogTitle>
-
-
-                <DialogContent>
-                    <InputLabel htmlFor="message">messaging {reviewedUser.name}:</InputLabel>
-
-                    {/*https://mui.com/material-ui/react-text-field/#basic-textfield*/}
-                    <TextField inputRef={textFieldRef} multiline fullWidth disabled={!isPaid}
-                               id="message" data-name={"message"} label={isPaid ? "text me ..." : 'check your balance'}
-                               helperText={isPaid ? "type something" : ' '}
-                               error={!isPaid}
-                               onChange={handleInpChange}
-                    />
-                    <DialogContentText>
-                    </DialogContentText>
-                </DialogContent>
-
-                <DialogActions>
-                </DialogActions>
-
-
-                <Box disabled={!isPaid} onClick={sendMessageHandler}
-                     sx={{
-                         display: 'flex',
-                         justifyContent: 'center',
-                         gap: '15px',
-                         cursor: 'pointer',
-                         mb: '30px',
-                         opacity: isPaid ? 1 : 0.4
-                     }}>
-
-                    <span>Send</span>
-                    <SendIcon color="primary"/>
-                </Box>
-            </Dialog>
+            <Message_toDialog
+                sendToName={reviewedUser.name}
+                isPaid={isPaid}
+                isMessageDialogOpen={isMessageDialogOpen}
+                closeMessageDialog={closeMessageDialog}
+                textFieldRef={textFieldRef}
+                handleInpChange={handleInpChange}
+                sendMessageHandler={sendMessageHandler}
+                candidateAvatar={candidateAvatar}
+                messagingWarning={messagingWarning}
+            />
 
 
             <Box sx={{width: '60%', margin: '0 auto'}}>
