@@ -24,6 +24,8 @@ const initialState = {
     reviewedUser: null,
 
     isPhotosFetching: false,
+
+    isPaid: true,
 }
 
 export default (state = initialState, action) => {

@@ -14,6 +14,9 @@ const myTheme = {
         },
         error: {
             main: red.A400,
+            custom1: '#F44F4F',
+            custom2: '#C70039',
+            custom3: '#900C3F',
         },
     },
     spacing: [0, 2, 3, 5, 8],

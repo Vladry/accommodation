@@ -16,7 +16,7 @@ const CandidateDetailsTable = () => {
     const mappedFields = <UdpMapper udpFields={udpFields} candidateDatingProfile={candidateDatingProfile}
                                     reviewedUser={reviewedUser}/>;
 
-    console.log("mappedFields: ",mappedFields);
+    // console.log("mappedFields: ",mappedFields);
 
     return (
         <Grid container spacing={2}

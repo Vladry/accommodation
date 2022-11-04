@@ -13,7 +13,6 @@ import './_app.css';
 import myTheme from "../utils/myTheme";
 
 const theme = createTheme(myTheme);
-console.log("theme : ", theme);
 const clientSideEmotionCache = createEmotionCache();
 
 function MyApp({Component, pageProps, emotionCache = clientSideEmotionCache}) {

@@ -35,7 +35,7 @@ const ActionPannel = (props) => {
             p: '20px',
             borderRadius: `${theme.cardBoxParams.borderRadius}`,
         }}>
-            <Box onClick={likeAction}>
+            <Box onClick={likeAction} sx={{cursor: 'pointer'}}>
                 {isLiked && <FavoriteIcon sx={{color: 'red'}}/>}
                 {!isLiked && <FavoriteBorderIcon/>}
                 <Span>like/unlike</Span>
@@ -44,30 +44,27 @@ const ActionPannel = (props) => {
             {/*    <Tooltip placement={placement} title={"bookmark this candidate for later messaging"}>*/}
             {/*    <BookmarkAddIcon/><Span>bookmark</Span></Tooltip>*/}
             {/*</Box>*/}
-            <Box  onClick={bookmarkToFavorites}>
+            <Box  onClick={bookmarkToFavorites}  sx={{cursor: 'pointer'}}>
                 <Tooltip placement={placement} title={"bookmark this candidate for later messaging"}>
                     <BookmarkAddIcon sx={{color : `${isBookmarked ? 'lightgreen' : ""}` }}/></Tooltip>
                 <Tooltip placement={placement} title={"bookmark this candidate for later messaging. Добавить в \"Избранные\"."}>
                     <Span>{isSmallScreen? "bookmark" : "bookmark this candidate"}</Span></Tooltip>
             </Box>
-            <Box onClick={openMessageDialog}>
+            <Box onClick={openMessageDialog}  sx={{cursor: 'pointer'}}>
                 <Tooltip placement={placement} title={"text to this candidate"}>
                     <ChatIcon  sx={{color : `${isMessageDialogOpen ? 'yellow' : ""}` }}/></Tooltip>
 
                 <Tooltip placement={placement} title={"text to this candidate"}>
                     <Span>{isSmallScreen? "message" : "message him/her"}</Span></Tooltip>
             </Box>
-            <Box>
-                <SendIcon
-                /><Span>send</Span>
-            </Box>
-            <Box sx={{color: 'red'}}>
+
+            <Box sx={{color: 'red', cursor: 'pointer'}}>
                 <Tooltip placement={placement} title={"Report about an abusive or impolite candidate or other instances of rudeness and the like."}>
                     <ReportProblemOutlinedIcon/></Tooltip>
                 <Tooltip placement={placement} title={"Report about an abusive or impolite candidate or other instances of rudeness and the like."}>
                     <Span>{isSmallScreen? "Report abuse" : "Report abusive behaviour"}</Span></Tooltip>
             </Box>
-            <Box sx={{color: 'darkred'}}>
+            <Box sx={{color: 'darkred', cursor: 'pointer'}}>
                 <Tooltip placement={placement} title={"Report candidate's suspicious actions, such as scum, fishing and commercial - related content."}>
                     <ReportOutlinedIcon/></Tooltip>
                 <Tooltip placement={placement} title={"Report candidate's suspicious actions, such as scum, fishing and commercial - related content."}>

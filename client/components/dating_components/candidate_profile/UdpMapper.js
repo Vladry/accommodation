@@ -22,7 +22,7 @@ const UdpMapper = ({udpFields, candidateDatingProfile, reviewedUser}) => {
     const excludedRefs = ['ageRange', 'birthday', 'pictures', 'mySex', 'heightRange', 'seekAPersonOfSex', 'minHeightIWant', 'maxHeightIWant', 'minPreferredAge', 'maxPreferredAge', 'maxNumberOfChildrenAllowed'];
 
 
-    const mappedContent = udpFields.map(({name, formikRef, profileLabel}) => {
+    const mappedContent = udpFields.map(({formikRef, profileLabel}) => {
 
         const isExcludingElement = excludedRefs.some((el) => formikRef === el);
         if (isExcludingElement) {
@@ -71,6 +71,6 @@ export default UdpMapper;
 const Span = styled.span`
 margin: 0 10px 0 0;
 `;
-const P = styled.p`
+const P = styled.div`
 padding: 4px;
 `;

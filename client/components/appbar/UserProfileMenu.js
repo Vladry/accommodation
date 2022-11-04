@@ -9,16 +9,18 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import {signOut} from "next-auth/react";
 import {useSelector} from "react-redux";
-import {Typography, useMediaQuery} from "@mui/material";
+import {Avatar, Typography, useMediaQuery} from "@mui/material";
 import Greeting from "./Greeting";
 import MenuItem from "@mui/material/MenuItem";
 import useAuth from "../../hooks/useAuth";
 import Menu from "@mui/material/Menu";
+import sel from '../../store/selectors';
+import Image from "next/image";
 
 const UserProfileMenu = (props) => {
     const {menuId} = props;
 
-    const user = useSelector(state => state.userData.user);
+    const user = useSelector(sel.user);
     const isAuthenticated = useAuth(false);
     const isMediumScreen = useMediaQuery('(max-width: 900px)');
     const isLargeScreen = useMediaQuery('(min-width: 901px)');
@@ -51,6 +53,7 @@ const UserProfileMenu = (props) => {
 
             {!isLargeScreen &&
                 <Box>
+
                     <MenuItem>
                         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
                             <Badge badgeContent={4} color="error">
@@ -73,7 +76,6 @@ const UserProfileMenu = (props) => {
                         <p>Notifications</p>
                     </MenuItem>
                 </Box>}
-
                     <MenuItem><Typography>logged: {user?.email}</Typography></MenuItem>
                     <MenuItem>Profile</MenuItem>
                     <MenuItem>My account</MenuItem>
@@ -117,8 +119,26 @@ const UserProfileMenu = (props) => {
                 onClick={handleUserProfileMenuOpen}
                 color="inherit"
             >
-                <AccountCircle sx={{display: {xs: 'none', md: 'flex'}}}/>
-                <MoreIcon sx={{display: {xs: 'flex', md: 'none'}}}/>
+
+
+                {(user && user.avatar)?
+                 (   <Avatar sx={{ bgcolor: 'lightgray', color: 'darkgray',
+                     width:`${isLargeScreen ? "60px" : '50px'}`,
+                     height:`${isLargeScreen ? "60px" : '50px'}`
+                 }}>
+                        <Image src={`${user.avatar}`}
+                               layout={'fill'}
+                               alt="candidate avatar"/>
+                    </Avatar>)
+
+                :
+
+                    <AccountCircle sx={{display: 'flex'}}/>
+                    // <AccountCircle sx={{display: {xs: 'none', md: 'flex'}}}/>
+                }
+
+
+                {/*<MoreIcon sx={{display: {xs: 'flex', md: 'none'}}}/>*/}
 
             </IconButton>
 

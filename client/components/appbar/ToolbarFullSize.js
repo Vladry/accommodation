@@ -8,18 +8,20 @@ import Link from "next/link";
 import LoginIcon from "@mui/icons-material/Login";
 import * as React from "react";
 import {styled} from "@mui/material/styles";
-import {useMediaQuery} from "@mui/material";
+import {Avatar, useMediaQuery} from "@mui/material";
 import useAuth from "../../hooks/useAuth";
 import Toolbar from '@mui/material/Toolbar';
 import UserProfileMenu from "./UserProfileMenu";
 import ToggleMenuIconButton from "../ToggleMenuIconButton";
-
+import {useSelector} from "react-redux";
+import sel from '../../store/selectors';
 
 export const ToolbarFullSize = ({toggleDrawer, handleUserProfileFullMenuOpen}) => {
     const isMediumScreen = useMediaQuery('(max-width: 900px)');
     const isSmallScreen = useMediaQuery('(max-width: 600px)');
     const isLargeScreen = useMediaQuery('(min-width: 901px)');
     const isAuthenticated = useAuth(false);
+    const user = useSelector(sel.user);
 
     const Toolbar_styled = styled(Toolbar)(
         ({theme}) => (
@@ -62,16 +64,15 @@ export const ToolbarFullSize = ({toggleDrawer, handleUserProfileFullMenuOpen}) =
 
             {!isSmallScreen && !!isMediumScreen && <Greeting/>}
 
+
             {/*TODO это меню справа.*/}
             <UserProfileMenu/>
-
 
             {!isAuthenticated &&
                 <Link href={'/login'}>
                     <LoginIcon sx={{cursor: 'pointer', color: 'red'}}/>
                 </Link>
             }
-
 
         </Toolbar_styled>
     );
