@@ -33,6 +33,7 @@ import Image from "next/image";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import SendIcon from "@mui/icons-material/Send";
 import Draggable from 'react-draggable';
+import CloseIcon from "@mui/icons-material/Close";
 
 let stompClient = null;
 
@@ -56,9 +57,8 @@ const CandidateProfile = () => {
 
     const [isMessageDialogOpen, setIsMessageDialogOpen] = useState(false);
     const openMessageDialog = () => {
-        setIsMessageDialogOpen(!isMessageDialogOpen);
+        setIsMessageDialogOpen(true);
     };
-    const debounce = useRef(false);
 
     const [isLiked, setIsLiked] = useState(false);
     const likeAction = () => {
@@ -89,45 +89,42 @@ const CandidateProfile = () => {
 
 
     const handleCloseMessageDialog = () => {
+        setIsMessageDialogOpen(false);
     };
 
     const [textField, setTextField] = useState("");
     let tempTextField = useRef('');
+    const textFieldRef = useRef();
 
+    const debounce = useRef(false);
     useEffect(() => {
-        // console.log("in useEffect, doing: document.addEventListener");
         document.addEventListener('keyup', e => {
-            console.log('in document.addEventListener before return');
             if (debounce.current) return;
-
-            console.log('in document.addEventListener. debounce.current: ', debounce.current);
-
-            debounce.current = true;
-            // console.log("e: ", e);
             // console.log("e.key: ", e.key);
             // console.log("e.code: ", e.code);
             if ((e.altKey || e.ctrlKey || e.shiftKey) && e.key === "Enter") {
                 setTimeout(() => {
                     debounce.current = false;
-                    console.log('in setTimeout, reset debounce to false');
                 }, 500);
                 sendMessageHandler();
+                debounce.current = true;
             } else if (e.key === "Escape") {
-                setIsMessageDialogOpen(false);
+                handleCloseMessageDialog();
             }
 
         });
 
     }, [])
 
+
     const handleInpChange = (e) => {
         tempTextField.current = e.target.value;
     }
 
     const sendMessageHandler = () => {
-        // setTextField(tempTextField.current);
+        textFieldRef.current.value = "";
         console.log("message:", tempTextField.current);
-        // setIsMessageDialogOpen(!isMessageDialogOpen);
+        // handleCloseMessageDialog();
     };
 
 
@@ -199,19 +196,10 @@ const CandidateProfile = () => {
     const messagingWarning = isPaid ? "Type your message below:" : "your tariff plan does not cover messaging to this candidate.";
 
 
-    function MyComponent (props) {
+    function PaperComponent(props) {
+        const nodeRef = useRef(null);
         return (
-            <Draggable>
-                <Paper {...props} />
-            </Draggable>
-        );
-    }
-
-
-    function PaperComponent (props) {
-        const nodeRef = React.useRef(null);
-        return (
-            <Draggable nodeRef={nodeRef}  handle="#draggable-dialog-title" cancel={'[class*="MuiDialogContent-root"]'}>
+            <Draggable nodeRef={nodeRef} handle="#draggable-dialog-title" cancel={'[class*="MuiDialogContent-root"]'}>
                 <Paper ref={nodeRef} {...props} />
             </Draggable>
         );
@@ -290,6 +278,7 @@ const CandidateProfile = () => {
                         </Box>
 
                         {candidateAvatar}
+                        <CloseIcon sx={{marginLeft: '30px', cursor: 'pointer'}} onClick={handleCloseMessageDialog}/>
                     </Box>
 
 
@@ -298,7 +287,9 @@ const CandidateProfile = () => {
 
                 <DialogContent>
                     <InputLabel htmlFor="message">messaging {reviewedUser.name}:</InputLabel>
-                    <TextField multiline fullWidth disabled={!isPaid}
+
+                    {/*https://mui.com/material-ui/react-text-field/#basic-textfield*/}
+                    <TextField inputRef={textFieldRef} multiline fullWidth disabled={!isPaid}
                                id="message" data-name={"message"} label={isPaid ? "text me ..." : 'check your balance'}
                                helperText={isPaid ? "type something" : ' '}
                                error={!isPaid}

@@ -39,6 +39,16 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
+import CloseIcon from '@mui/icons-material/Close';
+import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
+import CancelIcon from '@mui/icons-material/Cancel';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import SettingsIcon from '@mui/icons-material/Settings';
+import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
+import ToggleOffIcon from '@mui/icons-material/ToggleOff';
+import ToggleOnIcon from '@mui/icons-material/ToggleOn';
+import TuneIcon from '@mui/icons-material/Tune';
+import DisplaySettingsIcon from '@mui/icons-material/DisplaySettings';
 
 const MyIcons = () => {
     return (
@@ -111,8 +121,28 @@ const MyIcons = () => {
                 <ShoppingCartIcon/>
                 <AddShoppingCartIcon/>
             </Box>
+            <Box>
+                <CloseIcon/>
+                <CancelPresentationIcon/>
+                <CancelIcon/>
+                <HighlightOffIcon/>
+            </Box>
+
+            <Box>
+                <SettingsIcon/>
+                <SettingsSuggestIcon/>
+                <TuneIcon/>
+                <DisplaySettingsIcon/>
+            </Box>
+
+            <Box>
+                <ToggleOffIcon/>
+                <ToggleOnIcon/>
+            </Box>
+
         </Box>
     );
 };
+
 
 export default MyIcons;
