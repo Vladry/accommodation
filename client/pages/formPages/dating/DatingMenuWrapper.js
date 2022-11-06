@@ -1,9 +1,8 @@
 import React from 'react';
 import useAuth from "../../../hooks/useAuth";
 import DatingMenu from "./DatingMenu";
-import {Typography} from "@mui/material";
 import {useSelector} from "react-redux";
-import {Box} from "@mui/joy";
+import {Typography, Box} from "@mui/material";
 
 const DatingMenuWrapper = ({children}) => {
     // console.log("render DatingMenuWrapper");

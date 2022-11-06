@@ -1,11 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {
-    Avatar,
-    Box,
-    Paper,
-    useMediaQuery
-} from "@mui/material";
+import {Avatar, Box, Paper, useMediaQuery} from "@mui/material";
 import {fetchData} from "../store/actions/userAction";
 import types from "../store/types";
 import sel from "../store/selectors";
@@ -13,21 +8,19 @@ import urls from '../../src/main/resources/urls.json'
 import SwiperUserPic from "../components/dating_components/swiper_carousel/SwiperUserPic";
 import api from "../lib/API";
 import BackButton from "../components/BackButton";
-import ActionPannel from "../components/dating_components/candidate_profile/ActionPannel";
+import ActionPanel from "../components/dating_components/candidate_profile/ActionPanel";
 import CandidateDetailsTable from "../components/dating_components/candidate_profile/CandidateDetailsTable";
 import My_Drawer from "../components/appbar/My_Drawer";
 import ToggleMenuIconButton from "../components/ToggleMenuIconButton";
 import {useRouter} from "next/router";
 import {useTheme} from "@mui/material/styles";
-import SockJS from "sockjs-client";
-import Stomp from "stompjs";
 
 import Image from "next/image";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 
 import Message_toDialog from "../components/forms/Message_toDialog";
+import {client} from './_app';
 
-let stompClient = null;
 
 const CandidateProfile = () => {
     const theme = useTheme();
@@ -40,28 +33,42 @@ const CandidateProfile = () => {
     const fetchingFlag = useRef(false);
     const router = useRouter();
     const queriedUserId = router.query.queriedUserId;
+    const candidateId = reviewedUser.id;
 
+    console.log("in CandidateProfile.js->  client: ", client);
+
+    const subscribe = () => {
+        client.subscribe(`/queue/dating/${candidateId}`, datingSubscription);
+        console.log("candidate with id ", candidateId, "has subscribed!")
+    };
+
+    const datingSubscription = (datingMessage) => {
+        let messageText = JSON.parse(datingMessage.body);
+        console.log(messageText);
+    }
+
+
+    //***************** <ActionPanel/> drawer constants **********************//
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const forceToggleDrawer = () => {
         setIsDrawerOpen(() => !isDrawerOpen);
     }
-
-
-    const [isMessageDialogOpen, setIsMessageDialogOpen] = useState(false);
-    const openMessageDialog = () => {
-        setIsMessageDialogOpen(true);
-    };
-
     const [isLiked, setIsLiked] = useState(false);
     const likeAction = () => {
         setIsLiked(!isLiked);
     }
-
     const [isBookmarked, setIsBookmarked] = useState(false);
     const bookmarkToFavorites = () => {
         setIsBookmarked(!isBookmarked);
     }
 
+
+
+    //***************** <Message_toDialog/> constants **********************//
+    const [isMessageDialogOpen, setIsMessageDialogOpen] = useState(false);
+    const openMessageDialog = () => {
+        setIsMessageDialogOpen(true);
+    };
     const conditionalToggleDrawer = (e) => {
         // console.log("e.target: ", e.target);
         // console.log('e.target.getAttribute("name): ', e.target.getAttribute("name"));
@@ -76,17 +83,11 @@ const CandidateProfile = () => {
     const isLargeScreen = !isSmallScreen;
     let isPaid = useSelector(sel.isPaid); //оплачен ли данным юзером данный вид сервиса
     // isPaid = false;
-
-    const candidateId = reviewedUser.id;
-
-
     const closeMessageDialog = () => {
         setIsMessageDialogOpen(false);
     };
-
     let tempTextFieldValue = useRef('');
     const textFieldRef = useRef();
-
     const debounce = useRef(false);
     useEffect(() => {
         document.addEventListener('keyup', e => {
@@ -106,12 +107,9 @@ const CandidateProfile = () => {
         });
 
     }, [])
-
-
     const handleInpChange = (e) => {
         tempTextFieldValue.current = e.target.value;
     }
-
     const sendMessageHandler = () => {
         textFieldRef.current.value = "";
         console.log("message:", tempTextFieldValue.current);
@@ -119,20 +117,8 @@ const CandidateProfile = () => {
     };
 
 
-    const connect = () => {
-        if (candidateId === null) return;
-        const socket = new SockJS("/ws");
-        stompClient = Stomp.over(socket);
-        stompClient.connect({}, (frame) => {
-            stompClient.subscribe(`/queue/dating/${candidateId}`, datingSubscription);
-            console.log("candidate with id ", candidateId, "has subscribed!")
-        })
-    }
 
-    const datingSubscription = (datingMessage) => {
-        let messageText = JSON.parse(datingMessage.body);
-        console.log(messageText);
-    }
+
 
     const fetchExistingPhotos = (queriedUserId) => {
         fetchingFlag.current = true;
@@ -157,7 +143,7 @@ const CandidateProfile = () => {
         loadDatProfile["den"] = true;
         if (queriedUserId) {
             dispatch(fetchData(urls.datingProfile, queriedUserId, types.GET_CANDIDATE_DATING_PROFILE, types.SET_CANDIDATE_DATING_PROFILE_SUCCESS, types.SET_CANDIDATE_DATING_PROFILE_FAIL));
-            connect();
+            subscribe();
         }
     }, [queriedUserId]);
 
@@ -179,10 +165,7 @@ const CandidateProfile = () => {
                 <Image src={`${pictures[0]}`}
                        layout={'fill'}
                        alt="candidate avatar"/>
-            </Avatar>)
-            :
-            <AccountCircle sx={{display: 'flex'}}/>
-    );
+            </Avatar>) : <AccountCircle sx={{display: 'flex'}}/>);
 
     const messagingWarning = isPaid ? "Type your message below:" : "your tariff plan does not cover messaging to this candidate.";
 
@@ -200,7 +183,7 @@ const CandidateProfile = () => {
                 <Box>
                     <Box sx={{position: 'absolute'}}>
                         <My_Drawer isDrawerOpen={isDrawerOpen} toggleDrawer={conditionalToggleDrawer}>
-                            <ActionPannel
+                            <ActionPanel
                                 isMessageDialogOpen={isMessageDialogOpen}
                                 openMessageDialog={openMessageDialog}
                                 isBookmarked={isBookmarked}
@@ -220,7 +203,7 @@ const CandidateProfile = () => {
             {isLargeScreen &&
                 <Box>
                     <Box sx={{position: 'absolute'}}>
-                        <ActionPannel
+                        <ActionPanel
                             isMessageDialogOpen={isMessageDialogOpen}
                             openMessageDialog={openMessageDialog}
                             isBookmarked={isBookmarked}

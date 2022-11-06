@@ -34,7 +34,9 @@ export const getUser = () => (dispatch) => { //TODO разделить фетч�
                                 "query": "79.110.133.25"
                             }*/
 
-                api.put(`/users/${user.id}?location=${location}`, location).then(r=>console.log("fetched location with response: ", r));
+                api.put(`/users/${user.id}?location=${location}`, location).then(r=> {
+                    // console.log("fetched location with response: ", r)
+                });
 
             }).catch((e)=>console.log("location not determined, ", e.message))
 

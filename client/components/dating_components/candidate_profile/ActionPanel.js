@@ -16,7 +16,7 @@ import {useTheme} from "@mui/material/styles";
 import BackButton from "../../BackButton";
 
 
-const ActionPannel = (props) => {
+const ActionPanel = (props) => {
     const {placement, isMessageDialogOpen, openMessageDialog, isBookmarked, bookmarkToFavorites, isLiked, likeAction} = props;
     const isSmallScreen = useMediaQuery('(max-width: 1100px)');
     const isMediumScreen = useMediaQuery('(max-width: 900px)');
@@ -83,7 +83,7 @@ const ActionPannel = (props) => {
     );
 };
 
-export default ActionPannel;
+export default ActionPanel;
 
 const Span = styled.span`
 color: lightgray;
