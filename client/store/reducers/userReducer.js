@@ -6,7 +6,7 @@ const initialState = {
     accommodationUserProfiles: null,
     loadingAccommodationUserProfile: false,
     isCurrUserHasAccommodationProfile: false,
-    
+
     tenantUserProfile: null,
     loadingTenantUserProfile: false,
     isCurrUserHasTenantProfile: false,
@@ -26,13 +26,38 @@ const initialState = {
     isPhotosFetching: false,
 
     isPaid: true,
+
+    subscriptions: [],
+    loadingSubscriptions: false,
+    isUserAppliedHisSubscriptions: false,
+
+    stompClient: null,
 }
 
 export default (state = initialState, action) => {
     switch (action.type) {
 
+        case types.SET_STOMP_CLIENT:
+            return {...state, stompClient: action.payload}
+
+        case types.SET_USER_SUBSCRIPTIONS_APPLIED:
+            return {...state, isUserAppliedHisSubscriptions: true}
+
+        case types.SET_SUBSCRIPTIONS_SUCCESS:
+            return {
+                ...state, subscriptions: action.payload.subscriptions, loadingSubscriptions: false
+            }
+        case types.SET_SUBSCRIPTIONS_FAIL:
+            return {
+                ...state, subscriptions: {}, loadingSubscriptions: false
+            }
+        case types.GET_SUBSCRIPTIONS:
+            return {
+                ...state, loadingSubscriptions: true
+            }
+
         case types.FETCHING_PHOTOS:
-            return{...state, isPhotosFetching: action.payload}
+            return {...state, isPhotosFetching: action.payload}
 
         case types.SHELF_REVIEWED_USER_DATA:
             return {...state, reviewedUser: action.payload}
@@ -40,17 +65,37 @@ export default (state = initialState, action) => {
         case types.GET_TENANT_USER_PROFILE:
             return {...state, loadingTenantUserProfile: true}
         case types.SET_TENANT_USER_PROFILE_SUCCESS:
-            return {...state, tenantUserProfile: action.payload, loadingTenantUserProfile: false, isCurrUserHasTenantProfile: true}
+            return {
+                ...state,
+                tenantUserProfile: action.payload,
+                loadingTenantUserProfile: false,
+                isCurrUserHasTenantProfile: true
+            }
         case types.SET_TENANT_USER_PROFILE_FAIL:
-            return {...state, tenantUserProfile: null, loadingTenantUserProfile: false, isCurrUserHasTenantProfile: false}
+            return {
+                ...state,
+                tenantUserProfile: null,
+                loadingTenantUserProfile: false,
+                isCurrUserHasTenantProfile: false
+            }
 
 
         case types.GET_ACCOMMODATION_USER_PROFILE:
             return {...state, loadingAccommodationUserProfile: true}
         case types.SET_ACCOMMODATION_USER_PROFILE_SUCCESS:
-            return {...state, accommodationUserProfiles: action.payload, loadingAccommodationUserProfile: false, isCurrUserHasAccommodationProfile: true}
+            return {
+                ...state,
+                accommodationUserProfiles: action.payload,
+                loadingAccommodationUserProfile: false,
+                isCurrUserHasAccommodationProfile: true
+            }
         case types.SET_ACCOMMODATION_USER_PROFILE_FAIL:
-            return {...state, accommodationUserProfiles: null, loadingAccommodationUserProfile: false, isCurrUserHasAccommodationProfile: false}
+            return {
+                ...state,
+                accommodationUserProfiles: null,
+                loadingAccommodationUserProfile: false,
+                isCurrUserHasAccommodationProfile: false
+            }
 
 
         case types.SET_LOADING_TRUE:
@@ -69,17 +114,22 @@ export default (state = initialState, action) => {
                 ...state,
                 loading: false
             }
-            
-            
+
+
         case types.GET_USER_DATING_PROFILE:
             return {...state, loadingUserDatingProfile: true}
         case types.SET_USER_DATING_PROFILE_SUCCESS:
             // console.log("userDatingProfile from DB: ",action.payload);
-            return {...state, userDatingProfile: action.payload, isCurrUserHasDatingProfile: true, loadingUserDatingProfile: false}
+            return {
+                ...state,
+                userDatingProfile: action.payload,
+                isCurrUserHasDatingProfile: true,
+                loadingUserDatingProfile: false
+            }
         case types.SET_USER_DATING_PROFILE_FAIL:
             return {...state, isCurrUserHasDatingProfile: false, loadingUserDatingProfile: false}
 
-        
+
         case types.GET_CANDIDATE_DATING_PROFILE:
             return {...state, loadingCandidateDatingProfile: true}
         case types.SET_CANDIDATE_DATING_PROFILE_SUCCESS:

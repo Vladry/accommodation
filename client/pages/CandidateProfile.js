@@ -19,7 +19,7 @@ import Image from "next/image";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 
 import Message_toDialog from "../components/forms/Message_toDialog";
-import {client} from './_app';
+import PrivateMessage from "../components/PrivateMessage";
 
 
 const CandidateProfile = () => {
@@ -35,12 +35,11 @@ const CandidateProfile = () => {
     const queriedUserId = router.query.queriedUserId;
     const candidateId = reviewedUser.id;
 
-    console.log("in CandidateProfile.js->  client: ", client);
 
-    const subscribe = () => {
-        client.subscribe(`/queue/dating/${candidateId}`, datingSubscription);
-        console.log("candidate with id ", candidateId, "has subscribed!")
-    };
+
+    //***************** WebSockets **********************//
+    // console.log("in CandidateProfile.js->  client: ", client);
+    const [messages, setMessages] = useState([]);
 
     const datingSubscription = (datingMessage) => {
         let messageText = JSON.parse(datingMessage.body);
@@ -117,9 +116,6 @@ const CandidateProfile = () => {
     };
 
 
-
-
-
     const fetchExistingPhotos = (queriedUserId) => {
         fetchingFlag.current = true;
         dispatch({type: types.FETCHING_PHOTOS, payload: true});
@@ -143,7 +139,6 @@ const CandidateProfile = () => {
         loadDatProfile["den"] = true;
         if (queriedUserId) {
             dispatch(fetchData(urls.datingProfile, queriedUserId, types.GET_CANDIDATE_DATING_PROFILE, types.SET_CANDIDATE_DATING_PROFILE_SUCCESS, types.SET_CANDIDATE_DATING_PROFILE_FAIL));
-            subscribe();
         }
     }, [queriedUserId]);
 
@@ -177,6 +172,18 @@ const CandidateProfile = () => {
             border: '1px solid green', maxWidth: "98%",
             backgroundColor: `${theme.paperBackgroundColor}`,
         }}>
+
+
+            {/*TODO убрать этот тестовый раздел*/}
+            <div>
+                <PrivateMessage id={queriedUserId}/>
+                <ul>
+                    {messages.map((m, index) => (
+                        <li key={index}>{m}</li>
+                    ))}
+                </ul>
+            </div>
+
 
 
             {isSmallScreen &&

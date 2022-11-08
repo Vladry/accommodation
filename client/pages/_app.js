@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useMemo, useRef, useState} from "react";
 import Head from "next/head";
 import {CssBaseline} from "@mui/material";
 import {createTheme, ThemeProvider} from "@mui/material/styles"
-import {Provider} from "react-redux";
+import {Provider, useDispatch, useSelector} from "react-redux";
 import {SessionProvider} from "next-auth/react";
 import {store, wrapper} from "../store/store";
 import createEmotionCache from "../utils/createEmotionCache";
@@ -11,13 +11,15 @@ import RefreshTokenHandler from "../components/RefreshTokenHandler";
 import {Context} from '../context';
 import './_app.css';
 import myTheme from "../utils/myTheme";
+import sel from '../store/selectors';
 
 
 import {Client} from '@stomp/stompjs';
+import urls from '../../src/main/resources/urls.json';
 
 const SOCKET_URL = "ws://localhost:8000/ws";
-import MessageCreator from "../components/MessageCreator";
-export let client;
+import DatingAnnouncement from "../components/DatingAnnouncement";
+import types from "../store/types";
 
 const theme = createTheme(myTheme);
 const clientSideEmotionCache = createEmotionCache();
@@ -25,7 +27,10 @@ const clientSideEmotionCache = createEmotionCache();
 function MyApp({Component, pageProps, emotionCache = clientSideEmotionCache}) {
     const context = useContext(Context);
     const [interval, setInterval] = useState(0);
-
+    const subscriptions = useSelector(sel.subscriptions);
+    const isUserAppliedHisSubscriptions = useSelector(sel.isUserAppliedHisSubscriptions);
+    const dispatch = useDispatch();
+    const stompClient = useSelector(sel.stompClient);
 
     useEffect(() => {
         // Remove the server-side injected CSS.
@@ -37,38 +42,40 @@ function MyApp({Component, pageProps, emotionCache = clientSideEmotionCache}) {
 
 
     //***************** WebSockets **********************//
+    //   https://www.npmjs.com/package/@stomp/stompjs
+    //   https://stomp-js.github.io/guide/stompjs/using-stompjs-v5.html#send-messages
     const [messages, setMessages] = useState([]);
     const onConnected = () => {
-        console.log("Connected websocket")
-        console.log("Subscribed on /queue/dating");
-        client.subscribe('/queue/dating', function (msg) {
-            console.log("Received message: ", JSON.parse(msg.body))
-            if (msg.body) {
-                const jsonBody = JSON.parse(msg.body);
-                if (jsonBody.message) {
-                    setMessages(prev => [...prev, jsonBody.message])
-                }
-            }
-        });
+        console.log("Connected websocket");
     }
 
     const onDisconnected = () => {
         console.log("Disconnected websocket!")
     }
     useEffect(() => {
-        if (client != null) return;
+        if (stompClient != null) return;
 
-        client = new Client({
+        const client = new Client({
             brokerURL: SOCKET_URL,
             reconnectDelay: 5000,
             heartbeatIncoming: 2000,
             heartbeatOutgoing: 2000,
             onConnect: onConnected,
             onDisconnect: onDisconnected
+// либо можно было создать client так:  stompClient = new StompJs.Client(stompConfig);
+//см. пример:  https://github.com/stomp-js/samples/blob/master/stompjs/chat/chat.html
         });
         client.activate();
-        // console.log("client: ", client)
+        dispatch({type: types.SET_STOMP_CLIENT, payload: client});
+        // console.log("stompClient: ", stompClient)
     }, [])
+
+    useEffect(() => {
+        if (!isUserAppliedHisSubscriptions && subscriptions.length > 0) {
+            context.setSubscriptions(stompClient, subscriptions);
+            dispatch({type: types.SET_USER_SUBSCRIPTIONS_APPLIED, payload: null});
+        }
+    }, [subscriptions])
 
 
     return (
@@ -85,15 +92,15 @@ function MyApp({Component, pageProps, emotionCache = clientSideEmotionCache}) {
                                 <CssBaseline/>
 
 
-                                <div className="App">
-                                    <MessageCreator/>
+                                {/*TODO убрать этот тестовый раздел*/}
+                                <div>
+                                    <DatingAnnouncement/>
                                     <ul>
                                         {messages.map((m, index) => (
                                             <li key={index}>{m}</li>
                                         ))}
                                     </ul>
                                 </div>
-
 
 
                                 {

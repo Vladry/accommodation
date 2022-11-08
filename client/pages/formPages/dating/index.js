@@ -1,13 +1,11 @@
 import React, {useEffect, useRef, useState} from 'react';
 import DatingMenuWrapper from "./DatingMenuWrapper";
 import {datingMenu} from "../../../public/menuConfig";
-import {Box, Grid, useMediaQuery} from '@mui/material';
+import {Box, useMediaQuery} from '@mui/material';
 import DatingUserList from "../../../components/dating_components/DatingUserList";
 import api from "../../../lib/API";
 import {useSelector} from "react-redux";
 import sel from "../../../store/selectors";
-import {fetchData} from "../../../store/actions/userAction";
-import types from "../../../store/types";
 import urls from '../../../../src/main/resources/urls.json';
 import My_Drawer from "../../../components/appbar/My_Drawer";
 import ToggleMenuIconButton from "../../../components/ToggleMenuIconButton";
@@ -25,7 +23,6 @@ const Index = () => {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const toggleDrawer = () => setIsDrawerOpen(!isDrawerOpen);
     const isSmallScreen = useMediaQuery('(max-width: 600px)');
-
 
     async function getCandidatesIds() {// получим ids кандидатов, подходящих под критерии userDatingProfile:
 

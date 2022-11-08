@@ -24,3 +24,11 @@ FROM rabbitmq:3.10-management
 
 #docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.10-management
 #подключение:   localhost:15672 ,guest/guest
+
+# or:
+RUN rabbitmq-plugins enable --offline rabbitmq_web_stomp
+
+docker build -t rabbitmq:official-alpine-with-webstomp rabbitmq/
+docker run -d --hostname rabbitmq --name rabbitmq -p 15674:15674 rabbitmq:official-alpine-with-webstomp
+
+EXPOSE 15674

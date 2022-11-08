@@ -1,5 +1,6 @@
 import urls from '../src/main/resources/urls.json'
 import types from "./store/types";
+import {stompClient} from "./pages/_app";
 
 const neatUpZonedDateTime = (datingLastVisitDate)=>{
     if (datingLastVisitDate !== null) {
@@ -84,11 +85,32 @@ export function classNames (classes) {
     return '';
 }
 
+const setSubscriptions = (stompClient, currentSubscriptions)=>{
+    // console.log("in setSubscriptions, currentSubscriptions:", currentSubscriptions);
+    const subscribeMe =(destination)=> stompClient.subscribe(destination, function (msg) {
+        console.log("Received: ", JSON.parse(msg.body))
+        if (msg.body) {
+            const jsonBody = JSON.parse(msg.body);
+            if (jsonBody.message) {
+                // setMessages(prev => [...prev, jsonBody.message])
+            }
+        }
+    });
+
+    currentSubscriptions.forEach(destination=>{
+        console.log("subscribed to: ", destination);
+        subscribeMe(destination);
+    });
+
+
+
+};
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
     forwardForUdProfileId,
     prepareFormData,
     neatUpZonedDateTime,
-    getPeriod
+    getPeriod,
+    setSubscriptions,
 }

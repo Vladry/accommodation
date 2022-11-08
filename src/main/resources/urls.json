@@ -6,11 +6,20 @@
     "tenantFormPage": "/formPages/TenantFormPage",
     "queriedCandidateProfile": "/CandidateProfile/?queriedUserId=",
 
+
+    "privateMessages": "/queue/dating/",
+    "uncheckedMessages": "/queue/dating/number.of.unchecked.messages/",
+    "thisPersonLikedYou": "/queue/dating/person.Liked.you/",
+    "youHaveTotalLikes": "/queue/dating/total.likes/",
+    "generalNotifications": "/topic/dating.announcements",
+
+
     "userUrl": "/users/profile",
     "datingProfile": "/users/datingProfile",
     "accommodProfile": "/accommodations",
     "tenantUserProfile": "/tenants",
     "allUsersByIds" : "/users/allByIds",
     "candidatesIds" : "/users/candidatesIds",
-    "storePhotos": "/users/photos"
+    "storePhotos": "/users/photos",
+    "userSubscriptions": "/users/subscriptions"
 }

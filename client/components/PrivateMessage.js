@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 
-const MessageCreator = () => {
-    const [formData, setFormData] = useState({message: ''})
+const PrivateMessage = ({id}) => {
+    const [privateMessage, setPrivateMessage] = useState({message: ''})
 
     const handleInput = (e) => {
-        setFormData(prev => ({
+        setPrivateMessage(prev => ({
             ...prev,
             [e.target.name]: e.target.value
         }))
@@ -12,19 +12,21 @@ const MessageCreator = () => {
 
     const sendMessage = (e) => {
         e.preventDefault();
-        fetch('http://localhost:8000/send', {
+        fetch(`http://localhost:8000/privateMessage/${id}`, {
             method: 'POST',
-            body: JSON.stringify(formData),
+            body: JSON.stringify(privateMessage),
             headers: {'Content-Type': 'application/json'}
-        }).then(()=>console.log("sent:", formData))
+        }).then(()=>{})
     }
+
 
     return (
         <form onSubmit={sendMessage}>
             <input onChange={handleInput} placeholder="Enter message" name="message" type="text"/>
-            <button>Send</button>
+            <button>Send private message</button>
+
         </form>
     );
 };
 
-export default MessageCreator;
+export default PrivateMessage;
