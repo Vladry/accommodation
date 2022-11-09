@@ -37,7 +37,11 @@ public class SubscriptionsController {
 //    public Set<String> findSubscriptions(@PathVariable("id") Long userId) {
 
         Set<String> defaultSubscriptions = new HashSet<>(List.of(
-                "/queue/dating/" + userId,
+                "/queue/dating/"+ userId, //личные сообщения друг другу (privateMessages)
+                "/queue/dating/number.of.unchecked.messages/"+ userId, //индикатор кол-ва входящих сообщений (в ToolBar)
+                "/queue/dating/person.Liked.you/"+ userId,
+                "/queue/dating/total.likes/"+ userId,
+
                 "/topic/dating.announcements"
         ));
 

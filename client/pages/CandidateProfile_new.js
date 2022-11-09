@@ -5,6 +5,7 @@ import {fetchData} from "../store/actions/userAction";
 import types from "../store/types";
 import sel from "../store/selectors";
 import urls from '../../src/main/resources/urls.json'
+import subscriptions from '../../src/main/resources/subscriptions.json'
 import SwiperUserPic from "../components/dating_components/swiper_carousel/SwiperUserPic";
 import api from "../lib/API";
 import BackButton from "../components/BackButton";
@@ -12,7 +13,6 @@ import ActionPanel from "../components/dating_components/candidate_profile/Actio
 import CandidateDetailsTable from "../components/dating_components/candidate_profile/CandidateDetailsTable";
 import My_Drawer from "../components/appbar/My_Drawer";
 import ToggleMenuIconButton from "../components/ToggleMenuIconButton";
-import {useRouter} from "next/router";
 import {useTheme} from "@mui/material/styles";
 import Image from "next/image";
 import AccountCircle from "@mui/icons-material/AccountCircle";
@@ -20,6 +20,7 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MessengerDialogWindow from "../components/forms/MessengerDialogWindow";
 import PrivateMessage from "../components/PrivateMessage";
 import {Context} from "../context";
+import {NavLink_styled} from "../utils/typography";
 
 
 const CandidateProfile = () => {
@@ -32,11 +33,10 @@ const CandidateProfile = () => {
     const fetchingFlag = useRef(false);
     const stompClient = useSelector(sel.stompClient);
     const context = useContext(Context);
-    const router = useRouter();
-    const reviewedUserId = router.attributes;
 
 
-    //***************** <ActionPanel/> drawer constants **********************//
+
+    //***************** <ActionPanel/> drawer **********************//
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const forceToggleDrawer = () => {
         setIsDrawerOpen(() => !isDrawerOpen);
@@ -44,11 +44,21 @@ const CandidateProfile = () => {
     const [isLiked, setIsLiked] = useState(false);
     const likeAction = () => {
         setIsLiked(!isLiked);
+
+        // Отправляем целевому пользователю уведомление о лайке/анлайке:
+        //value =http://localhost:3000/CandidateProfile?queriedUserId=6,  subject= "{name} has liked you!"
+        const messengerArgs = {destination: `${subscriptions.thisPersonLikedYou}${user.id}`, type: "NOTIFICATION",
+            value: urls.queriedCandidateProfile+user.id, subject: `${user.name} ${user.lastName}`,
+            fromId: user.id, toId: reviewedUser.id, date: null, time: null};
+        context.stompMessenger(stompClient, messengerArgs);
+
     }
+
     const [isBookmarked, setIsBookmarked] = useState(false);
     const bookmarkToFavorites = () => {
         setIsBookmarked(!isBookmarked);
     }
+
 
 
     //***************** <MessengerDialogWindow/> **********************//
@@ -96,8 +106,9 @@ const CandidateProfile = () => {
     }, [])
 
 
+
     const handleInpChange = (e) => {
-        if (e.target) {
+        if(e.target) {
             tempTextFieldValue.current = e.target.value;
         }
     }
@@ -105,14 +116,22 @@ const CandidateProfile = () => {
     const sendMessageHandler = () => {
         textFieldRef.current.value = "";
         // console.log("message:", tempTextFieldValue.current);
-
+    const value = (tempTextFieldValue && tempTextFieldValue.current) ? tempTextFieldValue.current : "";
+    function escapeHtml(unsafe)
+        {
+            return unsafe
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+        const cleanVal = escapeHtml(value);
 
         // Отправляем полученный из  текст в мессенджер:
-        const messengerArgs = {
-            destination: `${urls.privateMessages}${user.id}`, type: "PRIVATE_MESSAGE",
-            value: tempTextFieldValue.current ? tempTextFieldValue.current : "",
-            fromId: user.id, toId: reviewedUser.id, subject: null, date: null, time: null
-        };
+        const messengerArgs = {destination: `${subscriptions.privateMessages}${user.id}`, type: "PRIVATE_MESSAGE",
+            value: cleanVal,
+            fromId: user.id, toId: reviewedUser.id, subject: null, date: null, time: null};
         context.stompMessenger(stompClient, messengerArgs);
         closeMessageDialog();
     };
@@ -151,7 +170,8 @@ const CandidateProfile = () => {
         }
     }, [reviewedUser])
 
-    if (!user || !loadDatProfile || !reviewedUser) return <p>please, check homepage and return back here</p>;
+    if(!user || !loadDatProfile || !reviewedUser) return <NavLink_styled href={urls.hostPrefix}>please, reload</NavLink_styled>;
+
 
 
     const candidateAvatar = (
@@ -167,6 +187,7 @@ const CandidateProfile = () => {
             </Avatar>) : <AccountCircle sx={{display: 'flex'}}/>);
 
     const messagingWarning = isPaid ? "Type your message below:" : "your tariff plan does not cover messaging to this candidate.";
+
 
 
     return (

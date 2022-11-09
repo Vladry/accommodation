@@ -22,7 +22,7 @@ export const userFormValidation = yup.object().shape({
     //         return isValidUrl(value);
     //     }),
     //TODO разблокировать:
-    // messenger1: yup.string().min(5).required("at least one messenger required (telegram, viber, instagram or similar)/Требуется как минимум один мессенджер"),
+    // messenger1: yup.string().min(5).required("at least one Messenger required (telegram, viber, instagram or similar)/Требуется как минимум один мессенджер"),
     // location: yup.string().required("Location is required"),
     hideSocialContactData: yup.boolean(),
     datingServiceParticipation: yup.boolean().required("Required"),

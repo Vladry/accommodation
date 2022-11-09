@@ -10,6 +10,7 @@ import urls from '../../../../src/main/resources/urls.json';
 import My_Drawer from "../../../components/appbar/My_Drawer";
 import ToggleMenuIconButton from "../../../components/ToggleMenuIconButton";
 import BackButton from "../../../components/BackButton";
+import {NavLink_styled} from "../../../utils/typography";
 
 const Index = () => {
 
@@ -80,7 +81,7 @@ const Index = () => {
 
 
     if (!user || loadingMatchingCandidatesIds || loadingUserDatingProfile) {
-        return <p>return!</p>;
+        return <NavLink_styled href={urls.hostPrefix}>please, reload</NavLink_styled>;
     }
 
 

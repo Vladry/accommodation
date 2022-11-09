@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useMemo, useRef, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import Head from "next/head";
 import {CssBaseline} from "@mui/material";
 import {createTheme, ThemeProvider} from "@mui/material/styles"
@@ -15,11 +15,9 @@ import sel from '../store/selectors';
 
 
 import {Client} from '@stomp/stompjs';
-import urls from '../../src/main/resources/urls.json';
+import types from "../store/types";
 
 const SOCKET_URL = "ws://localhost:8000/ws";
-import DatingAnnouncement from "../components/DatingAnnouncement";
-import types from "../store/types";
 
 const theme = createTheme(myTheme);
 const clientSideEmotionCache = createEmotionCache();
@@ -90,18 +88,6 @@ function MyApp({Component, pageProps, emotionCache = clientSideEmotionCache}) {
                         <ThemeProvider theme={theme}>
                             <Provider store={store}>
                                 <CssBaseline/>
-
-
-                                {/*TODO убрать этот тестовый раздел*/}
-                                <div>
-                                    <DatingAnnouncement/>
-                                    <ul>
-                                        {messages.map((m, index) => (
-                                            <li key={index}>{m}</li>
-                                        ))}
-                                    </ul>
-                                </div>
-
 
                                 {
                                     Component.getLayout ?

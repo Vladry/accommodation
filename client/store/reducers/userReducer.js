@@ -30,7 +30,6 @@ const initialState = {
     subscriptions: [],
     loadingSubscriptions: false,
     isUserAppliedHisSubscriptions: false,
-
     stompClient: null,
 }
 

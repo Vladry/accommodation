@@ -16,7 +16,7 @@ import SendIcon from "@mui/icons-material/Send";
 import Draggable from "react-draggable";
 import {useTheme} from "@mui/material/styles";
 
-const MessageToDialog = (props) => {
+const MessengerDialogWindow = (props) => {
     const {
         sendToName,
         isPaid,
@@ -112,4 +112,4 @@ const MessageToDialog = (props) => {
 
 };
 
-export default MessageToDialog;
+export default MessengerDialogWindow;

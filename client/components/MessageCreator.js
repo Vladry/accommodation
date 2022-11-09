@@ -5,15 +5,14 @@ import {useSelector} from "react-redux";
 import sel from '../store/selectors';
 
 
-const DatingAnnouncement = () => {
-    const [datingAnnouncement, setDatingAnnouncement] = useState({message: ''})
-    const [stompDatingAnnouncement, setStompDatingAnnouncement] = useState({message: ''})
+const MessageCreator = () => {
+    const [message, setMessage] = useState({})
     const user = useSelector(sel.user);
     const stompClient = useSelector(sel.stompClient);
     let userId = 19;
 
     const handleInput = (e) => {
-        setDatingAnnouncement(prev => ({
+        setMessage(prev => ({
             ...prev,
             [e.target.name]: e.target.value
         }))
@@ -22,17 +21,21 @@ const DatingAnnouncement = () => {
 
     const sendDatingAnnouncement = (e) => {
         e.preventDefault();
-        /*        fetch('http://localhost:8000/datingAnnouncement', {
+// отправка сообщения через бЭк:
+                fetch('http://localhost:8000/datingAnnouncement', {
                     method: 'POST',
-                    body: JSON.stringify(serverDatingAnnouncement),
+                    body: JSON.stringify(message),
                     headers: {'Content-Type': 'application/json'}
-                }).then(()=>{})*/
+                }).then(()=>{})
 
+
+// отправка сообщения через фронтОвый брокер:
+if(stompClient && stompClient.connected) {console.log("stompClient not connected or not subscribed. Exiting."); return;}
         stompClient.publish({
             destination: `${urls.privateMessages}${userId}`,
             body:
                 JSON.stringify({
-                    ...datingAnnouncement,
+                    ...message,
                     fromId: "fromId",
                     toId: "toId",
                     subject: "subject"
@@ -53,4 +56,4 @@ const DatingAnnouncement = () => {
     );
 };
 
-export default DatingAnnouncement;
+export default MessageCreator;
