@@ -38,7 +38,7 @@ public class UserController {
     @GetMapping("/users/{id}")
     public UserRsDto findUserById(
             @PathVariable("id") Long id) {
-        Optional<User> optionalUser = userService.findById(id);
+        Optional<User> optionalUser = userService.findUserById(id);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
             return userFacade.convertToDto(user);
@@ -76,6 +76,7 @@ public class UserController {
     @PreAuthorize("hasAuthority('read')")
     @GetMapping("/users/profile")
     public UserRsDto getUserProfile(Principal principal) {
+        System.out.println("in @GetMapping(/users/profile), \n UserRsDto getUserProfile(Principal principal), \n principal: "+principal);
         return userFacade.getUserByEmail(principal.getName());
     }
 

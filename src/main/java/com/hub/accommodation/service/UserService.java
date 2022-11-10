@@ -26,6 +26,9 @@ public class UserService extends GeneralService<User> {
         return userRepositoryImpl.getUsersAges(ids);
     }
 
+    public Optional<User> findUserById(Long id){
+        return userRepository.findUserById(id);
+    }
 
     @Transactional(readOnly = true)
     public Optional<User> getUserByEmail(String email) {

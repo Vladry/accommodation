@@ -5,6 +5,7 @@ import {fetchData} from "../store/actions/userAction";
 import types from "../store/types";
 import sel from "../store/selectors";
 import urls from '../../src/main/resources/urls.json'
+import subscriptions from '../../src/main/resources/subscriptions.json'
 import SwiperUserPic from "../components/dating_components/swiper_carousel/SwiperUserPic";
 import api from "../lib/API";
 import BackButton from "../components/BackButton";
@@ -12,13 +13,12 @@ import ActionPanel from "../components/dating_components/candidate_profile/Actio
 import CandidateDetailsTable from "../components/dating_components/candidate_profile/CandidateDetailsTable";
 import My_Drawer from "../components/appbar/My_Drawer";
 import ToggleMenuIconButton from "../components/ToggleMenuIconButton";
-import {useRouter} from "next/router";
+import {useRouter, Router} from "next/router";
 import {useTheme} from "@mui/material/styles";
 import Image from "next/image";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 
 import MessengerDialogWindow from "../components/forms/MessengerDialogWindow";
-import PrivateMessage from "../components/PrivateMessage";
 import {Context} from "../context";
 
 
@@ -26,14 +26,12 @@ const CandidateProfile = () => {
     const theme = useTheme();
     const dispatch = useDispatch();
     const user = useSelector(sel.user);
-    const loadDatProfile = useRef({den: false});
-    const reviewedUser = useSelector(sel.reviewedUser);
     const [pictures, setPictures] = useState([]);
-    const fetchingFlag = useRef(false);
     const stompClient = useSelector(sel.stompClient);
     const context = useContext(Context);
     const router = useRouter();
-    const reviewedUserId = router.attributes;
+    const queriedUserId = router.query.queriedUserId;
+    const candidateUserObj = useRef();
 
 
     //***************** <ActionPanel/> drawer constants **********************//
@@ -44,6 +42,18 @@ const CandidateProfile = () => {
     const [isLiked, setIsLiked] = useState(false);
     const likeAction = () => {
         setIsLiked(!isLiked);
+        const nowLikedState = !isLiked;//эта переменная нужна, т.к. state не обновляется мгновенна и путает данные
+        //отослать уведомление юзеру, которого я лайкнул:
+        const messengerArgs = {
+            destination: `${subscriptions.thisPersonLikedYou}${queriedUserId}`, type: "NOTIFICATION",
+            value: `http://localhost:3000/CandidateProfile?queriedUserId=${user.id}`,
+            fromId: user.id, toId: queriedUserId,
+            subject: nowLikedState ? `${candidateUserObj.current.name} ${candidateUserObj.current.lastName} has liked you!`
+                : `${candidateUserObj.current.name} ${candidateUserObj.current.lastName} has unliked you!`,
+            date: null, time: null
+        };
+        context.stompMessenger(stompClient, messengerArgs);
+
     }
     const [isBookmarked, setIsBookmarked] = useState(false);
     const bookmarkToFavorites = () => {
@@ -92,10 +102,7 @@ const CandidateProfile = () => {
             }
 
         });
-
     }, [])
-
-
     const handleInpChange = (e) => {
         if (e.target) {
             tempTextFieldValue.current = e.target.value;
@@ -103,55 +110,48 @@ const CandidateProfile = () => {
     }
 
     const sendMessageHandler = () => {
+        closeMessageDialog();
+        if (!textFieldRef.current) return;
         textFieldRef.current.value = "";
         // console.log("message:", tempTextFieldValue.current);
 
-
-        // Отправляем полученный из  текст в мессенджер:
+        // Отправляем полученный из диалогового окна текст в мессенджер:
         const messengerArgs = {
             destination: `${urls.privateMessages}${user.id}`, type: "PRIVATE_MESSAGE",
             value: tempTextFieldValue.current ? tempTextFieldValue.current : "",
-            fromId: user.id, toId: reviewedUser.id, subject: null, date: null, time: null
+            fromId: user.id, toId: queriedUserId, subject: null, date: null, time: null
         };
         context.stompMessenger(stompClient, messengerArgs);
-        closeMessageDialog();
     };
 
 
-    const fetchExistingPhotos = (reviewedUserId) => {
-        fetchingFlag.current = true;
+    const fetchExistingPhotos = (queriedUserId) => {
         dispatch({type: types.FETCHING_PHOTOS, payload: true});
-        api.get(`/users/photos/all/${reviewedUserId}?serviceGroup=DATING`).then((urls) => {
-            // console.log("fetched photoUrls:", urls);
+        api.get(`/users/photos/all/${queriedUserId}?serviceGroup=DATING`).then((urls) => {
             const pictures = [...urls];
             dispatch({type: types.FETCHING_PHOTOS, payload: false});
-            fetchingFlag.current = false;
-            if (reviewedUser?.avatar && !pictures.includes(reviewedUser.avatar)) {
-                pictures.push(reviewedUser.avatar);
+            if (candidateUserObj.current?.avatar && !pictures.includes(candidateUserObj.current.avatar)) {
+                pictures.push(candidateUserObj.current.avatar);
             }
             setPictures(pictures);
         });
     }
 
 
-    useEffect(() => {
-        if (loadDatProfile["den"]) {
-            return;
-        }
-        loadDatProfile["den"] = true;
-        if (reviewedUser) {
-            dispatch(fetchData(urls.datingProfile, reviewedUser.id, types.GET_CANDIDATE_DATING_PROFILE, types.SET_CANDIDATE_DATING_PROFILE_SUCCESS, types.SET_CANDIDATE_DATING_PROFILE_FAIL));
-        }
-    }, [reviewedUser]);
+    useEffect(() => {//TODO сделать шифрование айдишников, передаваемых через параметры строки
+            const fetchCandidateData = async () => {
+                candidateUserObj.current = await api.get(`/users/${queriedUserId}`);
+                dispatch({type: types.SHELF_REVIEWED_USER_DATA, payload: candidateUserObj.current});
+                dispatch(fetchData(urls.datingProfile, queriedUserId, types.GET_CANDIDATE_DATING_PROFILE, types.SET_CANDIDATE_DATING_PROFILE_SUCCESS, types.SET_CANDIDATE_DATING_PROFILE_FAIL));
+                fetchExistingPhotos(queriedUserId);
+            }
 
-    useEffect(() => {
-        if (!fetchingFlag.current && !!reviewedUser && !!reviewedUser.id) {
-            fetchExistingPhotos(reviewedUser.id);
-            // console.log("candidateDatingProfile: ", candidateDatingProfile);
-        }
-    }, [reviewedUser])
-
-    if (!user || !loadDatProfile || !reviewedUser) return <p>please, check homepage and return back here</p>;
+            if (queriedUserId) {
+                fetchCandidateData().then(() => {
+                });
+            }
+        }, [router.query]
+    );
 
 
     const candidateAvatar = (
@@ -217,7 +217,7 @@ const CandidateProfile = () => {
 
 
             <MessengerDialogWindow
-                sendToName={reviewedUser.name}
+                sendToName={candidateUserObj.current?.name}
                 isPaid={isPaid}
                 isMessageDialogOpen={isMessageDialogOpen}
                 closeMessageDialog={closeMessageDialog}
