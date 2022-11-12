@@ -123,6 +123,14 @@ const stompMessenger = (stompClient, messengerArgs) => {
         GENERAL_ANNOUNCEMENT - тоже ,что для dating
         PRIVATE_MESSAGE     - fromId, toId, createdDate, createdTime, lastModDate, lastModTime
         GROUP_MESSAGE       - fromId, createdDate, createdTime, lastModDate, lastModTime
+
+ Domain-cущность StompMessage:
+    private String destination;
+    private String type;
+    private String value;
+    private Long fromId;
+    private Long toId;
+    private String subject;
     */
 
     const publisher = (destination, type = "PRIVATE_MESSAGE", value,

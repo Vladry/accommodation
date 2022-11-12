@@ -32,6 +32,13 @@ const CandidateProfile = () => {
     const router = useRouter();
     const queriedUserId = router.query.queriedUserId;
     const candidateUserObj = useRef();
+    /*** Блок рефов ниже-своебразный костыль, иначе user.id и queriedUserId почему-то оказываются не доступными
+     * при запуске sendMessageHandler() из слушателя  document.addEventListener('keyup', e => {
+     * ***/
+    const id = useRef();
+    id.current = user?  user.id : '';
+    const candidateId = useRef();
+    candidateId.current = queriedUserId? queriedUserId : '';
 
 
     //***************** <ActionPanel/> drawer constants **********************//
@@ -49,10 +56,10 @@ const CandidateProfile = () => {
             value: `http://localhost:3000/CandidateProfile?queriedUserId=${user.id}`,
             fromId: user.id, toId: queriedUserId,
             subject: nowLikedState ? `${candidateUserObj.current.name} ${candidateUserObj.current.lastName} has liked you!`
-                : `${candidateUserObj.current.name} ${candidateUserObj.current.lastName} has unliked you!`,
-            date: null, time: null
+                : `${candidateUserObj.current.name} ${candidateUserObj.current.lastName} has unliked you!`
         };
         context.stompMessenger(stompClient, messengerArgs);
+        api.post(`${urls.messages}`, messengerArgs).then(()=>console.log("like notification stored to DB: ", messengerArgs));
 
     }
     const [isBookmarked, setIsBookmarked] = useState(false);
@@ -117,11 +124,13 @@ const CandidateProfile = () => {
 
         // Отправляем полученный из диалогового окна текст в мессенджер:
         const messengerArgs = {
-            destination: `${urls.privateMessages}${user.id}`, type: "PRIVATE_MESSAGE",
+            // TODO: Cannot read properties of null (reading 'id')
+            destination: `${subscriptions.privateMessages}${id.current}`, type: "PRIVATE_MESSAGE",
             value: tempTextFieldValue.current ? tempTextFieldValue.current : "",
-            fromId: user.id, toId: queriedUserId, subject: null, date: null, time: null
+            fromId: id.current, toId: candidateId.current, subject: null
         };
         context.stompMessenger(stompClient, messengerArgs);
+        api.post(`${urls.messages}`, messengerArgs).then(()=>console.log("message stored to DB"));
     };
 
 
@@ -141,7 +150,7 @@ const CandidateProfile = () => {
     useEffect(() => {//TODO сделать шифрование айдишников, передаваемых через параметры строки
             const fetchCandidateData = async () => {
                 candidateUserObj.current = await api.get(`/users/${queriedUserId}`);
-                dispatch({type: types.SHELF_REVIEWED_USER_DATA, payload: candidateUserObj.current});
+                dispatch({type: types.SHELF_REVIEWED_USER_DATA, payload: candidateUserObj.current});//TODO сомневаюсь, что это нужно кидать в редакс
                 dispatch(fetchData(urls.datingProfile, queriedUserId, types.GET_CANDIDATE_DATING_PROFILE, types.SET_CANDIDATE_DATING_PROFILE_SUCCESS, types.SET_CANDIDATE_DATING_PROFILE_FAIL));
                 fetchExistingPhotos(queriedUserId);
             }

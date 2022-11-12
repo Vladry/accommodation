@@ -8,15 +8,9 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
-import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
@@ -39,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers( "/**", "/*", "/swagger-ui/**", "/api/v1/**", /*"/swagger-ui.html", "/swagger-ui/index.html",*/ "/v3/api-docs",
                         "/login", "/api/v1/auth/**", "/register").permitAll()
                 .anyRequest()
-                .authenticated()
+                .authenticated()// позволяет пустить везде пользователя с ЛЮБЫМ правом доступа (grantedAuthority), лишь бы он был аутифицироват (т.е. прошел его логин и пароль)
                 .and()
                 .apply(jwtConfigurer);
     }

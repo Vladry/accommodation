@@ -29,13 +29,13 @@ import java.util.List;
 @EnableConfigurationProperties(KeysPasswordsConfig.class)
 public class AccommodationApplication implements ApplicationRunner {
 
-    public static void cls() {
+/*    public static void cls() {
         try {
             new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
         } catch (Exception E) {
             log.error(E.getMessage());
         }
-    }
+    }*/
 
     public static void main(String[] args) {
         System.out.println("my App 'Accommodation' is using the Spring version: " + SpringVersion.getVersion());

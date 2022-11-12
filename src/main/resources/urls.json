@@ -14,5 +14,6 @@
     "allUsersByIds" : "/users/allByIds",
     "candidatesIds" : "/users/candidatesIds",
     "storePhotos": "/users/photos",
-    "userSubscriptions": "/users/subscriptions"
+    "userSubscriptions": "/users/subscriptions",
+    "messages": "/messages"
 }
