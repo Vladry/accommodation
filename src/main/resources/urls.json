@@ -15,5 +15,10 @@
     "candidatesIds" : "/users/candidatesIds",
     "storePhotos": "/users/photos",
     "userSubscriptions": "/users/subscriptions",
-    "messages": "/messages"
+    "messages": "/messages",
+    "messagesToId": "/messages/to",
+    "messagesFromId": "/messages/from",
+    "messagesFromType": "/messages/fromType",
+    "allMessages" : "/messages/all",
+    "isLikedBy": "/messages/isLikedBy"
 }

@@ -31,10 +31,18 @@ const initialState = {
     loadingSubscriptions: false,
     isUserAppliedHisSubscriptions: false,
     stompClient: null,
+
+    datingMessages: [],
+    datingNotifications: [],
 }
 
 export default (state = initialState, action) => {
     switch (action.type) {
+
+        case types.SET_DATING_MESSAGES:
+            return {...state, datingMessages: action.payload};
+        case types.SET_DATING_NOTIFICATIONS:
+            return {...state, datingNotifications: action.payload};
 
         case types.SET_STOMP_CLIENT:
             return {...state, stompClient: action.payload}

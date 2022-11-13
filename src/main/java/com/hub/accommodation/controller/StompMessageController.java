@@ -5,6 +5,7 @@ import com.hub.accommodation.service.MessageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -20,34 +21,60 @@ public class StompMessageController {
         messageService.saveMessage(message);
     }
 
-    @DeleteMapping("/api/v1/messages")
+    @DeleteMapping
 
     public void deleteMessage(@RequestBody StompMessage message) {
         messageService.deleteMessage(message);
     }
 
-    @DeleteMapping("/api/v1/messages/{id}")
+    @DeleteMapping("/{id}")
     public void deleteMessageById(@PathVariable("id") Long id) {
         messageService.deleteMessageById(id);
     }
 
-    @GetMapping("/api/v1/messages/to/{id}")
-    public Optional<StompMessage> getMessageByToId(@PathVariable("id") Long id) {
+    @GetMapping("/to/{id}")
+    public List<StompMessage> getMessageByToId(@PathVariable("id") Long id) {
         return messageService.getMessageByToId(id);
     }
 
-    @GetMapping("/api/v1/messages/from/{id}")
-    public Optional<StompMessage> getMessageByFromId(@PathVariable("id") Long id) {
+    @GetMapping("/from/{id}")
+    public List<StompMessage> getMessageByFromId(@PathVariable("id") Long id) {
         return messageService.getMessageByFromId(id);
     }
 
-    @GetMapping("/api/v1/messages/to")
-    public Optional<StompMessage> getMessageByTypeAndToId(@RequestParam("type") String type, @RequestParam("id") Long id) {
+    @GetMapping("/to")
+    public List<StompMessage> getMessageByTypeAndToId(@RequestParam("type") String type, @RequestParam("id") Long id) {
         return messageService.getMessageByTypeAndToId(type, id);
     }
 
-    @GetMapping("/api/v1/messages/from")
-    public Optional<StompMessage> getMessageByTypeAndFromId(@RequestParam("type") String type, @RequestParam("id") Long id) {
+    @GetMapping("/from")
+    public List<StompMessage> getMessageByTypeAndFromId(@RequestParam("type") String type, @RequestParam("id") Long id) {
         return messageService.getMessageByTypeAndFromId(type, id);
+    }
+
+
+    @GetMapping("/isLikedBy")
+    public List<StompMessage> getMessageByTypeAndFromIdAndToId(@RequestParam("type") String type,
+                                                               @RequestParam("fromId") Long fromId,
+                                                               @RequestParam("toId") Long toId) {
+        return messageService.getMessageByTypeAndFromIdAndToId(type, fromId, toId);
+    }
+
+    @DeleteMapping("/isLikedBy")
+    public void deleteMessageByTypeAndFromIdAndToId(@RequestParam("type") String type,
+                                                               @RequestParam("fromId") Long fromId,
+                                                               @RequestParam("toId") Long toId) {
+         messageService.deleteMessageByTypeAndFromIdAndToId(type, fromId, toId);
+    }
+
+
+    @GetMapping("/fromType")
+    public List<StompMessage> getMessageByType(@RequestParam("type") String type) {
+        return messageService.getMessageByType(type);
+    }
+
+    @GetMapping("/all")
+    public List<StompMessage> getAllMessages() {
+        return messageService.getAllMessages();
     }
 }

@@ -45,10 +45,10 @@ public class SubscriptionsController {
                 "/topic/dating.announcements"
         ));
 
-        System.out.println("SubscriptionsController-> findSubscriptions, id:" + userId);
+//        System.out.println("SubscriptionsController-> findSubscriptions, id:" + userId);
         Optional<Subscriptions> subscrOpt = subscriptionService.findSubscriptionsByUserId(userId);
         Subscriptions s = subscrOpt.orElse(new Subscriptions(userId, defaultSubscriptions));
-        System.out.println("Subscriptions: " + s);
+//        System.out.println("Subscriptions: " + s);
 //        return s.getSubscriptions();
         return s;
     }

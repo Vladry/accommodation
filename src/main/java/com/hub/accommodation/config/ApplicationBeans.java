@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Profile;
 
 @Configuration
     public class ApplicationBeans {
-        //этот бин - костыль, нужен для правильной работы h2
+/*        //этот бин - костыль, нужен для правильной работы h2
         @Profile("local")
         @Bean
         Server h2Server() { //чтобы server прописался -в pom.xml нужно отключить <scope> в настройке h2
@@ -20,7 +20,7 @@ import org.springframework.context.annotation.Profile;
                 e.printStackTrace();
             }
             return server;
-        }
+        }*/
 
 
 

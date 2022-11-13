@@ -5,7 +5,6 @@ import Badge from "@mui/material/Badge";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import MoreIcon from "@mui/icons-material/MoreVert";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import {signOut} from "next-auth/react";
 import {useSelector} from "react-redux";
@@ -22,7 +21,7 @@ const UserProfileMenu = (props) => {
 
     const user = useSelector(sel.user);
     const isAuthenticated = useAuth(false);
-    const isMediumScreen = useMediaQuery('(max-width: 900px)');
+    // const isMediumScreen = useMediaQuery('(max-width: 900px)');
     const isLargeScreen = useMediaQuery('(min-width: 901px)');
     const [userProfileMenuAnchorEl, setUserProfileMenuAnchorEl] = useState(null);
     const isMenuOpen = Boolean(userProfileMenuAnchorEl);
@@ -91,21 +90,6 @@ const UserProfileMenu = (props) => {
     return (
         <>
             <Box sx={{display: {xs: 'none', md: 'flex'}}}>
-                <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                    <Badge badgeContent={4} color="error">
-                        <MailIcon/>
-                    </Badge>
-                </IconButton>
-                <IconButton
-                    size="large"
-                    aria-label="show 17 new notifications"
-                    color="inherit"
-                >
-                    <Badge badgeContent={17} color="error">
-                        <NotificationsIcon/>
-                    </Badge>
-                </IconButton>
-
                 <Greeting />
             </Box>
 

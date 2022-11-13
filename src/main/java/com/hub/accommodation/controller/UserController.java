@@ -76,7 +76,7 @@ public class UserController {
     @PreAuthorize("hasAuthority('read')")
     @GetMapping("/users/profile")
     public UserRsDto getUserProfile(Principal principal) {
-        System.out.println("in @GetMapping(/users/profile), \n UserRsDto getUserProfile(Principal principal), \n principal: "+principal);
+//        System.out.println("in @GetMapping(/users/profile), \n UserRsDto getUserProfile(Principal principal), \n principal: "+principal);
         return userFacade.getUserByEmail(principal.getName());
     }
 

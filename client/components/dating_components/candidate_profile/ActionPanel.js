@@ -1,15 +1,11 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Box, useMediaQuery} from "@mui/material";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ChatIcon from '@mui/icons-material/Chat';
-import SendIcon from '@mui/icons-material/Send';
 import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd';
-import ReportIcon from '@mui/icons-material/Report';
-import ReportProblemIcon from '@mui/icons-material/ReportProblem';
 import ReportOutlinedIcon from '@mui/icons-material/ReportOutlined';
 import ReportProblemOutlinedIcon from '@mui/icons-material/ReportProblemOutlined';
-import PhishingIcon from '@mui/icons-material/Phishing';
 import styled from '@emotion/styled';
 import Tooltip from "@mui/material/Tooltip";
 import {useTheme} from "@mui/material/styles";

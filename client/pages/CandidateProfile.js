@@ -36,12 +36,28 @@ const CandidateProfile = () => {
      * при запуске sendMessageHandler() из слушателя  document.addEventListener('keyup', e => {
      * ***/
     const id = useRef();
-    id.current = user?  user.id : '';
+    id.current = user ? user.id : '';
     const candidateId = useRef();
-    candidateId.current = queriedUserId? queriedUserId : '';
+    candidateId.current = queriedUserId ? queriedUserId : '';
+    const debounce = useRef({});
 
 
-    //***************** <ActionPanel/> drawer constants **********************//
+    //***************** <ActionPanel/>drawer  functionality **********************//
+    useEffect(() => {
+        if (debounce.current['checkingIsLiked']) return;
+        debounce.current['checkingIsLiked'] = true;
+        api.get(`${urls.isLikedBy}?type=DATING_NOTIFICATION&fromId=${id.current}&toId=${candidateId.current}`).then(data => {
+            if (data[0] && data[0].type) {//убедились, что в data прилетело уведомление о том, что кандидат лайкнут данным пользователем. Сервис построен так ,что если оно прилетело -то кандидат точно был залайкан текущим юзером
+                setIsLiked(true);
+                console.log("this candidate WAS liked by current user");
+            } else{console.log("this candidate was NOT liked by current user");}
+
+        }).catch(() => {
+            console.log("error checking IF this candidate was liked by current user")
+        });
+    }, [router.query])
+
+
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const forceToggleDrawer = () => {
         setIsDrawerOpen(() => !isDrawerOpen);
@@ -50,16 +66,28 @@ const CandidateProfile = () => {
     const likeAction = () => {
         setIsLiked(!isLiked);
         const nowLikedState = !isLiked;//эта переменная нужна, т.к. state не обновляется мгновенна и путает данные
+        if (!nowLikedState) {// удалить из базы нотификейшн о том, что этот кандидат ранее был лайкнут текущим ющером
+
+            api.delete(`${urls.isLikedBy}?type=DATING_NOTIFICATION&fromId=${user.id}&toId=${queriedUserId}`).then(data => {
+                console.log("isLiked deleted!");
+            }).catch(() => {
+                console.log("not found an isLiked notification to delete!")
+            });
+
+        }
+
+
         //отослать уведомление юзеру, которого я лайкнул:
         const messengerArgs = {
-            destination: `${subscriptions.thisPersonLikedYou}${queriedUserId}`, type: "NOTIFICATION",
+            destination: `${subscriptions.thisPersonLikedYou}${queriedUserId}`, type: "DATING_NOTIFICATION",
             value: `http://localhost:3000/CandidateProfile?queriedUserId=${user.id}`,
             fromId: user.id, toId: queriedUserId,
             subject: nowLikedState ? `${candidateUserObj.current.name} ${candidateUserObj.current.lastName} has liked you!`
                 : `${candidateUserObj.current.name} ${candidateUserObj.current.lastName} has unliked you!`
         };
         context.stompMessenger(stompClient, messengerArgs);
-        api.post(`${urls.messages}`, messengerArgs).then(()=>console.log("like notification stored to DB: ", messengerArgs));
+        api.post(`${urls.messages}`, messengerArgs).then(() => {
+        });
 
     }
     const [isBookmarked, setIsBookmarked] = useState(false);
@@ -92,18 +120,17 @@ const CandidateProfile = () => {
     };
     let tempTextFieldValue = useRef('');
     const textFieldRef = useRef();
-    const debounce = useRef(false);
     useEffect(() => {
         document.addEventListener('keyup', e => {
-            if (debounce.current) return;
+            if (debounce.current['checkKeyCombinationPressed']) return;
             // console.log("e.key: ", e.key);
             // console.log("e.code: ", e.code);
             if ((e.altKey || e.ctrlKey || e.shiftKey) && e.key === "Enter") {
                 setTimeout(() => {
-                    debounce.current = false;
+                    debounce.current['checkKeyCombinationPressed'] = false;
                 }, 500);
                 sendMessageHandler();
-                debounce.current = true;
+                debounce.current['checkKeyCombinationPressed'] = true;
             } else if (e.key === "Escape") {
                 closeMessageDialog();
             }
@@ -124,13 +151,14 @@ const CandidateProfile = () => {
 
         // Отправляем полученный из диалогового окна текст в мессенджер:
         const messengerArgs = {
-            // TODO: Cannot read properties of null (reading 'id')
-            destination: `${subscriptions.privateMessages}${id.current}`, type: "PRIVATE_MESSAGE",
+
+            destination: `${subscriptions.privateMessages}${id.current}`, type: "PRIVATE_MESSAGE", // id.current обязательно, иначе: Cannot read properties of null (reading 'id')
             value: tempTextFieldValue.current ? tempTextFieldValue.current : "",
             fromId: id.current, toId: candidateId.current, subject: null
         };
         context.stompMessenger(stompClient, messengerArgs);
-        api.post(`${urls.messages}`, messengerArgs).then(()=>console.log("message stored to DB"));
+        api.post(`${urls.messages}`, messengerArgs).then(() => {
+        });
     };
 
 

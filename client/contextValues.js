@@ -87,7 +87,7 @@ export function classNames(classes) {
 
 const setSubscriptions = (stompClient, currentSubscriptions) => {
     const subscribeMe = (destination) => stompClient.subscribe(destination, function (msg) {
-        console.log("Received: ", JSON.parse(msg.body))
+        // console.log("Received: ", JSON.parse(msg.body))
         if (msg.body) {
             const jsonBody = JSON.parse(msg.body);
             if (jsonBody.message) {
@@ -97,7 +97,7 @@ const setSubscriptions = (stompClient, currentSubscriptions) => {
     });
 
     currentSubscriptions.forEach(destination => {
-        console.log("subscribed to: ", destination);
+        // console.log("subscribed to: ", destination);
         subscribeMe(destination);
     });
 };
@@ -110,7 +110,7 @@ const stompMessenger = (stompClient, messengerArgs) => {
     } = messengerArgs;
 
     /********************** возможные типы сообщений вебсокетов ********************/
-    const msgTypes = ["NOTIFICATION", "DATING_ANNOUNCEMENT", "PRIVATE_MESSAGE", "GENERAL_ANNOUNCEMENT", "GROUP_MESSAGE"]
+    const msgTypes = ["DATING_NOTIFICATION", "DATING_ANNOUNCEMENT", "PRIVATE_MESSAGE", "GENERAL_ANNOUNCEMENT", "GROUP_MESSAGE"]
     /*
     Обязательные args функции  stompPublisher:      destination, type, value
     Остальные args зависят от типа сообщения: доп.параметры:

@@ -4,13 +4,14 @@ import {datingMenu} from "../../../public/menuConfig";
 import {Box, useMediaQuery} from '@mui/material';
 import DatingUserList from "../../../components/dating_components/DatingUserList";
 import api from "../../../lib/API";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import sel from "../../../store/selectors";
 import urls from '../../../../src/main/resources/urls.json';
 import My_Drawer from "../../../components/appbar/My_Drawer";
 import ToggleMenuIconButton from "../../../components/ToggleMenuIconButton";
 import BackButton from "../../../components/BackButton";
 import {NavLink_styled} from "../../../utils/typography";
+import types from "../../../store/types";
 
 const Index = () => {
 
@@ -24,6 +25,58 @@ const Index = () => {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const toggleDrawer = () => setIsDrawerOpen(!isDrawerOpen);
     const isSmallScreen = useMediaQuery('(max-width: 600px)');
+    const dispatch = useDispatch();
+    const debounce = useRef(false);
+
+
+    useEffect(() => {
+        if (debounce.current) return;
+        debounce.current = true;
+        api.get(`${urls.messagesFromId}?type=PRIVATE_MESSAGE&id=${19}`).then(data => {
+            if (data && data[0]) {
+                dispatch({type: types.SET_DATING_MESSAGES, payload: data});
+            }
+
+        }).catch((e) => {
+            console.log("ошибка при получении сообщений, е= ", e.message)
+        });
+
+        api.get(`${urls.messagesFromId}?type=DATING_NOTIFICATION&id=${19}`).then(data => {
+            if (data && data[0]) {
+                dispatch({type: types.SET_DATING_NOTIFICATIONS, payload: data});
+            }
+        }).catch((e) => {
+            console.log("ошибка при получении уведомлений, е= ", e.message)
+        });
+
+
+        /*        api.get(`${urls.messagesFromType}?type=datingNotification`).then(notifications => {
+                    if (notifications && notifications[0]) {
+                        dispatch({type: types.SET_DATING_NOTIFICATIONS, payload: notifications});
+                    }
+                }).catch((e) => {
+                    console.log("ошибка при получении уведомлений, е= ", e.message)
+                });*/
+
+        /*        api.get(`${urls.allMessages}`).then(notifications => {
+                    // console.log("fetched from DB notifications: ",notifications)
+                    dispatch({type: types.SET_DATING_NOTIFICATIONS, payload: notifications});
+                }).catch((e)=>{console.log("ошибка при получении ВСЕХ сообщений, е= ", e.message)});*/
+
+    }, [])
+
+
+    /*
+        useEffect(() => {
+            api.get(`${urls.messagesToId}?type=PRIVATE_MESSAGE&id=${user.id}`).then(messages => {
+                dispatch({type: types.SET_DATING_MESSAGES, payload: messages});
+            });
+            api.get(`${urls.messagesToId}?type=NOTIFICATION&id=${user.id}`).then(notifications => {
+                dispatch({type: types.SET_DATING_NOTIFICATIONS, payload: notifications});
+            });
+        },[])
+    */
+
 
     async function getCandidatesIds() {// получим ids кандидатов, подходящих под критерии userDatingProfile:
 
