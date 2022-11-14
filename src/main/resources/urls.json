@@ -20,5 +20,5 @@
     "messagesFromId": "/messages/from",
     "messagesFromType": "/messages/fromType",
     "allMessages" : "/messages/all",
-    "isLikedBy": "/messages/isLikedBy"
+    "likesAndBookmarks": "/messages/likesAndBookmarks"
 }

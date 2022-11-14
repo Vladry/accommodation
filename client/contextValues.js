@@ -50,7 +50,6 @@ const forwardForUdProfileId = (router, queriedUserId, user, dispatch, event) => 
 
 
 const prepareFormData = (fields, persistedValues) => {
-    // console.log("persistedValues: ", persistedValues);
     if (persistedValues) {
         return {
             initialValues: fields.reduce((acc, current) => ({     //https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
@@ -114,15 +113,17 @@ const stompMessenger = (stompClient, messengerArgs) => {
     /*
     Обязательные args функции  stompPublisher:      destination, type, value
     Остальные args зависят от типа сообщения: доп.параметры:
-        NOTIFICATION        - доп.args нету. value будет содержать кол-во накопившегося, о чем уведомляется, а subject -то, о чем уведомляется (полученные сообщения, полученные лайки, комментарии, необходимость пополнить баланс оплаты)
+    Типы: LIKED, BOOKMARKED  - для уведомлений isLiked или isBookmarked хранящихся в БД. args: type, fromId, toId.
+
+        DATING_NOTIFICATION  - доп.args нету. value будет содержать кол-во накопившегося, о чем уведомляется, а subject -то, о чем уведомляется (полученные сообщения, полученные лайки, комментарии, необходимость пополнить баланс оплаты)
             likedNotification: value =currentUserProfileUrl(who liked)  subject= "{name} has liked you!"
             unLikedNotification: value =currentUserProfileUrl(who unLiked)  subject= "{name} has disliked you!"
             эти уведомления показываются в 2х местах: в ToolBar - в виде количества поступивших лайков и  дизлайков
             и в виде pop-up уведомлений, в виде двухстрочной надписи:  1."Name has liked/unliked you!" 2."profileURL кто лайкнул"
         DATING_ANNOUNCEMENT - доп.args нету. value будет содержать текст общего обьявления для всех dating-кандидатов
         GENERAL_ANNOUNCEMENT - тоже ,что для dating
-        PRIVATE_MESSAGE     - fromId, toId, createdDate, createdTime, lastModDate, lastModTime
-        GROUP_MESSAGE       - fromId, createdDate, createdTime, lastModDate, lastModTime
+        PRIVATE_MESSAGE     - fromId, toId
+        GROUP_MESSAGE       - fromId
 
  Domain-cущность StompMessage:
     private String destination;

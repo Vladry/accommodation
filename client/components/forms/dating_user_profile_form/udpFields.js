@@ -5,7 +5,7 @@ export const udpFields = [
         name: "name",
         formikRef: "name",
         label: "name",
-        profileLabel: "name",
+        profilelabel: "name",
         valueByDefault: "n/a",
         type: "name"
     },
@@ -14,7 +14,7 @@ export const udpFields = [
         name: "location",
         formikRef: "location",
         label: "autodetermined location",
-        profileLabel: "autodetermined location",
+        profilelabel: "autodetermined location",
         valueByDefault: "n/a",
         type: "location"
     },
@@ -23,8 +23,8 @@ export const udpFields = [
         name: "lastVisit",
         formikRef: "lastVisit",
         label: "last visit",
-        profileLabel: "last visit",
-        valueByDefault: "lastVisit",
+        profilelabel: "last visit",
+        valueByDefault: "n/a",
         type: "lastVisit"
     },
     {
@@ -32,7 +32,7 @@ export const udpFields = [
         name: "age",
         formikRef: "age",
         label: "your age",
-        profileLabel: "age",
+        profilelabel: "age",
         valueByDefault: 0,
         type: "age"
     },
@@ -42,7 +42,7 @@ export const udpFields = [
         name: "mySex",
         formikRef: "mySex",
         label: "your sex",
-        profileLabel: "sex",
+        profilelabel: "sex",
         valueByDefault: "OTHER",
         type: "select_sex"
     },
@@ -51,7 +51,7 @@ export const udpFields = [
         name: "seekAPersonOfSex",
         formikRef: "seekAPersonOfSex",
         label: "you seek of sex",
-        profileLabel: "seeks",
+        profilelabel: "seeks",
         valueByDefault: "ANY",
         type: "select_sex"
     },
@@ -60,7 +60,7 @@ export const udpFields = [
         name: "myHeight",
         formikRef: "myHeight",
         label: "your height",
-        profileLabel: "height",
+        profilelabel: "height",
         valueByDefault: 0,
         type: "number"
     },
@@ -69,7 +69,7 @@ export const udpFields = [
         name: "ageRange",
         formikRef: "ageRange",
         label: "you seek of age in range",
-        profileLabel: "age range",
+        profilelabel: "age range",
         valueByDefault: [16, 60],
         type: "range"
     },
@@ -78,7 +78,7 @@ export const udpFields = [
         name: "countryINowLiveIn",
         formikRef: "countryINowLiveIn",
         label: "country you now live in",
-        profileLabel: "lives now in",
+        profilelabel: "lives now in",
         valueByDefault: "UKRAINE",
         type: "select_country"
     },
@@ -87,7 +87,7 @@ export const udpFields = [
         name: "heightRange",
         formikRef: "heightRange",
         label: "your seek of height in range, cm",
-        profileLabel: "desires of height in range, cm",
+        profilelabel: "desires of height in range, cm",
         valueByDefault: [150, 190],
         type: "range"
     },
@@ -97,7 +97,7 @@ export const udpFields = [
         name: "minHeightIWant",
         formikRef: "minHeightIWant",
         label: "candidate's min. height, cm",
-        profileLabel: "candidate's min. height, cm",
+        profilelabel: "candidate's min. height, cm",
         valueByDefault: 0,
         type: "--number"
     },
@@ -106,7 +106,7 @@ export const udpFields = [
         name: "maxHeightIWant",
         formikRef: "maxHeightIWant",
         label: "candidate's max. height, cm",
-        profileLabel: "candidate's max. height, cm",
+        profilelabel: "candidate's max. height, cm",
         valueByDefault: 200,
         type: "--number"
     },
@@ -116,7 +116,7 @@ export const udpFields = [
         name: "minPreferredAge",
         formikRef: "minPreferredAge",
         label: "candidate's min age",
-        profileLabel: "candidate's min age",
+        profilelabel: "candidate's min age",
         valueByDefault: 0,
         type: "--number"
     },
@@ -126,8 +126,8 @@ export const udpFields = [
         name: "maxPreferredAge",
         formikRef: "maxPreferredAge",
         label: "candidate's max age",
-        profileLabel: "candidate's max age",
-        valueByDefault: 0,
+        profilelabel: "candidate's max age",
+        valueByDefault: 60,
         type: "--number"
     },
 
@@ -136,7 +136,7 @@ export const udpFields = [
         name: "myCitizenship",
         formikRef: "myCitizenship",
         label: "your citizenship",
-        profileLabel: "citizenship",
+        profilelabel: "citizenship",
         valueByDefault: "UKRAINE",
         type: "select_country"
     },
@@ -145,7 +145,7 @@ export const udpFields = [
         name: "wantFromCountry",
         formikRef: "wantFromCountry",
         label: "you seek from country",
-        profileLabel: "wants from country",
+        profilelabel: "wants from country",
         valueByDefault: "ANY_COUNTRY",
         type: "select_country"
     },
@@ -154,7 +154,7 @@ export const udpFields = [
         name: "numberOfMyChildren",
         formikRef: "numberOfMyChildren",
         label: "number of your children",
-        profileLabel: "has children",
+        profilelabel: "has children",
         valueByDefault: 0,
         type: "number"
     },
@@ -163,8 +163,8 @@ export const udpFields = [
         name: "maxNumberOfChildrenAllowed",
         formikRef: "maxNumberOfChildrenAllowed",
         label: "you'd agree to maximum children",
-        profileLabel: "agrees to maximum children",
-        valueByDefault: 1,
+        profilelabel: "agrees to maximum children",
+        valueByDefault: 100,
         type: "number"
     },
 
@@ -173,7 +173,7 @@ export const udpFields = [
         name: "myGoals",
         formikRef: "myGoals",
         label: "your goals",
-        profileLabel: "has goals",
+        profilelabel: "has goals",
         valueByDefault: [],
         type: "select_goals",
     },
@@ -182,7 +182,7 @@ export const udpFields = [
         name: "myInterests",
         formikRef: "myInterests",
         label: "your interests",
-        profileLabel: "has interests",
+        profilelabel: "has interests",
         valueByDefault: [],
         type: "select_interests",
     },
@@ -191,7 +191,7 @@ export const udpFields = [
         name: "birthday",
         formikRef: "birthday",
         label: "your birthday: (format 'dd.mm.yyyy')",
-        profileLabel: "birthday",
+        profilelabel: "birthday",
         valueByDefault: "01.01.2000",
         type: "birthday"
     },
@@ -201,7 +201,7 @@ export const udpFields = [
      name: "photos",
      formikRef: "photos",
      label: "upload photos/ загрузка фото",
-     profileLabel: "upload photos/ загрузка фото",
+     profilelabel: "upload photos/ загрузка фото",
      valueByDefault: "",
      type: "photos"
  },
@@ -211,7 +211,7 @@ export const udpFields = [
       name: "selfDescription",
       formikRef: "selfDescription",
       label: "selfDescription/Кратко о себе ( не более ... знаков):",
-      profileLabel: "selfDescription/Кратко о себе ( не более ... знаков):",
+      profilelabel: "selfDescription/Кратко о себе ( не более ... знаков):",
       valueByDefault: "about myself freely: ...",
       type: "text"
   },
@@ -220,7 +220,7 @@ export const udpFields = [
       name: "traitsIWouldLoveInYou",
       formikRef: "traitsIWouldLoveInYou",
       label: "traitsIWouldLoveInYou/Искомые черты характера ( не более ... знаков):",
-      profileLabel: "traitsIWouldLoveInYou/Искомые черты характера ( не более ... знаков):",
+      profilelabel: "traitsIWouldLoveInYou/Искомые черты характера ( не более ... знаков):",
       valueByDefault: "Traits I Would Love In You: ...",
       type: "text"
   },
@@ -229,7 +229,7 @@ export const udpFields = [
       name: "traitsIWouldHateInYou",
       formikRef: "traitsIWouldHateInYou",
       label: "traitsIWouldHateInYou/Мы точно не пара, если Вы/у Вас: ( не более ... знаков):",
-      profileLabel: "traitsIWouldHateInYou/Мы точно не пара, если Вы/у Вас: ( не более ... знаков):",
+      profilelabel: "traitsIWouldHateInYou/Мы точно не пара, если Вы/у Вас: ( не более ... знаков):",
       valueByDefault: "Traits I Would Hate In You: ...",
       type: "text"
   },
@@ -238,7 +238,7 @@ export const udpFields = [
       name: "desiredWithInterests",
       formikRef: "desiredWithInterests",
       label: "desiredWithInterests/Желаю человека с интересами/увлечениями",
-      profileLabel: "desiredWithInterests/Желаю человека с интересами/увлечениями",
+      profilelabel: "desiredWithInterests/Желаю человека с интересами/увлечениями",
       valueByDefault: "desiredWithInterests: ...",
       type: "text"
   },*/

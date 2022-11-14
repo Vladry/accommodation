@@ -16,6 +16,8 @@ import types from "../../../store/types";
 const Index = () => {
 
     const user = useSelector(sel.user);
+    const userId = useRef();
+    userId.current = user ? user.id : '';
     const loadingMatchingCandidatesIds = useSelector(sel.loadingMatchingCandidatesIds);
     const loadingUserDatingProfile = useSelector(sel.loadingUserDatingProfile);
     const userDatingProfile = useSelector(sel.userDatingProfile);
@@ -32,21 +34,21 @@ const Index = () => {
     useEffect(() => {
         if (debounce.current) return;
         debounce.current = true;
-        api.get(`${urls.messagesFromId}?type=PRIVATE_MESSAGE&id=${19}`).then(data => {
+        api.get(`${urls.messagesToId}?type=PRIVATE_MESSAGE&id=${19}`).then(data => {
             if (data && data[0]) {
                 dispatch({type: types.SET_DATING_MESSAGES, payload: data});
             }
 
         }).catch((e) => {
-            console.log("ошибка при получении сообщений, е= ", e.message)
+            console.log("ошибка при получении сообщений");
         });
 
-        api.get(`${urls.messagesFromId}?type=DATING_NOTIFICATION&id=${19}`).then(data => {
+        api.get(`${urls.messagesToId}?type=DATING_NOTIFICATION&id=${19}`).then(data => {
             if (data && data[0]) {
                 dispatch({type: types.SET_DATING_NOTIFICATIONS, payload: data});
             }
         }).catch((e) => {
-            console.log("ошибка при получении уведомлений, е= ", e.message)
+            console.log("ошибка при получении уведомлений");
         });
 
 

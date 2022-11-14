@@ -43,17 +43,33 @@ const CandidateProfile = () => {
 
 
     //***************** <ActionPanel/>drawer  functionality **********************//
-    useEffect(() => {
+    useEffect(() => {//здесь получаем состояния isLiked и isBookMarked для кандидата, чтобы отрендерить соответствующие иконки в ActionPanel
         if (debounce.current['checkingIsLiked']) return;
         debounce.current['checkingIsLiked'] = true;
-        api.get(`${urls.isLikedBy}?type=DATING_NOTIFICATION&fromId=${id.current}&toId=${candidateId.current}`).then(data => {
-            if (data[0] && data[0].type) {//убедились, что в data прилетело уведомление о том, что кандидат лайкнут данным пользователем. Сервис построен так ,что если оно прилетело -то кандидат точно был залайкан текущим юзером
-                setIsLiked(true);
-                console.log("this candidate WAS liked by current user");
-            } else{console.log("this candidate was NOT liked by current user");}
-
-        }).catch(() => {
+// проверяем isLiked
+        api.get(`${urls.likesAndBookmarks}?type=LIKED&fromId=${id.current}&toId=${candidateId.current}`)
+            .then(data => {
+                if (data[0] && data[0].type) {
+                    setIsLiked(true);
+                    // console.log("this candidate WAS liked by current user");
+                } else {
+                    // console.log("this candidate was NOT liked by current user");
+                }
+            }).catch(() => {
             console.log("error checking IF this candidate was liked by current user")
+        });
+
+// проверяем isBookmarked
+        api.get(`${urls.likesAndBookmarks}?type=BOOKMARKED&fromId=${id.current}&toId=${candidateId.current}`)
+            .then(data => {
+                if (data[0] && data[0].type) {
+                    setIsBookmarked(true);
+                    // console.log("this candidate WAS bookmarked by current user");
+                } else {
+                    // console.log("this candidate was NOT bookmarked by current user");
+                }
+            }).catch(() => {
+            console.log("error checking IF this candidate was bookmarked by current user")
         });
     }, [router.query])
 
@@ -62,26 +78,37 @@ const CandidateProfile = () => {
     const forceToggleDrawer = () => {
         setIsDrawerOpen(() => !isDrawerOpen);
     }
+
     const [isLiked, setIsLiked] = useState(false);
     const likeAction = () => {
         setIsLiked(!isLiked);
         const nowLikedState = !isLiked;//эта переменная нужна, т.к. state не обновляется мгновенна и путает данные
+
+        if (nowLikedState) {
+            //записать лайк в БД:
+            const msg = {
+                destination: null, type: "LIKED", value: null, subject: null,
+                fromId: id.current, toId: candidateId.current,
+            };
+            api.post(`${urls.messages}`, msg).then(() => {
+            });
+        }
+
         if (!nowLikedState) {// удалить из базы нотификейшн о том, что этот кандидат ранее был лайкнут текущим ющером
 
-            api.delete(`${urls.isLikedBy}?type=DATING_NOTIFICATION&fromId=${user.id}&toId=${queriedUserId}`).then(data => {
+            api.delete(`${urls.likesAndBookmarks}?type=LIKED&fromId=${user.id}&toId=${queriedUserId}`).then(data => {
                 console.log("isLiked deleted!");
             }).catch(() => {
                 console.log("not found an isLiked notification to delete!")
             });
-
         }
 
 
         //отослать уведомление юзеру, которого я лайкнул:
         const messengerArgs = {
             destination: `${subscriptions.thisPersonLikedYou}${queriedUserId}`, type: "DATING_NOTIFICATION",
-            value: `http://localhost:3000/CandidateProfile?queriedUserId=${user.id}`,
-            fromId: user.id, toId: queriedUserId,
+            value: `http://localhost:3000/CandidateProfile?queriedUserId=${id.current}`,
+            fromId: id.current, toId: candidateId.current,
             subject: nowLikedState ? `${candidateUserObj.current.name} ${candidateUserObj.current.lastName} has liked you!`
                 : `${candidateUserObj.current.name} ${candidateUserObj.current.lastName} has unliked you!`
         };
@@ -90,9 +117,31 @@ const CandidateProfile = () => {
         });
 
     }
+
+
     const [isBookmarked, setIsBookmarked] = useState(false);
     const bookmarkToFavorites = () => {
         setIsBookmarked(!isBookmarked);
+        const nowBookmarkedState = !isBookmarked;//эта переменная нужна, т.к. state не обновляется мгновенна и путает данные
+
+        if (nowBookmarkedState) {
+            //записать метку bookmarked в БД:
+            const msg = {
+                destination: null, type: "BOOKMARKED", value: null, subject: null,
+                fromId: id.current, toId: candidateId.current,
+            };
+            api.post(`${urls.messages}`, msg).then(() => {
+            });
+        }
+
+        if (!nowBookmarkedState) {// удалить из базы нотификейшн о том, что этот кандидат ранее был лайкнут текущим ющером
+            api.delete(`${urls.likesAndBookmarks}?type=BOOKMARKED&fromId=${id.current}&toId=${candidateId.current}`).then(data => {
+                console.log("isLiked deleted!");
+            }).catch(() => {
+                console.log("not found an isLiked notification to delete!")
+            });
+        }
+
     }
 
 

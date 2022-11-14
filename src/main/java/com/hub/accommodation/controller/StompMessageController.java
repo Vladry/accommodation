@@ -53,14 +53,14 @@ public class StompMessageController {
     }
 
 
-    @GetMapping("/isLikedBy")
+    @GetMapping("/likesAndBookmarks")
     public List<StompMessage> getMessageByTypeAndFromIdAndToId(@RequestParam("type") String type,
                                                                @RequestParam("fromId") Long fromId,
                                                                @RequestParam("toId") Long toId) {
         return messageService.getMessageByTypeAndFromIdAndToId(type, fromId, toId);
     }
 
-    @DeleteMapping("/isLikedBy")
+    @DeleteMapping("/likesAndBookmarks")
     public void deleteMessageByTypeAndFromIdAndToId(@RequestParam("type") String type,
                                                                @RequestParam("fromId") Long fromId,
                                                                @RequestParam("toId") Long toId) {

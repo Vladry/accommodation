@@ -36,10 +36,6 @@ const ActionPanel = (props) => {
                 {!isLiked && <FavoriteBorderIcon/>}
                 <Span>like/unlike</Span>
             </Box>
-            {/*<Box>*/}
-            {/*    <Tooltip placement={placement} title={"bookmark this candidate for later messaging"}>*/}
-            {/*    <BookmarkAddIcon/><Span>bookmark</Span></Tooltip>*/}
-            {/*</Box>*/}
             <Box  onClick={bookmarkToFavorites}  sx={{cursor: 'pointer'}}>
                 <Tooltip placement={placement} title={"bookmark this candidate for later messaging"}>
                     <BookmarkAddIcon sx={{color : `${isBookmarked ? 'lightgreen' : ""}` }}/></Tooltip>
