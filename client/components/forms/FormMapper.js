@@ -13,6 +13,11 @@ const FormMapper = ({fields, initVal, validation, handleSubmit}) => {
 
     console.log("initVal.initialValues.maxNumberOfChildrenAllowed: ", initVal && initVal.initialValues && initVal.initialValues.maxNumberOfChildrenAllowed);
     let formik;
+/* TODO Имеем глюк: если при первых рендерах отрендерить FormMapper с
+defaultValues, а потом попытаться перерендерить с данными из udp, то почему-то, все значения FormMapper
+останутся изначальными (с defaultValues). Это связано с каким-то глюком на этапе задания initialValues при
+создании formik=useFormik()
+*/
     formik = useFormik(
         {
             ...initVal,

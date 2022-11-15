@@ -1,6 +1,7 @@
 import urls from '../src/main/resources/urls.json'
 import subscriptions from '../src/main/resources/subscriptions.json'
 import types from "./store/types";
+import {udpFields} from "./components/forms/dating_user_profile_form/udpFields";
 
 const neatUpZonedDateTime = (datingLastVisitDate) => {
     if (datingLastVisitDate !== null) {
@@ -49,26 +50,17 @@ const forwardForUdProfileId = (router, queriedUserId, user, dispatch, event) => 
 }
 
 
-const prepareFormData = (fields, persistedValues) => {
-    if (persistedValues) {
-        return {
-            initialValues: fields.reduce((acc, current) => ({     //https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
-                ...acc,
-                [current.formikRef]: persistedValues[current.formikRef]  //заполняем только значениями полученными из fetched from persistedValues
-            }), {})
-        }
-    } else { // иначе заполняем только дефолтными значениями
-        // console.log("persistedValues not found, using dafaultValues. ");
-
-        return {
-
-            initialValues: fields.reduce((acc, current) => ({
-                ...acc,
-                [current.formikRef]: (persistedValues && persistedValues[current.formikRef]) ? persistedValues[current.formikRef] : current.valueByDefault //заполняем дефолтными значениями полученными либо из fetched from persistedValues, либо из заданных по дефолту
-//старая версия, когда если текущее поле берется persistedValues (если оно там есть), либо из fields:
-// [current.formikRef]: (persistedValues && persistedValues[current.formikRef]) ? persistedValues[current.formikRef] : current.valueByDefault //заполняем дефолтными значениями полученными либо из fetched from persistedValues, либо из заданных по дефолту
-            }), {})
-        };
+const prepareFormData = (udpFields, userDatingProfile, isUdpRenderAllowed, isInitValRender) => {
+    if (isUdpRenderAllowed) {
+        return udpFields.reduce((acc, current) => ({
+            ...acc,
+            [current.formikRef]: userDatingProfile[current.formikRef]
+        }), {})
+    } else if (isInitValRender) {
+        return udpFields.reduce((acc, current) => ({
+            ...acc,
+            [current.formikRef]: current.valueByDefault
+        }), {})
     }
 }
 
@@ -135,7 +127,7 @@ const stompMessenger = (stompClient, messengerArgs) => {
     */
 
     const publisher = (destination, type = "PRIVATE_MESSAGE", value,
-                            fromId = null, toId = null, subject = null, date = null, time = null, rest) => {
+                       fromId = null, toId = null, subject = null, date = null, time = null, rest) => {
 
 
         if (!stompClient) {
@@ -144,8 +136,10 @@ const stompMessenger = (stompClient, messengerArgs) => {
         }
 
         // собираем из пропсов тело сообщения
-        const message = {"type": type, "value": value, "fromId": fromId,
-            "toId": toId, "subject": subject, "seen": false, ...rest};
+        const message = {
+            "type": type, "value": value, "fromId": fromId,
+            "toId": toId, "subject": subject, "seen": false, ...rest
+        };
 
 
         stompClient.publish({
