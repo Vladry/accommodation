@@ -7,7 +7,8 @@ import Link from 'next/link';
 import UnlockedMenu from "./UnlockedMenu";
 import LockedMenu from "./LockedMenu";
 import {mainMenu} from '../../public/menuConfig.js';
-import {LocalMenuItem, NavLink_styled} from "../../utils/typography";
+import {LocalMenuItem, NavLink_styled, NavLinkLogin} from "../../utils/typography";
+import {NavLink} from "./NavLink";
 
 
 let isAuthenticated = null;
@@ -19,26 +20,24 @@ const NavBar = () => {
 
     return (
         <MenuList sx={{margin: '20px'}}>
-            {!isAuthenticated && <LocalMenuItem><NavLink_styled href={mainMenu[0].url}
-                                                              underline={'none'}>{mainMenu[0].linkName}</NavLink_styled>
-            </LocalMenuItem> }
-
-            {!isAuthenticated && <Divider/> }
-
             {!isAuthenticated &&
-                <Typography
-                    color={"error"}
-                    variant={'h6'}
-                    sx={{mt: '30px'}}
-                >
-                    <MySpan>Login/Register</MySpan>
-                    {!isAuthenticated && <Link href={'/login'}><LoginIcon
-                        sx={{
-                            cursor: 'pointer', color: `${({theme}) => theme.palette.error.main}`,
-                            transform: 'scale(1.2) translate(10px, 6px)'
-                        }}/></Link>}
-                    <MySpan><br/>для активации разделов:</MySpan>
-                </Typography>
+                <Box>
+                    <Typography
+                        color={"error"}
+                        variant={'h6'}
+                        sx={{mt: '30px'}}
+                    >
+                        <MySpan>Login or Register</MySpan>
+                        {!isAuthenticated && <NavLinkLogin href={'/login'}><LoginIcon
+                            sx={{
+                                cursor: 'pointer', color: `${({theme}) => theme.palette.error.main}`,
+                                transform: 'scale(1.2) translate(10px, 6px)'
+                            }}/></NavLinkLogin>}
+                    </Typography>
+                    <Typography variant={'subtitle1'}>
+                        <MySpan><br/>для активации разделов:</MySpan>
+                    </Typography>
+                </Box>
             }
 
             <Box
@@ -60,15 +59,10 @@ const NavBar = () => {
 
             </Box>
 
-            {isAuthenticated && <LocalMenuItem><NavLink_styled href={mainMenu[0].url}
-                                                                   variant={'text'}
-                                           underline={'none'}>{mainMenu[0].linkName}</NavLink_styled>
-            </LocalMenuItem>}
 
-
-
+            {/*TODO удалить ссылку на раздел иконок*/}
             <LocalMenuItem><NavLink_styled href={'/MyIcons'}
-                                               underline={'none'}>MyIcons</NavLink_styled>
+                                           underline={'none'}>MyIcons</NavLink_styled>
             </LocalMenuItem>
         </MenuList>
     );

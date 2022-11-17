@@ -32,14 +32,13 @@ export const mainMenu = [
 ;
 
 export const datingMenu = [
-
     {
-        url: urls.dating,
-        linkName: "знакомства",
+        url: `${urls.dating}/LikedYou`,
+        linkName: "вы нравитесь",
     },
     {
         url: `${urls.dating}/Inbox`,
-        linkName: "входящие",
+        linkName: "сообщения",
     },
     {
         url: `${urls.dating}/Favorites`,
@@ -47,29 +46,21 @@ export const datingMenu = [
     },
     {
         url: `${urls.dating}/MutualLikes`,
-        linkName: "смотреть, лайкать",
+        linkName: "просмотр фото",
     },
-
-    {
-        url: `${urls.dating}/LikedYou`,
-        linkName: "вы понравились",
-    },
-
-
-
     {
         url: `${urls.dating}/SearchCriteria`,
-        linkName: "настройка поиска",
+        linkName: "настр.поиска",
     },
     {
         url: `${urls.dating}/UdpFormPage`,
-        linkName: "Редактировать Вашу анкету",
+        linkName: "Ваш профайл",
         inactiveLinkName: "ЗНАКОМСТВА: регистрация",
         inactiveTitle: "Для участия в службе ЗНАКОМСТВ требуется регистрация. Подбор кандидатов производится на основании регистрационных данных",
     },
     {
         url: `${urls.dating}/AddPhotos`,
-        linkName: "Ваши фотографии",
+        linkName: "Ваши фото",
         inactiveTitle: "Управление вашими фотографиями, добавление/удаление",
     },
     {

@@ -3,26 +3,11 @@
 # для справки:
 #    https://www.baeldung.com/spring-boot-data-sql-and-schema-sql
 
-
 server:
   port: 8000
 spring:
-  #  config:
-  #    import: optional:file:secrets.properties[.properties]
-  h2:
-    console:
-      enabled: true   # http://localhost:8000/h2-console/
-      settings:
-        trace: false
-logging: # https://habr.com/ru/post/521950/
-  level:
-    root: info
-    com: error
-    org: error
-#    file: appLog.log
-
----
-spring:
+  config:
+    import: optional:secrets.properties[.properties]
   profiles:
     active: local
 #  jpa:
@@ -31,12 +16,23 @@ spring:
 #        jdbc:
 #          time_zone: UTC
 ---
+logging: # https://habr.com/ru/post/521950/
+  level:
+    root: info
+    com: error
+    org: error
+#    file: appLog.log
 spring:
+  #  config:
+  #    import: optional:file:secrets.properties[.properties]
   config:
     activate:
       on-profile: local
-    import: optional:secrets.properties[.properties]
-
+  h2:
+    console:
+      enabled: true   # http://localhost:8000/h2-console/
+      settings:
+        trace: false
   datasource:
     url: jdbc:h2:mem:testdb
     username: sa
@@ -53,7 +49,7 @@ spring:
         order_updates: true
         #        format_sql: true
         dialect: org.hibernate.dialect.H2Dialect
-#        generate_statistics: true
+      generate_statistics: false
     generate-ddl: true
     hibernate:
       ddl-auto: update

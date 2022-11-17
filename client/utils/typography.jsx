@@ -28,6 +28,8 @@ margin-top: theme=> theme.formItem.selectTopMargin;
 // margin: 5px auto;
 // text-decoration: none;
 const NavLink_styled = styled(Button)`
+padding-left: 0px;
+margin-left: 0px;
 text-transform: none;
 // text-decoration: underline;
 font-weight: 500;
@@ -35,8 +37,16 @@ font-weight: 500;
 &:focus, &:hover {color: ${props => props.theme.palette.success.dark} };
 `;
 
+const NavLinkLogin = styled(NavLink)`
+text-transform: none;
+text-decoration: none;
+color: ${props => props.theme.palette.success.main} ;
+&:focus, &:hover {color: ${props => props.theme.palette.error.dark} };
+`;
+
 const NavLinkProtected = styled(NavLink_styled)`
 &:focus, &:hover, &:active {color: ${props => props.theme.palette.error.main}   };
+color: grey;
 `;
 
 
@@ -54,4 +64,5 @@ export {
     NavLink_styled,
     NavLinkProtected,
     LocalMenuItem,
+    NavLinkLogin,
 };

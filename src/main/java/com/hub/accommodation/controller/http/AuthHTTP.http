@@ -2,10 +2,13 @@ POST http://localhost:8000/api/v1/auth/register
 Content-Type: application/json
 
 {
-  "email": "vlad@ukr.net",
-  "password": "123",
   "name": "Влад",
   "lastName": "Рябушкин",
+  "role": "USER",
+  "datingServiceParticipation": true,
+  "email": "vlad@ukr.net",
+  "password": "123",
+
   "avatar": "https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_in_car_rtzqzp.jpg"
 }
 
@@ -16,7 +19,7 @@ Content-Type: application/json
 
 {
   "name": "Rvy",
-  "lastName": "Ryab",
+  "lastName": "Rvy",
   "role": "USER",
   "datingServiceParticipation": false,
   "location": "Wroclaw, PL",

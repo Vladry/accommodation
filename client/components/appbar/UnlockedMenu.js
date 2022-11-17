@@ -12,6 +12,8 @@ let isAuthenticated = null;
 const UnlockedMenu = ({placement}) => {
 
     let isCurrUserHasDatingProfile = useSelector(sel.isCurrUserHasDatingProfile);
+    const user  = useSelector(sel.user);
+    const datingServiceParticipation = useSelector(sel.user)? user.datingServiceParticipation : false;
     isAuthenticated = useAuth(false);
 
 
@@ -21,9 +23,11 @@ const UnlockedMenu = ({placement}) => {
             <LocalMenuItem><Tooltip placement={placement}
                                     title={mainMenu[1].title}>
                 <span>
-                {isCurrUserHasDatingProfile &&
+                {/*{isCurrUserHasDatingProfile &&*/}
+                {datingServiceParticipation &&
                     <NavLink_styled href={mainMenu[1].url}>{mainMenu[1].linkName}</NavLink_styled>}
-                    {!isCurrUserHasDatingProfile &&
+                    {/*{!isCurrUserHasDatingProfile &&*/}
+                    {!datingServiceParticipation &&
                         <NavLinkProtected href={datingMenu[5].url}>{datingMenu[5].inactiveLinkName}</NavLinkProtected>}
                 </span></Tooltip>
             </LocalMenuItem>

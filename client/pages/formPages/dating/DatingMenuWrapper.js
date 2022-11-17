@@ -1,13 +1,11 @@
 import React from 'react';
 import useAuth from "../../../hooks/useAuth";
 import DatingMenu from "./DatingMenu";
-import {useSelector} from "react-redux";
-import {Typography, Box} from "@mui/material";
+import {Box} from "@mui/material";
 
 const DatingMenuWrapper = ({children}) => {
     // console.log("render DatingMenuWrapper");
     const isAuthenticated = useAuth(false);
-    const user = useSelector(state => state.userData.user);
 
     if (!isAuthenticated) return (<><h3>log into your profile</h3></>);
 

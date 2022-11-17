@@ -80,7 +80,7 @@ const CandidateProfile = () => {
     }
 
     const [isLiked, setIsLiked] = useState(false);
-    const likeAction = () => {
+    const likeAction = (isLiked) => {
         setIsLiked(!isLiked);
         const nowLikedState = !isLiked;//эта переменная нужна, т.к. state не обновляется мгновенна и путает данные
 
