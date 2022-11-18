@@ -9,13 +9,13 @@ import createEmotionCache from "../utils/createEmotionCache";
 import {CacheProvider} from "@emotion/react";
 import RefreshTokenHandler from "../components/RefreshTokenHandler";
 import {Context} from '../context';
-import './_app.css';
 import myTheme from "../utils/myTheme";
 import sel from '../store/selectors';
-
-
 import {Client} from '@stomp/stompjs';
 import types from "../store/types";
+import { StylesProvider } from "@material-ui/core/styles" // <-- import this component, and wrap your App.
+import './_app.css';
+
 
 const SOCKET_URL = "ws://localhost:8000/ws";
 
@@ -85,6 +85,7 @@ function MyApp({Component, pageProps, emotionCache = clientSideEmotionCache}) {
                 </Head>
                 <SessionProvider session={pageProps.session} refetchInterval={interval}>
                     <Context.Provider value={context}>
+                        <StylesProvider injectFirst={true}>
                         <ThemeProvider theme={theme}>
                             <Provider store={store}>
                                 <CssBaseline/>
@@ -96,6 +97,7 @@ function MyApp({Component, pageProps, emotionCache = clientSideEmotionCache}) {
                                 }
                             </Provider>
                         </ThemeProvider>
+                        </StylesProvider>
                     </Context.Provider>
                     <RefreshTokenHandler setInterval={setInterval}/>
                 </SessionProvider>

@@ -3,14 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev  -p watch-styles-sass",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "export": "next export",
-    "lint": "next lint",
-    "stylelint-dev": "stylelint 'src/**/*.scss' --cache --cache-location './.stylelintcache'; exit 0",
-    "stylelint-build": "stylelint 'src/**/*.scss'",
-    "watch-styles-sass": "npm-watch"
+    "lint": "next lint"
   },
   "eslingConfig": {
     "extends": [
@@ -29,7 +26,6 @@
     "@mui/material": "^5.6.0",
     "@mui/styles": "^5.6.0",
     "@redux-devtools/extension": "^3.2.2",
-    "@stomp/stompjs": "^6.1.0",
     "aws-sdk": "^2.1235.0",
     "axios": "^0.26.1",
     "classnames": "^2.3.2",
@@ -48,30 +44,22 @@
     "redux": "^4.1.2",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.1",
+    "@stomp/stompjs": "^6.1.0",
+    "websocket": "^1.0.34",
     "styled-components": "^5.3.6",
     "swiper": "^8.1.4",
     "uuid": "^9.0.0",
-    "websocket": "^1.0.34",
     "yup": "^0.32.11"
   },
   "devDependencies": {
     "babel-plugin-styled-components": "latest",
-    "concurrently": "^7.4.0",
-    "eslint": "8.22.0",
+    "eslint": "^8.2.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-next": "12.1.4",
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-jsx-a11y": "^6.5.1",
-    "eslint-plugin-react": "^7.31.10",
-    "eslint-plugin-react-hooks": "^4.3.0",
-    "lint-staged": "^13.0.3",
-    "node-sass": "^7.0.3",
-    "npm-watch": "^0.11.0",
-    "prettier": "^2.7.1",
-    "standart": "^6.1.0",
-    "stylelint": "^14.14.0",
-    "stylelint-config-rational-order": "^0.1.2",
-    "stylelint-order": "^5.0.0"
+    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-react-hooks": "^4.3.0"
   },
   "description": "This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).",
   "main": "next.config.js",

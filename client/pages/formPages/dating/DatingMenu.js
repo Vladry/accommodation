@@ -27,31 +27,16 @@ const DatingMenu = () => {
 
     return (
         <div>
-            <Box sx={{display: {xs: 'none', md: 'flex'}}}>
-                {/*                <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                    <Badge badgeContent={datingMessages ? datingMessages.length : 0} color="error">
-                        <MailIcon/>
-                    </Badge>
-                </IconButton>
-                <IconButton
-                    size="large"
-                    aria-label="show 17 new notifications"
-                    color="inherit"
-                >
-                    <Badge badgeContent={datingNotifications ? datingNotifications.length : 0} color="error">
-                        <NotificationsIcon/>
-                    </Badge>
-                </IconButton>*/}
-            </Box>
+
             <br/>
-            <LocalMenuItem>
+            <LocalMenuItem className={classes['local-menu']}>
                 <IconButton
                     size="large" aria-label="show 17 new notifications" color="inherit" sx={{mx: '0', px: '0'}}
                 >
                     <Badge sx={{position: 'relative', top: '-20px', left: '30px'}}
                            badgeContent={datingNotifications ? `${datingNotifications.length}` : ''}
                            color="error">
-                    </Badge><ThumbUpAltIcon/>
+                    </Badge><ThumbUpAltIcon  className={classes['menu-icons']}/>
                 </IconButton>
                 <NavLink_styled
                     href={datingMenu[0].url}>{datingMenu[0].linkName}
@@ -59,41 +44,42 @@ const DatingMenu = () => {
             </LocalMenuItem>
 
 
-            <LocalMenuItem>
+            <LocalMenuItem className={classes['local-menu']}>
                 <IconButton size="large" aria-label="show 4 new mails" color="inherit"  sx={{mx: '0', px: '0'}}>
                     <Badge sx={{position: 'relative', top: '-18px', left: '30px'}}
                            badgeContent={datingMessages ? `${datingMessages.length}` : ''} color="error">
                     </Badge>
-                    <MailIcon/>
+                    <MailIcon  className={classes['menu-icons']}/>
                 </IconButton>
                 <NavLink_styled
                     href={datingMenu[1].url}>{datingMenu[1].linkName}</NavLink_styled>
             </LocalMenuItem>
 
 
-            <LocalMenuItem className={classes.LocalMenu}>
-                <BookmarksIcon className={classes.menuIcons}/><NavLink_styled
+            <LocalMenuItem className={classes['local-menu']}>
+            {/*<LocalMenuItem className={classes.localMenu}>  -почему-то не работает авто-нейминг: LocalMenu */}
+                <BookmarksIcon className={classes['menu-icons']}/><NavLink_styled
                 href={datingMenu[2].url}>{datingMenu[2].linkName}</NavLink_styled>
             </LocalMenuItem>
-            <LocalMenuItem>
-                <VisibilityIcon/><NavLink_styled
+            <LocalMenuItem className={classes['local-menu']}>
+                <VisibilityIcon  className={classes['menu-icons']}/><NavLink_styled
                 href={datingMenu[3].url}>{datingMenu[3].linkName}</NavLink_styled>
             </LocalMenuItem>
-            <LocalMenuItem>
-                <FilterAltIcon/><NavLink_styled
+            <LocalMenuItem className={classes['local-menu']}>
+                <FilterAltIcon  className={classes['menu-icons']}/><NavLink_styled
                 href={datingMenu[4].url}>{datingMenu[4].linkName}</NavLink_styled>
             </LocalMenuItem>
-            <LocalMenuItem>
-                <ManageAccountsIcon/><NavLink_styled
+            <LocalMenuItem className={classes['local-menu']}>
+                <ManageAccountsIcon  className={classes['menu-icons']}/><NavLink_styled
                 href={datingMenu[5].url}>{datingMenu[5].linkName}</NavLink_styled>
             </LocalMenuItem>
-            <LocalMenuItem>
-                <AddAPhotoIcon/><NavLink_styled
+            <LocalMenuItem className={classes['local-menu']}>
+                <AddAPhotoIcon  className={classes['menu-icons']}/><NavLink_styled
                 href={datingMenu[6].url}>{datingMenu[6].linkName}</NavLink_styled>
             </LocalMenuItem>
             <Divider/>
-            <LocalMenuItem>
-                <HomeIcon/><NavLink_styled
+            <LocalMenuItem className={classes['local-menu']}>
+                <HomeIcon  className={classes['menu-icons']}/><NavLink_styled
                 href={datingMenu[7].url}>{datingMenu[7].linkName}</NavLink_styled>
             </LocalMenuItem>
 

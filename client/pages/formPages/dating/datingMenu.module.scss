@@ -1,7 +1,9 @@
-.menu-icons {
-  margin-left: 1px;
-  margin-right: 1px;
-  padding-left: 1px;
-  padding-right: 1px;
+.local-menu {
+  &:hover {
+    background-color: lightgray;
+    border-radius: 6px;
+  }
 }
-.Local-menu {}
+.menu-icons {
+  margin-right: 10px;
+}
