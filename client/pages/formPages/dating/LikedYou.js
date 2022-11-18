@@ -5,7 +5,7 @@ import {datingMenu} from "../../../public/menuConfig";
 const LikedYou = () => {
     return (
         <div>
-            <DatingMenuWrapper>
+            <DatingMenuWrapper disabled={null}>
                 {datingMenu[4].linkName}
             </DatingMenuWrapper>
             <h3>Кандидаты, которым Вы понравились</h3>

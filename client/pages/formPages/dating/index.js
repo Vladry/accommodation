@@ -147,7 +147,7 @@ const Index = () => {
                     <My_Drawer
 
                         isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer}>
-                        <DatingMenuWrapper>
+                        <DatingMenuWrapper disabled={null}>
                             {datingMenu[0].linkName}
                         </DatingMenuWrapper>
                     </My_Drawer>}
@@ -156,7 +156,7 @@ const Index = () => {
                         color={'#333A9D'} toggleDrawer={toggleDrawer}/></Box>}
 
 
-                {!isSmallScreen && <DatingMenuWrapper>
+                {!isSmallScreen && <DatingMenuWrapper disabled={null}>
                     {datingMenu[0].linkName}
                 </DatingMenuWrapper>}
             </Box>

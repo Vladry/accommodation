@@ -5,7 +5,7 @@ import {datingMenu} from "../../../public/menuConfig";
 const Inbox = () => {
     return (
         <div>
-            <DatingMenuWrapper>
+            <DatingMenuWrapper  disabled={datingMenu[1].url} >
                 {datingMenu[1].linkName}
             </DatingMenuWrapper>
             <h3>Inbox</h3>

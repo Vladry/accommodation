@@ -5,7 +5,7 @@ import {datingMenu} from "../../../public/menuConfig";
 const MutualLikes = () => {
     return (
         <div>
-            <DatingMenuWrapper>
+            <DatingMenuWrapper  disabled={datingMenu[3].url}>
                 {datingMenu[3].linkName}
             </DatingMenuWrapper>
             <h3>MutualLikes</h3>

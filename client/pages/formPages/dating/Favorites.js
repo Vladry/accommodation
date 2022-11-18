@@ -5,7 +5,7 @@ import {datingMenu} from "../../../public/menuConfig";
 const Favorites = () => {
     return (
         <div>
-            <DatingMenuWrapper>
+            <DatingMenuWrapper disabled={datingMenu[2].url}>
                 {datingMenu[2].linkName}
             </DatingMenuWrapper>
             <h3>Favorites</h3>

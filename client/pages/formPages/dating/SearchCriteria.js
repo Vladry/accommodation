@@ -5,7 +5,7 @@ import {datingMenu} from "../../../public/menuConfig";
 const SearchCriteria = () => {
     return (
         <div>
-            <DatingMenuWrapper>
+            <DatingMenuWrapper disabled={datingMenu[4].url}>
                 {datingMenu[4].linkName}
             </DatingMenuWrapper>
             <h3>SearchCriteria</h3>

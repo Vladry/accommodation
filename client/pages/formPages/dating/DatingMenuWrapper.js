@@ -3,7 +3,7 @@ import useAuth from "../../../hooks/useAuth";
 import DatingMenu from "./DatingMenu";
 import {Box} from "@mui/material";
 
-const DatingMenuWrapper = ({children}) => {
+const DatingMenuWrapper = ({disabled, children}) => {
     // console.log("render DatingMenuWrapper");
     const isAuthenticated = useAuth(false);
 
@@ -14,7 +14,7 @@ const DatingMenuWrapper = ({children}) => {
             {/*<Typography>logged: {user?.email}</Typography>*/}
             {/*<Typography>userId: {user?.id}</Typography>*/}
             <h2>{children}</h2>
-            <DatingMenu/>
+            <DatingMenu disabled={disabled}/>
         </Box>
     );
 };
