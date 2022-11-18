@@ -1,0 +1,11 @@
+.dating-sections-container {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  gap: 100px;
+}
+.header {
+  margin: 0 auto;
+  text-align: center;
+  color: grey;
+}

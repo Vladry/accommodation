@@ -71,6 +71,11 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import HomeIcon from '@mui/icons-material/Home';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
+import PeopleIcon from '@mui/icons-material/People';
+import AccessibilityIcon from '@mui/icons-material/Accessibility';
+import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew';
+import GroupsIcon from '@mui/icons-material/Groups';
 
 const MyIcons = () => {
     return (
@@ -82,8 +87,17 @@ const MyIcons = () => {
             gap: '20px',
             p: '20px'
         }}>
-
             {/*https://mui.com/material-ui/material-icons/*/}
+
+
+
+            <Box>
+                <EmojiPeopleIcon/>
+                <PeopleIcon/>
+                <AccessibilityIcon/>
+                <AccessibilityNewIcon/>
+                <GroupsIcon/>
+            </Box>
             <Box>
                 <FavoriteIcon/>
                 <FavoriteBorderIcon/>

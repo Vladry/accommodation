@@ -1,21 +1,16 @@
 import React from 'react';
-import DatingMenuWrapper from "./DatingMenuWrapper";
-import {datingMenu} from "../../../public/menuConfig";
-import api from "../../../lib/API";
+import {datingMenu} from "../../public/menuConfig";
 import {useDispatch, useSelector} from "react-redux";
-import UdpForm from "../../../components/forms/dating_user_profile_form/UdpForm";
-import {Box, Button, Grid, Paper} from "@mui/material";
-import SideBar from "../../../components/dating_components/SideBar";
-import ArticleWindow from "../../../components/dating_components/ArticleWindow";
-import sel from "../../../store/selectors";
-import {fetchData} from "../../../store/actions/userAction";
-import types from "../../../store/types";
+import UdpForm from "../../components/forms/dating_user_profile_form/UdpForm";
+import {Paper} from "@mui/material";
+import sel from "../../store/selectors";
+import types from "../../store/types";
 import {useRouter} from "next/router";
-import urls from "../../../../src/main/resources/urls.json";
+import urls from "../../../src/main/resources/urls.json";
 import axios from "axios";
-import DatingMenu from "./DatingMenu";
 import {useTheme} from "@mui/material/styles";
-import BackButton from "../../../components/BackButton";
+import BackButton from "../../components/BackButton";
+import classes from './dating.module.css';
 
 const UdpFormPage = () => {
     const user = useSelector(sel.user);
@@ -80,7 +75,7 @@ const UdpFormPage = () => {
         <Paper sx={{border: '1px solid green',
             ...theme.paperProps
         }}>
-            <h3 style={{textAlign: 'center'}}>Edit Your Profile</h3>
+            <h3 className={classes['header']}>{datingMenu[6].title}</h3>
             <UdpForm handleSubmit={handleSubmit}/>
             <BackButton/>
         </Paper>

@@ -1,17 +1,18 @@
 import React, {useEffect, useRef, useState} from 'react';
 import DatingMenuWrapper from "./DatingMenuWrapper";
-import {datingMenu} from "../../../public/menuConfig";
+import {datingMenu} from "../../public/menuConfig";
 import {Box, useMediaQuery} from '@mui/material';
-import DatingUserList from "../../../components/dating_components/DatingUserList";
-import api from "../../../lib/API";
+import DatingUserList from "../../components/dating_components/DatingUserList";
+import api from "../../lib/API";
 import {useDispatch, useSelector} from "react-redux";
-import sel from "../../../store/selectors";
-import urls from '../../../../src/main/resources/urls.json';
-import My_Drawer from "../../../components/appbar/My_Drawer";
-import ToggleMenuIconButton from "../../../components/ToggleMenuIconButton";
-import BackButton from "../../../components/BackButton";
-import {NavLink_styled} from "../../../utils/typography";
-import types from "../../../store/types";
+import sel from "../../store/selectors";
+import urls from '../../../src/main/resources/urls.json';
+import My_Drawer from "../../components/appbar/My_Drawer";
+import ToggleMenuIconButton from "../../components/ToggleMenuIconButton";
+import BackButton from "../../components/BackButton";
+import {NavLink_styled} from "../../utils/typography";
+import types from "../../store/types";
+import classes from "./dating.module.css";
 
 const Index = () => {
 
@@ -147,7 +148,7 @@ const Index = () => {
                     <My_Drawer
 
                         isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer}>
-                        <DatingMenuWrapper disabled={null}>
+                        <DatingMenuWrapper disabled={datingMenu[0].url}>
                             {datingMenu[0].linkName}
                         </DatingMenuWrapper>
                     </My_Drawer>}
@@ -156,7 +157,7 @@ const Index = () => {
                         color={'#333A9D'} toggleDrawer={toggleDrawer}/></Box>}
 
 
-                {!isSmallScreen && <DatingMenuWrapper disabled={null}>
+                {!isSmallScreen && <DatingMenuWrapper disabled={datingMenu[0].url}>
                     {datingMenu[0].linkName}
                 </DatingMenuWrapper>}
             </Box>
@@ -165,12 +166,13 @@ const Index = () => {
             <Box>
                 {!!candidates?.length > 0
                     && <Box>
-                        <h3 style={{textAlign: 'center', color: 'gray'}}>Matching your criteria:</h3>
+                        <h3 className={classes['header']}>{datingMenu[0].title}:</h3>
                         <DatingUserList users={candidates}/>
                     </Box>
                 }
 
-                {!candidates?.length > 0 && <h3 style={{textAlign: 'center', color: "#b30000"}}>
+                {!candidates?.length > 0
+                    && <h3 className={classes['header']} style={{color: "#b30000"}}>
                     Try to go for more humble criteria! <br/>
                     Видимо нет достойных...</h3>}
 

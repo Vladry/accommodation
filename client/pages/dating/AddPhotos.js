@@ -1,19 +1,19 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
 import DatingMenuWrapper from "./DatingMenuWrapper";
-import {datingMenu} from "../../../public/menuConfig";
+import {datingMenu} from "../../public/menuConfig";
 import styled from "@emotion/styled";
 import {Box, Button, Paper} from "@mui/material";
-import {FormItem, Label} from '../../../utils/typography.jsx';
+import {FormItem, Label} from '../../utils/typography.jsx';
 import {useTheme} from "@mui/material/styles";
 import {v4 as uuidv4} from 'uuid';
-import api from "../../../lib/API";
+import api from "../../lib/API";
 import axios from "axios";
-import urls from '../../../../src/main/resources/urls.json';
+import urls from '../../../src/main/resources/urls.json';
 import {useDispatch, useSelector} from "react-redux";
-import sel from '../../../store/selectors.js';
-import types from "../../../store/types";
+import sel from '../../store/selectors.js';
+import types from "../../store/types";
 import {router} from "next/client";
-import BackButton from "../../../components/BackButton";
+import BackButton from "../../components/BackButton";
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 
 const getPresignedUrl = async (fileNameKey, duration) => {

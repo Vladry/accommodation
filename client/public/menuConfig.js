@@ -33,34 +33,46 @@ export const mainMenu = [
 
 export const datingMenu = [
     {
+        url: `${urls.dating}`,
+        linkName: "знакомства",
+        title: "Найденные кандидаты",
+    },
+    {
         url: `${urls.dating}/LikedYou`,
         linkName: "вы нравитесь",
+        title: "Вы им понравились",
     },
     {
         url: `${urls.dating}/Inbox`,
         linkName: "сообщения",
+        title: "Ваши сообщения",
     },
     {
         url: `${urls.dating}/Favorites`,
         linkName: "избранные",
+        title: "Избранные",
     },
     {
         url: `${urls.dating}/MutualLikes`,
-        linkName: "просмотр фото",
+        linkName: "просмотр",
+        title: "Просмотр и выбор симпатий",
     },
     {
         url: `${urls.dating}/SearchCriteria`,
         linkName: "настр.поиска",
+        title: "Ваши предпочтения к кандидатам",
     },
     {
         url: `${urls.dating}/UdpFormPage`,
         linkName: "Ваш профайл",
+        title: "Редактировать Ваш профайл",
         inactiveLinkName: "ЗНАКОМСТВА: регистрация",
         inactiveTitle: "Для участия в службе ЗНАКОМСТВ требуется регистрация. Подбор кандидатов производится на основании регистрационных данных",
     },
     {
         url: `${urls.dating}/AddPhotos`,
         linkName: "Ваши фото",
+        title: "Управление Вашими фотографиями",
         inactiveTitle: "Управление вашими фотографиями, добавление/удаление",
     },
     {
