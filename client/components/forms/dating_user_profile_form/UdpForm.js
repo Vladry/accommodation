@@ -11,7 +11,6 @@ const UdpForm = ({handleSubmit}) => {
     const user = useSelector(sel.user);
     const userDatingProfile = useSelector(sel.userDatingProfile);
 
-
     /*** Блок получения values для рендера udpProfileForm  (редактирование анкеты) ***/
     const {prepareFormData} = useContext(Context);
     const initVal = {"initialValues": prepareFormData(udpFields, userDatingProfile)};

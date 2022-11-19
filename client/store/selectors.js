@@ -19,6 +19,7 @@ const isUserAppliedHisSubscriptions = state => state.userData.isUserAppliedHisSu
 const stompClient = state => state.userData.stompClient;
 const datingMessages = state => state.userData.datingMessages;
 const datingNotifications = state => state.userData.datingNotifications;
+const datingServiceParticipation = state => state.userData.datingServiceParticipation;
 
 export default {
     user,
@@ -42,4 +43,5 @@ export default {
     stompClient,
     datingMessages,
     datingNotifications,
+    datingServiceParticipation,
 };

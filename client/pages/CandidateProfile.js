@@ -82,10 +82,9 @@ const CandidateProfile = () => {
     const [isLiked, setIsLiked] = useState(false);
     const likeAction = () => {
         setIsLiked((isLiked)=>!isLiked);
-        const nowLikedState = !isLiked;//эта переменная нужна, т.к. state не обновляется мгновенна и путает данные
+        const nowLikedState = !isLiked;//эта переменная нужна, т.к. state не обновляется мгновенно и путает данные
 
-        if (isLiked) {
-        // if (nowLikedState) {
+        if (nowLikedState) {
             //записать лайк в БД:
             const msg = {
                 destination: null, type: "LIKED", value: null, subject: null,

@@ -12,23 +12,177 @@ Content-Type: application/json
   "avatar": "https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_in_car_rtzqzp.jpg"
 }
 
-###
+###1
 
 POST http://localhost:8000/api/v1/auth/register
 Content-Type: application/json
 
 {
-  "name": "Rvy",
+  "name": "1",
   "lastName": "Rvy",
   "role": "USER",
   "datingServiceParticipation": false,
   "location": "Wroclaw, PL",
   "avatar": "https://res.cloudinary.com/vladry/image/upload/v1628196607/avatars/Vlad_avatar_tjrcut.jpg",
-  "email": "rvy@ukr.net",
+  "email": "1@ukr.net",
   "password": "123"
 }
 
 ###
+###2
+
+POST http://localhost:8000/api/v1/auth/register
+Content-Type: application/json
+
+{
+  "name": "2",
+  "lastName": "Rvy",
+  "role": "USER",
+  "datingServiceParticipation": false,
+  "location": "Wroclaw, PL",
+  "avatar": "https://res.cloudinary.com/vladry/image/upload/v1628196607/avatars/Vlad_avatar_tjrcut.jpg",
+  "email": "2@ukr.net",
+  "password": "123"
+}
+
+###
+###3
+
+POST http://localhost:8000/api/v1/auth/register
+Content-Type: application/json
+
+{
+  "name": "3",
+  "lastName": "Rvy",
+  "role": "USER",
+  "datingServiceParticipation": false,
+  "location": "Wroclaw, PL",
+  "avatar": "https://res.cloudinary.com/vladry/image/upload/v1628196607/avatars/Vlad_avatar_tjrcut.jpg",
+  "email": "3@ukr.net",
+  "password": "123"
+}
+
+###
+###4
+
+POST http://localhost:8000/api/v1/auth/register
+Content-Type: application/json
+
+{
+  "name": "4",
+  "lastName": "Rvy",
+  "role": "USER",
+  "datingServiceParticipation": false,
+  "location": "Wroclaw, PL",
+  "avatar": "https://res.cloudinary.com/vladry/image/upload/v1628196607/avatars/Vlad_avatar_tjrcut.jpg",
+  "email": "4@ukr.net",
+  "password": "123"
+}
+
+###
+###5
+
+POST http://localhost:8000/api/v1/auth/register
+Content-Type: application/json
+
+{
+  "name": "5",
+  "lastName": "Rvy",
+  "role": "USER",
+  "datingServiceParticipation": false,
+  "location": "Wroclaw, PL",
+  "avatar": "https://res.cloudinary.com/vladry/image/upload/v1628196607/avatars/Vlad_avatar_tjrcut.jpg",
+  "email": "5@ukr.net",
+  "password": "123"
+}
+
+###
+
+###6
+
+POST http://localhost:8000/api/v1/auth/register
+Content-Type: application/json
+
+{
+  "name": "6",
+  "lastName": "Rvy",
+  "role": "USER",
+  "datingServiceParticipation": false,
+  "location": "Wroclaw, PL",
+  "avatar": "https://res.cloudinary.com/vladry/image/upload/v1628196607/avatars/Vlad_avatar_tjrcut.jpg",
+  "email": "6@ukr.net",
+  "password": "123"
+}
+
+###
+###7
+
+POST http://localhost:8000/api/v1/auth/register
+Content-Type: application/json
+
+{
+  "name": "7",
+  "lastName": "Rvy",
+  "role": "USER",
+  "datingServiceParticipation": false,
+  "location": "Wroclaw, PL",
+  "avatar": "https://res.cloudinary.com/vladry/image/upload/v1628196607/avatars/Vlad_avatar_tjrcut.jpg",
+  "email": "7@ukr.net",
+  "password": "123"
+}
+
+###
+###8
+POST http://localhost:8000/api/v1/auth/register
+Content-Type: application/json
+
+{
+  "name": "8",
+  "lastName": "Rvy",
+  "role": "USER",
+  "datingServiceParticipation": false,
+  "location": "Wroclaw, PL",
+  "avatar": "https://res.cloudinary.com/vladry/image/upload/v1628196607/avatars/Vlad_avatar_tjrcut.jpg",
+  "email": "8@ukr.net",
+  "password": "123"
+}
+
+###
+###9
+
+POST http://localhost:8000/api/v1/auth/register
+Content-Type: application/json
+
+{
+  "name": "9",
+  "lastName": "Rvy",
+  "role": "USER",
+  "datingServiceParticipation": false,
+  "location": "Wroclaw, PL",
+  "avatar": "https://res.cloudinary.com/vladry/image/upload/v1628196607/avatars/Vlad_avatar_tjrcut.jpg",
+  "email": "9@ukr.net",
+  "password": "123"
+}
+
+###
+###11
+
+POST http://localhost:8000/api/v1/auth/register
+Content-Type: application/json
+
+{
+  "name": "111",
+  "lastName": "Rvy",
+  "role": "USER",
+  "datingServiceParticipation": false,
+  "location": "Wroclaw, PL",
+  "avatar": "https://res.cloudinary.com/vladry/image/upload/v1628196607/avatars/Vlad_avatar_tjrcut.jpg",
+  "email": "11@ukr.net",
+  "password": "123"
+}
+
+###
+
 POST http://localhost:8000/api/v1/auth/register
 Content-Type: application/json
 

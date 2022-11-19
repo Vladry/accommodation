@@ -14,7 +14,7 @@ const initialState = {
     userDatingProfile: null,
     loadingUserDatingProfile: false,
     isCurrUserHasDatingProfile: false,
-    datingServiceParticipation: false,
+
 
     candidateDatingProfile: null,
     loadingCandidateDatingProfile: false,
@@ -42,10 +42,13 @@ export default (state = initialState, action) => {
 
         case types.SET_TRUE_DATING_SERVICE_PARTICIPATION:
             console.log("in userReducer-> setting datingServiceParticipation: true");
-            return {...state, datingServiceParticipation: true}
+            // const updatedUser = {...state.user};
+            // updatedUser.datingServiceParticipation = true;
+            return {...state, user: {datingServiceParticipation: false} };
 
         case types.SET_DATING_MESSAGES:
             return {...state, datingMessages: action.payload};
+
         case types.SET_DATING_NOTIFICATIONS:
             return {...state, datingNotifications: action.payload};
 
@@ -130,13 +133,14 @@ export default (state = initialState, action) => {
 
         case types.GET_USER_DATING_PROFILE:
             return {...state, loadingUserDatingProfile: true}
+
         case types.SET_USER_DATING_PROFILE_SUCCESS:
             // console.log("userDatingProfile from DB: ",action.payload);
             return {
                 ...state,
                 userDatingProfile: action.payload,
                 isCurrUserHasDatingProfile: true,
-                loadingUserDatingProfile: false
+                loadingUserDatingProfile: false,
             }
         case types.SET_USER_DATING_PROFILE_FAIL:
             return {...state, isCurrUserHasDatingProfile: false, loadingUserDatingProfile: false}
