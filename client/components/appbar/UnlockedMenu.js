@@ -1,7 +1,7 @@
 import React from 'react';
 import Tooltip from "@mui/material/Tooltip";
 import useAuth from "../../hooks/useAuth";
-import {datingMenu, mainMenu} from '../../public/menuConfig.js';
+import {mainMenu} from '../../public/menuConfig.js';
 import {useSelector} from "react-redux";
 import sel from "../../store/selectors";
 import {LocalMenuItem, NavLink_styled, NavLinkProtected} from "../../utils/typography";
@@ -11,26 +11,27 @@ let isAuthenticated = null;
 
 const UnlockedMenu = ({placement}) => {
 
-    let isCurrUserHasDatingProfile = useSelector(sel.isCurrUserHasDatingProfile);
-    const user  = useSelector(sel.user);
-    const datingServiceParticipation = useSelector(sel.user)? user.datingServiceParticipation : false;
+    const user = useSelector(sel.user);
+    const datingServiceParticipation = useSelector(sel.user) ? user.datingServiceParticipation : false;
     isAuthenticated = useAuth(false);
 
 
     return (
         <div>
 
-            <LocalMenuItem><Tooltip placement={placement}
-                                    title={mainMenu[1].title}>
+            {datingServiceParticipation
+                && <LocalMenuItem><Tooltip placement={placement} title={mainMenu[1].title}>
                 <span>
-                {/*{isCurrUserHasDatingProfile &&*/}
-                {datingServiceParticipation &&
-                    <NavLink_styled href={mainMenu[1].url}>{mainMenu[1].linkName}</NavLink_styled>}
-                    {/*{!isCurrUserHasDatingProfile &&*/}
-                    {!datingServiceParticipation &&
-                        <NavLinkProtected href={datingMenu[5].url}>{datingMenu[5].inactiveLinkName}</NavLinkProtected>}
+                    <NavLink_styled href={mainMenu[1].url}>{mainMenu[1].linkName}</NavLink_styled>
                 </span></Tooltip>
-            </LocalMenuItem>
+                </LocalMenuItem>}
+
+            {!datingServiceParticipation
+                && <LocalMenuItem><Tooltip placement={placement} title={mainMenu[1].inactiveTitle}>
+                <span>
+                    <NavLinkProtected href={mainMenu[1].url}>{mainMenu[1].inactiveLinkName}</NavLinkProtected>
+                </span></Tooltip>
+                </LocalMenuItem>}
 
             <LocalMenuItem><Tooltip placement={placement}
                                     title={mainMenu[2].title}>

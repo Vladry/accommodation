@@ -50,13 +50,13 @@ const forwardForUdProfileId = (router, queriedUserId, user, dispatch, event) => 
 }
 
 
-const prepareFormData = (udpFields, userDatingProfile, isUdpRenderAllowed, isInitValRender) => {
-    if (isUdpRenderAllowed) {
+const prepareFormData = (udpFields, userDatingProfile) => {
+    if (userDatingProfile) {
         return udpFields.reduce((acc, current) => ({
             ...acc,
             [current.formikRef]: userDatingProfile[current.formikRef]
         }), {})
-    } else if (isInitValRender) {
+    } else  {
         return udpFields.reduce((acc, current) => ({
             ...acc,
             [current.formikRef]: current.valueByDefault

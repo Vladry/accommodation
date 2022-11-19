@@ -1,6 +1,7 @@
 import React from 'react';
 import {Box, Button} from "@mui/material";
 import {useRouter} from "next/router";
+import urls from '../../src/main/resources/urls.json';
 
 const BackButton = ({xyOffset}) => {
     // эта кнопка получает произвольное кол-во атрибутов расположения или ни одного:
@@ -13,7 +14,8 @@ const BackButton = ({xyOffset}) => {
         <Box textAlign={'center'} margin={'4px'}
              sx={
                  () => {
-                     const defaultVals = {zIndex: 1, position: 'fixed', boxShadow: '18'};
+
+                     const defaultVals = {display: 'flex', flexDirection: 'column', gap: '4px', zIndex: 1, position: 'fixed', boxShadow: '18'};
                      const staticAttr = {...defaultVals, top: '1px', right: '20px'};
                      if (!xyOffset) return staticAttr;
                      let attributes = {};
@@ -34,6 +36,7 @@ const BackButton = ({xyOffset}) => {
                  }
              }>
             <Button variant="contained" size={'small'} onClick={router.back}>Back</Button>
+            <Button variant="outlined" size={'small'} onClick={()=>{router.push(urls.hostPrefix).then()}}>homepage</Button>
         </Box>
     );
 };

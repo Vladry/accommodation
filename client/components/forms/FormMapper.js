@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {getIn, useFormik} from 'formik';
 import MuiPhoneNumber from 'material-ui-phone-number-2';
 import {Box, Button, Checkbox, FormControlLabel, Grid, Slider, TextField} from "@mui/material";
@@ -10,23 +10,18 @@ import InputSelectInterests from "./dating_user_profile_form/InputSelectInterest
 import {FormItem, Label} from '../../utils/typography';
 
 const FormMapper = ({fields, initVal, validation, handleSubmit}) => {
-
-    console.log("initVal.initialValues.maxNumberOfChildrenAllowed: ", initVal && initVal.initialValues && initVal.initialValues.maxNumberOfChildrenAllowed);
-    let formik;
-/* TODO Имеем глюк: если при первых рендерах отрендерить FormMapper с
-defaultValues, а потом попытаться перерендерить с данными из udp, то почему-то, все значения FormMapper
-останутся изначальными (с defaultValues). Это связано с каким-то глюком на этапе задания initialValues при
-создании formik=useFormik()
-*/
-    formik = useFormik(
+//обязательно использовать formik.setValues(), т.к. при пере-рендерах, initialValues уже НЕ изменяются! Подробнее:
+// см. https://github.com/jaredpalmer/formik/issues/2397   и   https://formik.org/docs/api/formik
+    const formik = useFormik(
         {
+            enableReinitialize: true,
             ...initVal,
             validationSchema: validation,
             onSubmit: (values) => {
                 handleSubmit(values);
             }
         }
-    )
+    );
 
     const defaultProps = React.useMemo(() => ({
 

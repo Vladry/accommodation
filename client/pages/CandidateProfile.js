@@ -80,11 +80,12 @@ const CandidateProfile = () => {
     }
 
     const [isLiked, setIsLiked] = useState(false);
-    const likeAction = (isLiked) => {
-        setIsLiked(!isLiked);
+    const likeAction = () => {
+        setIsLiked((isLiked)=>!isLiked);
         const nowLikedState = !isLiked;//эта переменная нужна, т.к. state не обновляется мгновенна и путает данные
 
-        if (nowLikedState) {
+        if (isLiked) {
+        // if (nowLikedState) {
             //записать лайк в БД:
             const msg = {
                 destination: null, type: "LIKED", value: null, subject: null,
@@ -219,7 +220,7 @@ const CandidateProfile = () => {
             if (candidateUserObj.current?.avatar && !pictures.includes(candidateUserObj.current.avatar)) {
                 pictures.push(candidateUserObj.current.avatar);
             }
-            setPictures(pictures);
+            setPictures(()=>pictures);
         });
     }
 

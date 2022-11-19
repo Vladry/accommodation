@@ -14,6 +14,7 @@ const initialState = {
     userDatingProfile: null,
     loadingUserDatingProfile: false,
     isCurrUserHasDatingProfile: false,
+    datingServiceParticipation: false,
 
     candidateDatingProfile: null,
     loadingCandidateDatingProfile: false,
@@ -38,6 +39,10 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
+
+        case types.SET_TRUE_DATING_SERVICE_PARTICIPATION:
+            console.log("in userReducer-> setting datingServiceParticipation: true");
+            return {...state, datingServiceParticipation: true}
 
         case types.SET_DATING_MESSAGES:
             return {...state, datingMessages: action.payload};
