@@ -65,10 +65,10 @@ const UdpFormPage = () => {
                 if (!datingServiceParticipation) {
                     dispatch({type: types.SET_TRUE_DATING_SERVICE_PARTICIPATION});
 
-                    const timer = setTimeout(() => {
+                    let timer = setTimeout(() => {
                         router.push(`${urls.hostPrefix}${urls.dating}`).then();//переадресовываем с задержкой, чтобы в стейте успел появиться datingServiceParticipation
-                        clearTimeout(timer);
-                    }, 100);//TODO следить, достаточно ли этих ms для отработки стейта при записи datingServiceParticipation
+                        // clearTimeout(timer);
+                    }, 200);//TODO следить, достаточно ли этих ms для отработки стейта при записи datingServiceParticipation
 
 
                 }

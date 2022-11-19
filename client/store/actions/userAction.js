@@ -6,10 +6,11 @@ export const getUser = () => (dispatch) => { //TODO разделить фетч�
     dispatch({type: types.SET_LOADING_TRUE});
     api.get(urls.userUrl)
         .then(user => {
+            // console.log("before dispatch:  SET_USER_SUCCESS");
             dispatch({type: types.SET_USER_SUCCESS, payload: user});
             dispatch(fetchData(urls.datingProfile, user.id, types.GET_USER_DATING_PROFILE, types.SET_USER_DATING_PROFILE_SUCCESS, types.SET_USER_DATING_PROFILE_FAIL));
-            dispatch(fetchData(urls.accommodProfile, user.id, types.GET_ACCOMMODATION_USER_PROFILE, types.SET_ACCOMMODATION_USER_PROFILE_SUCCESS, types.SET_ACCOMMODATION_USER_PROFILE_FAIL));
-            dispatch(fetchData(urls.tenantUserProfile, user.id, types.GET_TENANT_USER_PROFILE, types.SET_TENANT_USER_PROFILE_SUCCESS, types.SET_TENANT_USER_PROFILE_FAIL));
+            // dispatch(fetchData(urls.accommodProfile, user.id, types.GET_ACCOMMODATION_USER_PROFILE, types.SET_ACCOMMODATION_USER_PROFILE_SUCCESS, types.SET_ACCOMMODATION_USER_PROFILE_FAIL));
+            // dispatch(fetchData(urls.tenantUserProfile, user.id, types.GET_TENANT_USER_PROFILE, types.SET_TENANT_USER_PROFILE_SUCCESS, types.SET_TENANT_USER_PROFILE_FAIL));
             dispatch(fetchData(urls.userSubscriptions, user.id, types.GET_SUBSCRIPTIONS, types.SET_SUBSCRIPTIONS_SUCCESS, types.SET_SUBSCRIPTIONS_FAIL));
 
 
@@ -61,7 +62,9 @@ export const fetchData = (url, userId, loadingAct, successAction, failAction) =>
             if (data && (data["userId"] || data[0] && data[0]["userId"])) {
                 dispatch({type: successAction, payload: data});
             } else {
-                console.log("Exception in fetch userData");
+                console.log("Exception in fetch userData:");
+                console.log("loadingAct: ",loadingAct);
+                console.log("successAction: ",successAction);
                 dispatch({type: failAction});
             }
         });
