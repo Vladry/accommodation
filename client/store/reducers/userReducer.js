@@ -41,10 +41,9 @@ export default (state = initialState, action) => {
     switch (action.type) {
 
         case types.SET_TRUE_DATING_SERVICE_PARTICIPATION:
-            console.log("in userReducer-> setting datingServiceParticipation: true");
-            // const updatedUser = {...state.user};
-            // updatedUser.datingServiceParticipation = true;
-            return {...state, user: {datingServiceParticipation: false} };
+            const updatedUser = {...state.user};
+            updatedUser.datingServiceParticipation = true;
+            return {...state, user: updatedUser};
 
         case types.SET_DATING_MESSAGES:
             return {...state, datingMessages: action.payload};
