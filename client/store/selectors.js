@@ -19,7 +19,13 @@ const isUserAppliedHisSubscriptions = state => state.userData.isUserAppliedHisSu
 const stompClient = state => state.userData.stompClient;
 const datingMessages = state => state.userData.datingMessages;
 const datingNotifications = state => state.userData.datingNotifications;
-const datingServiceParticipation = state => state.userData.datingServiceParticipation;
+const datingServiceParticipation = state => {
+    if (state.userData.user) {
+        return state.userData.user.datingServiceParticipation;
+    } else {
+        return false;
+    }
+};
 
 export default {
     user,

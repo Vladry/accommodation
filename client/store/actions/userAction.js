@@ -3,7 +3,6 @@ import types from "../types";
 import urls from '../../../src/main/resources/urls.json'
 
 export const getUser = () => (dispatch) => { //TODO разделить фетчевание юзера и udp так ,чтобы на всё не выдавался Exception in getUser -> run  dispatch({type: types.SET_USER_FAILURE})");
-    // console.log("in store-> getUser ")
     dispatch({type: types.SET_LOADING_TRUE});
     api.get(urls.userUrl)
         .then(user => {
@@ -15,8 +14,8 @@ export const getUser = () => (dispatch) => { //TODO разделить фетч�
 
 
             fetch('http://ip-api.com/json/').then(r => r.json()).then(r => {
-               const locationWithTimeZone = r.city + ", "+ r.country + ", "+ r.timezone;
-                const location = r.city + ", "+ r.country;
+                const locationWithTimeZone = r.city + ", " + r.country + ", " + r.timezone;
+                const location = r.city + ", " + r.country;
                 // console.log("location: ", location);
                 // формат ответа:
                 /*            {
@@ -36,11 +35,11 @@ export const getUser = () => (dispatch) => { //TODO разделить фетч�
                                 "query": "79.110.133.25"
                             }*/
 
-                api.put(`/users/${user.id}?location=${location}`, location).then(r=> {
+                api.put(`/users/${user.id}?location=${location}`, location).then(r => {
                     // console.log("fetched location with response: ", r)
                 });
 
-            }).catch((e)=>console.log("location not determined, ", e.message))
+            }).catch((e) => console.log("location not determined, ", e.message))
 
 
         }).catch(e => {
@@ -51,7 +50,9 @@ export const getUser = () => (dispatch) => { //TODO разделить фетч�
 
 
 export const fetchData = (url, userId, loadingAct, successAction, failAction) => (dispatch) => {
-    if(!url || !userId || !loadingAct || !successAction || !failAction){return;}
+    if (!url || !userId || !loadingAct || !successAction || !failAction) {
+        return;
+    }
     // console.log(`in fetchData (userId: ${userId})`);
     try {
         dispatch({type: loadingAct});

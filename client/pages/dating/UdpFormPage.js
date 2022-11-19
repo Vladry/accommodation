@@ -15,20 +15,15 @@ import classes from './dating.module.css';
 const UdpFormPage = () => {
     const user = useSelector(sel.user);
     const userIdRef = useRef({});
-    if(user){userIdRef.current = user.id}
+    if (user) {
+        userIdRef.current = user.id
+    }
     const dispatch = useDispatch();
     const router = useRouter();
     const theme = useTheme();
     const datingServiceParticipation = useSelector(sel.datingServiceParticipation);
 
-
-    // useEffect(() => {
-    //     router.push(`${urls.hostPrefix}${urls.dating}`).then();
-    // },[datingServiceParticipation]);
-
-
     const handleSubmit = async (values) => {
-        // if(!user) return; //TODO разобраться почему бывает так ,что нет юзера и удалить эту строчку! Это костыль
         const userDatingProfileFormNewValues = {...values, userId: userIdRef.current};
         delete userDatingProfileFormNewValues["ageRange"];//обязательно к удалению из списка аргументов на бЭк!
         delete userDatingProfileFormNewValues["heightRange"];//обязательно к удалению из списка аргументов на бЭк!
@@ -58,19 +53,25 @@ const UdpFormPage = () => {
 
         await axios.post(baseURL + urls.datingProfile, userDatingProfileFormNewValues,
             {
-                headers: {'datingServiceParticipation': user.datingServiceParticipation} //если еще не зарегистрирован в знакомствах-то, на бЭке по datingServiceParticipation=false запустится регистрация
+                headers: {'datingServiceParticipation': datingServiceParticipation} //если еще не зарегистрирован в знакомствах-то, на бЭке по datingServiceParticipation=false запустится регистрация
             }
         ).then((res) => {
             // console.log('in handleSubmit.then на фронте, после отправки на Back-End данных. Ответ сервера:', res); // вывод userDatingProfile
             //обновить в локальном сторе userDatingProfile
             if (res != null) {
-                console.log("fetched userDatingProfile. res: ", res);
+                // console.log("fetched userDatingProfile. res: ", res);
                 //записывать в state лучше не ответ сервера, а отправляемые данные, т.к. сервер возвращает birthday в стандартном (не подходящем мне) формате -будет ошибка!
                 dispatch({type: types.SET_USER_DATING_PROFILE_SUCCESS, payload: userDatingProfileFormNewValues});
-                // if(!datingServiceParticipation){  TODO раскомментировать -чтобы лишний раз не шло в стор
-                    console.log("dispatching: SET_TRUE_DATING_SERVICE_PARTICIPATION")
+                if (!datingServiceParticipation) {
                     dispatch({type: types.SET_TRUE_DATING_SERVICE_PARTICIPATION});
-                // }
+
+                    const timer = setTimeout(() => {
+                        router.push(`${urls.hostPrefix}${urls.dating}`).then();//переадресовываем с задержкой, чтобы в стейте успел появиться datingServiceParticipation
+                        clearTimeout(timer);
+                    }, 100);//TODO следить, достаточно ли этих ms для отработки стейта при записи datingServiceParticipation
+
+
+                }
             } else {
                 console.log("error getting&dispatching updated userDatingProfile!. The store continues holding the old version of userDatingProfile (if any)");
             }
@@ -84,13 +85,13 @@ const UdpFormPage = () => {
 
 
     return (
-        <Paper sx={{border: '1px solid green',
+        <Paper sx={{
+            border: '1px solid green',
             ...theme.paperProps
         }}>
             <h3 className={classes['header']}>{datingMenu[6].title}</h3>
             <UdpForm handleSubmit={handleSubmit}/>
             <BackButton/>
-            <p>datingServiceParticipation: {datingServiceParticipation}</p>
         </Paper>
     );
 };
