@@ -34,18 +34,18 @@ const UdpFormPage = () => {
         delete userDatingProfileFormNewValues["lastVisit"];
         delete userDatingProfileFormNewValues["age"];
 
-
-        if (typeof (userDatingProfileFormNewValues["myGoals"]) === 'string') {
-            userDatingProfileFormNewValues["myGoals"] = userDatingProfileFormNewValues["myGoals"].split(" ").join("").split(",");
-        } else if (Array.isArray(userDatingProfileFormNewValues["myGoals"])) {
-            // console.log(`userDatingProfileFormNewValues["myGoals"]: `, userDatingProfileFormNewValues["myGoals"]);
-        }
-
-        if (typeof (userDatingProfileFormNewValues["myInterests"]) === 'string') {
-            userDatingProfileFormNewValues["myInterests"] = userDatingProfileFormNewValues["myInterests"].split(" ").join("").split(",");
-        } else if (Array.isArray(userDatingProfileFormNewValues["myInterests"])) {
-            // console.log(`userDatingProfileFormNewValues["myInterests"]: `, userDatingProfileFormNewValues["myInterests"]);
-        }
+        //
+        // if (typeof (userDatingProfileFormNewValues["myGoals"]) === 'string') {
+        //     userDatingProfileFormNewValues["myGoals"] = userDatingProfileFormNewValues["myGoals"].split(" ").join("").split(",");
+        // } else if (Array.isArray(userDatingProfileFormNewValues["myGoals"])) {
+        //     // console.log(`userDatingProfileFormNewValues["myGoals"]: `, userDatingProfileFormNewValues["myGoals"]);
+        // }
+        //
+        // if (typeof (userDatingProfileFormNewValues["myInterests"]) === 'string') {
+        //     userDatingProfileFormNewValues["myInterests"] = userDatingProfileFormNewValues["myInterests"].split(" ").join("").split(",");
+        // } else if (Array.isArray(userDatingProfileFormNewValues["myInterests"])) {
+        //     // console.log(`userDatingProfileFormNewValues["myInterests"]: `, userDatingProfileFormNewValues["myInterests"]);
+        // }
 
         const baseURL = "http://localhost:8000/api/v1";
         // await api.post(baseURL+urls.datingProfile, userDatingProfileFormNewValues,
@@ -64,17 +64,15 @@ const UdpFormPage = () => {
                 dispatch({type: types.SET_USER_DATING_PROFILE_SUCCESS, payload: userDatingProfileFormNewValues});
                 if (!datingServiceParticipation) {
                     dispatch({type: types.SET_TRUE_DATING_SERVICE_PARTICIPATION});
-
-                    let timer = setTimeout(() => {
-                        router.push(`${urls.hostPrefix}${urls.dating}`).then();//переадресовываем с задержкой, чтобы в стейте успел появиться datingServiceParticipation
-                        // clearTimeout(timer);
-                    }, 200);//TODO следить, достаточно ли этих ms для отработки стейта при записи datingServiceParticipation
-
-
                 }
             } else {
                 console.log("error getting&dispatching updated userDatingProfile!. The store continues holding the old version of userDatingProfile (if any)");
             }
+            let timer = setTimeout(() => {
+                router.push(`${urls.hostPrefix}${urls.dating}`).then();//переадресовываем с задержкой, чтобы в стейте успел появиться datingServiceParticipation
+                clearTimeout(timer);
+            }, 100);//TODO следить, достаточно ли этих ms для отработки стейта при записи datingServiceParticipation
+
 
         })
             .catch(err => {
