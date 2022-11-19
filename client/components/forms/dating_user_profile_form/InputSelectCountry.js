@@ -16,7 +16,7 @@ const InputSelectCountry = ({formikRef, input, formik}) => {
                 setSelected(formik.values[formikRef]);
             }
         }
-    }, [])
+    }, [formik.values])
 
 
     const select = (e) => {

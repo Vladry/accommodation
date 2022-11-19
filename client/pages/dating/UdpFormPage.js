@@ -34,7 +34,7 @@ const UdpFormPage = () => {
         delete userDatingProfileFormNewValues["lastVisit"];
         delete userDatingProfileFormNewValues["age"];
 
-        //
+         //
         // if (typeof (userDatingProfileFormNewValues["myGoals"]) === 'string') {
         //     userDatingProfileFormNewValues["myGoals"] = userDatingProfileFormNewValues["myGoals"].split(" ").join("").split(",");
         // } else if (Array.isArray(userDatingProfileFormNewValues["myGoals"])) {

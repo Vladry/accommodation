@@ -31,7 +31,7 @@ const InputSelectSex = ({formikRef, input, formik}) => {
 
             }
         }
-    }, [])
+    }, [formik.values])
 
 
     const select = (e) => {
