@@ -68,6 +68,15 @@ const DatingMenu = ({disabled}) => {
                     </NavLink_styled>
                 </LocalMenuItem>}
 
+            {/*TODO удалить этот тестовый элемент:*/}
+                <LocalMenuItem className={classes['local-menu']}>
+                    {/*<LocalMenuItem className={classes.localMenu}>  -почему-то не работает авто-нейминг: LocalMenu */}
+                    <VisibilityIcon className={classes['menu-icons']}/>
+                    <NavLink_styled
+                        href={'/dating/WrappedMutualLikes'}>{`t: ${datingMenu[4].linkName}`}
+                    </NavLink_styled>
+                </LocalMenuItem>
+
             {!(disabled === datingMenu[4].url)
                 && <LocalMenuItem className={classes['local-menu']}>
                     <VisibilityIcon className={classes['menu-icons']}/>
