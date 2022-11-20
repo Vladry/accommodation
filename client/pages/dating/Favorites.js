@@ -7,15 +7,11 @@ import {useSelector} from "react-redux";
 import sel from "../../store/selectors";
 import {useRouter} from "next/router";
 import urls from "../../../src/main/resources/urls.json";
+import DatingSubWrapper from "./DatingSubWrapper";
 
 const Favorites = () => {
 
-
-    const datingServiceParticipation = useSelector(sel.datingServiceParticipation);
-    const router = useRouter();
-    if (!datingServiceParticipation){router.push(`${urls.hostPrefix}${urls.dating}`).then();}
-
-    return (
+    const favoritesPage = (
         <Box className={classes['dating-sections-container']}>
             <DatingMenuWrapper disabled={datingMenu[3].url}>
                 {datingMenu[3].linkName}
@@ -23,6 +19,13 @@ const Favorites = () => {
             <h3 className={classes['header']}>{datingMenu[3].title}</h3>
         </Box>
     );
+
+    return (
+        <DatingSubWrapper>
+            {favoritesPage}
+        </DatingSubWrapper>
+    );
+
 };
 
 export default Favorites;

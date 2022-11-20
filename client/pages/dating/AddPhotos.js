@@ -1,6 +1,4 @@
-import React, {useEffect, useMemo, useRef, useState} from 'react';
-import DatingMenuWrapper from "./DatingMenuWrapper";
-import {datingMenu} from "../../public/menuConfig";
+import React, {useEffect, useRef, useState} from 'react';
 import styled from "@emotion/styled";
 import {Box, Button, Paper} from "@mui/material";
 import {FormItem, Label} from '../../utils/typography.jsx';
@@ -12,10 +10,10 @@ import urls from '../../../src/main/resources/urls.json';
 import {useDispatch, useSelector} from "react-redux";
 import sel from '../../store/selectors.js';
 import types from "../../store/types";
-import {router} from "next/client";
 import BackButton from "../../components/BackButton";
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import {useRouter} from "next/router";
+import DatingSubWrapper from "./DatingSubWrapper";
 
 
 const getPresignedUrl = async (fileNameKey, duration) => {
@@ -105,7 +103,9 @@ const AddPhotos = () => {
 
     useEffect(() => {
 
-        if (!datingServiceParticipation){router.push(`${urls.hostPrefix}${urls.dating}`).then();}
+        if (!datingServiceParticipation) {
+            router.push(`${urls.hostPrefix}${urls.dating}`).then();
+        }
 
         if (!fetchingFlag.current && !isPhotosFetching && existingPhotoUrls.length === 0 && user && user.id) {
             fetchExistingPhotos(user.id);
@@ -192,7 +192,7 @@ const AddPhotos = () => {
     }, [oversizedPhotos, validPhotos])
 
 
-    return (
+    const addPhotosPage = (
         <form onSubmit={handleSubmit} method={'post'} encType={'multipart/form-data'}>
             <FlexContainer>
                 <h3>Manage your photos</h3>
@@ -245,7 +245,16 @@ const AddPhotos = () => {
             <BackButton/>
         </form>
     );
+
+
+    return (
+        <DatingSubWrapper>
+            {addPhotosPage}
+        </DatingSubWrapper>
+    );
+
 };
+
 
 export default AddPhotos;
 

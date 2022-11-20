@@ -5,6 +5,7 @@ import {Box} from "@mui/material";
 import classes from './dating.module.css';
 
 const SearchCriteria = () => {
+
     return (
         <Box className={classes['dating-sections-container']}>
             <DatingMenuWrapper disabled={datingMenu[5].url}>
