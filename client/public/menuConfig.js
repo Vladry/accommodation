@@ -68,6 +68,7 @@ export const datingMenu = [
         url: `${urls.dating}${urls.udpFormPage}`,
         linkName: "Ваш профайл",
         title: "Редактировать Ваш профайл",
+        notRegistered: "Создание профайла",
     },
     {
         url: `${urls.dating}${urls.addPhotos}`,

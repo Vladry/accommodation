@@ -21,6 +21,9 @@ const UdpFormPage = () => {
     }
     const dispatch = useDispatch();
     const router = useRouter();
+    const force = useRef(false);
+    force.current = !!(router.query?.force && router.query.force === "true");
+
     const theme = useTheme();
     const datingServiceParticipation = useSelector(sel.datingServiceParticipation);
 
@@ -83,12 +86,15 @@ const UdpFormPage = () => {
     };
 
 
+    const title = force.current? datingMenu[6].notRegistered : datingMenu[6].title;
+
     return (
         <Paper sx={{
             border: '1px solid green',
             ...theme.paperProps
         }}>
-            <h3 className={classes['header']}>{datingMenu[6].title}</h3>
+            <h3 className={classes['header']}>{title}</h3>
+
             <UdpForm handleSubmit={handleSubmit}/>
             <BackButton/>
         </Paper>

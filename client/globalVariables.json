@@ -1,3 +1,4 @@
 {
-  "reduxTimerUpdateMilliseconds": 200
+  "reduxTimerUpdateMilliseconds": 200,
+  "datingGuestPeriodMs": 5000
 }

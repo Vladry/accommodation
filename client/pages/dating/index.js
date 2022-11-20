@@ -15,6 +15,7 @@ import types from "../../store/types";
 import classes from "./dating.module.css";
 import {useRouter} from "next/router";
 import styled from "@emotion/styled";
+import globalVariables from '../../globalVariables.json';
 
 const Index = () => {
 
@@ -34,7 +35,7 @@ const Index = () => {
         const debounce = useRef(false);
         const datingServiceParticipation = useSelector(sel.datingServiceParticipation);
         const router = useRouter();
-        const trialPeriod = 8 */*60**/1000;
+        const datingGuestPeriodMs = globalVariables.datingGuestPeriodMs;
         const timersInit = {datingRegistrationChecker: null}
         const timers = useRef(timersInit);
 
@@ -50,14 +51,14 @@ const Index = () => {
 
         const showMustRegisterUdp = () => {
             console.log("dialogWindow: you must fill out your dating profile!!")
-            router.push(datingMenu[6].url).then();
+            router.push(`${datingMenu[6].url}?force=true`).then();
         };
 
         useEffect(() => {
             if (!datingServiceParticipation && !timers.current['datingRegistrationChecker']) {
                 timers.current['datingRegistrationChecker'] = setTimeout(() => {
                     checkDatingRegistration();
-                }, trialPeriod);
+                }, datingGuestPeriodMs);
             } else if (datingServiceParticipation && timers.current['datingRegistrationChecker']) {
                 console.log("clearing timer!")
                 clearTimeout(timers.current['datingRegistrationChecker']);
