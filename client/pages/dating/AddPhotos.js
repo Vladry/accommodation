@@ -15,6 +15,8 @@ import types from "../../store/types";
 import {router} from "next/client";
 import BackButton from "../../components/BackButton";
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
+import {useRouter} from "next/router";
+
 
 const getPresignedUrl = async (fileNameKey, duration) => {
     return await api.get(`/presigned-url?fileNameKey=${fileNameKey}&duration=${duration}`,)
@@ -73,6 +75,8 @@ const AddPhotos = () => {
     const isPhotosFetching = useSelector(sel.isPhotosFetching);
     const dispatch = useDispatch();
     const fetchingFlag = useRef(false);
+    const datingServiceParticipation = useSelector(sel.datingServiceParticipation);
+    const router = useRouter();
 
     const fetchExistingPhotos = (queriedUserId) => {
         fetchingFlag.current = true;
@@ -100,6 +104,9 @@ const AddPhotos = () => {
 
 
     useEffect(() => {
+
+        if (!datingServiceParticipation){router.push(`${urls.hostPrefix}${urls.dating}`).then();}
+
         if (!fetchingFlag.current && !isPhotosFetching && existingPhotoUrls.length === 0 && user && user.id) {
             fetchExistingPhotos(user.id);
         }

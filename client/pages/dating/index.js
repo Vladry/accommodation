@@ -32,9 +32,9 @@ const Index = () => {
         const isSmallScreen = useMediaQuery('(max-width: 600px)');
         const dispatch = useDispatch();
         const debounce = useRef(false);
-        const datingServiceParticipation = useSelector(sel.user) ? user.datingServiceParticipation : false;
+        const datingServiceParticipation = useSelector(sel.datingServiceParticipation);
         const router = useRouter();
-        const trialPeriod = 3 */*60**/1000;
+        const trialPeriod = 8 */*60**/1000;
         const timersInit = {datingRegistrationChecker: null}
         const timers = useRef(timersInit);
 
@@ -216,7 +216,7 @@ const Index = () => {
                                             href={datingMenu[6].url}>{datingMenu[6].linkName}</NavLink_styled>
                             <SpanNotify> и уточнений в: </SpanNotify>
                             <NavLink_styled style={{fontSize: '18px'}}
-                                            href={datingMenu[7].url}>{datingMenu[7].linkName}</NavLink_styled>
+                                            href={datingMenu[5].url}>{datingMenu[5].linkName}</NavLink_styled>
                             <br/><br/> <SpanWarn> Перейдите в соответствующие разделы и заполните формы.</SpanWarn>
                             <br/><br/><SpanNotify>Успешных знакомств! </SpanNotify>
                         </h3>

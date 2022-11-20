@@ -1,6 +1,15 @@
 {
     "hostPrefix": "http://localhost:3000",
     "dating": "/dating",
+    "likedYou": "/LikedYou",
+    "inbox": "/Inbox",
+    "favorites": "/Favorites",
+    "mutualLikes": "/MutualLikes",
+    "searchCriteria": "/SearchCriteria",
+    "udpFormPage": "/UdpFormPage",
+    "addPhotos": "/AddPhotos",
+
+
     "setLastVisitDating": "/users/visits",
     "accomodationList": "/formPages/AccommodationList",
     "tenantFormPage": "/formPages/TenantFormPage",

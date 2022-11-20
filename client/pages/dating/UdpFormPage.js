@@ -11,6 +11,7 @@ import axios from "axios";
 import {useTheme} from "@mui/material/styles";
 import BackButton from "../../components/BackButton";
 import classes from './dating.module.css';
+import globalVariables from '../../globalVariables.json';
 
 const UdpFormPage = () => {
     const user = useSelector(sel.user);
@@ -71,7 +72,7 @@ const UdpFormPage = () => {
             let timer = setTimeout(() => {
                 router.push(`${urls.hostPrefix}${urls.dating}`).then();//переадресовываем с задержкой, чтобы в стейте успел появиться datingServiceParticipation
                 clearTimeout(timer);
-            }, 100);//TODO следить, достаточно ли этих ms для отработки стейта при записи datingServiceParticipation
+            }, globalVariables.reduxTimerUpdateMilliseconds);//TODO следить, достаточно ли этих ms для отработки стейта при записи datingServiceParticipation
 
 
         })
