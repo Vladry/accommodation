@@ -15,85 +15,44 @@ import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import {useRouter} from "next/router";
 import DatingSubWrapper from "./DatingSubWrapper";
 
-// const dotenv = require('dotenv');
-// dotenv.config();
-// const cloudName = process.env.CLOUD_NAME;
-// const cloudinaryApi = process.env.ClOUDINARY_URL;
-// const apiKey = process.env.API_KEY;
 
-const apiKey = "158443368157872";
-const cloudinary_env_variable = `cloudinary://158443368157872:P6FFb0lbPJkqkIR-9FshinRLNKo@vladry`;
-const cloudName = "vladry";
-const datingImgFolderPrefix = "dating";
-const CLOUDINARY_RETRIEVE_URL = ` `;
-// const cloudinaryApi = `https://api.cloudinary.com/v1_1/${cloudName}/${datingImgFolderPrefix}/upload`;
-const cloudinaryApi = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;
-const unsigned_upload_preset_name = `huwiaiss`;
-// const unsigned_upload_preset_name = `huwiaiss/${datingImgFolderPrefix}/upload`;
+const getPresignedUrl = async (fileNameKey, duration) => {
+    return await api.get(`/presigned-url?fileNameKey=${fileNameKey}&duration=${duration}`,)
+        .then(r => r);
+}
 
+let storedPhotoUrlArr = [];
+const putPhoto = async (url, file) => {
+    if (!url) return;
 
-const persistPhotoData = async (userId, storeToDatabase) => {
-    console.log("persistPhotoData-> storeToDatabase: ",storeToDatabase);
-    console.log("userId: ", userId);
+    // console.log("in putPhoto, url: ", url, "\n photo: ", file);
+    await axios.put(url, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "multipart/form-data"
+            // "Content-Type": "application/octet-stream"
+        },
+        body: file
+    }).then(r => {
+        storedPhotoUrlArr.push(url.split("?")[0])
+    });
+}
+
+const sendPhotos = async (validPhotos) => {
+    for (let file of validPhotos) {
+        let fileNameKey = uuidv4();
+        let url = await getPresignedUrl(fileNameKey, 60);
+        await putPhoto(url, file).then();
+    }
+}
+
+const storeUrlToDatabase = async (userId, storeToDatabase) => {
     try {
-        api.post(`/users/photos/${userId}?serviceGroup=DATING`, [storeToDatabase]).then(() => console.log("pictureUrlsSuccessfullyStoredToDatabase"));
+        api.post(`/users/photos/${userId}?serviceGroup=DATING`, storeToDatabase).then(() => console.log("pictureUrlsSuccessfullyStoredToDatabase"));
     } catch (e) {
         console.log("error storing photos to database!  \n", e.message);
     }
 };
-
-const sendPhotosToCloudinary = async (userId, persistable) => {
-// вообще нужно использовать REACT SDK, а не писать это все вручную как здесь:
-    persistable.forEach((file, index) => {
-        console.log("index: ", index);
-        const formData = new FormData();
-        formData.append(`file`, file);
-        formData.append('upload_preset', unsigned_upload_preset_name);
-        formData.append("cloud_name", cloudName);
-
-        axios.post(cloudinaryApi, formData).then((res) => {
-            // console.log("fetched a file, res:", res.data);
-/*
-res.data содержит:
-access_mode: "public"
-asset_id: "274775799956e3d9c33abc8070660462"
-bytes: 137091
-created_at: "2022-11-21T22:23:55Z"
-folder: "dating"
-height: 1000
-width: 750
-original_filename: "IMG_20210910_154113"
-public_id: "dating/mmkk8a1mq7mpschcum5n"
-secure_url: "https://res.cloudinary.com/vladry/image/upload/v1669069435/dating/mmkk8a1mq7mpschcum5n.jpg"
-signature: "631d5e0fa976f3d660019a190259be7cea4070b5"
-url: "http://res.cloudinary.com/vladry/image/upload/v1669069435/dating/mmkk8a1mq7mpschcum5n.jpg"
-*/
-            persistPhotoData(userId, res.data.url);
-        }).catch((e) => {
-            console.log("error fetching a file: ", e.message)
-        });
-
-   /*
-   // более мудрёный вариант применения axios:
-
-        const axiosInstance = axios.create(); //-чтобы быть уверенным, что имеем новейший инстанс, кот.не вносит никаких своих headers
-        axiosInstance({
-            url: cloudinaryApi,
-            method: "POST",
-            data: formData,
-            headers: {
-                'Content-Type': 'multipart/form-data',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Headers': 'Origin',
-                'Access-Control-Allow-Credentials': true,
-            }
-        }).then((res) => {
-            console.log("fetched a file, res:", res)
-        }).catch((e) => {
-            console.log("error fetching a file: ", e.message)
-        });*/
-    })
-}
 
 
 const AddPhotos = () => {
@@ -106,36 +65,49 @@ const AddPhotos = () => {
     const sizeLimBytes = photoSizeLimit * 1024 ** 2;
     let nameLengthLim = 50;
     const fileInput = useRef(null);
-    const storedPhotoUrls = useRef([]);
+    const [storedPhotoUrls, setStoredPhotoUrls] = useState([]);
     const user = useSelector(sel.user);
     const [existingPhotoUrls, setExistingPhotoUrls] = useState([]);
     const isPhotosFetching = useSelector(sel.isPhotosFetching);
     const dispatch = useDispatch();
     const fetchingFlag = useRef(false);
+    const datingServiceParticipation = useSelector(sel.datingServiceParticipation);
+    const router = useRouter();
 
     const fetchExistingPhotos = (queriedUserId) => {
         fetchingFlag.current = true;
         dispatch({type: types.FETCHING_PHOTOS, payload: true});
         api.get(`/users/photos/all/${queriedUserId}?serviceGroup=DATING`).then((urls) => {
             dispatch({type: types.FETCHING_PHOTOS, payload: false});
-            setExistingPhotoUrls(() => urls);
-            // console.log("fetched existing photoUrls from DB:", urls)
+            setExistingPhotoUrls(urls);
+            // console.log("fetched photoUrls:", urls)
             fetchingFlag.current = false;
         });
     }
 
+    const storePhotos =
+        (validPhotos) => {
+            sendPhotos(validPhotos).then(() => {
+                setStoredPhotoUrls(storedPhotoUrlArr);
+                storeUrlToDatabase(user.id, storedPhotoUrlArr).then();
+            });
+        };
 
+    useEffect(() => {
+        if (validPhotos.length === 0) return;
+        storePhotos(validPhotos);
+    }, [validPhotos]);
 
 
     useEffect(() => {
+
         if (!fetchingFlag.current && !isPhotosFetching && existingPhotoUrls.length === 0 && user && user.id) {
             fetchExistingPhotos(user.id);
         }
     }, [user])
 
     const handleSubmit = (e) => {
-        console.log("submitting photos: ", validPhotos);
-
+        console.log("submitting photos: ", validPhotos)
     }
 
     const totalPhotos = validPhotos.length + oversizedPhotos.length;
@@ -182,20 +154,15 @@ const AddPhotos = () => {
             <p>{data.name.slice(0, nameLengthLim)}, {Number(data.size).toFixed(1)}MBt</p>
         </ContainerPhotos>);
 
-    const handlePhotosOnScreen = (e) => {
+
+    const onPhotoChange = (e) => {
         let validFiles = [...e.target.files];
         validFiles = validFiles.filter((f) => f.size <= sizeLimBytes);
         let overSizedFiles = [...e.target.files];
         overSizedFiles = overSizedFiles.filter((f) => f.size > sizeLimBytes);
-        const persistable = [...validPhotos, ...validFiles];
-        setValidPhotos((validPhotos) => persistable);
-        setOversizedPhotos([...overSizedFiles]);
-        return persistable;
-    };
 
-    const onInputPhotoChange = (e) => {
-        const persistable = handlePhotosOnScreen(e);
-        sendPhotosToCloudinary(user.id, persistable).then(() => {});
+        setValidPhotos([...validFiles]);
+        setOversizedPhotos([...overSizedFiles]);
     }
 
     useEffect(() => {
@@ -206,7 +173,7 @@ const AddPhotos = () => {
             name: img.name,
             size: img.size / 1024 / 1024
         }));
-        setValidUrls(() => validPhotoUrls);
+        setValidUrls(validPhotoUrls);
 
         const oversizedPhotoUrls = [];
         oversizedPhotos.forEach(img => oversizedPhotoUrls.push({
@@ -214,7 +181,7 @@ const AddPhotos = () => {
             name: img.name,
             size: img.size / 1024 / 1024
         }));
-        setOversizedUrls(() => oversizedPhotoUrls);
+        setOversizedUrls(oversizedPhotoUrls);
 
     }, [oversizedPhotos, validPhotos])
 
@@ -227,7 +194,7 @@ const AddPhotos = () => {
                     <AddAPhotoIcon/>
                     <Label> Select your photos here:
                         <input ref={fileInput} type={'file'} multiple accept={"/image/*"} name={'uploaded'}
-                               onChange={onInputPhotoChange}/>
+                               onChange={onPhotoChange}/>
                         <p>maximum size of each photo: {photoSizeLimit}MBt</p>
                     </Label>
                 </FormItem>
@@ -246,7 +213,7 @@ const AddPhotos = () => {
                     </Paper>
                     {/*//----------------------------------------------*/}
 
-                    {goodPhotos.length > 0 && <h4>Uploaded photos / Загруженные фото:</h4>}
+                    {goodPhotos.length > 0 && <h4>Accepted photos / Принятые фото:</h4>}
                     <Paper sx={{
                         display: 'flex', alignItems: 'flex-start', flexFlow: 'wrap',
                         ...theme.paperProps
@@ -255,9 +222,9 @@ const AddPhotos = () => {
                         {goodPhotos}
                     </Paper>
                     {rejectedPhotos.length > 0 &&
-                        <h4 style={{marginTop: '60px'}}>Rejected photos (larger than {photoSizeLimit} mBts )
+                        <h4 style={{marginTop: '60px'}}>The following photos larger than limit of: {photoSizeLimit} mBts
                             /
-                            Не принятые фото (более {photoSizeLimit} Мбт )</h4>}
+                            Размер фото выше ограничения в: {photoSizeLimit} Мбт </h4>}
                     <Paper sx={{
                         display: 'flex', flexWrap: 'wrap',
                         ...theme.paperProps
