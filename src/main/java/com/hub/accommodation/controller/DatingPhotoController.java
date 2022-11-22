@@ -5,7 +5,6 @@ import com.hub.accommodation.domain.user.enums.ServiceGroup;
 import com.hub.accommodation.service.DatingPhotoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -48,14 +47,14 @@ public class DatingPhotoController {
     public void saveAllPhotos(@PathVariable("userId") Long userId,
                               @RequestParam("serviceGroup") ServiceGroup serviceGroup,
                               @RequestBody List<String> photoUrls) {
-        datingService.saveAllPhotos(userId, serviceGroup, photoUrls);
+        datingService.saveAllPhotosData(userId, serviceGroup, photoUrls);
     }
 
     @PutMapping("/photos/{userId}")
     public void saveOnePhoto(@PathVariable("userId") Long userId,
                              @RequestParam("serviceGroup") ServiceGroup serviceGroup,
                              @RequestParam("url") String photoUrl) {
-        datingService.saveOnePhoto(userId, serviceGroup, photoUrl);
+        datingService.saveOnePhotoData(userId, serviceGroup, photoUrl);
     }
 
     @DeleteMapping("/photos")
