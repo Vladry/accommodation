@@ -46,16 +46,16 @@ public class DatingPhotoController {
     @PostMapping("/photos/{userId}")
     public void saveAllPhotos(@PathVariable("userId") Long userId,
                               @RequestParam("serviceGroup") ServiceGroup serviceGroup,
-                              @RequestBody List<String> photoUrls) {
-        datingService.saveAllPhotosData(userId, serviceGroup, photoUrls);
+                              @RequestBody List<Photo> photoData) {
+        datingService.saveAllPhotosData(userId, serviceGroup, photoData);
     }
 
-    @PutMapping("/photos/{userId}")
-    public void saveOnePhoto(@PathVariable("userId") Long userId,
-                             @RequestParam("serviceGroup") ServiceGroup serviceGroup,
-                             @RequestParam("url") String photoUrl) {
-        datingService.saveOnePhotoData(userId, serviceGroup, photoUrl);
-    }
+//    @PutMapping("/photos/{userId}")
+//    public void saveOnePhoto(@PathVariable("userId") Long userId,
+//                             @RequestParam("serviceGroup") ServiceGroup serviceGroup,
+//                             @RequestParam("url") String photoData) {
+//        datingService.saveOnePhotoData(userId, serviceGroup, "nodata");
+//    }
 
     @DeleteMapping("/photos")
     public void deleteOnePhotoByUrl(@RequestParam("url") String url) {

@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -34,19 +33,21 @@ public class DatingPhotoService extends GeneralService<User> {
     }
 
 
-    public void saveAllPhotosData(Long userId, ServiceGroup serviceGroup, List<String> photoData) {
-        System.out.println("service.saveAllPhotos-> ");
-        System.out.println("userId: "+ userId);
-        System.out.println("serviceGroup: "+serviceGroup);
-        System.out.println("photoData: "+photoData);
-
+    public void saveAllPhotosData(Long userId, ServiceGroup serviceGroup, List<Photo> photoData) {
         photoData.forEach( onePhotoData -> {
             saveOnePhotoData(userId, serviceGroup, onePhotoData);
         });
     }
 
-    public void saveOnePhotoData(Long userId, ServiceGroup serviceGroup, String photoUrl) {
-        photoRepository.saveOnePhotoData(userId, serviceGroup.name(), photoUrl);
+    public void saveOnePhotoData(Long userId, ServiceGroup serviceGroup, Photo onePhotoData) {
+        onePhotoData.setServiceGroup(serviceGroup);
+        onePhotoData.setUserId(userId);
+        System.out.println("service.saveOnePhotoData-> ");
+        System.out.println("userId: "+ userId);
+        System.out.println("photoData: " + onePhotoData);
+
+        photoRepository.save(onePhotoData);
+//        photoRepository.saveOnePhotoData(onePhotoData);
     }
 
 

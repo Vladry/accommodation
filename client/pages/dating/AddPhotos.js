@@ -54,7 +54,7 @@ const sendPhotosToCloudinary = async (userId, persistable) => {
         axios.post(cloudinaryApi, formData).then((res) => {
             // console.log("fetched a file, res:", res.data);
 /*
-res.data содержит:
+res.data содержит потенциально  интересные мне данные:
 access_mode: "public"
 asset_id: "274775799956e3d9c33abc8070660462"
 bytes: 137091
@@ -68,7 +68,7 @@ secure_url: "https://res.cloudinary.com/vladry/image/upload/v1669069435/dating/m
 signature: "631d5e0fa976f3d660019a190259be7cea4070b5"
 url: "http://res.cloudinary.com/vladry/image/upload/v1669069435/dating/mmkk8a1mq7mpschcum5n.jpg"
 */
-            persistPhotoData(userId, res.data.url);
+            persistPhotoData(userId, res.data);
         }).catch((e) => {
             console.log("error fetching a file: ", e.message)
         });
