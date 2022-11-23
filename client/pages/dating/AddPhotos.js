@@ -33,10 +33,10 @@ const unsigned_upload_preset_name = `huwiaiss`;
 
 
 const persistPhotoData = async (userId, storeToDatabase) => {
-    console.log("persistPhotoData-> storeToDatabase: ",storeToDatabase);
-    console.log("userId: ", userId);
+    console.log("persistPhotoData->");
     try {
-        api.post(`/users/photos/${userId}?serviceGroup=DATING`, [storeToDatabase]).then(() => console.log("pictureUrlsSuccessfullyStoredToDatabase"));
+        api.post(`/users/photos/${userId}?serviceGroup=DATING`, [storeToDatabase])
+            .then(() => console.log("pictureUrlsSuccessfullyStoredToDatabase"));
     } catch (e) {
         console.log("error storing photos to database!  \n", e.message);
     }
@@ -45,7 +45,6 @@ const persistPhotoData = async (userId, storeToDatabase) => {
 const sendPhotosToCloudinary = async (userId, persistable) => {
 // вообще нужно использовать REACT SDK, а не писать это все вручную как здесь:
     persistable.forEach((file, index) => {
-        console.log("index: ", index);
         const formData = new FormData();
         formData.append(`file`, file);
         formData.append('upload_preset', unsigned_upload_preset_name);
@@ -53,45 +52,45 @@ const sendPhotosToCloudinary = async (userId, persistable) => {
 
         axios.post(cloudinaryApi, formData).then((res) => {
             // console.log("fetched a file, res:", res.data);
-/*
-res.data содержит потенциально  интересные мне данные:
-access_mode: "public"
-asset_id: "274775799956e3d9c33abc8070660462"
-bytes: 137091
-created_at: "2022-11-21T22:23:55Z"
-folder: "dating"
-height: 1000
-width: 750
-original_filename: "IMG_20210910_154113"
-public_id: "dating/mmkk8a1mq7mpschcum5n"
-secure_url: "https://res.cloudinary.com/vladry/image/upload/v1669069435/dating/mmkk8a1mq7mpschcum5n.jpg"
-signature: "631d5e0fa976f3d660019a190259be7cea4070b5"
-url: "http://res.cloudinary.com/vladry/image/upload/v1669069435/dating/mmkk8a1mq7mpschcum5n.jpg"
-*/
+            /*
+            res.data содержит потенциально  интересные мне данные:
+            access_mode: "public"
+            asset_id: "274775799956e3d9c33abc8070660462"
+            bytes: 137091
+            created_at: "2022-11-21T22:23:55Z"
+            folder: "dating"
+            height: 1000
+            width: 750
+            original_filename: "IMG_20210910_154113"
+            public_id: "dating/mmkk8a1mq7mpschcum5n"
+            secure_url: "https://res.cloudinary.com/vladry/image/upload/v1669069435/dating/mmkk8a1mq7mpschcum5n.jpg"
+            signature: "631d5e0fa976f3d660019a190259be7cea4070b5"
+            url: "http://res.cloudinary.com/vladry/image/upload/v1669069435/dating/mmkk8a1mq7mpschcum5n.jpg"
+            */
             persistPhotoData(userId, res.data);
         }).catch((e) => {
             console.log("error fetching a file: ", e.message)
         });
 
-   /*
-   // более мудрёный вариант применения axios:
+        /*
+        // более мудрёный вариант применения axios:
 
-        const axiosInstance = axios.create(); //-чтобы быть уверенным, что имеем новейший инстанс, кот.не вносит никаких своих headers
-        axiosInstance({
-            url: cloudinaryApi,
-            method: "POST",
-            data: formData,
-            headers: {
-                'Content-Type': 'multipart/form-data',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Headers': 'Origin',
-                'Access-Control-Allow-Credentials': true,
-            }
-        }).then((res) => {
-            console.log("fetched a file, res:", res)
-        }).catch((e) => {
-            console.log("error fetching a file: ", e.message)
-        });*/
+             const axiosInstance = axios.create(); //-чтобы быть уверенным, что имеем новейший инстанс, кот.не вносит никаких своих headers
+             axiosInstance({
+                 url: cloudinaryApi,
+                 method: "POST",
+                 data: formData,
+                 headers: {
+                     'Content-Type': 'multipart/form-data',
+                     'Access-Control-Allow-Origin': '*',
+                     'Access-Control-Allow-Headers': 'Origin',
+                     'Access-Control-Allow-Credentials': true,
+                 }
+             }).then((res) => {
+                 console.log("fetched a file, res:", res)
+             }).catch((e) => {
+                 console.log("error fetching a file: ", e.message)
+             });*/
     })
 }
 
@@ -106,18 +105,19 @@ const AddPhotos = () => {
     const sizeLimBytes = photoSizeLimit * 1024 ** 2;
     let nameLengthLim = 50;
     const fileInput = useRef(null);
-    const storedPhotoUrls = useRef([]);
     const user = useSelector(sel.user);
     const [existingPhotoUrls, setExistingPhotoUrls] = useState([]);
     const isPhotosFetching = useSelector(sel.isPhotosFetching);
     const dispatch = useDispatch();
     const fetchingFlag = useRef(false);
 
-    const fetchExistingPhotos = (queriedUserId) => {
+    const fetchExistingPhotos = (userId) => {
+        // console.log("in fetchExistingPhotos");
         fetchingFlag.current = true;
         dispatch({type: types.FETCHING_PHOTOS, payload: true});
-        api.get(`/users/photos/all/${queriedUserId}?serviceGroup=DATING`).then((urls) => {
+        api.get(`/users/photos/all/${userId}?serviceGroup=DATING`).then((urls) => {
             dispatch({type: types.FETCHING_PHOTOS, payload: false});
+            console.log("setExistingPhotoUrls(() => urls);");
             setExistingPhotoUrls(() => urls);
             // console.log("fetched existing photoUrls from DB:", urls)
             fetchingFlag.current = false;
@@ -125,18 +125,12 @@ const AddPhotos = () => {
     }
 
 
-
-
     useEffect(() => {
         if (!fetchingFlag.current && !isPhotosFetching && existingPhotoUrls.length === 0 && user && user.id) {
             fetchExistingPhotos(user.id);
         }
-    }, [user])
+    }, [user, validPhotos, oversizedPhotos, validUrls, oversizedUrls])
 
-    const handleSubmit = (e) => {
-        console.log("submitting photos: ", validPhotos);
-
-    }
 
     const totalPhotos = validPhotos.length + oversizedPhotos.length;
     let width = 0;
@@ -168,6 +162,7 @@ const AddPhotos = () => {
             {/*<p>{data.name.slice(0, nameLengthLim)}, {Number(data.size).toFixed(1)}MBt</p>*/}
         </ContainerPhotos>);
 
+
     const goodPhotos = validUrls.map((data, ind) =>
         <ContainerPhotos key={ind} borderColor={'green'}>
             <img src={data.url} alt={`accepted photo under ${data.name}`}
@@ -182,10 +177,11 @@ const AddPhotos = () => {
             <p>{data.name.slice(0, nameLengthLim)}, {Number(data.size).toFixed(1)}MBt</p>
         </ContainerPhotos>);
 
-    const handlePhotosOnScreen = (e) => {
-        let validFiles = [...e.target.files];
+    const handlePhotosOnScreen = (files) => {
+        console.log("handlePhotosOnScreen->")
+        let validFiles = [...files];
         validFiles = validFiles.filter((f) => f.size <= sizeLimBytes);
-        let overSizedFiles = [...e.target.files];
+        let overSizedFiles = [...files];
         overSizedFiles = overSizedFiles.filter((f) => f.size > sizeLimBytes);
         const persistable = [...validPhotos, ...validFiles];
         setValidPhotos((validPhotos) => persistable);
@@ -193,10 +189,45 @@ const AddPhotos = () => {
         return persistable;
     };
 
-    const onInputPhotoChange = (e) => {
-        const persistable = handlePhotosOnScreen(e);
-        sendPhotosToCloudinary(user.id, persistable).then(() => {});
+    const handleSubmit = (e) => {
     }
+
+    const onInputPhotoChange = (e) => {
+        const persistable = handlePhotosOnScreen(e.target.files);
+        e.target.value = null;//обязательно очищать, иначе повторно выбранное значение не запустит onClick:  https://stackoverflow.com/questions/12030686/html-input-file-selection-event-not-firing-upon-selecting-the-same-file
+    }
+
+    const clearTempFilesAndRerender = () => {
+        setValidPhotos([]);
+        setOversizedPhotos([]);
+        setValidUrls([]);
+        setOversizedUrls([]);
+        setExistingPhotoUrls(() => []);
+    }
+
+    const upload = () => {
+        sendPhotosToCloudinary(user.id, validPhotos).then(() => {
+            // по-идее, очистка временных фоток в стейте должно происходить при персисте фоток. Но ,если
+            //  сбой сети и не всё ушло в БД и не очистились и не запустился пере-рендер, тогда
+            //  -запускаем таймер резервной очистки и перерендера:
+            setTimeout(() => {
+                if (validPhotos.length > 0) {
+                    clearTempFilesAndRerender();
+                }
+            }, 2000)
+
+        });
+    }
+    const reset = () => { //TODO удалить
+        setValidPhotos(() => []);
+        setOversizedPhotos(() => []);
+        setExistingPhotoUrls(() => []);
+    };
+
+    const сancelChosen = () => {
+        setValidPhotos(() => []);
+        setOversizedPhotos(() => []);
+    };
 
     useEffect(() => {
         // console.log("fileInput.current.files: ", fileInput.current.files);
@@ -231,28 +262,39 @@ const AddPhotos = () => {
                         <p>maximum size of each photo: {photoSizeLimit}MBt</p>
                     </Label>
                 </FormItem>
-                <Button type={"submit"} variant={'contained'} color={"primary"}
-                        disabled={(totalPhotos <= 0)}>submit</Button>
+                {/*                <Button type={"submit"} variant={'contained'} color={"primary"}
+                        disabled={(totalPhotos <= 0)}>submit</Button>*/}
                 <Box sx={{position: "relative", top: '55px', left: '20px'}}>
                     {/*//----------------------------------------------*/}
 
-                    {existingPhotos.length > 0 && <h4>Manage your current photos: / Редактируйте Ваши фотографии:</h4>}
+                    {existingPhotos?.length > 0 && <h4>Manage your current photos: / Редактируйте Ваши фотографии:</h4>}
                     <Paper sx={{
                         display: 'flex', alignItems: 'flex-start', flexFlow: 'wrap',
                         ...theme.paperProps
                     }}>
+                        <Button sx={{ml: '20px', height: '40px', alignSelf: 'center'}} variant={'outlined'}
+                                size={'small'} onClick={reset}>Reset/Сбросить</Button>
+                        {/*TODO удалить кнопку выше*/}
 
                         {existingPhotos}
                     </Paper>
                     {/*//----------------------------------------------*/}
 
-                    {goodPhotos.length > 0 && <h4>Uploaded photos / Загруженные фото:</h4>}
+                    {goodPhotos.length > 0 &&
+                        <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
+                            <h4>Ready for upload / Готовые к загрузке:</h4>
+                            <Button sx={{ml: '20px', height: '40px', alignSelf: 'center'}} variant={'contained'}
+                                    size={'small'} onClick={upload}>Upload/Загрузить</Button>
+                            <Button sx={{ml: '20px', height: '40px', alignSelf: 'center'}} variant={'outlined'}
+                                    size={'small'} onClick={сancelChosen}>сancelChosen/Сбросить выбранные</Button>
+                        </Box>}
                     <Paper sx={{
                         display: 'flex', alignItems: 'flex-start', flexFlow: 'wrap',
                         ...theme.paperProps
                     }}>
 
                         {goodPhotos}
+
                     </Paper>
                     {rejectedPhotos.length > 0 &&
                         <h4 style={{marginTop: '60px'}}>Rejected photos (larger than {photoSizeLimit} mBts )

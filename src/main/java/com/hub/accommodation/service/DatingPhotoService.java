@@ -19,7 +19,6 @@ import java.util.Set;
 public class DatingPhotoService extends GeneralService<User> {
 
     private final PhotoRepository photoRepository;
-    private final PhotoJpaRepository photoJpaRepository;
 
     @Transactional(readOnly = true)
     public Set<Photo> findAllPhotosByUserIdAndServiceGroup(Long userId, ServiceGroup serviceGroup) {
@@ -42,12 +41,7 @@ public class DatingPhotoService extends GeneralService<User> {
     public void saveOnePhotoData(Long userId, ServiceGroup serviceGroup, Photo onePhotoData) {
         onePhotoData.setServiceGroup(serviceGroup);
         onePhotoData.setUserId(userId);
-        System.out.println("service.saveOnePhotoData-> ");
-        System.out.println("userId: "+ userId);
-        System.out.println("photoData: " + onePhotoData);
-
         photoRepository.save(onePhotoData);
-//        photoRepository.saveOnePhotoData(onePhotoData);
     }
 
 
