@@ -234,7 +234,7 @@ const AddPhotos = () => {
                 if (validPhotos.length > 0) {
                     clearTempFilesAndRerender();
                 }
-            }, 6000)
+            }, globalVariables.addPhotosReduxReserveUpdate)
 
         });
     }

@@ -1,4 +1,5 @@
 {
-  "reduxTimerUpdateMilliseconds": 500,
-  "datingGuestPeriodMs": 5000
+  "reduxTimerUpdateMilliseconds": 600,
+  "datingGuestPeriodMs": 5000,
+  "addPhotosReduxReserveUpdate": 6000
 }
