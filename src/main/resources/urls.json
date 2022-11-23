@@ -5,7 +5,7 @@
     "inbox": "/Inbox",
     "favorites": "/Favorites",
     "mutualLikes": "/MutualLikes",
-    "searchCriteria": "/SearchCriteria",
+    "searchCriteria": "/SearchCriteriaFormPage",
     "udpFormPage": "/UdpFormPage",
     "addPhotos": "/AddPhotos",
 
@@ -18,6 +18,7 @@
 
     "userUrl": "/users/profile",
     "datingProfile": "/users/datingProfile",
+    "datingSearchCriteriaProfile": "/users/datingSearchCriteriaProfile",
     "accommodProfile": "/accommodations",
     "tenantUserProfile": "/tenants",
     "allUsersByIds" : "/users/allByIds",

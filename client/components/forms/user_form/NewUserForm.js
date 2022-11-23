@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 import {Box} from "@mui/material";
 import {useRouter} from "next/router";
 import {Context} from "../../../context";
-import {searchCriteriaFields} from "../dating_user_profile_form/searchCriteriaFields";
+import {udpFields_} from "../dating_user_profile_form/searchCriteriaFields";
 
 
 const NewUserForm = ({handleSubmit}) => {

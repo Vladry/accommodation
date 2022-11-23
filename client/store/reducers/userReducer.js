@@ -15,6 +15,9 @@ const initialState = {
     loadingUserDatingProfile: false,
     isCurrUserHasDatingProfile: false,
 
+    datingSearchCriteriaProfile: null,
+    loadingDatingSearchCriteriaProfile: false,
+    isDatingSearchCriteriaProfile: false,
 
     candidateDatingProfile: null,
     loadingCandidateDatingProfile: false,
@@ -129,10 +132,9 @@ export default (state = initialState, action) => {
                 loading: false
             }
 
-
+        /*** ----------processing userDatingProfile----------------- ***/
         case types.GET_USER_DATING_PROFILE:
             return {...state, loadingUserDatingProfile: true}
-
         case types.SET_USER_DATING_PROFILE_SUCCESS:
             // console.log("userDatingProfile from DB: ",action.payload);
             return {
@@ -143,6 +145,26 @@ export default (state = initialState, action) => {
             }
         case types.SET_USER_DATING_PROFILE_FAIL:
             return {...state, isCurrUserHasDatingProfile: false, loadingUserDatingProfile: false}
+        /*** ----------end processing userDatingProfile----------------- ***/
+
+
+
+        /*** ----------processing datingSearchCriteriaProfile----------------- ***/
+
+        case types.GET_USER_DATING_SEARCH_CRITERIA_PROFILE:
+            return {...state, loadingDatingSearchCriteriaProfile: true}
+
+        case types.SET_USER_DATING_SEARCH_CRITERIA_PROFILE_SUCCESS:
+            return {
+                ...state,
+                datingSearchCriteriaProfile: action.payload,
+                isDatingSearchCriteriaProfile: true,
+                loadingDatingSearchCriteriaProfile: false,
+            }
+        case types.SET_USER_DATING_SEARCH_CRITERIA_PROFILE_FAIL:
+            return {...state, isDatingSearchCriteriaProfile: false, loadingDatingSearchCriteriaProfile: false}
+        /*** ----------end processing datingSearchCriteriaProfile----------------- ***/
+
 
 
         case types.GET_CANDIDATE_DATING_PROFILE:

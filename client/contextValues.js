@@ -1,7 +1,7 @@
 import urls from '../src/main/resources/urls.json'
 import subscriptions from '../src/main/resources/subscriptions.json'
 import types from "./store/types";
-import {searchCriteriaFields} from "./components/forms/dating_user_profile_form/searchCriteriaFields";
+import {udpFields_} from "./components/forms/dating_user_profile_form/searchCriteriaFields";
 
 const neatUpZonedDateTime = (datingLastVisitDate) => {
     if (datingLastVisitDate !== null) {

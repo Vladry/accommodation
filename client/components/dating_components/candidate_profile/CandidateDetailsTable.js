@@ -1,7 +1,7 @@
 import React from 'react';
 import {Grid} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
-import {searchCriteriaFields} from "../../forms/dating_user_profile_form/searchCriteriaFields";
+import {udpFields_} from "../../forms/dating_user_profile_form/searchCriteriaFields";
 import {useSelector} from "react-redux";
 import sel from "../../../store/selectors";
 import UdpMapper from "./UdpMapper";
@@ -13,7 +13,7 @@ const CandidateDetailsTable = () => {
 
     if (!candidateDatingProfile) return <p>not authenticated or queriedUserId undefined or isLoading</p>;
 
-    const mappedFields = <UdpMapper udpFields={searchCriteriaFields} candidateDatingProfile={candidateDatingProfile}
+    const mappedFields = <UdpMapper udpFields={udpFields_} candidateDatingProfile={candidateDatingProfile}
                                     reviewedUser={reviewedUser}/>;
 
     // console.log("mappedFields: ",mappedFields);

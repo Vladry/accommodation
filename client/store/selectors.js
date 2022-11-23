@@ -2,9 +2,15 @@ const user = state => state.userData.user;
 const loading = state => state.userData.loading;
 const loadingMatchingCandidatesIds = state => state.userData.loadingMatchingCandidatesIds;
 const userDatingProfile = state => state.userData.userDatingProfile;
-const searchCriteria = state => state.userData.searchCriteria;
 const userDatingProfileData = state => state.userData.userDatingProfile.data;
 const loadingUserDatingProfile = state => state.userData.loadingUserDatingProfile;
+
+
+const datingSearchCriteriaProfile = state => state.userData.datingSearchCriteriaProfile;
+const loadingDatingSearchCriteriaProfile = state => state.userData.loadingDatingSearchCriteriaProfile;
+const isDatingSearchCriteriaProfile = state => state.userData.isDatingSearchCriteriaProfile;
+
+
 const accommodationUserProfiles = state => state.userData.accommodationUserProfiles;
 const isCurrUserHasAccommodationProfile = state => state.userData.isCurrUserHasAccommodationProfile;
 const tenantUserProfile = state => state.userData.tenantUserProfile;
@@ -33,7 +39,9 @@ export default {
     loading,
     loadingMatchingCandidatesIds,
     userDatingProfile,
-    searchCriteria,
+    datingSearchCriteriaProfile,
+    loadingDatingSearchCriteriaProfile,
+    isDatingSearchCriteriaProfile,
     userDatingProfileData,
     loadingUserDatingProfile,
     accommodationUserProfiles,

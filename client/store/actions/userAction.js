@@ -9,6 +9,8 @@ export const getUser = () => (dispatch) => { //TODO разделить фетч�
             // console.log("before dispatch:  SET_USER_SUCCESS");
             dispatch({type: types.SET_USER_SUCCESS, payload: user});
             dispatch(fetchData(urls.datingProfile, user.id, types.GET_USER_DATING_PROFILE, types.SET_USER_DATING_PROFILE_SUCCESS, types.SET_USER_DATING_PROFILE_FAIL));
+            dispatch(fetchData(urls.datingSearchCriteriaProfile, user.id, types.GET_USER_DATING_SEARCH_CRITERIA_PROFILE, types.SET_USER_DATING_SEARCH_CRITERIA_PROFILE_SUCCESS, types.SET_USER_DATING_SEARCH_CRITERIA_PROFILE_FAIL));
+
             // dispatch(fetchData(urls.accommodProfile, user.id, types.GET_ACCOMMODATION_USER_PROFILE, types.SET_ACCOMMODATION_USER_PROFILE_SUCCESS, types.SET_ACCOMMODATION_USER_PROFILE_FAIL));
             // dispatch(fetchData(urls.tenantUserProfile, user.id, types.GET_TENANT_USER_PROFILE, types.SET_TENANT_USER_PROFILE_SUCCESS, types.SET_TENANT_USER_PROFILE_FAIL));
             dispatch(fetchData(urls.userSubscriptions, user.id, types.GET_SUBSCRIPTIONS, types.SET_SUBSCRIPTIONS_SUCCESS, types.SET_SUBSCRIPTIONS_FAIL));

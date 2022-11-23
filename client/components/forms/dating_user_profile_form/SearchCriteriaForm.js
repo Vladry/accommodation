@@ -7,13 +7,11 @@ import sel from "../../../store/selectors";
 import {Grid} from "@mui/material";
 import {Context} from "../../../context";
 
-const UdpForm = ({handleSubmit}) => {
-    const user = useSelector(sel.user);
-    const searchCriteria = useSelector(sel.searchCriteria);
+const SearchCriteriaForm = ({handleSubmit}) => {
+    const datingSearchCriteriaProfile = useSelector(sel.datingSearchCriteriaProfile);
 
-    /*** Блок получения values для рендера udpProfileForm  (редактирование анкеты) ***/
     const {prepareFormData} = useContext(Context);
-    const initVal = {"initialValues": prepareFormData(searchCriteriaFields, searchCriteria)};
+    const initVal = {"initialValues": prepareFormData(searchCriteriaFields, datingSearchCriteriaProfile)};
     if (initVal.initialValues) {
         return (
             <Grid container={true} spacing={2}>
@@ -29,4 +27,4 @@ const UdpForm = ({handleSubmit}) => {
     }
 };
 
-export default UdpForm;
+export default SearchCriteriaForm;
