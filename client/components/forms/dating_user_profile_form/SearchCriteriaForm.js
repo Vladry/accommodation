@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext} from 'react';
 import {useSelector} from "react-redux";
 import FormMapper from "../FormMapper";
 import {searchCriteriaFields} from "./searchCriteriaFields";
@@ -9,11 +9,11 @@ import {Context} from "../../../context";
 
 const UdpForm = ({handleSubmit}) => {
     const user = useSelector(sel.user);
-    const userDatingProfile = useSelector(sel.userDatingProfile);
+    const searchCriteria = useSelector(sel.searchCriteria);
 
     /*** Блок получения values для рендера udpProfileForm  (редактирование анкеты) ***/
     const {prepareFormData} = useContext(Context);
-    const initVal = {"initialValues": prepareFormData(searchCriteriaFields, userDatingProfile)};
+    const initVal = {"initialValues": prepareFormData(searchCriteriaFields, searchCriteria)};
     if (initVal.initialValues) {
         return (
             <Grid container={true} spacing={2}>

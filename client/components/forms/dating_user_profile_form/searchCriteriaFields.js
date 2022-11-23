@@ -1,4 +1,4 @@
-export const udpFields = [
+export const searchCriteriaFields = [
 
     {
         id: "name",

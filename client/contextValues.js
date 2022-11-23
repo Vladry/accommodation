@@ -1,7 +1,7 @@
 import urls from '../src/main/resources/urls.json'
 import subscriptions from '../src/main/resources/subscriptions.json'
 import types from "./store/types";
-import {udpFields} from "./components/forms/dating_user_profile_form/udpFields";
+import {searchCriteriaFields} from "./components/forms/dating_user_profile_form/searchCriteriaFields";
 
 const neatUpZonedDateTime = (datingLastVisitDate) => {
     if (datingLastVisitDate !== null) {
@@ -50,14 +50,14 @@ const forwardForUdProfileId = (router, queriedUserId, user, dispatch, event) => 
 }
 
 
-const prepareFormData = (udpFields, userDatingProfile) => {
-    if (userDatingProfile) {
-        return udpFields.reduce((acc, current) => ({
+const prepareFormData = (fields, profile) => {
+    if (profile) {
+        return fields.reduce((acc, current) => ({
             ...acc,
-            [current.formikRef]: userDatingProfile[current.formikRef]
+            [current.formikRef]: profile[current.formikRef]
         }), {})
     } else  {
-        return udpFields.reduce((acc, current) => ({
+        return fields.reduce((acc, current) => ({
             ...acc,
             [current.formikRef]: current.valueByDefault
         }), {})

@@ -2,6 +2,7 @@ const user = state => state.userData.user;
 const loading = state => state.userData.loading;
 const loadingMatchingCandidatesIds = state => state.userData.loadingMatchingCandidatesIds;
 const userDatingProfile = state => state.userData.userDatingProfile;
+const searchCriteria = state => state.userData.searchCriteria;
 const userDatingProfileData = state => state.userData.userDatingProfile.data;
 const loadingUserDatingProfile = state => state.userData.loadingUserDatingProfile;
 const accommodationUserProfiles = state => state.userData.accommodationUserProfiles;
@@ -32,6 +33,7 @@ export default {
     loading,
     loadingMatchingCandidatesIds,
     userDatingProfile,
+    searchCriteria,
     userDatingProfileData,
     loadingUserDatingProfile,
     accommodationUserProfiles,
