@@ -61,12 +61,12 @@ export const fetchData = (url, userId, loadingAct, successAction, failAction) =>
         dispatch({type: loadingAct});
         api.get(`${url}/${userId}`).then(data => {
             // console.log("fetched data: ", data);
-            if (data && (data["userId"] || data[0] && data[0]["userId"])) {
+            if (data && (data["userId"] /*|| data[0] && data[0]["userId"]*/)) {
+                // console.log("user data: ", data)
                 dispatch({type: successAction, payload: data});
             } else {
                 console.log("Exception in fetch userData:");
                 console.log("loadingAct: ",loadingAct);
-                console.log("successAction: ",successAction);
                 dispatch({type: failAction});
             }
         });

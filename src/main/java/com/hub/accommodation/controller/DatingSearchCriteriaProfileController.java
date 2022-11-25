@@ -41,7 +41,12 @@ public class DatingSearchCriteriaProfileController {
         JsonToDtoConverter<DatingSearchCriteriaProfileRqDto> converter = new JsonToDtoConverter<>(DatingSearchCriteriaProfileRqDto.class);
         DatingSearchCriteriaProfileRqDto scpRqDto = converter.doConvert(jsonString);
         DatingSearchCriteriaProfile scp = datingSearchCriteriaProfileFacade.convertToEntity(scpRqDto);
-        return datingSearchCriteriaProfileService.saveOrUpdate(scp);
+        try {
+            return datingSearchCriteriaProfileService.saveOrUpdate(scp);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            System.out.println("exception: " + e.getMessage());
+        }
+        return null;
     }
 
 

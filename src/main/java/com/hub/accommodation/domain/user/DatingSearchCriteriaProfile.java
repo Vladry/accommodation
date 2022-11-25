@@ -5,6 +5,7 @@ import com.hub.accommodation.domain.accommodation.enums.Country;
 import com.hub.accommodation.domain.user.enums.Sex;
 import lombok.*;
 import lombok.experimental.Accessors;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -13,6 +14,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
+@DynamicUpdate
 @Accessors(chain=true)
 @Getter
 @Setter
@@ -51,16 +53,17 @@ public class DatingSearchCriteriaProfile extends BaseEntity {
     private Integer maxNumberOfChildrenAllowed = 100;
 
 
-    @ElementCollection(fetch = FetchType.LAZY, targetClass = Interests.class)
-    @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "their_Integererests_list")
-    @Column(name = "their_Integererests_wanted")
-    private Collection<Interests> desiredWithInterests;
+//    @ElementCollection(fetch = FetchType.LAZY, targetClass = Interests.class)
+//    @Enumerated(EnumType.STRING)
+//    @CollectionTable(name = "their_Integererests_list")
+//    @Column(name = "their_Integererests_wanted")
+//    private Collection<Interests> desiredWithInterests;
 
 
     @Override
     public String toString() {
-        return "UserDatingProfile{" +
+        return "searchCriteriaProfile{" +
+                "id=" + id +
                 "userId=" + userId +
                 ", seekAPersonOfSex=" + seekAPersonOfSex +
                 ", minHeightIWant=" + minHeightIWant +

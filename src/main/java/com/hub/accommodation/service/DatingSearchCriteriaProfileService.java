@@ -1,7 +1,9 @@
 package com.hub.accommodation.service;
 
+import com.hub.accommodation.domain.accommodation.enums.Country;
 import com.hub.accommodation.domain.user.DatingSearchCriteriaProfile;
 import com.hub.accommodation.domain.user.UserDatingProfile;
+import com.hub.accommodation.domain.user.enums.Sex;
 import com.hub.accommodation.dto.response.DatingSearchCriteriaProfileRsDto;
 import com.hub.accommodation.dto.response.UserDatingProfileRsDto;
 import com.hub.accommodation.facade.DatingSearchCriteriaProfileFacade;
@@ -14,6 +16,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,12 +29,64 @@ public class DatingSearchCriteriaProfileService implements ServiceInterface<Dati
     private final DatingSearchCriteriaProfileFacade datingSearchCriteriaProfileFacade;
 
 
+    public DatingSearchCriteriaProfileRsDto saveOrUpdate(DatingSearchCriteriaProfile entity) throws NoSuchFieldException, IllegalAccessException {
+        String idStr = String.valueOf(entity.getId() != null ? entity.getId() : "null");
+        String userIdStr = String.valueOf(entity.getUserId() != null ? entity.getUserId() : "null");
 
-    public DatingSearchCriteriaProfileRsDto saveOrUpdate(DatingSearchCriteriaProfile entity) {
-        return datingSearchCriteriaProfileFacade.convertToDto(datingSearchCriteriaProfileRepository.save(entity));
+        if (entity.getId() == null) {
+//            System.out.println("id: " + idStr);
+//            System.out.println("userId: " + userIdStr);
+            System.out.println("seems as a new entity, just saving!");
+            return datingSearchCriteriaProfileFacade.convertToDto(datingSearchCriteriaProfileRepository.save(entity));
+        } else {
+            System.out.println("id: " + idStr);
+            System.out.println("userId: " + userIdStr);
+            System.out.println("entity is not new, modifying!");
+            DatingSearchCriteriaProfile scp = findDatingSearchCriteriaProfileByUserId(entity.getUserId()).get();
+//            System.out.println("scp before change: " + scp);
+
+            Field[] fields = scp.getClass().getDeclaredFields();
+
+            for (Field field : fields) {
+                field.setAccessible(true);
+                Object value = field.get(entity);
+
+                if (field.getType().equals(Boolean.class)) {
+                    if (value == field.get(scp)) continue;
+                }
+                if (field.getType().equals(String.class)) {
+                    if (value.equals(field.get(scp))) continue;
+                }
+
+                if (field.getType().equals(Sex.class) || field.getType().equals(Country.class)) {
+                    if (value == field.get(scp)) continue;
+                }
+
+
+                if (field.getType().equals(Long.class)) {
+                    Long val = (Long) value;
+                    if (val.compareTo((Long) field.get(scp)) == 0) {
+                        continue;
+                    }
+                }
+
+                if (field.getType().equals(Integer.class)) {
+                    if (value == field.get(scp) ) {
+                        continue;
+                    }
+                }
+
+
+                System.out.println("changing value: " + value);
+                field.set(scp, value);
+            }
+//            System.out.println("scp after change: " + scp);
+
+            return datingSearchCriteriaProfileFacade.convertToDto(datingSearchCriteriaProfileRepository.save(scp));
+        }
     }
 
-    public Optional<DatingSearchCriteriaProfile> findDatingSearchCriteriaProfileByUserId(Long userId){
+    public Optional<DatingSearchCriteriaProfile> findDatingSearchCriteriaProfileByUserId(Long userId) {
         return datingSearchCriteriaProfileRepository.findDatingSearchCriteriaProfileByUserId(userId);
     }
 

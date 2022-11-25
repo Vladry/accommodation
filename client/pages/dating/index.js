@@ -44,7 +44,6 @@ const Index = () => {
             if (!datingServiceParticipation) {
                 showMustRegisterUdp();
             } else if (datingServiceParticipation && timers.current['datingRegistrationChecker']) {
-                console.log("clearing timer!")
                 clearTimeout(timers.current['datingRegistrationChecker']);
             }
         };
@@ -60,7 +59,6 @@ const Index = () => {
                     checkDatingRegistration();
                 }, datingGuestPeriodMs);
             } else if (datingServiceParticipation && timers.current['datingRegistrationChecker']) {
-                console.log("clearing timer!")
                 clearTimeout(timers.current['datingRegistrationChecker']);
             }
 

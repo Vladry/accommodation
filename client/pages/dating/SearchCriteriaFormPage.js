@@ -26,9 +26,10 @@ const SearchCriteriaFormPage = () => {
 
     const theme = useTheme();
     const datingSearchCriteriaProfile = useSelector(sel.datingSearchCriteriaProfile);
+    const id = datingSearchCriteriaProfile?.id? datingSearchCriteriaProfile.id : null;
 
-    const handleSubmit = async (values) => {
-        const datingSearchCriteriaProfileFormNewValues = {...values, userId: userIdRef.current};
+    const handleSubmit = async (valuesFromForm) => {
+        const datingSearchCriteriaProfileFormNewValues = {...valuesFromForm, userId: userIdRef.current, id: id};
         delete datingSearchCriteriaProfileFormNewValues["ageRange"];//обязательно к удалению из списка аргументов на бЭк!
         delete datingSearchCriteriaProfileFormNewValues["heightRange"];//обязательно к удалению из списка аргументов на бЭк!
         delete datingSearchCriteriaProfileFormNewValues["pictures"];
@@ -38,7 +39,7 @@ const SearchCriteriaFormPage = () => {
         delete datingSearchCriteriaProfileFormNewValues["lastVisit"];
         delete datingSearchCriteriaProfileFormNewValues["age"];
 
-
+console.log("sending: ", datingSearchCriteriaProfileFormNewValues)
 
         const baseURL = "http://localhost:8000/api/v1";
         // await api.post(baseURL+urls.datingSearchCriteriaProfile, userDatingProfileFormNewValues,
@@ -47,7 +48,8 @@ const SearchCriteriaFormPage = () => {
         await axios.post(baseURL + urls.datingSearchCriteriaProfile, datingSearchCriteriaProfileFormNewValues
         ).then((res) => {
             if (res != null) {
-                dispatch({type: types.SET_USER_DATING_SEARCH_CRITERIA_PROFILE_SUCCESS, payload: datingSearchCriteriaProfileFormNewValues});
+                dispatch({type: types.SET_USER_DATING_SEARCH_CRITERIA_PROFILE_SUCCESS, payload: res.data});
+                // dispatch({type: types.SET_USER_DATING_SEARCH_CRITERIA_PROFILE_SUCCESS, payload: datingSearchCriteriaProfileFormNewValues});
             } else {
                 console.log("error getting&dispatching updated datingSearchCriteriaProfile!. The store continues holding the old version of datingSearchCriteriaProfile (if any)");
             }

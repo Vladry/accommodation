@@ -16,6 +16,7 @@ import java.util.Set;
 public class DatingSearchCriteriaProfileRqDto {
 
     private String userId;
+    private String id;
     private String seekAPersonOfSex;
     private Integer minHeightIWant;
     private Integer maxHeightIWant;
