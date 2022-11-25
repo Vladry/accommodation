@@ -30,18 +30,16 @@ public class DatingSearchCriteriaProfileService implements ServiceInterface<Dati
 
 
     public DatingSearchCriteriaProfileRsDto saveOrUpdate(DatingSearchCriteriaProfile entity) throws NoSuchFieldException, IllegalAccessException {
-        String idStr = String.valueOf(entity.getId() != null ? entity.getId() : "null");
-        String userIdStr = String.valueOf(entity.getUserId() != null ? entity.getUserId() : "null");
+//        String idStr = String.valueOf(entity.getId() != null ? entity.getId() : "null");
+//        String userIdStr = String.valueOf(entity.getUserId() != null ? entity.getUserId() : "null");
 
         if (entity.getId() == null) {
 //            System.out.println("id: " + idStr);
 //            System.out.println("userId: " + userIdStr);
-            System.out.println("seems as a new entity, just saving!");
+//            System.out.println("seems as a new entity, just saving!");
             return datingSearchCriteriaProfileFacade.convertToDto(datingSearchCriteriaProfileRepository.save(entity));
         } else {
-            System.out.println("id: " + idStr);
-            System.out.println("userId: " + userIdStr);
-            System.out.println("entity is not new, modifying!");
+//            System.out.println("entity is not new, modifying!");
             DatingSearchCriteriaProfile scp = findDatingSearchCriteriaProfileByUserId(entity.getUserId()).get();
 //            System.out.println("scp before change: " + scp);
 
@@ -51,14 +49,12 @@ public class DatingSearchCriteriaProfileService implements ServiceInterface<Dati
                 field.setAccessible(true);
                 Object value = field.get(entity);
 
-                if (field.getType().equals(Boolean.class)) {
-                    if (value == field.get(scp)) continue;
-                }
                 if (field.getType().equals(String.class)) {
                     if (value.equals(field.get(scp))) continue;
                 }
 
-                if (field.getType().equals(Sex.class) || field.getType().equals(Country.class)) {
+                if (field.getType().equals(Sex.class) || field.getType().equals(Country.class)
+                        || field.getType().equals(Boolean.class)) {
                     if (value == field.get(scp)) continue;
                 }
 
@@ -70,18 +66,16 @@ public class DatingSearchCriteriaProfileService implements ServiceInterface<Dati
                     }
                 }
 
-                if (field.getType().equals(Integer.class)) {
-                    if (value == field.get(scp) ) {
+                if (field.getType().equals(Integer.class) || field.getType().equals(Integer.TYPE)) {
+                    if ((int)value == (int)field.get(scp) ) {
                         continue;
                     }
                 }
-
 
                 System.out.println("changing value: " + value);
                 field.set(scp, value);
             }
 //            System.out.println("scp after change: " + scp);
-
             return datingSearchCriteriaProfileFacade.convertToDto(datingSearchCriteriaProfileRepository.save(scp));
         }
     }

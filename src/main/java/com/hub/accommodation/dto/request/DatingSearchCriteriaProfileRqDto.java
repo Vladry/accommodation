@@ -27,6 +27,6 @@ public class DatingSearchCriteriaProfileRqDto {
 //    private String selfDescription;
 //    private String traitsIWouldLoveInYou;
 //    private String traitsIWouldHateInYou;
-    private Set<String> desiredWithInterests;
+//    private Set<String> desiredWithInterests;
 
 }

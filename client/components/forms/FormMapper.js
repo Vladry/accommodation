@@ -87,7 +87,7 @@ const FormMapper = ({fields, initVal, validation, handleSubmit}) => {
                     case 'ageRange':
                         initLower = getIn(formik.values, 'minPreferredAge') ? getIn(formik.values, 'minPreferredAge') : 18;
                         initHigher = getIn(formik.values, 'maxPreferredAge') ? getIn(formik.values, 'maxPreferredAge') : 60;
-                        minLim = 16;
+                        minLim = 14;
                         maxLim = 70;
                         initValue = [initLower, initHigher];
                         // rangeMarks = [{value: initLower + 5, label: initLower + 5}, {value: initHigher - 5, label: initHigher - 5}]
@@ -95,7 +95,7 @@ const FormMapper = ({fields, initVal, validation, handleSubmit}) => {
                     case 'heightRange':
                         initLower = getIn(formik.values, 'minHeightIWant') ? getIn(formik.values, 'minHeightIWant') : 160;
                         initHigher = getIn(formik.values, 'maxHeightIWant') ? getIn(formik.values, 'maxHeightIWant') : 180;
-                        minLim = 150;
+                        minLim = 140;
                         maxLim = 200;
                         initValue = [initLower, initHigher];
                         // rangeMarks = [{value: initLower + 5, label: initLower + 5}, {value: initHigher - 5, label: initHigher - 5}]
