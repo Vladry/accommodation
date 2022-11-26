@@ -35,14 +35,6 @@ const getPeriod = (visitDateMs) => {
 
 
 const forwardForUdProfileId = (router, queriedUserId, user, dispatch, event) => {
-    // console.log('queriedUser: ', queriedUserId);
-    const {target} = event;// не используем, т.к. мы получили прямо айдишку queriedUserId
-    // const targetUserId = Number(target.dataset.id);
-    // console.log('target: ', target);
-    // console.log('target.name: ', target.name);
-    // console.log('target.dataset.id: ', queriedUserId);
-    // console.log("router: ", router);
-
     //поместим просматриваемого юзера в стор, чтобы использовать его данные при рендере его профайла:
     dispatch({type: types.SHELF_REVIEWED_USER_DATA, payload: user});
 

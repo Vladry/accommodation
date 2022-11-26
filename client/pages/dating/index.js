@@ -115,26 +115,22 @@ const Index = () => {
 
 
         async function getCandidatesIds() {// получим ids кандидатов, подходящих под критерии userDatingProfile:
-
-            if (!candidatesIds.current["ids"] || !candidatesIds.current["ids"][0]) {//наше кэширование
-                try {
-                    candidatesIds.current["loading"] = true;
-                    const aggregatedProfile = {...userDatingProfile, ...datingSearchCriteriaProfile};
+            try {
+                const aggregatedProfile = {...userDatingProfile, ...datingSearchCriteriaProfile};
 //TODO возможно userDatingProfile не понадобится алгоритму поиска в составе aggregatedProfile
-                    const getIds = await api.post(`${urls.candidatesIds}?currentUserId=${user.id}`, aggregatedProfile);
+                console.log("getCandidatesIds()->");
+                const getIds = await api.post(`${urls.candidatesIds}?currentUserId=${user.id}`, aggregatedProfile);
 //ниже: доп. get-версия (вместо api.post), когда udp на бЭк не передается с фронта, а отдельно фЭтчуется из бЭка доп.запросом из БД:
-                    // const getIds = await api.get(`${urls.candidatesIds}/${user.id}`);
-                    candidatesIds.current["ids"] = await getIds;
-
-                    // console.log(`ids successfully fetched: `, candidatesIds.current["ids"]);
-                    if (candidatesIds.current["ids"]) {
-                        getCandidates(candidatesIds.current["ids"]).then();
-                    }
-
-                } catch (err) {
-                    candidatesIds.current["loading"] = false;
-                    console.log(`error fetching ids`);
+                // const getIds = await api.get(`${urls.candidatesIds}/${user.id}`);
+                candidatesIds.current["ids"] = await getIds;
+                // console.log(`ids successfully fetched: `, candidatesIds.current["ids"]);
+                if (candidatesIds.current["ids"]) {
+                    getCandidates(candidatesIds.current["ids"]).then();
                 }
+
+            } catch (err) {
+                candidatesIds.current["loading"] = false;
+                console.log(`error fetching ids`);
             }
 
         }
@@ -142,8 +138,8 @@ const Index = () => {
         async function getCandidates(ids) {
             // console.log(`in getCandidates->  candidates Ids}: `, ids);
             try {
-                const getCandidates = await api.post(urls.allUsersByIds, ids);
-                resUsers = await getCandidates;
+                const getCandidatesPost = await api.post(urls.allUsersByIds, ids)
+                resUsers = await getCandidatesPost;
                 setCandidates(() => resUsers);
                 candidatesIds.current["loading"] = false;
                 candidatesIds.current["ids"] = null;
@@ -163,10 +159,10 @@ const Index = () => {
         }, []);
 
         useEffect(() => {
-            if (!loadingUserDatingProfile && !candidatesIds.current["loading"] && user || loadingMatchingCandidatesIds) {
-                getCandidatesIds().then();
+            if (user && !loadingMatchingCandidatesIds) {
+                getCandidatesIds().then(()=>{});
             }
-        }, [userDatingProfile])
+        }, [userDatingProfile, datingSearchCriteriaProfile])
 
 
         if (!user || loadingMatchingCandidatesIds || loadingUserDatingProfile) {
@@ -179,7 +175,6 @@ const Index = () => {
                 <Box>
                     {isSmallScreen &&
                         <My_Drawer
-
                             isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer}>
                             <DatingMenuWrapper disabled={datingMenu[0].url}>
                                 {datingMenu[0].linkName}

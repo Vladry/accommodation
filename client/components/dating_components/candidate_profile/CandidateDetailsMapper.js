@@ -53,8 +53,11 @@ const CandidateDetailsMapper = ({udpFields, candidateDatingProfile, reviewedUser
                       sx={{
                           p: 2,
                           border: '1px solid grey',
-                          backgroundColor: '#34495E',
-                          borderRadius: `${theme.cardBoxParams.borderRadius}`
+                          // color: '#eee',
+                          // backgroundColor: '#34495E',
+                          color: '#333',
+                          backgroundColor: '#F0EBEA',
+                          borderRadius: `4px`
                       }}
                 >
                     <P><Span>{profileLabel}:</Span><Span>{val}</Span></P>

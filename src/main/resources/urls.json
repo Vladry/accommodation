@@ -13,7 +13,7 @@
     "setLastVisitDating": "/users/visits",
     "accomodationList": "/formPages/AccommodationList",
     "tenantFormPage": "/formPages/TenantFormPage",
-    "queriedCandidateProfile": "/CandidateProfile/?queriedUserId=",
+    "queriedCandidateProfile": "/dating/CandidateProfile/?queriedUserId=",
 
 
     "userUrl": "/users/profile",

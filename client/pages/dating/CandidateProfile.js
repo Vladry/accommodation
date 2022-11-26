@@ -1,25 +1,25 @@
 import React, {useContext, useEffect, useRef, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {Avatar, Box, Paper, useMediaQuery} from "@mui/material";
-import {fetchData} from "../store/actions/userAction";
-import types from "../store/types";
-import sel from "../store/selectors";
-import urls from '../../src/main/resources/urls.json'
-import subscriptions from '../../src/main/resources/subscriptions.json'
-import SwiperUserPic from "../components/dating_components/swiper_carousel/SwiperUserPic";
-import api from "../lib/API";
-import BackButton from "../components/BackButton";
-import ActionPanel from "../components/dating_components/candidate_profile/ActionPanel";
-import CandidateDetailsTable from "../components/dating_components/candidate_profile/CandidateDetailsTable";
-import My_Drawer from "../components/appbar/My_Drawer";
-import ToggleMenuIconButton from "../components/ToggleMenuIconButton";
+import {fetchData} from "../../store/actions/userAction";
+import types from "../../store/types";
+import sel from "../../store/selectors";
+import urls from '../../../src/main/resources/urls.json'
+import subscriptions from '../../../src/main/resources/subscriptions.json'
+import SwiperUserPic from "../../components/dating_components/swiper_carousel/SwiperUserPic";
+import api from "../../lib/API";
+import BackButton from "../../components/BackButton";
+import ActionPanel from "../../components/dating_components/candidate_profile/ActionPanel";
+import CandidateDetailsTable from "../../components/dating_components/candidate_profile/CandidateDetailsTable";
+import My_Drawer from "../../components/appbar/My_Drawer";
+import ToggleMenuIconButton from "../../components/ToggleMenuIconButton";
 import {useRouter, Router} from "next/router";
 import {useTheme} from "@mui/material/styles";
 import Image from "next/image";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 
-import MessengerDialogWindow from "../components/forms/MessengerDialogWindow";
-import {Context} from "../context";
+import MessengerDialogWindow from "../../components/forms/MessengerDialogWindow";
+import {Context} from "../../context";
 
 
 const CandidateProfile = () => {
@@ -81,7 +81,7 @@ const CandidateProfile = () => {
 
     const [isLiked, setIsLiked] = useState(false);
     const likeAction = () => {
-        setIsLiked((isLiked)=>!isLiked);
+        setIsLiked((isLiked) => !isLiked);
         const nowLikedState = !isLiked;//эта переменная нужна, т.к. state не обновляется мгновенно и путает данные
 
         if (nowLikedState) {
@@ -107,7 +107,7 @@ const CandidateProfile = () => {
         //отослать уведомление юзеру, которого я лайкнул:
         const messengerArgs = {
             destination: `${subscriptions.thisPersonLikedYou}${queriedUserId}`, type: "DATING_NOTIFICATION",
-            value: `http://localhost:3000/CandidateProfile?queriedUserId=${id.current}`,
+            value: `${urls.queriedCandidateProfile}${id.current}`,
             fromId: id.current, toId: candidateId.current,
             subject: nowLikedState ? `${candidateUserObj.current.name} ${candidateUserObj.current.lastName} has liked you!`
                 : `${candidateUserObj.current.name} ${candidateUserObj.current.lastName} has unliked you!`
@@ -155,9 +155,11 @@ const CandidateProfile = () => {
         // console.log('e.target.getAttribute("name): ', e.target.getAttribute("name"));
         // console.log('e.target.dataset.name: ', e.target.dataset.name);
         // console.log('e.target.getAttribute("data-name): ', e.target.getAttribute("data-name"));
-        if (e.target.dataset.name === "triggersToggling") {
-            setIsDrawerOpen(() => !isDrawerOpen);
-        }
+        if (e.target.dataset.name === "triggersToggling"
+            || e.target.closest("div").getAttribute("data-name") === "triggersToggling")
+            return; //-не переключать Drawer, если кликаем по пунктам ActionPanel- менюшки
+
+        setIsDrawerOpen((isDrawerOpen) => !isDrawerOpen);
         // console.log("not toggling, as target is not equal to triggersToggling");
     };
     const isSmallScreen = useMediaQuery('(max-width:900px)');
@@ -219,7 +221,7 @@ const CandidateProfile = () => {
             if (candidateUserObj.current?.avatar && !pictures.includes(candidateUserObj.current.avatar)) {
                 pictures.push(candidateUserObj.current.avatar);
             }
-            setPictures(()=>pictures);
+            setPictures(() => pictures);
         });
     }
 
@@ -259,7 +261,7 @@ const CandidateProfile = () => {
         <Paper sx={{
             // [theme.breakpoints.up('xl')]: {display: 'flex'},
             border: '1px solid green', maxWidth: "98%",
-            backgroundColor: `${theme.paperBackgroundColor}`,
+            // backgroundColor: `${theme.paperBackgroundColor}`,
         }}>
 
 

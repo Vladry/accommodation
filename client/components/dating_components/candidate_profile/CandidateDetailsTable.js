@@ -21,9 +21,8 @@ const CandidateDetailsTable = () => {
         <Grid container spacing={2}
 
               sx={{
-                  color: '#eee',
-                  borderRadius: `${theme.cardBoxParams.borderRadius}
-                //       `,
+                  borderRadius: `${theme.cardBoxParams.borderRadius}`,
+                  margin: '20px',
               }}
 
         >
