@@ -10,7 +10,7 @@ import urls from "../../../src/main/resources/urls.json";
 import axios from "axios";
 import {useTheme} from "@mui/material/styles";
 import BackButton from "../../components/BackButton";
-import classes from './dating.module.css';
+import classes from '../../components/dating_components/datingMenuItems/dating.module.css';
 import globalVariables from '../../globalVariables.json';
 
 const UdpFormPage = () => {
@@ -29,10 +29,10 @@ const UdpFormPage = () => {
 
     const handleSubmit = async (values) => {
         const userDatingProfileFormNewValues = {...values, userId: userIdRef.current};
-        delete userDatingProfileFormNewValues["ageRange"];//обязательно к удалению из списка аргументов на бЭк!
-        delete userDatingProfileFormNewValues["heightRange"];//обязательно к удалению из списка аргументов на бЭк!
-        delete userDatingProfileFormNewValues["pictures"];
-        delete userDatingProfileFormNewValues["desiredWithInterests"];
+        // delete userDatingProfileFormNewValues["ageRange"];//обязательно к удалению из списка аргументов на бЭк!
+        // delete userDatingProfileFormNewValues["heightRange"];//обязательно к удалению из списка аргументов на бЭк!
+        // delete userDatingProfileFormNewValues["pictures"];
+        // delete userDatingProfileFormNewValues["desiredWithInterests"];
         delete userDatingProfileFormNewValues["name"];
         delete userDatingProfileFormNewValues["location"];
         delete userDatingProfileFormNewValues["lastVisit"];

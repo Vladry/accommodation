@@ -1,9 +1,9 @@
 import React, {useEffect, useRef} from 'react';
 import {useSelector} from "react-redux";
-import sel from "../../store/selectors";
+import sel from "../../../store/selectors";
 import {useRouter} from "next/router";
-import urls from "../../../src/main/resources/urls.json";
-import globalVariables from '../../globalVariables.json';
+import urls from "../../../../src/main/resources/urls.json";
+import globalVariables from '../../../globalVariables.json';
 
 /*DatingSubWrapper - обёртка, в которую заворачивают sub- элементы меню DatingMenu для добавления в каждый элемент
 повторяющегося функционала router.push(UdpFormPage) во всех случаях, когда datingServiceParticipation===false:

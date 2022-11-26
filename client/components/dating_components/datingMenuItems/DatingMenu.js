@@ -1,10 +1,10 @@
 import React from 'react';
-import {datingMenu} from "../../public/menuConfig";
-import {LocalMenuItem, NavLink_styled} from "../../utils/typography";
+import {datingMenu} from "../../../public/menuConfig";
+import {LocalMenuItem, NavLink_styled} from "../../../utils/typography";
 import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
 import MailIcon from "@mui/icons-material/Mail";
-import sel from '../../store/selectors';
+import sel from '../../../store/selectors';
 import {useSelector} from "react-redux";
 import {Divider, Paper} from "@mui/material";
 import VisibilityIcon from '@mui/icons-material/Visibility';

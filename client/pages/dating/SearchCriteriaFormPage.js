@@ -9,7 +9,7 @@ import urls from "../../../src/main/resources/urls.json";
 import axios from "axios";
 import {useTheme} from "@mui/material/styles";
 import BackButton from "../../components/BackButton";
-import classes from './dating.module.css';
+import classes from '../../components/dating_components/datingMenuItems/dating.module.css';
 import globalVariables from '../../globalVariables.json';
 import SearchCriteriaForm from "../../components/forms/dating_user_profile_form/SearchCriteriaForm";
 
@@ -32,14 +32,6 @@ const SearchCriteriaFormPage = () => {
         const datingSearchCriteriaProfileFormNewValues = {...valuesFromForm, userId: userIdRef.current, id: id};
         delete datingSearchCriteriaProfileFormNewValues["ageRange"];//обязательно к удалению из списка аргументов на бЭк!
         delete datingSearchCriteriaProfileFormNewValues["heightRange"];//обязательно к удалению из списка аргументов на бЭк!
-        delete datingSearchCriteriaProfileFormNewValues["pictures"];
-        delete datingSearchCriteriaProfileFormNewValues["desiredWithInterests"];
-        delete datingSearchCriteriaProfileFormNewValues["name"];
-        delete datingSearchCriteriaProfileFormNewValues["location"];
-        delete datingSearchCriteriaProfileFormNewValues["lastVisit"];
-        delete datingSearchCriteriaProfileFormNewValues["age"];
-
-console.log("sending: ", datingSearchCriteriaProfileFormNewValues)
 
         const baseURL = "http://localhost:8000/api/v1";
         // await api.post(baseURL+urls.datingSearchCriteriaProfile, userDatingProfileFormNewValues,

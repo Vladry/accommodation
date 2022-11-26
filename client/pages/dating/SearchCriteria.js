@@ -1,8 +1,8 @@
 import React from 'react';
-import DatingMenuWrapper from "./DatingMenuWrapper";
+import DatingMenuWrapper from "../../components/dating_components/datingMenuItems/DatingMenuWrapper";
 import {datingMenu} from "../../public/menuConfig";
 import {Box} from "@mui/material";
-import classes from './dating.module.css';
+import classes from '../../components/dating_components/datingMenuItems/dating.module.css';
 
 const SearchCriteria = () => {
 

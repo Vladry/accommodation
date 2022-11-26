@@ -1,9 +1,9 @@
 import React from 'react';
-import DatingMenuWrapper from "./DatingMenuWrapper";
+import DatingMenuWrapper from "../../components/dating_components/datingMenuItems/DatingMenuWrapper";
 import {datingMenu} from "../../public/menuConfig";
 import {Box} from "@mui/material";
-import classes from './dating.module.css';
-import DatingSubWrapper from "./DatingSubWrapper";
+import classes from '../../components/dating_components/datingMenuItems/dating.module.css';
+import DatingSubWrapper from "../../components/dating_components/datingMenuItems/DatingSubWrapper";
 
 
 const MutualLikes = () => {

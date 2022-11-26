@@ -1,10 +1,10 @@
 import React from 'react';
 import {Grid} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
-import {udpFields_} from "../../forms/dating_user_profile_form/searchCriteriaFields";
+import {udpFields} from "../../forms/dating_user_profile_form/udpFields";
 import {useSelector} from "react-redux";
 import sel from "../../../store/selectors";
-import UdpMapper from "./UdpMapper";
+import CandidateDetailsMapper from "./CandidateDetailsMapper";
 
 const CandidateDetailsTable = () => {
     const candidateDatingProfile = useSelector(sel.candidateDatingProfile);
@@ -13,10 +13,9 @@ const CandidateDetailsTable = () => {
 
     if (!candidateDatingProfile) return <p>not authenticated or queriedUserId undefined or isLoading</p>;
 
-    const mappedFields = <UdpMapper udpFields={udpFields_} candidateDatingProfile={candidateDatingProfile}
-                                    reviewedUser={reviewedUser}/>;
+    const mappedFields = <CandidateDetailsMapper udpFields={udpFields} candidateDatingProfile={candidateDatingProfile}
+                                                 reviewedUser={reviewedUser}/>;
 
-    // console.log("mappedFields: ",mappedFields);
 
     return (
         <Grid container spacing={2}

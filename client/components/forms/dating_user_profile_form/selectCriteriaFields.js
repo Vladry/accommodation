@@ -4,7 +4,7 @@ export const searchCriteriaFields = [
         name: "seekAPersonOfSex",
         formikRef: "seekAPersonOfSex",
         label: "you seek of sex",
-        profilelabel: "seeks",
+        profileLabel: "seeks",
         valueByDefault: "ANY",
         type: "select_sex"
     },
@@ -14,7 +14,7 @@ export const searchCriteriaFields = [
         name: "ageRange",
         formikRef: "ageRange",
         label: "you seek of age in range",
-        profilelabel: "age range",
+        profileLabel: "age range",
         valueByDefault: [16, 60],
         type: "range"
     },
@@ -23,7 +23,7 @@ export const searchCriteriaFields = [
         name: "heightRange",
         formikRef: "heightRange",
         label: "your seek of height in range, cm",
-        profilelabel: "desires of height in range, cm",
+        profileLabel: "desires of height in range, cm",
         valueByDefault: [150, 190],
         type: "range"
     },
@@ -32,7 +32,7 @@ export const searchCriteriaFields = [
         name: "wantFromCountry",
         formikRef: "wantFromCountry",
         label: "you seek from country",
-        profilelabel: "wants from country",
+        profileLabel: "wants from country",
         valueByDefault: "ANY_COUNTRY",
         type: "select_country"
     },
@@ -41,7 +41,7 @@ export const searchCriteriaFields = [
         name: "maxNumberOfChildrenAllowed",
         formikRef: "maxNumberOfChildrenAllowed",
         label: "you'd agree to maximum children",
-        profilelabel: "agrees to maximum children",
+        profileLabel: "agrees to maximum children",
         valueByDefault: 100,
         type: "number"
     },

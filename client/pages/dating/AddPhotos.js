@@ -13,7 +13,7 @@ import types from "../../store/types";
 import BackButton from "../../components/BackButton";
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import {useRouter} from "next/router";
-import DatingSubWrapper from "./DatingSubWrapper";
+import DatingSubWrapper from "../../components/dating_components/datingMenuItems/DatingSubWrapper";
 import globalVariables from '../../globalVariables.json';
 
 // const dotenv = require('dotenv');

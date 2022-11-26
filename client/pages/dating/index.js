@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import DatingMenuWrapper from "./DatingMenuWrapper";
+import DatingMenuWrapper from "../../components/dating_components/datingMenuItems/DatingMenuWrapper";
 import {datingMenu} from "../../public/menuConfig";
 import {Box, useMediaQuery} from '@mui/material';
 import DatingUserList from "../../components/dating_components/DatingUserList";
@@ -12,7 +12,7 @@ import ToggleMenuIconButton from "../../components/ToggleMenuIconButton";
 import BackButton from "../../components/BackButton";
 import {NavLink_styled} from "../../utils/typography";
 import types from "../../store/types";
-import classes from "./dating.module.css";
+import classes from "../../components/dating_components/datingMenuItems/dating.module.css";
 import {useRouter} from "next/router";
 import styled from "@emotion/styled";
 import globalVariables from '../../globalVariables.json';
@@ -25,6 +25,7 @@ const Index = () => {
         const loadingMatchingCandidatesIds = useSelector(sel.loadingMatchingCandidatesIds);
         const loadingUserDatingProfile = useSelector(sel.loadingUserDatingProfile);
         const userDatingProfile = useSelector(sel.userDatingProfile);
+        const datingSearchCriteriaProfile = useSelector(sel.datingSearchCriteriaProfile);
         const [candidates, setCandidates] = useState(null);
         const candidatesIds = useRef({});
         let resUsers;
@@ -115,14 +116,14 @@ const Index = () => {
 
         async function getCandidatesIds() {// получим ids кандидатов, подходящих под критерии userDatingProfile:
 
-            if (!candidatesIds.current["ids"]) {//наше кэширование
+            if (!candidatesIds.current["ids"] || !candidatesIds.current["ids"][0]) {//наше кэширование
                 try {
                     candidatesIds.current["loading"] = true;
-                    const getIds = await api.post(`${urls.candidatesIds}?currentUserId=${user.id}`, userDatingProfile);
-
-//TODO -версия, когда udp на бЭк не передается с фронта, а отдельно фЭтчуется из бЭка доп.запросом из БД:
+                    const aggregatedProfile = {...userDatingProfile, ...datingSearchCriteriaProfile};
+//TODO возможно userDatingProfile не понадобится алгоритму поиска в составе aggregatedProfile
+                    const getIds = await api.post(`${urls.candidatesIds}?currentUserId=${user.id}`, aggregatedProfile);
+//ниже: доп. get-версия (вместо api.post), когда udp на бЭк не передается с фронта, а отдельно фЭтчуется из бЭка доп.запросом из БД:
                     // const getIds = await api.get(`${urls.candidatesIds}/${user.id}`);
-//TODO -версия, когда сразу передаем udp с фронта на бЭк:
                     candidatesIds.current["ids"] = await getIds;
 
                     // console.log(`ids successfully fetched: `, candidatesIds.current["ids"]);

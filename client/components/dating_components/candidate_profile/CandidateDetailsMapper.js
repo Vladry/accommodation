@@ -9,7 +9,7 @@ import {useTheme} from "@mui/material/styles";
 const jointEnum = [...goals, ...interests];
 
 
-const UdpMapper = ({udpFields, candidateDatingProfile, reviewedUser}) => {
+const CandidateDetailsMapper = ({udpFields, candidateDatingProfile, reviewedUser}) => {
     const {neatUpZonedDateTime} = useContext(Context);
     const theme = useTheme();
     const dateTimeStr = neatUpZonedDateTime(reviewedUser.datingLastVisitDate);
@@ -66,7 +66,7 @@ const UdpMapper = ({udpFields, candidateDatingProfile, reviewedUser}) => {
     return mappedContent;
 };
 
-export default UdpMapper;
+export default CandidateDetailsMapper;
 
 const Span = styled.span`
 margin: 0 10px 0 0;
