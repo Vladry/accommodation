@@ -5,7 +5,7 @@ import {fetchData} from "../../store/actions/userAction";
 import types from "../../store/types";
 import sel from "../../store/selectors";
 import urls from '../../../src/main/resources/urls.json'
-import subscriptions from '../../../src/main/resources/subscriptions.json'
+import destinations from '../../../src/main/resources/destinations.json'
 import SwiperUserPic from "../../components/dating_components/swiper_carousel/SwiperUserPic";
 import api from "../../lib/API";
 import BackButton from "../../components/BackButton";
@@ -95,7 +95,6 @@ const CandidateProfile = () => {
         }
 
         if (!nowLikedState) {// удалить из базы нотификейшн о том, что этот кандидат ранее был лайкнут текущим ющером
-
             api.delete(`${urls.likesAndBookmarks}?type=LIKED&fromId=${user.id}&toId=${queriedUserId}`).then(data => {
                 console.log("isLiked deleted!");
             }).catch(() => {
@@ -104,9 +103,10 @@ const CandidateProfile = () => {
         }
 
 
-        //отослать уведомление юзеру, которого я лайкнул:
+        //отослать stomp-уведомление о лайте юзеру, которого я лайкнул:
         const messengerArgs = {
-            destination: `${subscriptions.thisPersonLikedYou}${queriedUserId}`, type: "DATING_NOTIFICATION",
+            destination: `${destinations.likesNotifications}${queriedUserId}`,
+            type: "DATING_NOTIFICATION",
             value: `${urls.queriedCandidateProfile}${id.current}`,
             fromId: id.current, toId: candidateId.current,
             subject: nowLikedState ? `${candidateUserObj.current.name} ${candidateUserObj.current.lastName} has liked you!`
@@ -200,10 +200,10 @@ const CandidateProfile = () => {
         textFieldRef.current.value = "";
         // console.log("message:", tempTextFieldValue.current);
 
-        // Отправляем полученный из диалогового окна текст в мессенджер:
+        // Отправляем полученный из диалогового окна текст в stomp-мессенджер:
         const messengerArgs = {
-
-            destination: `${subscriptions.privateMessages}${id.current}`, type: "PRIVATE_MESSAGE", // id.current обязательно, иначе: Cannot read properties of null (reading 'id')
+            destination: `${destinations.privateMessages}${candidateId.current}`,
+            type: "PRIVATE_MESSAGE", // id.current обязательно, иначе: Cannot read properties of null (reading 'id')
             value: tempTextFieldValue.current ? tempTextFieldValue.current : "",
             fromId: id.current, toId: candidateId.current, subject: null
         };

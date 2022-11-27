@@ -1,7 +1,6 @@
 import urls from '../src/main/resources/urls.json'
-import subscriptions from '../src/main/resources/subscriptions.json'
+import destinations from '../src/main/resources/destinations.json'
 import types from "./store/types";
-import {udpFields_} from "./components/forms/dating_user_profile_form/searchCriteriaFields";
 
 const neatUpZonedDateTime = (datingLastVisitDate) => {
     if (datingLastVisitDate !== null) {
@@ -68,28 +67,11 @@ export function classNames(classes) {
     return '';
 }
 
-const setSubscriptions = (stompClient, currentSubscriptions) => {
-    const subscribeMe = (destination) => stompClient.subscribe(destination, function (msg) {
-        // console.log("Received: ", JSON.parse(msg.body))
-        if (msg.body) {
-            const jsonBody = JSON.parse(msg.body);
-            if (jsonBody.message) {
-                // setMessages(prev => [...prev, jsonBody.message])
-            }
-        }
-    });
-
-    currentSubscriptions.forEach(destination => {
-        // console.log("subscribed to: ", destination);
-        subscribeMe(destination);
-    });
-};
 
 
 const stompMessenger = (stompClient, messengerArgs) => {
     const {
-        destination, type = "PRIVATE_MESSAGE", value,
-        fromId = null, toId = null, subject = null, date = null, time = null, ...rest
+        destination, type, value, fromId = null, toId = null, subject = null, date = null, time = null, ...rest
     } = messengerArgs;
 
     /********************** возможные типы сообщений вебсокетов ********************/
@@ -118,8 +100,7 @@ const stompMessenger = (stompClient, messengerArgs) => {
     private String subject;
     */
 
-    const publisher = (destination, type = "PRIVATE_MESSAGE", value,
-                       fromId = null, toId = null, subject = null, date = null, time = null, rest) => {
+    const publisher = (destination, type, value, fromId, toId, subject, date, time, rest) => {
 
 
         if (!stompClient) {
@@ -133,13 +114,14 @@ const stompMessenger = (stompClient, messengerArgs) => {
             "toId": toId, "subject": subject, "seen": false, ...rest
         };
 
-
+console.log("stompClient.publish: ", message)
+        console.log("destination: ", destination)
         stompClient.publish({
-            destination: `${subscriptions.privateMessages}${fromId}`,
+            destination: destination,
             body:
                 JSON.stringify(message)
             ,
-            headers: {'content-type': 'application/json'},
+            headers: {'Content-Type': 'application/json'},
             skipContentLengthHeader: true,
         });
     }
@@ -154,6 +136,5 @@ export default {
     prepareFormData,
     neatUpZonedDateTime,
     getPeriod,
-    setSubscriptions,
     stompMessenger,
 }

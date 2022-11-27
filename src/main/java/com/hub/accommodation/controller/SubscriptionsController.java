@@ -38,9 +38,7 @@ public class SubscriptionsController {
 
         Set<String> defaultSubscriptions = new HashSet<>(List.of(
                 "/queue/dating/"+ userId, //личные сообщения друг другу (privateMessages)
-                "/queue/dating/number.of.unchecked.messages/"+ userId, //индикатор кол-ва входящих сообщений (в ToolBar)
-                "/queue/dating/person.Liked.you/"+ userId,
-                "/queue/dating/total.likes/"+ userId,
+                "/queue/dating/likes.notifications/"+ userId, // уведомления о лайках
 
                 "/topic/dating.announcements"
         ));

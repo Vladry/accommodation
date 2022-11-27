@@ -35,6 +35,10 @@ const Index = () => {
         const dispatch = useDispatch();
         const debounce = useRef(false);
         const datingServiceParticipation = useSelector(sel.datingServiceParticipation);
+        const datingNotifications = useSelector(sel.datingNotifications);
+        const datingMessages = useSelector(sel.datingMessages);
+    const datingMessagesDb = useSelector(sel.datingMessagesDb);
+    const datingNotificationsDb = useSelector(sel.datingNotificationsDb);
         const router = useRouter();
         const datingGuestPeriodMs = globalVariables.datingGuestPeriodMs;
         const timersInit = {datingRegistrationChecker: null}
@@ -65,60 +69,41 @@ const Index = () => {
 
         }, [datingServiceParticipation]);
 
-        useEffect(() => {
-            if (debounce.current) return;
-            debounce.current = true;
+
+
+    useEffect(() => {
+        console.log("in useEffect, [datingNotifications]")
+        api.get(`${urls.messagesToId}?type=DATING_NOTIFICATION&id=${19}`).then(data => {
+            if (data && data[0]) {
+                dispatch({type: types.SET_DATING_NOTIFICATIONS_DB, payload: data});
+            }
+
+        }).catch((e) => {
+            console.log("ошибка при получении уведомлений");
+        });
+    }, [datingNotifications])
+
+
+    useEffect(() => {
             api.get(`${urls.messagesToId}?type=PRIVATE_MESSAGE&id=${19}`).then(data => {
                 if (data && data[0]) {
-                    dispatch({type: types.SET_DATING_MESSAGES, payload: data});
+                    dispatch({type: types.SET_DATING_MESSAGES_DB, payload: data});
                 }
 
             }).catch((e) => {
                 console.log("ошибка при получении сообщений");
             });
 
-            api.get(`${urls.messagesToId}?type=DATING_NOTIFICATION&id=${19}`).then(data => {
-                if (data && data[0]) {
-                    dispatch({type: types.SET_DATING_NOTIFICATIONS, payload: data});
-                }
-            }).catch((e) => {
-                console.log("ошибка при получении уведомлений");
-            });
+        }, [datingMessages])
 
 
-            /*        api.get(`${urls.messagesFromType}?type=datingNotification`).then(notifications => {
-                        if (notifications && notifications[0]) {
-                            dispatch({type: types.SET_DATING_NOTIFICATIONS, payload: notifications});
-                        }
-                    }).catch((e) => {
-                        console.log("ошибка при получении уведомлений, е= ", e.message)
-                    });*/
-
-            /*        api.get(`${urls.allMessages}`).then(notifications => {
-                        // console.log("fetched from DB notifications: ",notifications)
-                        dispatch({type: types.SET_DATING_NOTIFICATIONS, payload: notifications});
-                    }).catch((e)=>{console.log("ошибка при получении ВСЕХ сообщений, е= ", e.message)});*/
-
-        }, [])
-
-
-        /*
-            useEffect(() => {
-                api.get(`${urls.messagesToId}?type=PRIVATE_MESSAGE&id=${user.id}`).then(messages => {
-                    dispatch({type: types.SET_DATING_MESSAGES, payload: messages});
-                });
-                api.get(`${urls.messagesToId}?type=NOTIFICATION&id=${user.id}`).then(notifications => {
-                    dispatch({type: types.SET_DATING_NOTIFICATIONS, payload: notifications});
-                });
-            },[])
-        */
 
 
         async function getCandidatesIds() {// получим ids кандидатов, подходящих под критерии userDatingProfile:
             try {
                 const aggregatedProfile = {...userDatingProfile, ...datingSearchCriteriaProfile};
 //TODO возможно userDatingProfile не понадобится алгоритму поиска в составе aggregatedProfile
-                console.log("getCandidatesIds()->");
+//                 console.log("getCandidatesIds()->");
                 const getIds = await api.post(`${urls.candidatesIds}?currentUserId=${user.id}`, aggregatedProfile);
 //ниже: доп. get-версия (вместо api.post), когда udp на бЭк не передается с фронта, а отдельно фЭтчуется из бЭка доп.запросом из БД:
                 // const getIds = await api.get(`${urls.candidatesIds}/${user.id}`);

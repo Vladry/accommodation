@@ -38,6 +38,9 @@ const initialState = {
 
     datingMessages: [],
     datingNotifications: [],
+
+    datingMessagesDb: [],
+    datingNotificationsDb: [],
 }
 
 export default (state = initialState, action) => {
@@ -53,6 +56,12 @@ export default (state = initialState, action) => {
 
         case types.SET_DATING_NOTIFICATIONS:
             return {...state, datingNotifications: action.payload};
+
+        case types.SET_DATING_MESSAGES_DB:
+            return {...state, datingMessagesDb: action.payload};
+
+        case types.SET_DATING_NOTIFICATIONS_DB:
+            return {...state, datingNotificationsDb: action.payload};
 
         case types.SET_STOMP_CLIENT:
             return {...state, stompClient: action.payload}

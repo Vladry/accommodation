@@ -13,9 +13,9 @@ import myTheme from "../utils/myTheme";
 import sel from '../store/selectors';
 import {Client} from '@stomp/stompjs';
 import types from "../store/types";
-import { StylesProvider } from "@material-ui/core/styles" // <-- import this component, and wrap your App.
+import {StylesProvider} from "@material-ui/core/styles" // <-- import this component, and wrap your App.
 import './_app.css';
-
+import destinations from '../../src/main/resources/destinations.json'
 
 const SOCKET_URL = "ws://localhost:8000/ws";
 
@@ -27,6 +27,7 @@ function MyApp({Component, pageProps, emotionCache = clientSideEmotionCache}) {
     const [interval, setInterval] = useState(0);
     const subscriptions = useSelector(sel.subscriptions);
     const isUserAppliedHisSubscriptions = useSelector(sel.isUserAppliedHisSubscriptions);
+    const user = useSelector(sel.user);
     const dispatch = useDispatch();
     const stompClient = useSelector(sel.stompClient);
 
@@ -42,7 +43,49 @@ function MyApp({Component, pageProps, emotionCache = clientSideEmotionCache}) {
     //***************** WebSockets **********************//
     //   https://www.npmjs.com/package/@stomp/stompjs
     //   https://stomp-js.github.io/guide/stompjs/using-stompjs-v5.html#send-messages
-    const [messages, setMessages] = useState([]);
+    const setSubscriptions = (stompClient, currentSubscriptions) => {
+
+        const datingLikeNotificationCB = (json) => {
+            console.log("datingLikeNotificationCB->")
+            if (json.body) {
+                const message = JSON.parse(json.body);
+                    alert(message.value)
+                    dispatch({type: types.SET_DATING_NOTIFICATIONS, payload: message});
+            }
+        }
+
+        const datingPrivateMessageCB = (json) => {
+            console.log("datingPrivateMessageCB->")
+            if (json.body) {
+                const message = JSON.parse(json.body);
+                    alert(message.value)
+                    dispatch({type: types.SET_DATING_MESSAGES, payload: message});
+            }
+        }
+
+
+        const subscribeMe = (destination, cb) => {
+            stompClient.subscribe(destination, cb);
+        };
+
+        currentSubscriptions.forEach(destination => {
+            // console.log("subscribed to: ", destination);
+            let cb = {};
+            switch (destination){
+                case `${destinations.likesNotifications}${user.id}`:
+                    cb= datingLikeNotificationCB;
+                    break;
+                    case `${destinations.privateMessages}${user.id}`:
+                    cb= datingPrivateMessageCB;
+                        break;
+                default:
+            }
+
+            subscribeMe(destination, cb);
+        });
+    };
+
+
     const onConnected = () => {
         console.log("Connected websocket");
     }
@@ -70,10 +113,10 @@ function MyApp({Component, pageProps, emotionCache = clientSideEmotionCache}) {
 
     useEffect(() => {
         if (!isUserAppliedHisSubscriptions && subscriptions.length > 0) {
-            context.setSubscriptions(stompClient, subscriptions);
+            setSubscriptions(stompClient, subscriptions);
             dispatch({type: types.SET_USER_SUBSCRIPTIONS_APPLIED, payload: null});
         }
-    }, [subscriptions])
+    }, [subscriptions, user])
 
 
     return (
@@ -86,17 +129,17 @@ function MyApp({Component, pageProps, emotionCache = clientSideEmotionCache}) {
                 <SessionProvider session={pageProps.session} refetchInterval={interval}>
                     <Context.Provider value={context}>
                         <StylesProvider injectFirst={true}>
-                        <ThemeProvider theme={theme}>
-                            <Provider store={store}>
-                                <CssBaseline/>
+                            <ThemeProvider theme={theme}>
+                                <Provider store={store}>
+                                    <CssBaseline/>
 
-                                {
-                                    Component.getLayout ?
-                                        Component.getLayout(<Component {...pageProps} />) :
-                                        <Component {...pageProps} />
-                                }
-                            </Provider>
-                        </ThemeProvider>
+                                    {
+                                        Component.getLayout ?
+                                            Component.getLayout(<Component {...pageProps} />) :
+                                            <Component {...pageProps} />
+                                    }
+                                </Provider>
+                            </ThemeProvider>
                         </StylesProvider>
                     </Context.Provider>
                     <RefreshTokenHandler setInterval={setInterval}/>

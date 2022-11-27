@@ -20,6 +20,8 @@ import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
 const DatingMenu = ({disabled}) => {
     const datingMessages = useSelector(sel.datingMessages);
     const datingNotifications = useSelector(sel.datingNotifications);
+    const datingMessagesDb = useSelector(sel.datingMessagesDb);
+    const datingNotificationsDb = useSelector(sel.datingNotificationsDb);
 
     return (
         <Paper variant={'elevation'} elevation={8}>
@@ -36,7 +38,7 @@ const DatingMenu = ({disabled}) => {
                         size="large" aria-label="show 17 new notifications" color="inherit" sx={{mx: '0', px: '0'}}
                     >
                         <Badge sx={{position: 'relative', top: '-20px', left: '30px'}}
-                               badgeContent={datingNotifications ? `${datingNotifications.length}` : ''}
+                               badgeContent={datingNotificationsDb ? `${datingNotificationsDb.length}` : ''}
                                color="error">
                         </Badge><ThumbUpAltIcon className={classes['menu-icons']}/>
                     </IconButton>
@@ -50,7 +52,7 @@ const DatingMenu = ({disabled}) => {
                 && <LocalMenuItem className={classes['local-menu']}>
                     <IconButton size="large" aria-label="show 4 new mails" color="inherit" sx={{mx: '0', px: '0'}}>
                         <Badge sx={{position: 'relative', top: '-18px', left: '30px'}}
-                               badgeContent={datingMessages ? `${datingMessages.length}` : ''} color="error">
+                               badgeContent={datingMessagesDb ? `${datingMessagesDb.length}` : ''} color="error">
                         </Badge>
                         <MailIcon className={classes['menu-icons']}/>
                     </IconButton>
