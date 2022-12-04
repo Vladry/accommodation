@@ -49,6 +49,7 @@ export const datingMenu = [
         linkName: "сообщения",
         title: "Ваши сообщения",
     },
+
     {
         url: `${urls.dating}${urls.favorites}`,
         linkName: "избранные",
@@ -80,5 +81,9 @@ export const datingMenu = [
         url: "/",
         linkName: "homepage",
     },
-
+    {
+        url: `${urls.dating}${urls.chatMessages}`,
+        linkName: "chatMessages",
+        title: "chatMessages",
+    },
 ];

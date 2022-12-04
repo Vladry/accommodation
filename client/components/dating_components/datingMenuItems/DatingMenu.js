@@ -63,7 +63,6 @@ const DatingMenu = ({disabled}) => {
 
             {!(disabled === datingMenu[3].url)
                 && <LocalMenuItem className={classes['local-menu']}>
-                    {/*<LocalMenuItem className={classes.localMenu}>  -почему-то не работает авто-нейминг: LocalMenu */}
                     <BookmarksIcon className={classes['menu-icons']}/>
                     <NavLink_styled
                         href={datingMenu[3].url}>{datingMenu[3].linkName}
@@ -107,6 +106,13 @@ const DatingMenu = ({disabled}) => {
                 <HomeIcon className={classes['menu-icons']}/>
                 <NavLink_styled
                     href={datingMenu[8].url}>{datingMenu[8].linkName}
+                </NavLink_styled>
+            </LocalMenuItem>
+
+            <LocalMenuItem className={classes['local-menu']}>
+                <HomeIcon className={classes['menu-icons']}/>
+                <NavLink_styled
+                    href={datingMenu[9].url}>{datingMenu[9].linkName}
                 </NavLink_styled>
             </LocalMenuItem>
 

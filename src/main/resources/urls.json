@@ -3,11 +3,15 @@
     "dating": "/dating",
     "likedYou": "/LikedYou",
     "inbox": "/Inbox",
+    "chatMessages": "/messages",
     "favorites": "/Favorites",
     "mutualLikes": "/MutualLikes",
     "searchCriteria": "/SearchCriteriaFormPage",
     "udpFormPage": "/UdpFormPage",
     "addPhotos": "/AddPhotos",
+
+    "searchInterlocutor": "messages/searchInterlocutor",
+
 
 
     "setLastVisitDating": "/users/visits",

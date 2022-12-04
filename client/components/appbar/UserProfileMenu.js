@@ -111,8 +111,11 @@ const UserProfileMenu = (props) => {
                      height:`${isLargeScreen ? "60px" : '50px'}`
                  }}>
                         <Image src={`${user.avatar}`}
-                               layout={'fill'}
-                               alt="candidate avatar"/>
+                               layout={'fill'} //если не "fill", тогда нужно указывать width и height
+                            // width={50} height={50} //включить когда отключу layout строчкой выше
+                               alt="candidate avatar"
+                               loading="lazy" // Lazy is default IIRC
+                        />
                     </Avatar>)
 
                 :

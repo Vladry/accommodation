@@ -36,7 +36,7 @@ const SwiperCarouselMain = () => {
     let bcgPicHeight = '450px';
     let soldierLeftBias = '70%';
     let soldierTopBias = '60px';
-    let soldierSize = '170px';
+    let soldierSize = 170;// именно так, без px -нужно для <Image>
     let vFont = 'h6';
     if (isSmallSize) {
         bcgPicBias = '200px';
@@ -44,12 +44,12 @@ const SwiperCarouselMain = () => {
         soldierLeftBias = "60%";
         soldierTopBias = '150px';
         vFont = "body1";
-        soldierSize = '150px';
+        soldierSize = 150;
     } else if (isMediumSize) {
         bcgPicHeight = '630px';
         soldierLeftBias = "70%";
         soldierTopBias = '120px';
-        soldierSize = '170px';
+        soldierSize = 170;
     }
 
 

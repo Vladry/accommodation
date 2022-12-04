@@ -3,14 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev  -p watch-styles-sass",
+    "dev": "next dev &&  watch-styles-sass && stylelint-dev",
+    "watch-styles-sass": "npm-watch",
+    "stylelint-dev": "stylelint 'src/**/*.scss' --cache --cache-location './.stylelintcache'; exit 0",
+    "stylelint-build": "stylelint 'src/**/*.scss'",
     "build": "next build",
     "start": "next start",
     "export": "next export",
-    "lint": "next lint",
-    "stylelint-dev": "stylelint 'src/**/*.scss' --cache --cache-location './.stylelintcache'; exit 0",
-    "stylelint-build": "stylelint 'src/**/*.scss'",
-    "watch-styles-sass": "npm-watch"
+    "lint": "next lint"
   },
   "eslingConfig": {
     "extends": [
@@ -36,19 +36,23 @@
     "dotenv": "^16.0.3",
     "formik": "^2.2.9",
     "material-ui-phone-number-2": "^1.2.4",
-    "next": "12.1.4",
+    "next": "^13.0.6",
     "next-auth": "^4.3.1",
     "next-redux-wrapper": "^7.0.5",
+    "path": "^0.12.7",
     "prop-types": "^15.8.1",
-    "react": "18.0.0",
-    "react-dom": "18.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-draggable": "^4.4.5",
     "react-redux": "^7.2.8",
     "react-responsive": "^9.0.0-beta.6",
     "react-router-dom": "^6.3.0",
     "redux": "^4.1.2",
+    "redux-actions": "^2.6.5",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.1",
+    "sass": "^1.56.1",
+    "store": "^2.0.12",
     "styled-components": "^5.3.6",
     "swiper": "^8.1.4",
     "uuid": "^9.0.0",
@@ -58,9 +62,10 @@
   "devDependencies": {
     "babel-plugin-styled-components": "latest",
     "concurrently": "^7.4.0",
+    "customize-cra": "^1.0.0",
     "eslint": "8.22.0",
     "eslint-config-airbnb": "^19.0.4",
-    "eslint-config-next": "12.1.4",
+    "eslint-config-next": "^13.0.6",
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react": "^7.31.10",
@@ -89,5 +94,6 @@
     "url": "https://github.com/Vladry/accommodation/issues"
   },
   "homepage": "https://github.com/Vladry/accommodation#readme",
-  "proxy": "http://localhost:8000"
+  "proxy": "http://localhost:8000",
+  "port": 3000
 }
