@@ -1,4 +1,4 @@
-import types from "../types";
+import types from "./types";
 
 const initialState = {
     user: null,
@@ -43,7 +43,7 @@ const initialState = {
     datingNotificationsDb: [],
 }
 
-export default (state = initialState, action) => {
+const reducer = (state = initialState, action) => {
     switch (action.type) {
 
         case types.SET_TRUE_DATING_SERVICE_PARTICIPATION:
@@ -193,3 +193,5 @@ export default (state = initialState, action) => {
             return state;
     }
 }
+
+export default reducer;

@@ -14,7 +14,7 @@ import Toolbar from '@mui/material/Toolbar';
 import UserProfileMenu from "./UserProfileMenu";
 import ToggleMenuIconButton from "../ToggleMenuIconButton";
 import {useSelector} from "react-redux";
-import sel from '../../store/selectors';
+import sel from '@/store/user/selectors';
 
 export const ToolbarFullSize = ({toggleDrawer, handleUserProfileFullMenuOpen}) => {
     const isMediumScreen = useMediaQuery('(max-width: 900px)');

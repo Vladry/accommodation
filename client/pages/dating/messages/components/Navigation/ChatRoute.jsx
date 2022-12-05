@@ -43,6 +43,9 @@ const ChatRoute = ({chat, activeId}) => {
     </BoxWrapper>);
 }
 
+export default ChatRoute;
+
+
 const styles = ({theme}) => ({
   position: 'relative',
   padding: '14px',
@@ -75,4 +78,3 @@ ChatRoute.propTypes = {
   activeId: PropTypes.number,
 }
 
-export default ChatRoute;

@@ -6,7 +6,7 @@ import {signIn} from "next-auth/react";
 import {Box, Typography} from "@mui/material";
 import styled from "@emotion/styled";
 import {useTheme} from "@mui/material/styles";
-import types from "../store/types";
+import types from "@/store/user/types";
 import {useDispatch} from "react-redux";
 
 const Register = () => {

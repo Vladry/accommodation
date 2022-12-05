@@ -3,7 +3,7 @@ import NextAuth from 'next-auth';
 import CredentialsProvider from "next-auth/providers/credentials";
 import api from "../../../lib/API";
 import {signIn} from "next-auth/react";
-import {setUserId} from '../../../store/actions/userAction.js';
+import {setUserId} from '@/store/user/actions.js';
 
 const API_URL = "http://localhost:8000"
 

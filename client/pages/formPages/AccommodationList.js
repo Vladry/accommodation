@@ -3,7 +3,7 @@ import {useSelector} from "react-redux";
 import AccommodationForm from "../../components/forms/accommodation_form/AccommodationForm";
 import api from "../../lib/API";
 import Layout from "../../components/Layout";
-import sel from "../../store/selectors";
+import sel from "@/store/user/selectors";
 import urls from '../../../src/main/resources/urls.json'
 import {Paper} from "@mui/material";
 import {useTheme} from "@mui/material/styles";

@@ -3,7 +3,7 @@ import {useSelector} from "react-redux";
 import FormMapper from "../FormMapper";
 import {udpFields} from "./udpFields";
 
-import sel from "../../../store/selectors";
+import sel from "@/store/user/selectors";
 import {Grid} from "@mui/material";
 import {Context} from "../../../context";
 

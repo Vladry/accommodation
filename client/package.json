@@ -29,6 +29,7 @@
     "@mui/material": "^5.6.0",
     "@mui/styles": "^5.6.0",
     "@redux-devtools/extension": "^3.2.2",
+    "@reduxjs/toolkit": "^1.9.1",
     "@stomp/stompjs": "^6.1.0",
     "aws-sdk": "^2.1235.0",
     "axios": "^0.26.1",

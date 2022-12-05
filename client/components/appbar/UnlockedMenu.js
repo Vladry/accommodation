@@ -3,7 +3,7 @@ import Tooltip from "@mui/material/Tooltip";
 import useAuth from "../../hooks/useAuth";
 import {mainMenu} from '../../public/menuConfig.js';
 import {useSelector} from "react-redux";
-import sel from "../../store/selectors";
+import sel from "@/store/user/selectors";
 import {LocalMenuItem, NavLink_styled, NavLinkProtected} from "../../utils/typography";
 
 

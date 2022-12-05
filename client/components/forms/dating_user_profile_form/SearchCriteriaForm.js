@@ -3,7 +3,7 @@ import {useSelector} from "react-redux";
 import FormMapper from "../FormMapper";
 import {searchCriteriaFields} from "./searchCriteriaFields";
 
-import sel from "../../../store/selectors";
+import sel from "@/store/user/selectors";
 import {Grid} from "@mui/material";
 import {Context} from "../../../context";
 

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import stompClient from '../pages/_app';
 import urls from '../../src/main/resources/urls.json';
 import {useSelector} from "react-redux";
-import sel from '../store/selectors';
+import sel from '@/store/user/selectors';
 
 
 const MessageCreator = () => {

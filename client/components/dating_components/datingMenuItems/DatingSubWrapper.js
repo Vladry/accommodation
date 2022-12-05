@@ -1,6 +1,6 @@
 import React, {useEffect, useRef} from 'react';
 import {useSelector} from "react-redux";
-import sel from "../../../store/selectors";
+import sel from "@/store/user/selectors";
 import {useRouter} from "next/router";
 import urls from "../../../../src/main/resources/urls.json";
 import globalVariables from '../../../globalVariables.json';

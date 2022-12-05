@@ -10,9 +10,9 @@ import {CacheProvider} from "@emotion/react";
 import RefreshTokenHandler from "../components/RefreshTokenHandler";
 import {Context} from '../context';
 import myTheme from "../utils/myTheme";
-import sel from '../store/selectors';
+import sel from '@/store/user/selectors';
 import {Client} from '@stomp/stompjs';
-import types from "../store/types";
+import types from "@/store/user/types";
 import {StylesProvider} from "@material-ui/core/styles" // <-- import this component, and wrap your App.
 import './_app.css';
 import destinations from '../../src/main/resources/destinations.json'

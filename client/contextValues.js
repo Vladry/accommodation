@@ -1,6 +1,6 @@
 import urls from '../src/main/resources/urls.json'
 import destinations from '../src/main/resources/destinations.json'
-import types from "./store/types";
+import types from "@/store/user/types";
 
 const neatUpZonedDateTime = (datingLastVisitDate) => {
     if (datingLastVisitDate !== null) {

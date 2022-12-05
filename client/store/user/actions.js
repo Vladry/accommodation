@@ -1,19 +1,19 @@
 import api from "../../lib/API";
-import types from "../types";
 import urls from '../../../src/main/resources/urls.json'
+import {userTypes} from "./index.js";
 
-export const getUser = () => (dispatch) => { //TODO разделить фетчевание юзера и udp так ,чтобы на всё не выдавался Exception in getUser -> run  dispatch({type: types.SET_USER_FAILURE})");
-    dispatch({type: types.SET_LOADING_TRUE});
+export const getUser = () => (dispatch) => { //TODO разделить фетчевание юзера и udp так ,чтобы на всё не выдавался Exception in getUser -> run  dispatch({type: userTypes.SET_USER_FAILURE})");
+    dispatch({type: userTypes.SET_LOADING_TRUE});
     api.get(urls.userUrl)
         .then(user => {
             // console.log("before dispatch:  SET_USER_SUCCESS");
-            dispatch({type: types.SET_USER_SUCCESS, payload: user});
-            dispatch(fetchData(urls.datingProfile, user.id, types.GET_USER_DATING_PROFILE, types.SET_USER_DATING_PROFILE_SUCCESS, types.SET_USER_DATING_PROFILE_FAIL));
-            dispatch(fetchData(urls.userSubscriptions, user.id, types.GET_SUBSCRIPTIONS, types.SET_SUBSCRIPTIONS_SUCCESS, types.SET_SUBSCRIPTIONS_FAIL));
-            dispatch(fetchData(urls.datingSearchCriteriaProfile, user.id, types.GET_USER_DATING_SEARCH_CRITERIA_PROFILE, types.SET_USER_DATING_SEARCH_CRITERIA_PROFILE_SUCCESS, types.SET_USER_DATING_SEARCH_CRITERIA_PROFILE_FAIL));
+            dispatch({type: userTypes.SET_USER_SUCCESS, payload: user});
+            dispatch(fetchData(urls.datingProfile, user.id, userTypes.GET_USER_DATING_PROFILE, userTypes.SET_USER_DATING_PROFILE_SUCCESS, userTypes.SET_USER_DATING_PROFILE_FAIL));
+            dispatch(fetchData(urls.userSubscriptions, user.id, userTypes.GET_SUBSCRIPTIONS, userTypes.SET_SUBSCRIPTIONS_SUCCESS, userTypes.SET_SUBSCRIPTIONS_FAIL));
+            dispatch(fetchData(urls.datingSearchCriteriaProfile, user.id, userTypes.GET_USER_DATING_SEARCH_CRITERIA_PROFILE, userTypes.SET_USER_DATING_SEARCH_CRITERIA_PROFILE_SUCCESS, userTypes.SET_USER_DATING_SEARCH_CRITERIA_PROFILE_FAIL));
 
-            // dispatch(fetchData(urls.accommodProfile, user.id, types.GET_ACCOMMODATION_USER_PROFILE, types.SET_ACCOMMODATION_USER_PROFILE_SUCCESS, types.SET_ACCOMMODATION_USER_PROFILE_FAIL));
-            // dispatch(fetchData(urls.tenantUserProfile, user.id, types.GET_TENANT_USER_PROFILE, types.SET_TENANT_USER_PROFILE_SUCCESS, types.SET_TENANT_USER_PROFILE_FAIL));
+            // dispatch(fetchData(urls.accommodProfile, user.id, userTypes.GET_ACCOMMODATION_USER_PROFILE, userTypes.SET_ACCOMMODATION_USER_PROFILE_SUCCESS, userTypes.SET_ACCOMMODATION_USER_PROFILE_FAIL));
+            // dispatch(fetchData(urls.tenantUserProfile, user.id, userTypes.GET_TENANT_USER_PROFILE, userTypes.SET_TENANT_USER_PROFILE_SUCCESS, userTypes.SET_TENANT_USER_PROFILE_FAIL));
 
 
             fetch('http://ip-api.com/json/').then(r => r.json()).then(r => {
@@ -46,7 +46,7 @@ export const getUser = () => (dispatch) => { //TODO разделить фетч�
 
 
         }).catch(e => {
-        dispatch({type: types.SET_USER_FAILURE})
+        dispatch({type: userTypes.SET_USER_FAILURE})
         console.log("Exception in getUser");
     });
 }

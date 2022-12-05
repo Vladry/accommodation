@@ -2,7 +2,7 @@ import {createActions} from '../utils';
 
 const actions = createActions(
   {
-    actions: ['OPEN_DIALOG', 'CLOSE_DIALOG'],
+    actionTypes: ['OPEN_DIALOG', 'CLOSE_DIALOG'],
   },
   {
     prefix: 'dialog',

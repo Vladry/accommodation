@@ -13,7 +13,7 @@ import Greeting from "./Greeting";
 import MenuItem from "@mui/material/MenuItem";
 import useAuth from "../../hooks/useAuth";
 import Menu from "@mui/material/Menu";
-import sel from '../../store/selectors';
+import sel from '@/store/user/selectors';
 import Image from "next/image";
 
 const UserProfileMenu = (props) => {

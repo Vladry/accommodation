@@ -3,7 +3,7 @@ import {Grid} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 import {udpFields} from "../../forms/dating_user_profile_form/udpFields";
 import {useSelector} from "react-redux";
-import sel from "../../../store/selectors";
+import sel from "@/store/user/selectors";
 import CandidateDetailsMapper from "./CandidateDetailsMapper";
 
 const CandidateDetailsTable = () => {

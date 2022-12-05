@@ -5,9 +5,9 @@ import Header from "./Header";
 import SearchBox from "./SearchBox";
 import Box from "@mui/material/Box";
 import ChatRoute from "./ChatRoute";
-import sel from "@/store/message/selector";
 import Loading from "@/components/Loader/Loading";
 import WelcomeToInbox from "../WelcomeToInbox";
+import sel from "@/store/message/selector";
 
 const Index = () => {
   const {isNavigationLoading, chats, activeId} = useSelector(sel.getMessageData);
@@ -29,11 +29,11 @@ const Index = () => {
     </BoxWrapper>);
 }
 
+export default Index;
+
 const styles = ({theme}) => ({
   height: '100%',
   width: '100%',
 });
 
 const BoxWrapper = styled(Box)(styles);
-
-export default Index;

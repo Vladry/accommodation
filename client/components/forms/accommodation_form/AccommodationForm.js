@@ -4,9 +4,9 @@ import FormMapper from "../FormMapper";
 import useAuth from "../../../hooks/useAuth";
 import {useDispatch, useSelector} from "react-redux";
 import {Context} from "../../../context";
-import types from "../../../store/types";
-import sel from "../../../store/selectors";
-import {fetchData} from "../../../store/actions/userAction";
+import types from "@/store/user/types";
+import sel from "@/store/user/selectors";
+import {fetchData} from "@/store/user/actions";
 import {Paper} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 

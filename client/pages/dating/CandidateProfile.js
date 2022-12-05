@@ -1,9 +1,9 @@
 import React, {useContext, useEffect, useRef, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {Avatar, Box, Paper, useMediaQuery} from "@mui/material";
-import {fetchData} from "../../store/actions/userAction";
-import types from "../../store/types";
-import sel from "../../store/selectors";
+import {fetchData} from "@/store/user/actions";
+import types from "@/store/user/types";
+import sel from "@/store/user/selectors";
 import urls from '../../../src/main/resources/urls.json'
 import destinations from '../../../src/main/resources/destinations.json'
 import SwiperUserPic from "../../components/dating_components/swiper_carousel/SwiperUserPic";

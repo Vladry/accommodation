@@ -1,6 +1,6 @@
-import {createActions} from '../utils';
 import api from '../../lib/API';
 import urls from '../../../src/main/resources/urls';
+import {createActions} from '../utils';
 
 const actions = createActions(
   {
