@@ -1,0 +1,7 @@
+const SET_CHAT_LOADING_TRUE = "SET_CHAT_LOADING_TRUE";
+
+
+export default {
+    SET_CHAT_LOADING_TRUE,
+
+}
