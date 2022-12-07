@@ -1,6 +1,6 @@
 import api from '../../lib/API';
 import urls from '../../../src/main/resources/urls';
-import {createActions} from '../utils';
+import {createActions} from '../actionsCreator.js';
 
 const actions = createActions(
   {
@@ -10,11 +10,11 @@ const actions = createActions(
     asyncTypes: ["GET_CHATS", "SET_CHATS",],
   },
   {
-    prefix: 'message',
+    prefix: 'datingChats',
   }
 );
 
-export const ACTIONS = {
+export default {
   ...actions.actions,
   ...actions.asyncActions,
 }
