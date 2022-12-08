@@ -26,7 +26,7 @@ export const createAction = (actionType, { async = false, ...options }) => {
   return action
 }
 
-export const createActions = ({ actionTypes = [], asyncTypes = [] }, options) => {
+const createActions = ({ actionTypes = [], asyncTypes = [] }, options) => {
   const _actions = {}
   const _asyncActions = {}
 
@@ -47,3 +47,5 @@ export const createActions = ({ actionTypes = [], asyncTypes = [] }, options) =>
     asyncActions: createActionsLib({ ..._asyncActions }, options),
   }
 }
+
+export {createActions};
