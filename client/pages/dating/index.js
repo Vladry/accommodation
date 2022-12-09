@@ -16,6 +16,7 @@ import classes from "../../components/dating_components/datingMenuItems/dating.m
 import {useRouter} from "next/router";
 import styled from "@emotion/styled";
 import globalVariables from '../../globalVariables.json';
+import DatingMenuDrawer from "@/components/dating_components/DatingMenuDrawer";
 
 const Index = () => {
 
@@ -29,16 +30,14 @@ const Index = () => {
         const [candidates, setCandidates] = useState(null);
         const candidatesIds = useRef({});
         let resUsers;
-        const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-        const toggleDrawer = () => setIsDrawerOpen((isDrawerOpen) => !isDrawerOpen);
-        const isSmallScreen = useMediaQuery('(max-width: 600px)');
+
         const dispatch = useDispatch();
         const debounce = useRef(false);
         const datingServiceParticipation = useSelector(sel.datingServiceParticipation);
         const datingNotifications = useSelector(sel.datingNotifications);
         const datingMessages = useSelector(sel.datingMessages);
-    const datingMessagesDb = useSelector(sel.datingMessagesDb);
-    const datingNotificationsDb = useSelector(sel.datingNotificationsDb);
+        const datingMessagesDb = useSelector(sel.datingMessagesDb);
+        const datingNotificationsDb = useSelector(sel.datingNotificationsDb);
         const router = useRouter();
         const datingGuestPeriodMs = globalVariables.datingGuestPeriodMs;
         const timersInit = {datingRegistrationChecker: null}
@@ -70,21 +69,20 @@ const Index = () => {
         }, [datingServiceParticipation]);
 
 
+        useEffect(() => {
+            console.log("in useEffect, [datingNotifications]")
+            api.get(`${urls.messagesToId}?type=DATING_NOTIFICATION&id=${19}`).then(data => {
+                if (data && data[0]) {
+                    dispatch({type: types.SET_DATING_NOTIFICATIONS_DB, payload: data});
+                }
 
-    useEffect(() => {
-        console.log("in useEffect, [datingNotifications]")
-        api.get(`${urls.messagesToId}?type=DATING_NOTIFICATION&id=${19}`).then(data => {
-            if (data && data[0]) {
-                dispatch({type: types.SET_DATING_NOTIFICATIONS_DB, payload: data});
-            }
-
-        }).catch((e) => {
-            console.log("ошибка при получении уведомлений");
-        });
-    }, [datingNotifications])
+            }).catch((e) => {
+                console.log("ошибка при получении уведомлений");
+            });
+        }, [datingNotifications])
 
 
-    useEffect(() => {
+        useEffect(() => {
             api.get(`${urls.messagesToId}?type=PRIVATE_MESSAGE&id=${19}`).then(data => {
                 if (data && data[0]) {
                     dispatch({type: types.SET_DATING_MESSAGES_DB, payload: data});
@@ -95,8 +93,6 @@ const Index = () => {
             });
 
         }, [datingMessages])
-
-
 
 
         async function getCandidatesIds() {// получим ids кандидатов, подходящих под критерии userDatingProfile:
@@ -145,7 +141,8 @@ const Index = () => {
 
         useEffect(() => {
             if (user && !loadingMatchingCandidatesIds) {
-                getCandidatesIds().then(()=>{});
+                getCandidatesIds().then(() => {
+                });
             }
         }, [userDatingProfile, datingSearchCriteriaProfile])
 
@@ -158,23 +155,7 @@ const Index = () => {
         return (
             <Box sx={{display: 'flex'}}>
 
-                <Box>
-                    {isSmallScreen &&
-                        <My_Drawer
-                            isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer}>
-                            <DatingMenuWrapper disabled={datingMenu[0].url}>
-                                {datingMenu[0].linkName}
-                            </DatingMenuWrapper>
-                        </My_Drawer>}
-                    {isSmallScreen && <Box sx={{position: 'absolute', top: '1px', left: '15px'}}>
-                        <ToggleMenuIconButton
-                            color={'#333A9D'} toggleDrawer={toggleDrawer}/></Box>}
-
-
-                    {!isSmallScreen && <DatingMenuWrapper disabled={datingMenu[0].url}>
-                        {datingMenu[0].linkName}
-                    </DatingMenuWrapper>}
-                </Box>
+                <DatingMenuDrawer hideThreshold={600} menuIndex={0} /> {/*menuIndex - это порядковый номер  массива datingMenu[] файле menuConfig.js*/}
 
 
                 <Box>

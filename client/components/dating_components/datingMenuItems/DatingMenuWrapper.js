@@ -6,9 +6,6 @@ import {Box, useMediaQuery} from "@mui/material";
 const DatingMenuWrapper = ({disabled, children}) => {
     const isAuthenticated = useAuth(false);
 
-    const isSmallScreen = useMediaQuery('(max-width: 600px)');
-    const isMediumScreen = useMediaQuery('(min-width: 601px)  && (max-width: 900px)');
-
     if (!isAuthenticated) return (<><h3>log into your profile</h3></>);
 
 

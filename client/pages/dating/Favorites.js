@@ -8,14 +8,13 @@ import sel from "@/store/user/selectors";
 import {useRouter} from "next/router";
 import urls from "../../../src/main/resources/urls.json";
 import DatingSubWrapper from "../../components/dating_components/datingMenuItems/DatingSubWrapper";
+import DatingMenuDrawer from "@/components/dating_components/DatingMenuDrawer";
 
 const Favorites = () => {
 
     const favoritesPage = (
         <Box className={classes['dating-sections-container']}>
-            <DatingMenuWrapper disabled={datingMenu[3].url}>
-                {datingMenu[3].linkName}
-            </DatingMenuWrapper>
+            <DatingMenuDrawer hideThreshold={600} menuIndex={3} />
             <h3 className={classes['header']}>{datingMenu[3].title}</h3>
         </Box>
     );

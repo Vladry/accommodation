@@ -3,7 +3,6 @@ import classes from "@/components/dating_components/datingMenuItems/dating.modul
 import Box from "@mui/material/Box";
 import {shallowEqual, useSelector} from "react-redux";
 import DatingChatMsgElement from "@/components/chats/datingChatMsgElement";
-import {Button, InputLabel, TextField} from "@mui/material";
 
 const ChatContainer = () => {
     const activeInterlocutor = useSelector(state => state.datingChatData.activeInterlocutor);
@@ -26,7 +25,7 @@ const ChatContainer = () => {
 
     return (
         <Box sx={{display: 'flex', flexFlow: 'column noWrap', justifyContent: 'flex-start',
-            border: '1px solid blue', width: '80%', borderRadius: '20px'}}>
+            border: '1px solid blue', width: '70%', borderRadius: '20px'}}>
             <h3 className={classes['header']}>Чат</h3>
             {msgElements}
 
