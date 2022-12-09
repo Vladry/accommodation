@@ -7,7 +7,6 @@ import {useMediaQuery} from "@mui/material";
 const Interlocutors = ({title}) => {
     const allowedInterlocutorsData = useSelector(state => state.datingChatData.allowedInterlocutorsData, shallowEqual);
     const isMediumScreen = useMediaQuery('(max-width: 800px)');
-    // const isMediumScreen = useMediaQuery('(min-width: 601px)  && (max-width: 900px)');
 
     const interlocutorChats = allowedInterlocutorsData.map((interlocutor) =>
         <ChatElem

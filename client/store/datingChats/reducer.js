@@ -88,7 +88,8 @@ const init = {
             timestampCreated:  new Date(2022,  11, 4, 20, 40).getTime(),
             timestampUpdated: 0
         },
-    ]
+    ],
+    newDatingChatMessage: {},
 }
 
 
@@ -108,6 +109,12 @@ const reducer = (state = init, {type, payload}) => {
             return {
                 ...state,
                 activeInterlocutor: payload
+            };
+
+        case String(ACTIONS.sendNewMessage):
+            return {
+                ...state,
+                newDatingChatMessage: payload
             };
 
         default:

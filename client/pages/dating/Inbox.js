@@ -24,8 +24,9 @@ const Inbox = () => {
 
             <Box sx={{display: 'flex', justifyContent: 'center',
                 alignItems: isSmallScreen? 'center' : 'flex-start',
-                flexFlow: isSmallScreen? 'column noWrap' : 'row noWrap'
-                , border: '1px solid red', width: '100%', padding: '2px', gap: '10px', borderRadius: '5px'}}>
+                flexFlow: isSmallScreen? 'column noWrap' : 'row noWrap',
+                border: '1px solid red', width: '100%', padding: '2px', gap: '10px', borderRadius: '5px'}}
+            >
 
                 <Interlocutors title={title}/>
                 <ChatContainer/>
