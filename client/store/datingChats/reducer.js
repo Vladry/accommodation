@@ -1,4 +1,5 @@
 import * as datingChatActions from './index';
+import {ACTIONS} from './index';
 
 const init = {
     allowedInterlocutorsData: [
@@ -18,8 +19,42 @@ const init = {
             nick: 'Ozzy',
         },
     ],
-    blackListedInterlocutorsIds: [],
-    receivedMessages: [],
+    blackListedInterlocutorsIds: [3],
+    activeInterlocutor: 0,
+    receivedMessages: [
+        {
+            fromUserId: 1,
+            toUserId: 19,
+            chat: 'dating',
+            msg: 'hi, its me Bob!',
+            timestampCreated: 1,
+            timestampUpdated: 0
+        },
+        {
+            fromUserId: 1,
+            toUserId: 19,
+            chat: 'dating',
+            msg: 'how are you?',
+            timestampCreated: 2,
+            timestampUpdated: 0
+        },
+        {
+            fromUserId: 2,
+            toUserId: 19,
+            chat: 'dating',
+            msg: 'hi, its Martin, how are you?',
+            timestampCreated: 0,
+            timestampUpdated: 0
+        },
+        {
+            fromUserId: 3,
+            toUserId: 19,
+            chat: 'dating',
+            msg: 'hi, its Ozzy, are you tired of me?',
+            timestampCreated: 0,
+            timestampUpdated: 0
+        }
+    ],
     sentMessages: []
 }
 
@@ -35,9 +70,11 @@ const messageExample = {
 
 const reducer = (state = init, {type, payload}) => {
     switch (type) {
-        case String(datingChatActions.someAct):
+
+        case String(ACTIONS.setActiveInterlocutor):
             return {
                 ...state,
+                activeInterlocutor: payload
             };
 
         default:

@@ -5,7 +5,7 @@ import {createActions} from '../actionsCreator.js';
 const actions = createActions(
   {
     actionTypes: [
-      "DO_SMTH",
+      "SET_ACTIVE_INTERLOCUTOR",
     ],
     asyncTypes: ["GET_CHATS", "SET_CHATS",],
   },

@@ -6,7 +6,12 @@ import ChatElem from "@/components/chats/ChatElem";
 const Interlocutors = ({title}) => {
 
     const allowedInterlocutorsData = useSelector(state => state.datingChatData.allowedInterlocutorsData, shallowEqual);
-    const interlocutorChats = allowedInterlocutorsData.map((interlocutor, ind) => <ChatElem key={ind} interlocutor={interlocutor}/>);
+
+    const interlocutorChats = allowedInterlocutorsData.map((interlocutor) =>
+        <ChatElem
+                  key={interlocutor.userId}
+                  interlocutor={interlocutor}
+        />);
 
 
     return (
