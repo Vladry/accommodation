@@ -157,6 +157,7 @@ const Index = () => {
 
         return (
             <Box sx={{display: 'flex'}}>
+
                 <Box>
                     {isSmallScreen &&
                         <My_Drawer

@@ -27,9 +27,11 @@ const DatingChatMsgElement = ({msg}) => {
         e.preventDefault();
         setContextEl(e.currentTarget);
     }
+    const selectMessage = ()=>{console.log("выделить текущее сообщение")}
 
     const contextMenuCloseHandler = () =>{
         setContextEl(()=> null);
+        setIsHover(() => false);
     }
 
     const msgLinesStyling = {display: isHover ? 'inline' : 'none', fontSize: '0.7em'};
@@ -37,21 +39,19 @@ const DatingChatMsgElement = ({msg}) => {
 
     return (
         <Box sx={msgStyling}
-
+             onClick={selectMessage}
              onMouseEnter={() => {
                  setIsHover(() => true);
              }}
              onMouseLeave={() => {
                  setIsHover(() => false);
-                 setContextEl(() => null);
-
              }}
              onContextMenu={contextMenuOpenHandler}
 
         >
             <p>{msg.msg}</p>
             <span style={{marginLeft: '10px', ...msgLinesStyling}}>{date},</span>
-            <span style={{marginLeft: '10px', ...msgLinesStyling}}>{time}</span>
+            <span style={{marginLeft: '10px', ...msgLinesStyling}}>{time.slice(0, -3)}</span>
             <ChatMessageContextMenu contextEl={contextEl} contextMenuCloseHandler={contextMenuCloseHandler}/>
         </Box>
     );

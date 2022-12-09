@@ -39,6 +39,14 @@ const init = {
             timestampUpdated: 0
         },
         {
+            fromUserId: 1,
+            toUserId: 19,
+            chat: 'dating',
+            msg: 'any plans for the weekends?',
+            timestampCreated:  new Date(2022,  11, 4, 9, 20).getTime(),
+            timestampUpdated: 0
+        },
+        {
             fromUserId: 2,
             toUserId: 19,
             chat: 'dating',
@@ -70,6 +78,14 @@ const init = {
             chat: 'dating',
             msg: 'I am not bad, bro!',
             timestampCreated:  new Date(2022,  11, 4, 5, 20).getTime(),
+            timestampUpdated: 0
+        },
+        {
+            fromUserId: 19,
+            toUserId: 1,
+            chat: 'dating',
+            msg: 'Not really!',
+            timestampCreated:  new Date(2022,  11, 4, 20, 40).getTime(),
             timestampUpdated: 0
         },
     ]
