@@ -1,6 +1,6 @@
 import React from 'react';
 import {datingMenu} from "../../../public/menuConfig";
-import {LocalMenuItem, NavLink_styled} from "../../../utils/typography";
+import {LocalMenuItem, NavLink_styled} from "@/utils/typography";
 import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
 import MailIcon from "@mui/icons-material/Mail";
@@ -106,13 +106,6 @@ const DatingMenu = ({disabled}) => {
                 <HomeIcon className={classes['menu-icons']}/>
                 <NavLink_styled
                     href={datingMenu[8].url}>{datingMenu[8].linkName}
-                </NavLink_styled>
-            </LocalMenuItem>
-
-            <LocalMenuItem className={classes['local-menu']}>
-                <HomeIcon className={classes['menu-icons']}/>
-                <NavLink_styled
-                    href={datingMenu[9].url}>{datingMenu[9].linkName}
                 </NavLink_styled>
             </LocalMenuItem>
 

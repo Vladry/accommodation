@@ -8,7 +8,6 @@ const ChatElem = ({interlocutor}) => {
     const dispatch = useDispatch();
 
     const activeInterlocutor = useSelector(state => state.datingChatData.activeInterlocutor);
-    console.log("rerender ChatElem")
 
     const setActiveInterlocutorChat = (event)=>{
 

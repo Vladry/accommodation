@@ -27,7 +27,7 @@ const init = {
             toUserId: 19,
             chat: 'dating',
             msg: 'hi, its me Bob!',
-            timestampCreated: 1,
+            timestampCreated: new Date(2022,  8, 1, 18, 43).getTime(),
             timestampUpdated: 0
         },
         {
@@ -35,7 +35,7 @@ const init = {
             toUserId: 19,
             chat: 'dating',
             msg: 'how are you?',
-            timestampCreated: 2,
+            timestampCreated:  new Date(2022,  10, 3, 20, 36).getTime(),
             timestampUpdated: 0
         },
         {
@@ -55,7 +55,24 @@ const init = {
             timestampUpdated: 0
         }
     ],
-    sentMessages: []
+    sentMessages: [
+        {
+            fromUserId: 19,
+            toUserId: 1,
+            chat: 'dating',
+            msg: 'hi, Bob!',
+            timestampCreated:  new Date(2022,  9, 2, 13, 5).getTime(),
+            timestampUpdated: 0
+        },
+        {
+            fromUserId: 19,
+            toUserId: 1,
+            chat: 'dating',
+            msg: 'I am not bad, bro!',
+            timestampCreated:  new Date(2022,  11, 4, 5, 20).getTime(),
+            timestampUpdated: 0
+        },
+    ]
 }
 
 
