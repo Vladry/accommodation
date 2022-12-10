@@ -103,7 +103,7 @@ const CandidateProfile = () => {
         }
 
 
-        //отослать stomp-уведомление о лайте юзеру, которого я лайкнул:
+        //отослать stomp-уведомление о лайке юзеру, которого я лайкнул:
         const messengerArgs = {
             destination: `${destinations.likesNotifications}${queriedUserId}`,
             type: "DATING_NOTIFICATION",
@@ -204,6 +204,7 @@ const CandidateProfile = () => {
         const messengerArgs = {
             destination: `${destinations.privateMessages}${candidateId.current}`,
             type: "PRIVATE_MESSAGE", // id.current обязательно, иначе: Cannot read properties of null (reading 'id')
+            chat: 'dating',
             value: tempTextFieldValue.current ? tempTextFieldValue.current : "",
             fromId: id.current, toId: candidateId.current, subject: null
         };

@@ -9,8 +9,8 @@ const ChatContainer = () => {
     const receivedMessages = useSelector(state => state.datingChatData.receivedMessages, shallowEqual);
     const sentMessages = useSelector(state => state.datingChatData.sentMessages, shallowEqual);
 
-    const msgContent = [...receivedMessages.filter(msg=>msg.fromUserId===activeInterlocutor),
-        ...sentMessages.filter(msg=>msg.toUserId===activeInterlocutor)];
+    const msgContent = [...receivedMessages.filter(msg=>msg.fromId===activeInterlocutor),
+        ...sentMessages.filter(msg=>msg.toId===activeInterlocutor)];
     const sortFn = (a,b) => {
         if (a.timestampCreated < b.timestampCreated) {
             return -1;

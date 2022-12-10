@@ -1,6 +1,16 @@
 import * as datingChatActions from './index';
 import {ACTIONS} from './index';
 
+const chatSettings = {
+    lastActiveChatUserId: 1,
+    blackListedInterlocutorsIds: [3],
+    favoritesUserIds: [],
+    keepMediaFilesDays: 10,
+    localMediaFilesFolder: 'C:\\Users\\dating',
+    notificationSound: true,
+    photoSentQuality: 250,
+}
+
 const init = {
     allowedInterlocutorsData: [
         {
@@ -19,95 +29,85 @@ const init = {
             nick: 'Ozzy',
         },
     ],
-    activeInterlocutor: 0,
+    activeInterlocutor: 1,
     receivedMessages: [
         {
-            fromUserId: 1,
-            toUserId: 19,
+            fromId: 1,
+            toId: 19,
             chat: 'dating',
-            msg: 'hi, its me Bob!',
+            value: 'hi, its me Bob!',
             timestampCreated: new Date(2022,  8, 1, 18, 43).getTime(),
             timestampUpdated: 0
         },
         {
-            fromUserId: 1,
-            toUserId: 19,
+            fromId: 1,
+            toId: 19,
             chat: 'dating',
-            msg: 'how are you?',
+            value: 'how are you?',
             timestampCreated:  new Date(2022,  10, 3, 20, 36).getTime(),
             timestampUpdated: new Date(2022,  10, 3, 20, 38).getTime(),
         },
         {
-            fromUserId: 1,
-            toUserId: 19,
+            fromId: 1,
+            toId: 19,
             chat: 'dating',
-            msg: 'any plans for the weekends?',
+            value: 'any plans for the weekends?',
             timestampCreated:  new Date(2022,  11, 3, 9, 20).getTime(),
             timestampUpdated: new Date(2022,  11, 4, 13, 43).getTime(),
         },
         {
-            fromUserId: 2,
-            toUserId: 19,
+            fromId: 2,
+            toId: 19,
             chat: 'dating',
-            msg: 'hi, its Martin, how are you?',
+            value: 'hi, its Martin, how are you?',
             timestampCreated: 0,
             timestampUpdated: 0
         },
         {
-            fromUserId: 3,
-            toUserId: 19,
+            fromId: 3,
+            toId: 19,
             chat: 'dating',
-            msg: 'hi, its Ozzy, are you tired of me?',
+            value: 'hi, its Ozzy, are you tired of me?',
             timestampCreated: 0,
             timestampUpdated: 0
         }
     ],
     sentMessages: [
         {
-            fromUserId: 19,
-            toUserId: 1,
+            fromId: 19,
+            toId: 1,
             chat: 'dating',
-            msg: 'hi, Bob!',
+            value: 'hi, Bob!',
             timestampCreated:  new Date(2022,  9, 2, 13, 5).getTime(),
             timestampUpdated: 0
         },
         {
-            fromUserId: 19,
-            toUserId: 1,
+            fromId: 19,
+            toId: 1,
             chat: 'dating',
-            msg: 'I am not bad, bro!',
+            value: 'I am not bad, bro!',
             timestampCreated:  new Date(2022,  11, 4, 5, 20).getTime(),
             timestampUpdated: 0
         },
         {
-            fromUserId: 19,
-            toUserId: 1,
+            fromId: 19,
+            toId: 1,
             chat: 'dating',
-            msg: 'Not really!',
+            value: 'Not really!',
             timestampCreated:  new Date(2022,  11, 4, 20, 40).getTime(),
             timestampUpdated: 0
         },
     ],
     newDatingChatMessage: {},
-    chatSettings: {}
+    chatSettings: chatSettings
 }
 
-const chatSettings = {
-    lastActiveChatUserId: 0,
-    blackListedInterlocutorsIds: [3],
-    favoritesUserIds: [],
-    keepMediaFilesDays: 10,
-    localMediaFilesFolder: 'C:\\Users\\dating',
-    notificationSound: true,
-    photoSentQuality: 250,
-
-}
 
 const messageExample = {
-    fromUserId: 0,
-    toUserId: 0,
+    fromId: 0,
+    toId: 0,
     chat: 'dating',
-    msg: '',
+    value: '',
     timestampCreated: 0,
     timestampUpdated: 0
 }
