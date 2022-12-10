@@ -39,18 +39,20 @@ const ChatMsgInputBox = () => {
 
     return (
         <Box sx={{
-            alignSelf: isMediumScreen ? '' : 'flex-end',
-            border: '1px solid green', width: isMediumScreen ? '75%' : '25%', borderRadius: '20px'
+            marginTop: '30px',
+            // alignSelf: isMediumScreen ? '' : 'flex-end',
+            // alignSelf: 'center',
+            // width: isMediumScreen ? '75%' : '25%',
+            borderRadius: '20px', border: '1px solid green'
         }}>
-            <InputLabel htmlFor="message">Write a message:</InputLabel>
-            {/*https://mui.com/material-ui/react-text-field/#basic-textfield*/}
+            {/*<InputLabel htmlFor="message"></InputLabel>*/}
             <TextField inputRef={inputRef} multiline fullWidth
-                       id="message" data-name={"message"} label={"text me ..."}
-                       helperText={"type here"}
+                       id="message" data-name={"message"} /*label={"text me ..."}*/
+                       // helperText={"type here"}
                        onChange={handleInpChange}
             />
-            <Button variant={'text'} size={'small'} onClick={handleClear}>Clear</Button>
             <Button variant={'contained'} size={'small'} onClick={handleSend}>Send</Button>
+            <Button variant={'outlined'} size={'small'} onClick={handleClear}>Clear</Button>
         </Box>
     );
 };

@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import {ACTIONS} from '@/store/datingChats/index';
 import {useDispatch, useSelector} from "react-redux";
 
-const ChatElem = ({interlocutor}) => {
+const DatingChatInterlocutorElem = ({interlocutor}) => {
     const dispatch = useDispatch();
 
     const activeInterlocutor = useSelector(state => state.datingChatData.activeInterlocutor);
@@ -27,4 +27,4 @@ const ChatElem = ({interlocutor}) => {
     );
 };
 
-export default ChatElem;
+export default DatingChatInterlocutorElem;

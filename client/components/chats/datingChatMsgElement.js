@@ -13,7 +13,8 @@ const DatingChatMsgElement = ({msg}) => {
         alignSelf: (msg.fromUserId === activeInterlocutor) ? 'flex-start' : 'flex-end',
         justifyContent: (msg.fromUserId === activeInterlocutor) ? 'flex-start' : 'flex-end',
 
-        padding: '8px',
+        paddingLeft: '8px',
+        paddingRight: '8px',
         margin: (msg.fromUserId === activeInterlocutor) ? '1px 0px 1px 20px' : '1px 20px 1px 0px',
 
         background: (msg.fromUserId === activeInterlocutor) ? 'lightblue' : 'goldenrod',
@@ -21,7 +22,10 @@ const DatingChatMsgElement = ({msg}) => {
         borderRadius: (msg.fromUserId === activeInterlocutor) ? '20px 20px 20px 0px' : '20px 20px 0px 20px'
     }
     const date = new Date(msg.timestampCreated).toLocaleDateString();
-    const time = new Date(msg.timestampCreated).toLocaleTimeString();
+    const time = new Date(msg.timestampCreated).toLocaleTimeString().slice(0, -3);
+    const updateDate = new Date(msg.timestampUpdated).toLocaleDateString();
+    const updateTime = new Date(msg.timestampUpdated).toLocaleTimeString().slice(0, -3);
+    const isMsgWasUpdated = (msg.timestampUpdated !=null && msg.timestampUpdated > 0);
 
     const contextMenuOpenHandler = (e) => {
         e.preventDefault();
@@ -49,9 +53,12 @@ const DatingChatMsgElement = ({msg}) => {
              onContextMenu={contextMenuOpenHandler}
 
         >
-            <p>{msg.msg}</p>
-            <span style={{marginLeft: '10px', ...msgLinesStyling}}>{date},</span>
-            <span style={{marginLeft: '10px', ...msgLinesStyling}}>{time.slice(0, -3)}</span>
+            <p style={{padding: '1px', margin: '1px'}}>{msg.msg}</p>
+            {isHover? <p style={{color: 'grey', marginLeft: '3px', ...msgLinesStyling}}>created: {date},</p> : null}
+            {isHover? <p style={{color: 'grey', marginLeft: '3px', ...msgLinesStyling}}>{time}</p> : null}
+            {isMsgWasUpdated? <span  style={{color: 'maroon', marginLeft: '3px', ...msgLinesStyling}}>/ updated:</span> : null}
+            {isMsgWasUpdated && (date !== updateDate)? <p style={{color: 'maroon', marginLeft: '3px', ...msgLinesStyling}}>{updateDate},</p> : null}
+            {isMsgWasUpdated? <p style={{color: 'maroon', marginLeft: '3px', ...msgLinesStyling}}>{updateTime}</p> : null}
             <ChatMessageContextMenu contextEl={contextEl} contextMenuCloseHandler={contextMenuCloseHandler}/>
         </Box>
     );

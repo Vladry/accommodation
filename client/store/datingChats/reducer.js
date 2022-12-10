@@ -19,7 +19,6 @@ const init = {
             nick: 'Ozzy',
         },
     ],
-    blackListedInterlocutorsIds: [3],
     activeInterlocutor: 0,
     receivedMessages: [
         {
@@ -36,15 +35,15 @@ const init = {
             chat: 'dating',
             msg: 'how are you?',
             timestampCreated:  new Date(2022,  10, 3, 20, 36).getTime(),
-            timestampUpdated: 0
+            timestampUpdated: new Date(2022,  10, 3, 20, 38).getTime(),
         },
         {
             fromUserId: 1,
             toUserId: 19,
             chat: 'dating',
             msg: 'any plans for the weekends?',
-            timestampCreated:  new Date(2022,  11, 4, 9, 20).getTime(),
-            timestampUpdated: 0
+            timestampCreated:  new Date(2022,  11, 3, 9, 20).getTime(),
+            timestampUpdated: new Date(2022,  11, 4, 13, 43).getTime(),
         },
         {
             fromUserId: 2,
@@ -90,8 +89,19 @@ const init = {
         },
     ],
     newDatingChatMessage: {},
+    chatSettings: {}
 }
 
+const chatSettings = {
+    lastActiveChatUserId: 0,
+    blackListedInterlocutorsIds: [3],
+    favoritesUserIds: [],
+    keepMediaFilesDays: 10,
+    localMediaFilesFolder: 'C:\\Users\\dating',
+    notificationSound: true,
+    photoSentQuality: 250,
+
+}
 
 const messageExample = {
     fromUserId: 0,

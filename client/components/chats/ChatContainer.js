@@ -25,7 +25,7 @@ const ChatContainer = () => {
 
     return (
         <Box sx={{display: 'flex', flexFlow: 'column noWrap', justifyContent: 'flex-start',
-            border: '1px solid blue', width: '70%', borderRadius: '20px'}}>
+            border: '1px solid blue', borderRadius: '20px'}}>
             <h3 className={classes['header']}>Чат</h3>
             {msgElements}
 
