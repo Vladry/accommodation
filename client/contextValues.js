@@ -1,6 +1,7 @@
 import urls from '../src/main/resources/urls.json'
 import destinations from '../src/main/resources/destinations.json'
 import types from "@/store/user/types";
+import globalVariables from '@/variables/globalVariables.json';
 
 const neatUpZonedDateTime = (datingLastVisitDate) => {
     if (datingLastVisitDate !== null) {
@@ -47,7 +48,7 @@ const prepareFormData = (fields, profile) => {
             ...acc,
             [current.formikRef]: profile[current.formikRef]
         }), {})
-    } else  {
+    } else {
         return fields.reduce((acc, current) => ({
             ...acc,
             [current.formikRef]: current.valueByDefault
@@ -68,14 +69,14 @@ export function classNames(classes) {
 }
 
 
+const stompNotifier = (stompClient, messengerArgs) => {
 
-const stompMessenger = (stompClient, messengerArgs) => {
     const {
         destination, type, value, fromId = null, toId = null, subject = null, date = null, time = null, ...rest
     } = messengerArgs;
 
     /********************** возможные типы сообщений вебсокетов ********************/
-    const msgTypes = ["DATING_NOTIFICATION", "DATING_ANNOUNCEMENT", "PRIVATE_MESSAGE", "GENERAL_ANNOUNCEMENT", "GROUP_MESSAGE"]
+    const msgTypes = ["DATING_NOTIFICATION", "DATING_ANNOUNCEMENT", "PRIVATE_NOTIFICATION", "GENERAL_ANNOUNCEMENT", "GROUP_MESSAGE"]
     /*
     Обязательные args функции  stompPublisher:      destination, type, value
     Остальные args зависят от типа сообщения: доп.параметры:
@@ -88,7 +89,7 @@ const stompMessenger = (stompClient, messengerArgs) => {
             и в виде pop-up уведомлений, в виде двухстрочной надписи:  1."Name has liked/unliked you!" 2."profileURL кто лайкнул"
         DATING_ANNOUNCEMENT - доп.args нету. value будет содержать текст общего обьявления для всех dating-кандидатов
         GENERAL_ANNOUNCEMENT - тоже ,что для dating
-        PRIVATE_MESSAGE     - fromId, toId
+        PRIVATE_NOTIFICATION     - fromId, toId
         GROUP_MESSAGE       - fromId
 
  Domain-cущность StompMessage:
@@ -114,7 +115,7 @@ const stompMessenger = (stompClient, messengerArgs) => {
             "toId": toId, "subject": subject, "seen": false, ...rest
         };
 
-console.log("stompClient.publish: ", message)
+        console.log("stompClient.publish: ", message)
         console.log("destination: ", destination)
         stompClient.publish({
             destination: destination,
@@ -126,7 +127,11 @@ console.log("stompClient.publish: ", message)
         });
     }
 
-    publisher(destination, type, value, fromId, toId, subject, date, time, rest);
+    let notifierTimer = setTimeout(() => {
+        publisher(destination, type, value, fromId, toId, subject, date, time, rest);
+        clearTimeout(notifierTimer);
+    }, globalVariables.notifierDelay)
+
 };
 
 
@@ -136,5 +141,5 @@ export default {
     prepareFormData,
     neatUpZonedDateTime,
     getPeriod,
-    stompMessenger,
+    stompNotifier,
 }

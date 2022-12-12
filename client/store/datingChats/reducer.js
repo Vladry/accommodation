@@ -1,5 +1,7 @@
 import * as datingChatActions from './index';
 import {ACTIONS} from './index';
+import api from "../../lib/API";
+import urls from "../../../src/main/resources/urls.json";
 
 const chatSettings = {
     lastActiveChatUserId: 1,
@@ -27,6 +29,16 @@ const init = {
             userId: 3,
             avatar: 'https://res.cloudinary.com/vladry/image/upload/v1628498610/vlad_shrunk/cat2_x0yqxm.jpg',
             nick: 'Ozzy',
+        },
+        {
+            userId: 19,
+            avatar: 'https://res.cloudinary.com/vladry/image/upload/v1628498610/vlad_shrunk/cat2_x0yqxm.jpg',
+            nick: 'Vlad',
+        },
+        {
+            userId: 20,
+            avatar: 'https://res.cloudinary.com/vladry/image/upload/v1628498610/vlad_shrunk/cat2_x0yqxm.jpg',
+            nick: 'Sender',
         },
     ],
     activeInterlocutor: 1,
@@ -98,6 +110,7 @@ const init = {
             timestampUpdated: 0
         },
     ],
+    allMessages: [],
     newDatingChatMessage: {},
     chatSettings: chatSettings
 }
@@ -108,6 +121,8 @@ const messageExample = {
     toId: 0,
     chat: 'dating',
     value: '',
+    subject: '',
+    seen: false,
     timestampCreated: 0,
     timestampUpdated: 0
 }
@@ -121,7 +136,16 @@ const reducer = (state = init, {type, payload}) => {
                 activeInterlocutor: payload
             };
 
+        case String(ACTIONS.setAllMessages):
+            return {
+                ...state,
+                allMessages: payload
+            };
+
         case String(ACTIONS.sendNewMessage):
+            console.log("in datingReducer: case= sendNewMessage:");
+            console.log("posting payload:", payload);
+            api.post(`${urls.messages}`, payload).then(() => {});
             return {
                 ...state,
                 newDatingChatMessage: payload

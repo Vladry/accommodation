@@ -1,5 +1,7 @@
 {
   "reduxTimerUpdateMilliseconds": 600,
   "datingGuestPeriodMs": 5000,
-  "addPhotosReduxReserveUpdate": 6000
+  "addPhotosReduxReserveUpdate": 6000,
+  "keyPressDebounce": 500,
+  "notifierDelay": 2000
 }

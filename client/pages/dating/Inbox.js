@@ -53,9 +53,11 @@ const Inbox = () => {
     );
 
     return (
-        <DatingSubWrapper>
+        // <DatingSubWrapper>
+        <>
             {inboxPage}
-        </DatingSubWrapper>
+        </>
+        // </DatingSubWrapper>
     );
 };
 

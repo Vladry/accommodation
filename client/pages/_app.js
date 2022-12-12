@@ -49,7 +49,7 @@ function MyApp({Component, pageProps, emotionCache = clientSideEmotionCache}) {
             console.log("datingLikeNotificationCB->")
             if (json.body) {
                 const message = JSON.parse(json.body);
-                    alert(message.value)
+                    // alert(message.value)
                     dispatch({type: types.SET_DATING_NOTIFICATIONS, payload: message});
             }
         }
@@ -58,7 +58,7 @@ function MyApp({Component, pageProps, emotionCache = clientSideEmotionCache}) {
             console.log("datingPrivateMessageCB->")
             if (json.body) {
                 const message = JSON.parse(json.body);
-                    alert(message.value)
+                    // alert(message.value)
                     dispatch({type: types.SET_DATING_MESSAGES, payload: message});
             }
         }
@@ -75,7 +75,7 @@ function MyApp({Component, pageProps, emotionCache = clientSideEmotionCache}) {
                 case `${destinations.likesNotifications}${user.id}`:
                     cb= datingLikeNotificationCB;
                     break;
-                    case `${destinations.privateMessages}${user.id}`:
+                    case `${destinations.privateNotifications}${user.id}`:
                     cb= datingPrivateMessageCB;
                         break;
                 default:

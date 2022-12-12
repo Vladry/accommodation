@@ -17,6 +17,7 @@ import {useRouter, Router} from "next/router";
 import {useTheme} from "@mui/material/styles";
 import Image from "next/image";
 import AccountCircle from "@mui/icons-material/AccountCircle";
+import globalVariables from '@/variables/globalVariables.json';
 
 import MessengerDialogWindow from "../../components/forms/MessengerDialogWindow";
 import {Context} from "../../context";
@@ -32,6 +33,7 @@ const CandidateProfile = () => {
     const router = useRouter();
     const queriedUserId = router.query.queriedUserId;
     const candidateUserObj = useRef();
+    const notifierTimer = {};
     /*** Блок рефов ниже-своебразный костыль, иначе user.id и queriedUserId почему-то оказываются не доступными
      * при запуске sendMessageHandler() из слушателя  document.addEventListener('keyup', e => {
      * ***/
@@ -85,12 +87,17 @@ const CandidateProfile = () => {
         const nowLikedState = !isLiked;//эта переменная нужна, т.к. state не обновляется мгновенно и путает данные
 
         if (nowLikedState) {
-            //записать лайк в БД:
-            const msg = {
-                destination: null, type: "LIKED", value: null, subject: null,
+            //отослать stomp-уведомление о лайке юзеру, которого я лайкнул и записать лайк в БД:
+            const likeNotification = {
+                destination: `${destinations.likesNotifications}${queriedUserId}`,
+                type: "LIKED",
+                value: `${urls.queriedCandidateProfile}${id.current}`,
                 fromId: id.current, toId: candidateId.current,
+                subject: nowLikedState ? `${candidateUserObj.current.name} ${candidateUserObj.current.lastName} has liked you!`
+                    : `${candidateUserObj.current.name} ${candidateUserObj.current.lastName} has unliked you!`
             };
-            api.post(`${urls.messages}`, msg).then(() => {
+            context.stompNotifier(stompClient, likeNotification);
+            api.post(`${urls.messages}`, likeNotification).then(() => {
             });
         }
 
@@ -102,19 +109,6 @@ const CandidateProfile = () => {
             });
         }
 
-
-        //отослать stomp-уведомление о лайке юзеру, которого я лайкнул:
-        const messengerArgs = {
-            destination: `${destinations.likesNotifications}${queriedUserId}`,
-            type: "DATING_NOTIFICATION",
-            value: `${urls.queriedCandidateProfile}${id.current}`,
-            fromId: id.current, toId: candidateId.current,
-            subject: nowLikedState ? `${candidateUserObj.current.name} ${candidateUserObj.current.lastName} has liked you!`
-                : `${candidateUserObj.current.name} ${candidateUserObj.current.lastName} has unliked you!`
-        };
-        context.stompMessenger(stompClient, messengerArgs);
-        api.post(`${urls.messages}`, messengerArgs).then(() => {
-        });
 
     }
 
@@ -179,7 +173,7 @@ const CandidateProfile = () => {
             if ((e.altKey || e.ctrlKey || e.shiftKey) && e.key === "Enter") {
                 setTimeout(() => {
                     debounce.current['checkKeyCombinationPressed'] = false;
-                }, 500);
+                }, globalVariables.keyPressDebounce);
                 sendMessageHandler();
                 debounce.current['checkKeyCombinationPressed'] = true;
             } else if (e.key === "Escape") {
@@ -200,17 +194,19 @@ const CandidateProfile = () => {
         textFieldRef.current.value = "";
         // console.log("message:", tempTextFieldValue.current);
 
-        // Отправляем полученный из диалогового окна текст в stomp-мессенджер:
-        const messengerArgs = {
-            destination: `${destinations.privateMessages}${candidateId.current}`,
-            type: "PRIVATE_MESSAGE", // id.current обязательно, иначе: Cannot read properties of null (reading 'id')
+        // Отправляем полученный из диалогового окна текст в stomp-мессенджер и в БД:
+        //datingMessage является одновременно сущностью и уведомления и сообщения
+        const datingMessage = {
+            destination: `${destinations.privateNotifications}${candidateId.current}`,
+            type: "PRIVATE_NOTIFICATION", // id.current обязательно, иначе: Cannot read properties of null (reading 'id')
             chat: 'dating',
             value: tempTextFieldValue.current ? tempTextFieldValue.current : "",
-            fromId: id.current, toId: candidateId.current, subject: null
+            fromId: id.current,
+            toId: candidateId.current
         };
-        context.stompMessenger(stompClient, messengerArgs);
-        api.post(`${urls.messages}`, messengerArgs).then(() => {
-        });
+
+        api.post(`${urls.messages}`, datingMessage).then(() => {});
+        context.stompNotifier(stompClient, datingMessage);
     };
 
 

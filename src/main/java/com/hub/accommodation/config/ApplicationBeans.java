@@ -14,7 +14,7 @@ import com.cloudinary.*;
 @Configuration
 public class ApplicationBeans {
     //этот бин - костыль, нужен для правильной работы h2
-/*    @Profile("local")
+    @Profile("local")
     @Bean
     Server h2Server() { //чтобы server прописался -в pom.xml нужно отключить <scope> в настройке h2
         Server server = new Server();
@@ -25,7 +25,7 @@ public class ApplicationBeans {
             e.printStackTrace();
         }
         return server;
-    }*/
+    }
 
 
     @Bean // https://cloudinary.com/console/c-2955f4b647c83c97fee5c6c06965f6/getting-started

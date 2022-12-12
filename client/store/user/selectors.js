@@ -1,4 +1,5 @@
 const user = state => state.userData.user;
+// const userId = state => state.userData.user.id;
 const loading = state => state.userData.loading;
 const loadingMatchingCandidatesIds = state => state.userData.loadingMatchingCandidatesIds;
 const userDatingProfile = state => state.userData.userDatingProfile;
@@ -38,6 +39,7 @@ const datingServiceParticipation = state => {
 
 export default {
     user,
+    // userId,
     loading,
     loadingMatchingCandidatesIds,
     userDatingProfile,

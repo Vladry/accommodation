@@ -11,7 +11,7 @@ const ChatMsgInputBox = () => {
     const activeInterlocutor = useSelector(state => state.datingChatData.activeInterlocutor);
     const user = useSelector(sel.user, shallowEqual);
     const dispatch = useDispatch();
-
+    if(!user) return;
     const handleInpChange = (e) => {
         if (e.target) {
             // console.log(e.target.value);
@@ -22,18 +22,17 @@ const ChatMsgInputBox = () => {
     }
     const handleSend = () => {
         const newMessage = {
-            fromUserId: user.id,
-            toUserId: activeInterlocutor,
+            fromId: user.id,
+            toId: activeInterlocutor,
             chat: 'dating',
-            msg: inputRef.current.value,
+            value: inputRef.current.value,
             timestampCreated: Date.now(),
             timestampUpdated: 0
         };
         inputRef.current.value = '';
 
         dispatch(ACTIONS.sendNewMessage(newMessage));
-        console.log("newMessage: ", newMessage);
-        console.log("user: ", user)
+        // console.log("newMessage: ", newMessage);
     }
 
 

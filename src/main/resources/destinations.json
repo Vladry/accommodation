@@ -1,5 +1,5 @@
 {
   "likesNotifications": "/queue/dating/likes.notifications/",
-  "privateMessages": "/queue/dating/",
+  "privateNotifications": "/queue/dating/",
   "generalNotifications": "/topic/dating.announcements"
 }

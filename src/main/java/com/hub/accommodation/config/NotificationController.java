@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin(origins = "*")
-public class MessageController {
+public class NotificationController {
 
     @Autowired
     SimpMessagingTemplate template;

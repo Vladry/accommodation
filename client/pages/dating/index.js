@@ -83,7 +83,7 @@ const Index = () => {
 
 
         useEffect(() => {
-            api.get(`${urls.messagesToId}?type=PRIVATE_MESSAGE&id=${19}`).then(data => {
+            api.get(`${urls.messagesToId}?type=PRIVATE_NOTIFICATION&id=${19}`).then(data => {
                 if (data && data[0]) {
                     dispatch({type: types.SET_DATING_MESSAGES_DB, payload: data});
                 }

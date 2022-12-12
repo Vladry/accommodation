@@ -1,29 +1,28 @@
 package com.hub.accommodation.controller;
 
-import com.hub.accommodation.domain.StompMessage;
+import com.hub.accommodation.domain.Message;
 import com.hub.accommodation.service.MessageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*") //TODO это обязательно во всех контроллерах. Но, при деплое -поудалять!
 @RequestMapping("/api/v1/messages")
-public class StompMessageController {
+public class MessageController {
 
     private final MessageService messageService;
 
     @PostMapping
-    public void saveMessage(@RequestBody StompMessage message) {
+    public void saveMessage(@RequestBody Message message) {
         messageService.saveMessage(message);
     }
 
     @DeleteMapping
 
-    public void deleteMessage(@RequestBody StompMessage message) {
+    public void deleteMessage(@RequestBody Message message) {
         messageService.deleteMessage(message);
     }
 
@@ -33,30 +32,42 @@ public class StompMessageController {
     }
 
     @GetMapping("/to/{id}")
-    public List<StompMessage> getMessageByToId(@PathVariable("id") Long id) {
+    public List<Message> getMessageByToId(@PathVariable("id") Long id) {
         return messageService.getMessageByToId(id);
     }
 
     @GetMapping("/from/{id}")
-    public List<StompMessage> getMessageByFromId(@PathVariable("id") Long id) {
+    public List<Message> getMessageByFromId(@PathVariable("id") Long id) {
         return messageService.getMessageByFromId(id);
     }
 
     @GetMapping("/to")
-    public List<StompMessage> getMessageByTypeAndToId(@RequestParam("type") String type, @RequestParam("id") Long id) {
+    public List<Message> getMessageByTypeAndToId(@RequestParam("type") String type, @RequestParam("id") Long id) {
         return messageService.getMessageByTypeAndToId(type, id);
     }
 
     @GetMapping("/from")
-    public List<StompMessage> getMessageByTypeAndFromId(@RequestParam("type") String type, @RequestParam("id") Long id) {
-        return messageService.getMessageByTypeAndFromId(type, id);
+    public List<Message> getNotificationByTypeAndFromId(@RequestParam("type") String type, @RequestParam("id") Long id) {
+        return messageService.getNotificationByTypeAndFromId(type, id);
+    }
+
+    @GetMapping("/chat/from")
+    public List<Message> getMessageByChatAndFromId(@RequestParam("chat") String chat, @RequestParam("id") Long id) {
+        return messageService.getMessageByChatAndFromId(chat, id);
+    }
+
+    @GetMapping("/chat/from/to")
+    public List<Message> getMessageByChatAndFromIdAndToId(@RequestParam("chat") String chat,
+                                                          @RequestParam("fromId") Long fromId,
+                                                          @RequestParam("toId") Long toId) {
+        return messageService.getMessageByChatAndFromIdAndToId(chat, fromId, toId);
     }
 
 
     @GetMapping("/likesAndBookmarks")
-    public List<StompMessage> getMessageByTypeAndFromIdAndToId(@RequestParam("type") String type,
-                                                               @RequestParam("fromId") Long fromId,
-                                                               @RequestParam("toId") Long toId) {
+    public List<Message> getMessageByTypeAndFromIdAndToId(@RequestParam("type") String type,
+                                                          @RequestParam("fromId") Long fromId,
+                                                          @RequestParam("toId") Long toId) {
         return messageService.getMessageByTypeAndFromIdAndToId(type, fromId, toId);
     }
 
@@ -69,12 +80,12 @@ public class StompMessageController {
 
 
     @GetMapping("/fromType")
-    public List<StompMessage> getMessageByType(@RequestParam("type") String type) {
+    public List<Message> getMessageByType(@RequestParam("type") String type) {
         return messageService.getMessageByType(type);
     }
 
     @GetMapping("/all")
-    public List<StompMessage> getAllMessages() {
+    public List<Message> getAllMessages() {
         return messageService.getAllMessages();
     }
 }
