@@ -36,11 +36,7 @@ const initialState = {
     isUserAppliedHisSubscriptions: false,
     stompClient: null,
 
-    datingMessages: [],
-    datingNotifications: [],
 
-    datingMessagesDb: [],
-    datingNotificationsDb: [],
 }
 
 const reducer = (state = initialState, action) => {
@@ -51,17 +47,6 @@ const reducer = (state = initialState, action) => {
             updatedUser.datingServiceParticipation = true;
             return {...state, user: updatedUser};
 
-        case types.SET_DATING_MESSAGES:
-            return {...state, datingMessages: action.payload};
-
-        case types.SET_DATING_NOTIFICATIONS:
-            return {...state, datingNotifications: action.payload};
-
-        case types.SET_DATING_MESSAGES_DB:
-            return {...state, datingMessagesDb: action.payload};
-
-        case types.SET_DATING_NOTIFICATIONS_DB:
-            return {...state, datingNotificationsDb: action.payload};
 
         case types.SET_STOMP_CLIENT:
             return {...state, stompClient: action.payload}

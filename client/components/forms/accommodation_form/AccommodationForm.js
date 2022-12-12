@@ -3,7 +3,7 @@ import {accommodationFormFields} from "./accommodationFormFields";
 import FormMapper from "../FormMapper";
 import useAuth from "../../../hooks/useAuth";
 import {useDispatch, useSelector} from "react-redux";
-import {Context} from "../../../context";
+import {Context} from "@/root/context.js";
 import types from "@/store/user/types";
 import sel from "@/store/user/selectors";
 import {fetchData} from "@/store/user/actions";

@@ -5,7 +5,7 @@ import {searchCriteriaFields} from "./searchCriteriaFields";
 
 import sel from "@/store/user/selectors";
 import {Grid} from "@mui/material";
-import {Context} from "../../../context";
+import {Context} from "@/root/context.js";
 
 const SearchCriteriaForm = ({handleSubmit}) => {
     const datingSearchCriteriaProfile = useSelector(sel.datingSearchCriteriaProfile);

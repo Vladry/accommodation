@@ -3,9 +3,11 @@ import Box from "@mui/material/Box";
 import {useSelector, shallowEqual} from "react-redux";
 import DatingChatInterlocutorElem from "@/components/chats/DatingChatInterlocutorElem";
 import {useMediaQuery} from "@mui/material";
+import selDatingChats from '@/store/datingChats/selectors';
 
 const Interlocutors = ({title}) => {
-    const allowedInterlocutorsData = useSelector(state => state.datingChatData.allowedInterlocutorsData, shallowEqual);
+    const allowedInterlocutorsData = useSelector(selDatingChats.allowedInterlocutorsData);
+
     const isMediumScreen = useMediaQuery('(max-width: 700px)');
 
     const interlocutorChats = allowedInterlocutorsData.map((interlocutor) =>

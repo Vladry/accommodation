@@ -1,12 +1,10 @@
 import React, {useContext} from 'react';
-import {userFormValidation} from "./formsValidations";
 import {newUserFormFields} from "./newUserFormFields";
 import FormMapper from "../FormMapper";
 import Button from "@mui/material/Button";
 import {Box} from "@mui/material";
 import {useRouter} from "next/router";
-import {Context} from "../../../context";
-import {udpFields_} from "../dating_user_profile_form/searchCriteriaFields";
+import {Context} from "@/root/context.js";
 
 
 const NewUserForm = ({handleSubmit}) => {

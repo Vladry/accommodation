@@ -2,14 +2,14 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "@/root/*":        ["./*"],
       "@/store/*":       ["store/*"],
       "@/components/*":  ["components/*"],
       "@/pages/*":       ["pages/*"],
       "@/utils/*":       ["utils/*"],
       "@/hooks/*":       ["hooks/*"],
       "@/containers/*":  ["containers/*"],
-      "@/service/*":     ["services/*"],
-      "@/variables/*":     ["./*"]
+      "@/service/*":     ["services/*"]
     }
   }
 }

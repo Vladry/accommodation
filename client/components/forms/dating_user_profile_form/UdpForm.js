@@ -5,7 +5,7 @@ import {udpFields} from "./udpFields";
 
 import sel from "@/store/user/selectors";
 import {Grid} from "@mui/material";
-import {Context} from "../../../context";
+import {Context} from "@/root/context.js";
 
 const UdpForm = ({handleSubmit}) => {
     const user = useSelector(sel.user);

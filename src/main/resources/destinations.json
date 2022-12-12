@@ -1,5 +1,9 @@
 {
   "likesNotifications": "/queue/dating/likes.notifications/",
+  "likesNotifType" : "LIKED",
+  "likedSubject": "has liked you!",
+  "unlikedSubject": "has unliked you!",
+
   "privateNotifications": "/queue/dating/",
   "generalNotifications": "/topic/dating.announcements"
 }

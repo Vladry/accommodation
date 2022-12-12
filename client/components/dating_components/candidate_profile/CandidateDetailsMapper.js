@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {Context} from "../../../context";
+import {Context} from "@/root/context.js";
 import {Grid} from "@mui/material";
 import goals from '../../forms/goals.js';
 import interests from '../../forms/interests.js';

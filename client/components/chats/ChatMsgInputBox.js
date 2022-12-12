@@ -2,14 +2,17 @@ import React, {useRef} from 'react';
 import Box from "@mui/material/Box";
 import {Button, InputLabel, TextField, useMediaQuery} from "@mui/material";
 import {useDispatch, useSelector, shallowEqual} from "react-redux";
-import sel from '@/store/user/selectors';
+import selUser from '@/store/user/selectors';
+import selDatingChats from '@/store/datingChats/selectors';
 import {ACTIONS} from '@/store/datingChats';
+import destinations from "../../../src/main/resources/destinations.json";
 
 const ChatMsgInputBox = () => {
     const inputRef = useRef();
     const isMediumScreen = useMediaQuery('(max-width: 600px)');
-    const activeInterlocutor = useSelector(state => state.datingChatData.activeInterlocutor);
-    const user = useSelector(sel.user, shallowEqual);
+    const activeInterlocutor = useSelector(selDatingChats.activeInterlocutor);
+    const user = useSelector(selUser.user, shallowEqual);
+    const stompClient = useSelector(selUser.stompClient);
     const dispatch = useDispatch();
     if(!user) return;
     const handleInpChange = (e) => {
@@ -22,17 +25,20 @@ const ChatMsgInputBox = () => {
     }
     const handleSend = () => {
         const newMessage = {
-            fromId: user.id,
-            toId: activeInterlocutor,
+            destination: `${destinations.privateNotifications}${user.id}`,
+            type: "PRIVATE_NOTIFICATION", // id.current обязательно, иначе: Cannot read properties of null (reading 'id')
             chat: 'dating',
             value: inputRef.current.value,
+            fromId: user.id,
+            toId: activeInterlocutor,
             timestampCreated: Date.now(),
             timestampUpdated: 0
         };
         inputRef.current.value = '';
 
-        dispatch(ACTIONS.sendNewMessage(newMessage));
-        // console.log("newMessage: ", newMessage);
+        const data = {msg: newMessage, client: stompClient};
+
+        dispatch(ACTIONS.sendNewMessage(data));
     }
 
 

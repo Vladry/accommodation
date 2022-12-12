@@ -3,7 +3,7 @@ import {useSelector} from "react-redux";
 import sel from "@/store/user/selectors";
 import {useRouter} from "next/router";
 import urls from "../../../../src/main/resources/urls.json";
-import globalVariables from '../../../globalVariables.json';
+import globalVariables from '@/root/globalVariables.json';
 
 /*DatingSubWrapper - обёртка, в которую заворачивают sub- элементы меню DatingMenu для добавления в каждый элемент
 повторяющегося функционала router.push(UdpFormPage) во всех случаях, когда datingServiceParticipation===false:

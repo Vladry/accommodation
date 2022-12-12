@@ -5,7 +5,7 @@ import {createActions} from '../actionsCreator.js';
 const actions = createActions(
   {
     actionTypes: [
-      "SET_ACTIVE_INTERLOCUTOR", "SET_ALL_MESSAGES" , "SEND_NEW_MESSAGE"
+      "SET_ACTIVE_INTERLOCUTOR", "SET_ALL_MESSAGES" , "SEND_NEW_MESSAGE", "ADD_DATING_MESSAGE"
     ],
     asyncTypes: ["GET_CHATS", "SET_CHATS",],
   },

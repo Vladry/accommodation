@@ -3,11 +3,12 @@ import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import {ACTIONS} from '@/store/datingChats/index';
 import {useDispatch, useSelector} from "react-redux";
+import selDatingChats from "@/store/datingChats/selectors";
 
 const DatingChatInterlocutorElem = ({interlocutor}) => {
     const dispatch = useDispatch();
 
-    const activeInterlocutor = useSelector(state => state.datingChatData.activeInterlocutor);
+    const activeInterlocutor = useSelector(selDatingChats.activeInterlocutor);
 
     const setActiveInterlocutorChat = (event)=>{
 

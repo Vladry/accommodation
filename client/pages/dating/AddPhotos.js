@@ -14,7 +14,7 @@ import BackButton from "../../components/BackButton";
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import {useRouter} from "next/router";
 import DatingSubWrapper from "../../components/dating_components/datingMenuItems/DatingSubWrapper";
-import globalVariables from '../../globalVariables.json';
+import globalVariables from '@/root/globalVariables.json';
 
 // const dotenv = require('dotenv');
 // dotenv.config();

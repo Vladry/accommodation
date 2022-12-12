@@ -1,22 +1,21 @@
 import React, {useEffect, useRef, useState} from 'react';
-import DatingMenuWrapper from "../../components/dating_components/datingMenuItems/DatingMenuWrapper";
 import {datingMenu} from "../../public/menuConfig";
-import {Box, useMediaQuery} from '@mui/material';
-import DatingUserList from "../../components/dating_components/DatingUserList";
+import {Box} from '@mui/material';
+import DatingUserList from "@/components/dating_components/DatingUserList";
 import api from "../../lib/API";
 import {useDispatch, useSelector} from "react-redux";
 import sel from "@/store/user/selectors";
+import selDatingChats from "@/store/datingChats/selectors";
 import urls from '../../../src/main/resources/urls.json';
-import My_Drawer from "../../components/appbar/My_Drawer";
-import ToggleMenuIconButton from "../../components/ToggleMenuIconButton";
-import BackButton from "../../components/BackButton";
-import {NavLink_styled} from "../../utils/typography";
-import types from "@/store/user/types";
-import classes from "../../components/dating_components/datingMenuItems/dating.module.css";
+import BackButton from "@/components/BackButton";
+import {NavLink_styled} from "@/utils/typography";
+import datingChatsTypes from "@/store/datingChats/types";
+import classes from "@/components/dating_components/datingMenuItems/dating.module.css";
 import {useRouter} from "next/router";
 import styled from "@emotion/styled";
-import globalVariables from '../../globalVariables.json';
+import globalVariables from '@/root/globalVariables.json';
 import DatingMenuDrawer from "@/components/dating_components/DatingMenuDrawer";
+import destinations from '../../../src/main/resources/destinations.json';
 
 const Index = () => {
 
@@ -34,14 +33,14 @@ const Index = () => {
         const dispatch = useDispatch();
         const debounce = useRef(false);
         const datingServiceParticipation = useSelector(sel.datingServiceParticipation);
-        const datingNotifications = useSelector(sel.datingNotifications);
-        const datingMessages = useSelector(sel.datingMessages);
-        const datingMessagesDb = useSelector(sel.datingMessagesDb);
-        const datingNotificationsDb = useSelector(sel.datingNotificationsDb);
+        const datingNotifications = useSelector(selDatingChats.datingNotifications);
+        const datingLikedNotifications = useSelector(selDatingChats.datingLikedNotifications);
+        const datingMessages = useSelector(selDatingChats.datingMessages);
         const router = useRouter();
         const datingGuestPeriodMs = globalVariables.datingGuestPeriodMs;
         const timersInit = {datingRegistrationChecker: null}
         const timers = useRef(timersInit);
+
 
         const checkDatingRegistration = () => {
             console.log("datingRegistrationChecker->");
@@ -60,7 +59,7 @@ const Index = () => {
         useEffect(() => {
             if (!datingServiceParticipation && !timers.current['datingRegistrationChecker']) {
                 timers.current['datingRegistrationChecker'] = setTimeout(() => {
-                    checkDatingRegistration();
+                    // checkDatingRegistration(); //TODO раскомментировать для проверки регистрации
                 }, datingGuestPeriodMs);
             } else if (datingServiceParticipation && timers.current['datingRegistrationChecker']) {
                 clearTimeout(timers.current['datingRegistrationChecker']);
@@ -70,22 +69,38 @@ const Index = () => {
 
 
         useEffect(() => {
+            if(!user?.id) return;
             console.log("in useEffect, [datingNotifications]")
-            api.get(`${urls.messagesToId}?type=DATING_NOTIFICATION&id=${19}`).then(data => {
+            api.get(`${urls.messagesToId}?type=DATING_NOTIFICATION&id=${user.id}`).then(data => {
                 if (data && data[0]) {
-                    dispatch({type: types.SET_DATING_NOTIFICATIONS_DB, payload: data});
+                    // dispatch({type: datingChatsTypes.SET_DATING_NOTIFICATIONS, payload: data});
                 }
 
             }).catch((e) => {
-                console.log("ошибка при получении уведомлений");
+                console.log("ошибка при получении уведомлений", e.message);
             });
         }, [datingNotifications])
 
 
         useEffect(() => {
-            api.get(`${urls.messagesToId}?type=PRIVATE_NOTIFICATION&id=${19}`).then(data => {
+            if(!user?.id) return;
+            console.log("in useEffect, [LIKED]")
+            api.get(`${urls.messagesToId}?type=${destinations.likesNotifType}&id=${user.id}`).then(data => {
                 if (data && data[0]) {
-                    dispatch({type: types.SET_DATING_MESSAGES_DB, payload: data});
+                    // dispatch({type: datingChatsTypes.SET_DATING_NOTIFICATIONS, payload: data});
+                }
+
+            }).catch((e) => {
+                console.log("ошибка при получении уведомлений", e.message);
+            });
+        }, [datingLikedNotifications])
+
+
+        useEffect(() => {
+            if(!user?.id) return;
+            api.get(`${urls.messagesToId}?type=PRIVATE_NOTIFICATION&id=${user.id}`).then(data => {
+                if (data && data[0]) {
+                    dispatch({type: datingChatsTypes.SET_DATING_MESSAGES, payload: data});
                 }
 
             }).catch((e) => {

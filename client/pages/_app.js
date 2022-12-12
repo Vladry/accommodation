@@ -4,18 +4,20 @@ import {CssBaseline} from "@mui/material";
 import {createTheme, ThemeProvider} from "@mui/material/styles"
 import {Provider, useDispatch, useSelector} from "react-redux";
 import {SessionProvider} from "next-auth/react";
-import {store, wrapper} from "../store/store";
+import {store, wrapper} from "@/store/store.js";
 import createEmotionCache from "../utils/createEmotionCache";
 import {CacheProvider} from "@emotion/react";
 import RefreshTokenHandler from "../components/RefreshTokenHandler";
-import {Context} from '../context';
+import {Context} from '@/root/context.js';
 import myTheme from "../utils/myTheme";
 import sel from '@/store/user/selectors';
 import {Client} from '@stomp/stompjs';
-import types from "@/store/user/types";
-import {StylesProvider} from "@material-ui/core/styles" // <-- import this component, and wrap your App.
+import userTypes from "@/store/user/types";
+import datingTypes from "@/store/datingChats/types";
 import './_app.css';
-import destinations from '../../src/main/resources/destinations.json'
+import destinations from '../../src/main/resources/destinations.json';
+import {StylesProvider} from "@material-ui/core/styles"
+import {ACTIONS} from "@/store/datingChats"; // <-- import this component, and wrap your App.
 
 const SOCKET_URL = "ws://localhost:8000/ws";
 
@@ -49,8 +51,16 @@ function MyApp({Component, pageProps, emotionCache = clientSideEmotionCache}) {
             console.log("datingLikeNotificationCB->")
             if (json.body) {
                 const message = JSON.parse(json.body);
-                    // alert(message.value)
-                    dispatch({type: types.SET_DATING_NOTIFICATIONS, payload: message});
+                // console.log(message);
+                if (message.subject.includes(`${destinations.likedSubject}`)) {
+                    console.log("datingTypes.SET_DATING_LIKED_NOTIFICATIONS");
+                    dispatch({type: datingTypes.SET_DATING_LIKED_NOTIFICATIONS, payload: message});
+                } else if (message.subject.includes(`${destinations.unlikedSubject}`)) {
+                    console.log("datingTypes.SET_DATING_UNLIKED_NOTIFICATIONS");
+                    dispatch({type: datingTypes.SET_DATING_UNLIKED_NOTIFICATIONS, payload: message});
+                }
+
+
             }
         }
 
@@ -58,8 +68,9 @@ function MyApp({Component, pageProps, emotionCache = clientSideEmotionCache}) {
             console.log("datingPrivateMessageCB->")
             if (json.body) {
                 const message = JSON.parse(json.body);
-                    // alert(message.value)
-                    dispatch({type: types.SET_DATING_MESSAGES, payload: message});
+                console.log(message.value);
+                // dispatch({type: datingChatsTypes.SET_DATING_MESSAGES, payload: message});
+                dispatch(ACTIONS.addDatingMessage(message));
             }
         }
 
@@ -71,13 +82,13 @@ function MyApp({Component, pageProps, emotionCache = clientSideEmotionCache}) {
         currentSubscriptions.forEach(destination => {
             // console.log("subscribed to: ", destination);
             let cb = {};
-            switch (destination){
+            switch (destination) {
                 case `${destinations.likesNotifications}${user.id}`:
-                    cb= datingLikeNotificationCB;
+                    cb = datingLikeNotificationCB;
                     break;
-                    case `${destinations.privateNotifications}${user.id}`:
-                    cb= datingPrivateMessageCB;
-                        break;
+                case `${destinations.privateNotifications}${user.id}`:
+                    cb = datingPrivateMessageCB;
+                    break;
                 default:
             }
 
@@ -107,14 +118,14 @@ function MyApp({Component, pageProps, emotionCache = clientSideEmotionCache}) {
 //см. пример:  https://github.com/stomp-js/samples/blob/master/stompjs/chat/chat.html
         });
         client.activate();
-        dispatch({type: types.SET_STOMP_CLIENT, payload: client});
+        dispatch({type: userTypes.SET_STOMP_CLIENT, payload: client});
         // console.log("stompClient: ", stompClient)
     }, [])
 
     useEffect(() => {
         if (!isUserAppliedHisSubscriptions && subscriptions.length > 0) {
             setSubscriptions(stompClient, subscriptions);
-            dispatch({type: types.SET_USER_SUBSCRIPTIONS_APPLIED, payload: null});
+            dispatch({type: userTypes.SET_USER_SUBSCRIPTIONS_APPLIED, payload: null});
         }
     }, [subscriptions, user])
 

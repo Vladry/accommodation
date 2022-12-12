@@ -1,10 +1,11 @@
 import React from 'react';
-import {datingMenu} from "../../../public/menuConfig";
+import {datingMenu} from "@/root/public/menuConfig";
 import {LocalMenuItem, NavLink_styled} from "@/utils/typography";
 import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
 import MailIcon from "@mui/icons-material/Mail";
 import sel from '@/store/user/selectors';
+import selDatingChats from '@/store/datingChats/selectors';
 import {useSelector} from "react-redux";
 import {Divider, Paper} from "@mui/material";
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -18,10 +19,8 @@ import classes from './datingMenu.module.scss';
 import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
 
 const DatingMenu = ({disabled}) => {
-    const datingMessages = useSelector(sel.datingMessages);
-    const datingNotifications = useSelector(sel.datingNotifications);
-    const datingMessagesDb = useSelector(sel.datingMessagesDb);
-    const datingNotificationsDb = useSelector(sel.datingNotificationsDb);
+    const datingMessages = useSelector(selDatingChats.datingMessages);
+    const datingLikedNotifications = useSelector(selDatingChats.datingLikedNotifications);
 
     return (
         <Paper variant={'elevation'} elevation={8}>
@@ -38,7 +37,7 @@ const DatingMenu = ({disabled}) => {
                         size="large" aria-label="show 17 new notifications" color="inherit" sx={{mx: '0', px: '0'}}
                     >
                         <Badge sx={{position: 'relative', top: '-20px', left: '30px'}}
-                               badgeContent={datingNotificationsDb ? `${datingNotificationsDb.length}` : ''}
+                               badgeContent={datingLikedNotifications ? `${datingLikedNotifications.length}` : ''}
                                color="error">
                         </Badge><ThumbUpAltIcon className={classes['menu-icons']}/>
                     </IconButton>
@@ -52,7 +51,7 @@ const DatingMenu = ({disabled}) => {
                 && <LocalMenuItem className={classes['local-menu']}>
                     <IconButton size="large" aria-label="show 4 new mails" color="inherit" sx={{mx: '0', px: '0'}}>
                         <Badge sx={{position: 'relative', top: '-18px', left: '30px'}}
-                               badgeContent={datingMessagesDb ? `${datingMessagesDb.length}` : ''} color="error">
+                               badgeContent={datingMessages ? `${datingMessages.length}` : ''} color="error">
                         </Badge>
                         <MailIcon className={classes['menu-icons']}/>
                     </IconButton>

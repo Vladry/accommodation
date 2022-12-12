@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {Avatar, Box, Paper, useMediaQuery} from "@mui/material";
 import {fetchData} from "@/store/user/actions";
 import types from "@/store/user/types";
-import sel from "@/store/user/selectors";
+import selUser from "@/store/user/selectors";
 import urls from '../../../src/main/resources/urls.json'
 import destinations from '../../../src/main/resources/destinations.json'
 import SwiperUserPic from "../../components/dating_components/swiper_carousel/SwiperUserPic";
@@ -13,27 +13,25 @@ import ActionPanel from "../../components/dating_components/candidate_profile/Ac
 import CandidateDetailsTable from "../../components/dating_components/candidate_profile/CandidateDetailsTable";
 import My_Drawer from "../../components/appbar/My_Drawer";
 import ToggleMenuIconButton from "../../components/ToggleMenuIconButton";
-import {useRouter, Router} from "next/router";
+import {useRouter} from "next/router";
 import {useTheme} from "@mui/material/styles";
 import Image from "next/image";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import globalVariables from '@/variables/globalVariables.json';
+import globalVariables from '@/root/globalVariables.json';
+import {Context} from '@/root/context.js';
 
 import MessengerDialogWindow from "../../components/forms/MessengerDialogWindow";
-import {Context} from "../../context";
-
 
 const CandidateProfile = () => {
     const theme = useTheme();
-    const dispatch = useDispatch();
-    const user = useSelector(sel.user);
-    const [pictures, setPictures] = useState([]);
-    const stompClient = useSelector(sel.stompClient);
     const context = useContext(Context);
+    const dispatch = useDispatch();
+    const user = useSelector(selUser.user);
+    const [pictures, setPictures] = useState([]);
+    const stompClient = useSelector(selUser.stompClient);
     const router = useRouter();
     const queriedUserId = router.query.queriedUserId;
     const candidateUserObj = useRef();
-    const notifierTimer = {};
     /*** Блок рефов ниже-своебразный костыль, иначе user.id и queriedUserId почему-то оказываются не доступными
      * при запуске sendMessageHandler() из слушателя  document.addEventListener('keyup', e => {
      * ***/
@@ -49,7 +47,7 @@ const CandidateProfile = () => {
         if (debounce.current['checkingIsLiked']) return;
         debounce.current['checkingIsLiked'] = true;
 // проверяем isLiked
-        api.get(`${urls.likesAndBookmarks}?type=LIKED&fromId=${id.current}&toId=${candidateId.current}`)
+        api.get(`${urls.likesAndBookmarks}?type=${destinations.likesNotifType}&fromId=${id.current}&toId=${candidateId.current}`)
             .then(data => {
                 if (data[0] && data[0].type) {
                     setIsLiked(true);
@@ -82,39 +80,42 @@ const CandidateProfile = () => {
     }
 
     const [isLiked, setIsLiked] = useState(false);
-    const likeAction = () => {
+    const likeHandler = () => {
         setIsLiked((isLiked) => !isLiked);
         const nowLikedState = !isLiked;//эта переменная нужна, т.к. state не обновляется мгновенно и путает данные
 
+        const likeNotification = {
+            destination: `${destinations.likesNotifications}${queriedUserId}`,
+            type: `${destinations.likesNotifType}`,
+            value: `${urls.queriedCandidateProfile}${id.current}`,
+            fromId: id.current.toString(), toId: candidateId.current.toString(),
+            subject: nowLikedState ? `${candidateUserObj.current.name} ${candidateUserObj.current.lastName} ${destinations.likedSubject}`
+                : `${candidateUserObj.current.name} ${candidateUserObj.current.lastName} ${destinations.unlikedSubject}`
+        };
+
+
+        /* // тут либо записывали, либо удаляли из БД лайки. Но мы решили сохранять ВСЁ, что было
         if (nowLikedState) {
             //отослать stomp-уведомление о лайке юзеру, которого я лайкнул и записать лайк в БД:
-            const likeNotification = {
-                destination: `${destinations.likesNotifications}${queriedUserId}`,
-                type: "LIKED",
-                value: `${urls.queriedCandidateProfile}${id.current}`,
-                fromId: id.current, toId: candidateId.current,
-                subject: nowLikedState ? `${candidateUserObj.current.name} ${candidateUserObj.current.lastName} has liked you!`
-                    : `${candidateUserObj.current.name} ${candidateUserObj.current.lastName} has unliked you!`
-            };
-            context.stompNotifier(stompClient, likeNotification);
-            api.post(`${urls.messages}`, likeNotification).then(() => {
-            });
+            api.post(`${urls.messages}`, likeNotification).then(() => {});
         }
 
-        if (!nowLikedState) {// удалить из базы нотификейшн о том, что этот кандидат ранее был лайкнут текущим ющером
-            api.delete(`${urls.likesAndBookmarks}?type=LIKED&fromId=${user.id}&toId=${queriedUserId}`).then(data => {
+       if (!nowLikedState) {// удалить из базы нотификейшн о том, что этот кандидат ранее был лайкнут текущим ющером
+            api.delete(`${urls.likesAndBookmarks}?type=${destinations.likesNotifType}&fromId=${user.id.toString()}&toId=${queriedUserId.toString()}`).then(data => {
                 console.log("isLiked deleted!");
             }).catch(() => {
                 console.log("not found an isLiked notification to delete!")
             });
-        }
+        }*/
 
-
+        api.post(`${urls.messages}`, likeNotification).then(() => {});
+        const data = {msg: likeNotification, client: stompClient}
+        context.stompNotifier(data);
     }
 
 
     const [isBookmarked, setIsBookmarked] = useState(false);
-    const bookmarkToFavorites = () => {
+    const bookmarkHandler = () => {
         setIsBookmarked(!isBookmarked);
         const nowBookmarkedState = !isBookmarked;//эта переменная нужна, т.к. state не обновляется мгновенна и путает данные
 
@@ -158,7 +159,7 @@ const CandidateProfile = () => {
     };
     const isSmallScreen = useMediaQuery('(max-width:900px)');
     const isLargeScreen = !isSmallScreen;
-    let isPaid = useSelector(sel.isPaid); //оплачен ли данным юзером данный вид сервиса
+    let isPaid = useSelector(selUser.isPaid); //оплачен ли данным юзером данный вид сервиса
     // isPaid = false;
     const closeMessageDialog = () => {
         setIsMessageDialogOpen(false);
@@ -204,9 +205,11 @@ const CandidateProfile = () => {
             fromId: id.current,
             toId: candidateId.current
         };
+        const datingNotification = {...datingMessage, stompClient: stompClient};
+
 
         api.post(`${urls.messages}`, datingMessage).then(() => {});
-        context.stompNotifier(stompClient, datingMessage);
+        context.stompNotifier(datingNotification);
     };
 
 
@@ -238,6 +241,7 @@ const CandidateProfile = () => {
         }, [router.query]
     );
 
+    if(!user) return;
 
     const candidateAvatar = (
         (pictures && pictures.length > 0) ?
@@ -270,9 +274,9 @@ const CandidateProfile = () => {
                                 isMessageDialogOpen={isMessageDialogOpen}
                                 openMessageDialog={openMessageDialog}
                                 isBookmarked={isBookmarked}
-                                bookmarkToFavorites={bookmarkToFavorites}
+                                bookmarkToFavorites={bookmarkHandler}
                                 isLiked={isLiked}
-                                likeAction={likeAction}
+                                likeAction={likeHandler}
                             />
                         </My_Drawer>
                         <ToggleMenuIconButton color={'#000'} toggleDrawer={forceToggleDrawer}/>
@@ -290,9 +294,9 @@ const CandidateProfile = () => {
                             isMessageDialogOpen={isMessageDialogOpen}
                             openMessageDialog={openMessageDialog}
                             isBookmarked={isBookmarked}
-                            bookmarkToFavorites={bookmarkToFavorites}
+                            bookmarkToFavorites={bookmarkHandler}
                             isLiked={isLiked}
-                            likeAction={likeAction}
+                            likeAction={likeHandler}
                         />
                     </Box>
                     <SwiperUserPic pictures={pictures}/>

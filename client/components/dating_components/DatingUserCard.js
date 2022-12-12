@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {Context} from '../../context';
+import {Context} from "@/root/context.js";
 import {Box, Paper} from "@mui/material";
 import Image from "next/image";
 import {useRouter} from "next/router";

@@ -1,5 +1,4 @@
 const user = state => state.userData.user;
-// const userId = state => state.userData.user.id;
 const loading = state => state.userData.loading;
 const loadingMatchingCandidatesIds = state => state.userData.loadingMatchingCandidatesIds;
 const userDatingProfile = state => state.userData.userDatingProfile;
@@ -25,10 +24,8 @@ const isPaid = state => state.userData.isPaid;
 const subscriptions = state => state.userData.subscriptions;
 const isUserAppliedHisSubscriptions = state => state.userData.isUserAppliedHisSubscriptions;
 const stompClient = state => state.userData.stompClient;
-const datingMessages = state => state.userData.datingMessages;
-const datingNotifications = state => state.userData.datingNotifications;
-const datingMessagesDb = state => state.userData.datingMessagesDb;
-const datingNotificationsDb = state => state.userData.datingNotificationsDb;
+
+
 const datingServiceParticipation = state => {
     if (state.userData.user) {
         return state.userData.user.datingServiceParticipation;
@@ -39,7 +36,6 @@ const datingServiceParticipation = state => {
 
 export default {
     user,
-    // userId,
     loading,
     loadingMatchingCandidatesIds,
     userDatingProfile,
@@ -61,9 +57,5 @@ export default {
     subscriptions,
     isUserAppliedHisSubscriptions,
     stompClient,
-    datingMessages,
-    datingNotifications,
-    datingMessagesDb,
-    datingNotificationsDb,
     datingServiceParticipation,
 };

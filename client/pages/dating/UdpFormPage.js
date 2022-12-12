@@ -11,7 +11,7 @@ import axios from "axios";
 import {useTheme} from "@mui/material/styles";
 import BackButton from "../../components/BackButton";
 import classes from '../../components/dating_components/datingMenuItems/dating.module.css';
-import globalVariables from '../../globalVariables.json';
+import globalVariables from '@/root/globalVariables.json';
 
 const UdpFormPage = () => {
     const user = useSelector(sel.user);

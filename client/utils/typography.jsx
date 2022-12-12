@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import {NavLink} from "../components/appbar/NavLink";
+import {NavLink} from "@/components/appbar/NavLink";
 import {Button} from "@mui/material";
 
 const bordersGlobalColor = '#660000';

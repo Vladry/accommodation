@@ -3,7 +3,7 @@ import axios from "axios";
 /**
  * @param file - image file
  * @param id - entity id to save img url in db
- * @param uploadType - types of upload in enum at backend twitterdan/config/UploadTypes
+ * @param uploadType - datingChatsTypes of upload in enum at backend twitterdan/config/UploadTypes
  * @description:  sends request to ImageController.java that saves img url to entity depends on upload type
  */
 
