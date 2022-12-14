@@ -21,11 +21,11 @@ const DatingChatMsgElement = ({msg}) => {
         border: (msg.fromId === activeInterlocutor) ? '1px solid red' : '1px solid blue',
         borderRadius: (msg.fromId === activeInterlocutor) ? '20px 20px 20px 0px' : '20px 20px 0px 20px'
     }
-    const date = new Date(msg.timestampCreated).toLocaleDateString();
-    const time = new Date(msg.timestampCreated).toLocaleTimeString().slice(0, -3);
-    const updateDate = new Date(msg.timestampUpdated).toLocaleDateString();
-    const updateTime = new Date(msg.timestampUpdated).toLocaleTimeString().slice(0, -3);
-    const isMsgWasUpdated = (msg.timestampUpdated !=null && msg.timestampUpdated > 0);
+    const date = new Date(msg.createdDate).toLocaleDateString();
+    const time = new Date(msg.createdDate).toLocaleTimeString().slice(0, -3);
+    const updateDate = new Date(msg.lastModifiedDate).toLocaleDateString();
+    const updateTime = new Date(msg.lastModifiedDate).toLocaleTimeString().slice(0, -3);
+    const isMsgWasUpdated = (msg.lastModifiedDate !=null && msg.lastModifiedDate > 0);
 
     const contextMenuOpenHandler = (e) => {
         e.preventDefault();

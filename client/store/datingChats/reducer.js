@@ -44,10 +44,11 @@ const init = {
     ],
     activeInterlocutor: 1,
     receivedMessages: [
-        {
+/*        {
             fromId: 1,
             toId: 19,
             chat: 'dating',
+            seen: false,
             value: 'hi, its me Bob!',
             timestampCreated: new Date(2022,  8, 1, 18, 43).getTime(),
             timestampUpdated: 0
@@ -56,6 +57,7 @@ const init = {
             fromId: 1,
             toId: 19,
             chat: 'dating',
+            seen: false,
             value: 'how are you?',
             timestampCreated:  new Date(2022,  10, 3, 20, 36).getTime(),
             timestampUpdated: new Date(2022,  10, 3, 20, 38).getTime(),
@@ -64,6 +66,7 @@ const init = {
             fromId: 1,
             toId: 19,
             chat: 'dating',
+            seen: false,
             value: 'any plans for the weekends?',
             timestampCreated:  new Date(2022,  11, 3, 9, 20).getTime(),
             timestampUpdated: new Date(2022,  11, 4, 13, 43).getTime(),
@@ -72,6 +75,7 @@ const init = {
             fromId: 2,
             toId: 19,
             chat: 'dating',
+            seen: false,
             value: 'hi, its Martin, how are you?',
             timestampCreated: 0,
             timestampUpdated: 0
@@ -80,12 +84,13 @@ const init = {
             fromId: 3,
             toId: 19,
             chat: 'dating',
+            seen: false,
             value: 'hi, its Ozzy, are you tired of me?',
             timestampCreated: 0,
             timestampUpdated: 0
-        }
+        }*/
     ],
-    sentMessages: [
+    sentMessages: [/*
         {
             fromId: 19,
             toId: 1,
@@ -109,7 +114,7 @@ const init = {
             value: 'Not really!',
             timestampCreated:  new Date(2022,  11, 4, 20, 40).getTime(),
             timestampUpdated: 0
-        },
+        },*/
     ],
     allMessages: [],
     newDatingChatMessage: {},

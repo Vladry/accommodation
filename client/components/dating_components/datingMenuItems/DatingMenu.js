@@ -21,16 +21,14 @@ import {ACTIONS, ACTIONS_Cust} from "@/store/datingChats";
 
 const DatingMenu = ({disabled}) => {
     const user = useSelector(sel.user, shallowEqual);
-    const receivedMessages = useSelector(selDatingChats.receivedMessages, shallowEqual);
-    const sendMessageNotification = useSelector(selDatingChats.sendMessageNotification, shallowEqual);
-    const unseenReceivedMessages = useSelector(selDatingChats.unseenReceivedMessages, shallowEqual);
     const datingLikedNotifications = useSelector(selDatingChats.datingLikedNotifications, shallowEqual);
+    const unseenReceivedMessages = useSelector(selDatingChats.unseenReceivedMessages, shallowEqual);
     const dispatch = useDispatch();
 
-    useEffect(()=>{
-        if(!user) return;
+    useEffect(() => {
+        if (!user) return;
         dispatch(ACTIONS_Cust.getUnseenMessages(user.id));
-    },[user]);
+    }, [user]);
 
     return (
         <Paper variant={'elevation'} elevation={8}>
@@ -60,9 +58,11 @@ const DatingMenu = ({disabled}) => {
             {!(disabled === datingMenu[2].url)
                 && <LocalMenuItem className={classes['local-menu']}>
                     <IconButton size="large" aria-label="show 4 new mails" color="inherit" sx={{mx: '0', px: '0'}}>
-                        <Badge sx={{position: 'relative', top: '-18px', left: '30px'}}
-                               badgeContent={unseenReceivedMessages ? `${unseenReceivedMessages.length}` : ''} color="error">
-                        </Badge>
+                        {unseenReceivedMessages?.length > 0 ?
+                            <Badge sx={{position: 'relative', top: '-18px', left: '30px'}}
+                                   badgeContent={unseenReceivedMessages ? `${unseenReceivedMessages.length}` : ''}
+                                   color="error">
+                            </Badge> : null}
                         <MailIcon className={classes['menu-icons']}/>
                     </IconButton>
                     <NavLink_styled

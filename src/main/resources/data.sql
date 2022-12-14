@@ -45,6 +45,19 @@ VALUES ('Eva', 'Brown', 'EvaBrown@ukr.net', 'Eva', 'USER', true, true, '2021-10-
         '2022-04-03T09:29:29.503359+03:00',
         'https://res.cloudinary.com/vladry/image/upload/v1628498610/vlad_shrunk/cat1_ygmygo.jpg', 'Boryspil, UA');
 
+INSERT INTO MESSAGES (from_Id, to_Id, chat, seen, value, created_Date, last_Modified_Date)
+VALUES
+    (1, 19, 'dating', false, 'hi, its me Bob!', '2022-08-01T09:59:29.503359+03:00', null),
+    (1, 19, 'dating', false, 'how are you?',  '2022-10-03T09:59:29.503359+03:00', '2022-10-03T20:59:29.503359+03:00'),
+    (1, 19, 'dating', false, 'any plans for the weekends?', '2022-11-03T09:59:29.503359+03:00', '2022-11-04T09:59:29.503359+03:00'),
+    (2, 19, 'dating', false, 'hi, its Martin, how are you?', null, null),
+    (3, 19, 'dating', false, 'hi, its Ozzy, are you tired of me?', null, null),
+
+    (19, 1, 'dating', false, 'hi, Bob!', '2022-09-02T02:19:29.503359+03:00', null),
+    (19, 1, 'dating', false, 'I am not bad, bro!', '2022-11-04T04:05:29.503359+03:00', null),
+    (19, 1, 'dating', false, 'Not really!', '2022-11-04T20:45:29.503359+03:00', null);
+
+
 
 INSERT INTO accommodations (user_id, locations, acc_type, num_of_rooms, num_of_beds,
                             provide_work, provide_food, status, disab_sprt, childcare_sprt, pets)
