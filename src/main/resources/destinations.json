@@ -4,6 +4,7 @@
   "likedSubject": "has liked you!",
   "unlikedSubject": "has unliked you!",
 
+  "datingMessageSentNotifications": "/queue/dating/message.sent.notifications/",
   "privateNotifications": "/queue/dating/",
-  "generalNotifications": "/topic/dating.announcements"
+  "generalNotifications": "/topic/dating.announcements/"
 }

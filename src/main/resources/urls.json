@@ -31,6 +31,7 @@
     "userSubscriptions": "/users/subscriptions",
     "messages": "/messages",
     "chatMessages": "/messages/chat/from/to",
+    "unseenMessages": "/messages/chat/unseen/to/",
     "messagesToId": "/messages/to",
     "messagesFromId": "/messages/from",
     "messagesFromType": "/messages/fromType",

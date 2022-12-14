@@ -37,10 +37,10 @@ public class SubscriptionsController {
 //    public Set<String> findSubscriptions(@PathVariable("id") Long userId) {
 
         Set<String> defaultSubscriptions = new HashSet<>(List.of(
-                "/queue/dating/"+ userId, //личные сообщения друг другу (privateMessages)
+                "/queue/dating/message.sent.notifications/"+ userId, //личные сообщения друг другу (privateMessages)
                 "/queue/dating/likes.notifications/"+ userId, // уведомления о лайках
 
-                "/topic/dating.announcements"
+                "/topic/dating.announcements/"
         ));
 
 //        System.out.println("SubscriptionsController-> findSubscriptions, id:" + userId);

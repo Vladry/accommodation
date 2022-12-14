@@ -20,8 +20,12 @@ public class MessageController {
         messageService.saveMessage(message);
     }
 
-    @DeleteMapping
+    @PutMapping("/seen/{id}")
+    public void setSeenTrue (@PathVariable("id") Long id){
+        messageService.setSeenTrue(id);
+    }
 
+    @DeleteMapping
     public void deleteMessage(@RequestBody Message message) {
         messageService.deleteMessage(message);
     }
@@ -54,6 +58,11 @@ public class MessageController {
     @GetMapping("/chat/from")
     public List<Message> getMessageByChatAndFromId(@RequestParam("chat") String chat, @RequestParam("id") Long id) {
         return messageService.getMessageByChatAndFromId(chat, id);
+    }
+
+    @GetMapping("/chat/unseen/to/{id}")
+    public List<Message> getUnseenMessageByChatAndToId(@RequestParam("chat") String chat, @PathVariable("id") Long id) {
+        return messageService.getUnseenMessageByChatAndToId(chat, id);
     }
 
     @GetMapping("/chat/from/to")

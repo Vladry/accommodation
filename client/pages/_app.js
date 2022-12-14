@@ -17,8 +17,7 @@ import datingTypes from "@/store/datingChats/types";
 import './_app.css';
 import destinations from '../../src/main/resources/destinations.json';
 import {StylesProvider} from "@material-ui/core/styles"
-import {ACTIONS} from "@/store/datingChats"; // <-- import this component, and wrap your App.
-
+import {ACTIONS, ACTIONS_Cust} from "@/store/datingChats"; // <-- import this component, and wrap your App.
 const SOCKET_URL = "ws://localhost:8000/ws";
 
 const theme = createTheme(myTheme);
@@ -53,11 +52,11 @@ function MyApp({Component, pageProps, emotionCache = clientSideEmotionCache}) {
                 const message = JSON.parse(json.body);
                 // console.log(message);
                 if (message.subject.includes(`${destinations.likedSubject}`)) {
-                    console.log("datingTypes.SET_DATING_LIKED_NOTIFICATIONS");
-                    dispatch({type: datingTypes.SET_DATING_LIKED_NOTIFICATIONS, payload: message});
+                    // console.log("datingTypes.ADD_DATING_LIKED_NOTIFICATIONS");
+                    dispatch({type: datingTypes.ADD_DATING_LIKED_NOTIFICATIONS, payload: message});
                 } else if (message.subject.includes(`${destinations.unlikedSubject}`)) {
-                    console.log("datingTypes.SET_DATING_UNLIKED_NOTIFICATIONS");
-                    dispatch({type: datingTypes.SET_DATING_UNLIKED_NOTIFICATIONS, payload: message});
+                    // console.log("datingTypes.ADD_DATING_UNLIKED_NOTIFICATIONS");
+                    dispatch({type: datingTypes.ADD_DATING_UNLIKED_NOTIFICATIONS, payload: message});
                 }
 
 
@@ -65,12 +64,12 @@ function MyApp({Component, pageProps, emotionCache = clientSideEmotionCache}) {
         }
 
         const datingPrivateMessageCB = (json) => {
-            console.log("datingPrivateMessageCB->")
+            console.log("datingPrivateMessageCB-> , userId: ", user.id)
             if (json.body) {
                 const message = JSON.parse(json.body);
-                console.log(message.value);
-                // dispatch({type: datingChatsTypes.SET_DATING_MESSAGES, payload: message});
-                dispatch(ACTIONS.addDatingMessage(message));
+                // console.log(message.value);
+                dispatch(ACTIONS_Cust.getUnseenMessages(user.id));
+                dispatch(ACTIONS.addSendMessageNotification({notification: message, userId: user.id}));
             }
         }
 
@@ -86,10 +85,11 @@ function MyApp({Component, pageProps, emotionCache = clientSideEmotionCache}) {
                 case `${destinations.likesNotifications}${user.id}`:
                     cb = datingLikeNotificationCB;
                     break;
-                case `${destinations.privateNotifications}${user.id}`:
+                case `${destinations.datingMessageSentNotifications}${user.id}`:
                     cb = datingPrivateMessageCB;
                     break;
                 default:
+                    // console.log("case: default")
             }
 
             subscribeMe(destination, cb);

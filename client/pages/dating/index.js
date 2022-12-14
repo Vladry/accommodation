@@ -16,6 +16,8 @@ import styled from "@emotion/styled";
 import globalVariables from '@/root/globalVariables.json';
 import DatingMenuDrawer from "@/components/dating_components/DatingMenuDrawer";
 import destinations from '../../../src/main/resources/destinations.json';
+import datingTypes from "@/store/datingChats/types";
+import {ACTIONS} from "@/store/datingChats";
 
 const Index = () => {
 
@@ -34,6 +36,7 @@ const Index = () => {
         const debounce = useRef(false);
         const datingServiceParticipation = useSelector(sel.datingServiceParticipation);
         const datingNotifications = useSelector(selDatingChats.datingNotifications);
+    const receivedMessages = useSelector(selDatingChats.receivedMessages);
         const datingLikedNotifications = useSelector(selDatingChats.datingLikedNotifications);
         const datingMessages = useSelector(selDatingChats.datingMessages);
         const router = useRouter();
@@ -69,7 +72,7 @@ const Index = () => {
 
 
         useEffect(() => {
-            if(!user?.id) return;
+            if (!user?.id) return;
             console.log("in useEffect, [datingNotifications]")
             api.get(`${urls.messagesToId}?type=DATING_NOTIFICATION&id=${user.id}`).then(data => {
                 if (data && data[0]) {
@@ -83,31 +86,35 @@ const Index = () => {
 
 
         useEffect(() => {
-            if(!user?.id) return;
-            console.log("in useEffect, [LIKED]")
+            if (!user?.id) return;
+            // console.log("in useEffect, checking [LIKED] from DB");
             api.get(`${urls.messagesToId}?type=${destinations.likesNotifType}&id=${user.id}`).then(data => {
                 if (data && data[0]) {
-                    // dispatch({type: datingChatsTypes.SET_DATING_NOTIFICATIONS, payload: data});
+                    let newNotifications = [...data];
+                    newNotifications = newNotifications.filter(notif => notif.seen === false);
+                    dispatch({type: datingTypes.SET_DATING_LIKED_NOTIFICATIONS, payload: newNotifications});
                 }
 
             }).catch((e) => {
                 console.log("ошибка при получении уведомлений", e.message);
             });
-        }, [datingLikedNotifications])
+        }, [user])
 
 
+/*
         useEffect(() => {
-            if(!user?.id) return;
-            api.get(`${urls.messagesToId}?type=PRIVATE_NOTIFICATION&id=${user.id}`).then(data => {
+            if (!user?.id) return;
+            api.get(`${urls.messagesToId}?type=DATING_MESSAGE_SENT_NOTIFICATION&id=${user.id}`).then(data => {
                 if (data && data[0]) {
-                    dispatch({type: datingChatsTypes.SET_DATING_MESSAGES, payload: data});
+                    dispatch(ACTIONS.addReceivedMessages(data) );
                 }
 
             }).catch((e) => {
                 console.log("ошибка при получении сообщений");
             });
 
-        }, [datingMessages])
+        }, [receivedMessages])
+*/
 
 
         async function getCandidatesIds() {// получим ids кандидатов, подходящих под критерии userDatingProfile:
@@ -170,7 +177,8 @@ const Index = () => {
         return (
             <Box sx={{display: 'flex'}}>
 
-                <DatingMenuDrawer hideThreshold={600} menuIndex={0} /> {/*menuIndex - это порядковый номер  массива datingMenu[] файле menuConfig.js*/}
+                <DatingMenuDrawer hideThreshold={600}
+                                  menuIndex={0}/> {/*menuIndex - это порядковый номер  массива datingMenu[] файле menuConfig.js*/}
 
 
                 <Box>

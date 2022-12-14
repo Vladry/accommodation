@@ -62,30 +62,13 @@ const stompNotifier = (data) => {
         return;
     }
 
-    /********************** возможные типы сообщений вебсокетов ********************/
-    const msgTypes = ["DATING_NOTIFICATION", "DATING_ANNOUNCEMENT", "PRIVATE_NOTIFICATION", "GENERAL_ANNOUNCEMENT", "GROUP_MESSAGE"]
-    /*
-    Обязательные args функции  stompPublisher:      destination, type, value
-    Остальные args зависят от типа сообщения: доп.параметры:
-    Типы: LIKED, BOOKMARKED  - для уведомлений isLiked или isBookmarked хранящихся в БД. args: type, fromId, toId.
-
-        DATING_NOTIFICATION  - доп.args нету. value будет содержать кол-во накопившегося, о чем уведомляется, а subject -то, о чем уведомляется (полученные сообщения, полученные лайки, комментарии, необходимость пополнить баланс оплаты)
-            likedNotification: value =currentUserProfileUrl(who liked)  subject= "{name} has liked you!"
-            unLikedNotification: value =currentUserProfileUrl(who unLiked)  subject= "{name} has disliked you!"
-            эти уведомления показываются в 2х местах: в ToolBar - в виде количества поступивших лайков и  дизлайков
-            и в виде pop-up уведомлений, в виде двухстрочной надписи:  1."Name has liked/unliked you!" 2."profileURL кто лайкнул"
-        DATING_ANNOUNCEMENT - доп.args нету. value будет содержать текст общего обьявления для всех dating-кандидатов
-        GENERAL_ANNOUNCEMENT - тоже ,что для dating
-        PRIVATE_NOTIFICATION     - fromId, toId
-        GROUP_MESSAGE       - fromId
-    */
-
-
     // console.log("stompClient.publish: ", data.msg)
     const message = data.msg;
     const stompClient = data.client;
     let notifierTimer = setTimeout(() => {
-
+// console.log("stompNotifier-> ")
+// console.log("message: ", message)
+// console.log("client: ", stompClient)
         stompClient.publish({
             destination: message.destination,
             body:

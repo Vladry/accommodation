@@ -94,7 +94,7 @@ const CandidateProfile = () => {
         };
 
 
-        /* // тут либо записывали, либо удаляли из БД лайки. Но мы решили сохранять ВСЁ, что было
+         /* // тут либо записывали, либо удаляли из БД лайки. Но мы решили сохранять ВСЁ, что было
         if (nowLikedState) {
             //отослать stomp-уведомление о лайке юзеру, которого я лайкнул и записать лайк в БД:
             api.post(`${urls.messages}`, likeNotification).then(() => {});
@@ -198,18 +198,18 @@ const CandidateProfile = () => {
         // Отправляем полученный из диалогового окна текст в stomp-мессенджер и в БД:
         //datingMessage является одновременно сущностью и уведомления и сообщения
         const datingMessage = {
-            destination: `${destinations.privateNotifications}${candidateId.current}`,
-            type: "PRIVATE_NOTIFICATION", // id.current обязательно, иначе: Cannot read properties of null (reading 'id')
+            destination: `${destinations.datingMessageSentNotifications}${candidateId.current}`,
+            type: "DATING_MESSAGE_SENT_NOTIFICATION", // id.current обязательно, иначе: Cannot read properties of null (reading 'id')
             chat: 'dating',
             value: tempTextFieldValue.current ? tempTextFieldValue.current : "",
             fromId: id.current,
             toId: candidateId.current
         };
-        const datingNotification = {...datingMessage, stompClient: stompClient};
+        const data = {msg: datingMessage, client: stompClient};
 
 
         api.post(`${urls.messages}`, datingMessage).then(() => {});
-        context.stompNotifier(datingNotification);
+        context.stompNotifier(data);
     };
 
 

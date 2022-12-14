@@ -1,7 +1,7 @@
 import React from 'react';
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
-import {ACTIONS} from '@/store/datingChats/index';
+import {ACTIONS} from '@/store/datingChats';
 import {useDispatch, useSelector} from "react-redux";
 import selDatingChats from "@/store/datingChats/selectors";
 

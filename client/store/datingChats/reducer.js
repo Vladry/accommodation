@@ -1,4 +1,4 @@
-import {ACTIONS} from './index';
+import {ACTIONS, ACTIONS_Cust} from './index';
 import api from "../../lib/API";
 import urls from "../../../src/main/resources/urls.json";
 import context from '@/root/contextValues.js';
@@ -114,6 +114,8 @@ const init = {
     allMessages: [],
     newDatingChatMessage: {},
 
+    sendMessageNotification: [],
+    unseenReceivedMessages: [],
     datingMessages: [],
     datingNotifications: [],
     datingLikedNotifications: [],
@@ -133,7 +135,8 @@ const messageExample = {
     timestampUpdated: 0
 }
 
-const reducer = (state = init, {type, payload}) => {
+
+const reducer =  (state = init, {type, payload}) => {
     switch (type) {
 
         case String(ACTIONS.setActiveInterlocutor):
@@ -148,11 +151,29 @@ const reducer = (state = init, {type, payload}) => {
                 allMessages: payload
             };
 
-            case String(ACTIONS.addDatingMessage):
-                console.log("in ACTIONS.addDatingMessage reducer, payload: ", payload)
+            case String(ACTIONS.addAllMessages):
+                console.log("in ACTIONS.addAllMessages reducer, payload: ", payload)
             return {
                 ...state,
                 allMessages: [...state.allMessages, payload]
+            };
+
+            case String(ACTIONS.addReceivedMessages):
+            return {
+                ...state,
+                receivedMessages: [...state.receivedMessages, payload]
+            };
+
+            case String(ACTIONS.getUnseenMessages.success):
+            return {
+                ...state,
+                unseenReceivedMessages: payload
+            };
+
+            case String(ACTIONS.addSendMessageNotification):
+            return {
+                ...state,
+                sendMessageNotification: [...state.sendMessageNotification, payload.notification]
             };
 
         case String(ACTIONS.sendNewMessage):
@@ -170,19 +191,17 @@ const reducer = (state = init, {type, payload}) => {
             return {...state, datingMessages: payload};
 
         case types.SET_DATING_NOTIFICATIONS:
-            console.log("in case datingChatsTypes.SET_DATING_NOTIFICATIONS:")
-            console.log("payload: ", payload)
-            return {...state, datingNotifications: {...state.datingNotifications, payload}};
+            return {...state};
 
 
         case types.SET_DATING_LIKED_NOTIFICATIONS:
-            console.log("in case datingChatsTypes.SET_DATING_LIKED_NOTIFICATIONS:")
-            console.log("payload: ", payload)
+            console.log("case types.SET_DATING_LIKED_NOTIFICATIONS:, payload: ", payload);
+            return {...state, datingLikedNotifications: payload };
+
+            case types.ADD_DATING_LIKED_NOTIFICATIONS:
             return {...state, datingLikedNotifications: [...state.datingLikedNotifications, payload] };
 
-        case types.SET_DATING_UNLIKED_NOTIFICATIONS:
-            console.log("in case datingChatsTypes.SET_DATING_UNLIKED_NOTIFICATIONS:")
-            console.log("payload: ", payload)
+        case types.ADD_DATING_UNLIKED_NOTIFICATIONS:
             let remainingLikedNotif = [...state.datingLikedNotifications];
             remainingLikedNotif = remainingLikedNotif.filter(notif=>
                 !(notif.fromId.toString() === payload.fromId.toString()

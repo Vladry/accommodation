@@ -1,5 +1,6 @@
-package com.hub.accommodation.config;
+package com.hub.accommodation.controller;
 
+import com.hub.accommodation.config.TextMessageDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

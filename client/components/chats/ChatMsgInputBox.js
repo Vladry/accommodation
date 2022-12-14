@@ -25,8 +25,8 @@ const ChatMsgInputBox = () => {
     }
     const handleSend = () => {
         const newMessage = {
-            destination: `${destinations.privateNotifications}${user.id}`,
-            type: "PRIVATE_NOTIFICATION", // id.current обязательно, иначе: Cannot read properties of null (reading 'id')
+            destination: `${destinations.datingMessageSentNotifications}${user.id}`,
+            type: "DATING_MESSAGE_SENT_NOTIFICATION", // id.current обязательно, иначе: Cannot read properties of null (reading 'id')
             chat: 'dating',
             value: inputRef.current.value,
             fromId: user.id,
