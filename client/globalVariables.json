@@ -3,5 +3,6 @@
   "datingGuestPeriodMs": 5000,
   "addPhotosReduxReserveUpdate": 6000,
   "keyPressDebounce": 500,
-  "notifierDelay": 1000
+  "notifierDelay": 1000,
+  "reduxUpdateAfterClearingSeenFlagInMessages": 800
 }

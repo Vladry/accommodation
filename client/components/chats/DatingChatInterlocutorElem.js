@@ -6,6 +6,7 @@ import {shallowEqual, useDispatch, useSelector} from "react-redux";
 import selDatingChats from "@/store/datingChats/selectors";
 import Badge from "@mui/material/Badge";
 import sel from '@/store/user/selectors';
+import globalVariables from '@/root/globalVariables.json';
 
 
 const DatingChatInterlocutorElem = ({interlocutor}) => {
@@ -20,13 +21,15 @@ const DatingChatInterlocutorElem = ({interlocutor}) => {
     const currInterlocutorChatHandler = (event) => {
         dispatch(ACTIONS.setActiveInterlocutor(interlocutor.userId));
         const counterparts = {fromId: interlocutor.userId, toId: user.id};
-        dispatch(ACTIONS_Cust.getReceivedMessages(counterparts));
-        dispatch(ACTIONS_Cust.getSentMessages(counterparts));
         const unseenFromThisInterlocutor = unseenReceivedMessages.filter(m=> m.toId===user.id && m.fromId===interlocutor.userId);
-        console.log("unseenFromThisInterlocutor: ", unseenFromThisInterlocutor)
         if (unseenFromThisInterlocutor?.length>0) {
             dispatch(ACTIONS_Cust.setMessagesAsSeen(counterparts));
         }
+       const seenMsgReduxRefresh = setTimeout( () => {
+            dispatch(ACTIONS_Cust.getReceivedMessages(counterparts));
+            dispatch(ACTIONS_Cust.getSentMessages(counterparts));
+            clearTimeout(seenMsgReduxRefresh);
+        }, globalVariables.reduxUpdateAfterClearingSeenFlagInMessages);
     };
 
     const unseenMessagesFromThisInterlocutor = unseenReceivedMessages.filter(msg => msg.fromId === interlocutor.userId);

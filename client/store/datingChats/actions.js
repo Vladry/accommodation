@@ -50,6 +50,7 @@ const getReceivedMessages = ({fromId, toId}) => async dispatch => {
 
 
 const getSentMessages = ({fromId, toId}) => async dispatch => {
+    // console.log("in getSentMessages, fromId: ", fromId, ", toId: ", toId)
     try {
         dispatch(ACTIONS.getSentMessages.request());
         const sent = await
@@ -76,8 +77,8 @@ const sendNewMessage = (payload)=> async dispatch=> {
 };
 
 const setMessagesAsSeen = ({fromId, toId})=> async dispatch=> {
-    console.log("payload activeInterlocutor: ", fromId)
-    console.log("payload userId: ", toId)
+    // console.log("payload activeInterlocutor: ", fromId)
+    // console.log("payload userId: ", toId)
     try {
         api.put(`${urls.msgSetToSeen}/${fromId}/${toId}`).then(() => {
         });

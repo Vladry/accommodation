@@ -36,7 +36,7 @@ const Index = () => {
         const debounce = useRef(false);
         const datingServiceParticipation = useSelector(sel.datingServiceParticipation);
         const datingNotifications = useSelector(selDatingChats.datingNotifications);
-    const receivedMessages = useSelector(selDatingChats.receivedMessages);
+        const receivedMessages = useSelector(selDatingChats.receivedMessages);
         const datingLikedNotifications = useSelector(selDatingChats.datingLikedNotifications);
         const datingMessages = useSelector(selDatingChats.datingMessages);
         const router = useRouter();
@@ -101,30 +101,12 @@ const Index = () => {
         }, [user])
 
 
-/*
-        useEffect(() => {
-            if (!user?.id) return;
-            api.get(`${urls.messagesToId}?type=DATING_MESSAGE_SENT_NOTIFICATION&id=${user.id}`).then(data => {
-                if (data && data[0]) {
-                    dispatch(ACTIONS.addReceivedMessages(data) );
-                }
-
-            }).catch((e) => {
-                console.log("ошибка при получении сообщений");
-            });
-
-        }, [receivedMessages])
-*/
-
-
         async function getCandidatesIds() {// получим ids кандидатов, подходящих под критерии userDatingProfile:
             try {
                 const aggregatedProfile = {...userDatingProfile, ...datingSearchCriteriaProfile};
 //TODO возможно userDatingProfile не понадобится алгоритму поиска в составе aggregatedProfile
 //                 console.log("getCandidatesIds()->");
                 const getIds = await api.post(`${urls.candidatesIds}?currentUserId=${user.id}`, aggregatedProfile);
-//ниже: доп. get-версия (вместо api.post), когда udp на бЭк не передается с фронта, а отдельно фЭтчуется из бЭка доп.запросом из БД:
-                // const getIds = await api.get(`${urls.candidatesIds}/${user.id}`);
                 candidatesIds.current["ids"] = await getIds;
                 // console.log(`ids successfully fetched: `, candidatesIds.current["ids"]);
                 if (candidatesIds.current["ids"]) {

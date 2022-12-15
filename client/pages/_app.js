@@ -70,7 +70,7 @@ function MyApp({Component, pageProps, emotionCache = clientSideEmotionCache}) {
                 const message = JSON.parse(json.body);
                 // console.log(message.value);
                 dispatch(ACTIONS_Cust.getUnseenMessages(user.id));
-                const counterparts = {activeInterlocutor: message.fromId, userId: message.toId};
+                const counterparts = {fromId: message.fromId, toId: message.toId};
                 dispatch(ACTIONS_Cust.getReceivedMessages(counterparts));
                 dispatch(ACTIONS.addSendMessageNotification({notification: message, userId: user.id}));
             }

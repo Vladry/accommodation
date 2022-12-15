@@ -44,10 +44,12 @@ const DatingMenu = ({disabled}) => {
                     <IconButton
                         size="large" aria-label="show 17 new notifications" color="inherit" sx={{mx: '0', px: '0'}}
                     >
-                        <Badge sx={{position: 'relative', top: '-20px', left: '30px'}}
-                               badgeContent={datingLikedNotifications ? `${datingLikedNotifications.length}` : ''}
-                               color="error">
-                        </Badge><ThumbUpAltIcon className={classes['menu-icons']}/>
+                        {datingLikedNotifications?.length > 0 ?
+                            <Badge sx={{position: 'relative', top: '-20px', left: '30px'}}
+                                   badgeContent={datingLikedNotifications ? `${datingLikedNotifications.length}` : ''}
+                                   color="error">
+                            </Badge> : null}
+                        <ThumbUpAltIcon className={classes['menu-icons']}/>
                     </IconButton>
                     <NavLink_styled
                         href={datingMenu[1].url}>{datingMenu[1].linkName}

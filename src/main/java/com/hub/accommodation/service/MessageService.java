@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -27,6 +28,17 @@ public class MessageService {
     }
 
     public void setSeenTrue(Long fromId, Long toId) {
+//        System.out.println("in service.setSeenTrue");
+//        System.out.println("fromId: " + fromId + ",  toId: " + toId);
+        Set<Message> msgs = messageRepository.findBySeenAndFromIdAndToId(false, fromId, toId);
+        Set<Message> updated = msgs.stream().peek(
+                m -> m.setSeen(true)
+        ).collect(Collectors.toSet());
+        messageRepository.saveAll(updated);
+    }
+
+    //тот же самый метод, что и выше, но только шлем кучу запросов:
+/*    public void setSeenTrue(Long fromId, Long toId) {
         System.out.println("in service.setSeenTrue");
         System.out.println("fromId: " + fromId + ",  toId: " + toId);
         Set<Message> msgs = messageRepository.findBySeenAndFromIdAndToId(false, fromId, toId);
@@ -39,8 +51,7 @@ public class MessageService {
                     messageRepository.save(m);
                 }
         );
-    }
-
+    }*/
 
     public void deleteMessage(Message message) {
         messageRepository.delete(message);
