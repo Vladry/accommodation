@@ -4,10 +4,13 @@ import com.hub.accommodation.domain.Message;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 @Repository
 public interface MessageRepository extends RepositoryInterface<Message> {
 
+    Set<Message> findBySeenAndFromIdAndToId(Boolean seen, Long fromId, Long toId);
     void deleteMessageById(Long id);
     List<Message> getMessageByToId(Long id);
     List<Message> getMessageByFromId(Long id);

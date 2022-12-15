@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -25,15 +26,17 @@ public class MessageService {
         messageRepository.save(message);
     }
 
-    public void setSeenTrue(Long id) {
-        Optional<Message> msg = messageRepository.findById(id);
-        msg.ifPresentOrElse(
+    public void setSeenTrue(Long fromId, Long toId) {
+        System.out.println("in service.setSeenTrue");
+        System.out.println("fromId: " + fromId + ",  toId: " + toId);
+        Set<Message> msgs = messageRepository.findBySeenAndFromIdAndToId(false, fromId, toId);
+        //TODO для оптимизации -возможно можно собрать в коллекцию и заперсистить коллекцией?
+        msgs.forEach(
                 m -> {
+                    System.out.println("message before: " + m);
                     m.setSeen(true);
+                    System.out.println("message after: " + m);
                     messageRepository.save(m);
-                },
-                () -> {
-                    throw new NoDataFoundException("impossible to change 'seen' in a messages that does not exist in DB!");
                 }
         );
     }
@@ -78,7 +81,7 @@ public class MessageService {
 
     @Transactional(readOnly = true)
     public List<Message> getUnseenMessageByChatAndToId(String chat, Long id) {
-        System.out.println("in service.getUnseenMessageByChatAndToId");
+//        System.out.println("in service.getUnseenMessageByChatAndToId");
         System.out.println("type: " + chat + ", id: " + id);
         return messageRepository.getUnseenMessageByChatAndSeenAndToId(chat, false, id);
     }
@@ -94,7 +97,7 @@ public class MessageService {
 
     @Transactional(readOnly = true)
     public List<Message> getMessageByChatAndFromIdAndToId(String chat, Long fromId, Long toId) {
-        System.out.println("in service.getMessageByChatAndFromIdAndToId");
+//        System.out.println("in service.getMessageByChatAndFromIdAndToId");
         System.out.println("chat: " + chat + ",  fromId: " + fromId + ", toId: " + toId);
         return messageRepository.getMessageByChatAndFromIdAndToId(chat, fromId, toId);
     }

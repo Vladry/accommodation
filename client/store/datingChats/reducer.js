@@ -43,80 +43,8 @@ const init = {
         },
     ],
     activeInterlocutor: 1,
-    receivedMessages: [
-/*        {
-            fromId: 1,
-            toId: 19,
-            chat: 'dating',
-            seen: false,
-            value: 'hi, its me Bob!',
-            timestampCreated: new Date(2022,  8, 1, 18, 43).getTime(),
-            timestampUpdated: 0
-        },
-        {
-            fromId: 1,
-            toId: 19,
-            chat: 'dating',
-            seen: false,
-            value: 'how are you?',
-            timestampCreated:  new Date(2022,  10, 3, 20, 36).getTime(),
-            timestampUpdated: new Date(2022,  10, 3, 20, 38).getTime(),
-        },
-        {
-            fromId: 1,
-            toId: 19,
-            chat: 'dating',
-            seen: false,
-            value: 'any plans for the weekends?',
-            timestampCreated:  new Date(2022,  11, 3, 9, 20).getTime(),
-            timestampUpdated: new Date(2022,  11, 4, 13, 43).getTime(),
-        },
-        {
-            fromId: 2,
-            toId: 19,
-            chat: 'dating',
-            seen: false,
-            value: 'hi, its Martin, how are you?',
-            timestampCreated: 0,
-            timestampUpdated: 0
-        },
-        {
-            fromId: 3,
-            toId: 19,
-            chat: 'dating',
-            seen: false,
-            value: 'hi, its Ozzy, are you tired of me?',
-            timestampCreated: 0,
-            timestampUpdated: 0
-        }*/
-    ],
-    sentMessages: [/*
-        {
-            fromId: 19,
-            toId: 1,
-            chat: 'dating',
-            value: 'hi, Bob!',
-            timestampCreated:  new Date(2022,  9, 2, 13, 5).getTime(),
-            timestampUpdated: 0
-        },
-        {
-            fromId: 19,
-            toId: 1,
-            chat: 'dating',
-            value: 'I am not bad, bro!',
-            timestampCreated:  new Date(2022,  11, 4, 5, 20).getTime(),
-            timestampUpdated: 0
-        },
-        {
-            fromId: 19,
-            toId: 1,
-            chat: 'dating',
-            value: 'Not really!',
-            timestampCreated:  new Date(2022,  11, 4, 20, 40).getTime(),
-            timestampUpdated: 0
-        },*/
-    ],
-    allMessages: [],
+    receivedMessages: [],
+    sentMessages: [],
     newDatingChatMessage: {},
 
     sendMessageNotification: [],
@@ -136,12 +64,12 @@ const messageExample = {
     value: '',
     subject: '',
     seen: false,
-    timestampCreated: 0,
-    timestampUpdated: 0
+    createdDate: 0,
+    lastModifiedDate: 0
 }
 
 
-const reducer =  (state = init, {type, payload}) => {
+const reducer = (state = init, {type, payload}) => {
     switch (type) {
 
         case String(ACTIONS.setActiveInterlocutor):
@@ -150,46 +78,47 @@ const reducer =  (state = init, {type, payload}) => {
                 activeInterlocutor: payload
             };
 
-        case String(ACTIONS.setAllMessages):
-            return {
-                ...state,
-                allMessages: payload
-            };
+        /*            case String(ACTIONS.addReceivedMessages):
+                    return {
+                        ...state,
+                        receivedMessages: [...state.receivedMessages, payload]
+                    };*/
 
-            case String(ACTIONS.addAllMessages):
-                console.log("in ACTIONS.addAllMessages reducer, payload: ", payload)
-            return {
-                ...state,
-                allMessages: [...state.allMessages, payload]
-            };
-
-            case String(ACTIONS.addReceivedMessages):
-            return {
-                ...state,
-                receivedMessages: [...state.receivedMessages, payload]
-            };
-
-            case String(ACTIONS.getUnseenMessages.success):
-            return {
-                ...state,
-                unseenReceivedMessages: payload
-            };
-
-            case String(ACTIONS.addSendMessageNotification):
+        case String(ACTIONS.addSendMessageNotification):
             return {
                 ...state,
                 sendMessageNotification: [...state.sendMessageNotification, payload.notification]
             };
 
-        case String(ACTIONS.sendNewMessage):
-            const message = payload.msg;
-            api.post(`${urls.messages}`, message).then(() => {});
-            context.stompNotifier(payload);
+
+        case String(ACTIONS.getReceivedMessages.success):
             return {
                 ...state,
-                newDatingChatMessage: payload
+                receivedMessages: payload
             };
 
+        case String(ACTIONS.getSentMessages.success):
+            return {
+                ...state,
+                sentMessages: payload
+            };
+
+        case String(ACTIONS.getUnseenMessages.success):
+            return {
+                ...state,
+                unseenReceivedMessages: payload
+            };
+
+
+        case String(ACTIONS_Cust.sendNewMessage):
+            return {
+                ...state
+            };
+
+        // case String(ACTIONS_Cust.setMessagesAsSeen):
+        //     return {
+        //         ...state
+        //     };
 
 
         case types.SET_DATING_MESSAGES:
@@ -201,18 +130,17 @@ const reducer =  (state = init, {type, payload}) => {
 
         case types.SET_DATING_LIKED_NOTIFICATIONS:
             console.log("case types.SET_DATING_LIKED_NOTIFICATIONS:, payload: ", payload);
-            return {...state, datingLikedNotifications: payload };
+            return {...state, datingLikedNotifications: payload};
 
-            case types.ADD_DATING_LIKED_NOTIFICATIONS:
-            return {...state, datingLikedNotifications: [...state.datingLikedNotifications, payload] };
+        case types.ADD_DATING_LIKED_NOTIFICATIONS:
+            return {...state, datingLikedNotifications: [...state.datingLikedNotifications, payload]};
 
         case types.ADD_DATING_UNLIKED_NOTIFICATIONS:
             let remainingLikedNotif = [...state.datingLikedNotifications];
-            remainingLikedNotif = remainingLikedNotif.filter(notif=>
+            remainingLikedNotif = remainingLikedNotif.filter(notif =>
                 !(notif.fromId.toString() === payload.fromId.toString()
-                && notif.toId.toString() === payload.toId.toString()));
-            return {...state, datingLikedNotifications: [...remainingLikedNotif, payload] };
-
+                    && notif.toId.toString() === payload.toId.toString()));
+            return {...state, datingLikedNotifications: [...remainingLikedNotif, payload]};
 
 
         default:

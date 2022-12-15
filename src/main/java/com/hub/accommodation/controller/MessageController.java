@@ -20,10 +20,11 @@ public class MessageController {
         messageService.saveMessage(message);
     }
 
-    @PutMapping("/seen/{id}")
-    public void setSeenTrue (@PathVariable("id") Long id){
-        messageService.setSeenTrue(id);
+    @PutMapping("/setSeen/{fromId}/{toId}")
+    public void setSeenTrue (@PathVariable("fromId") Long fromId, @PathVariable("toId") Long toId){
+        messageService.setSeenTrue(fromId, toId);
     }
+    // const unseen = await api.get(`${urls.unseenMessages}${id}?chat=dating`).then();
 
     @DeleteMapping
     public void deleteMessage(@RequestBody Message message) {

@@ -17,7 +17,8 @@ import datingTypes from "@/store/datingChats/types";
 import './_app.css';
 import destinations from '../../src/main/resources/destinations.json';
 import {StylesProvider} from "@material-ui/core/styles"
-import {ACTIONS, ACTIONS_Cust} from "@/store/datingChats"; // <-- import this component, and wrap your App.
+import {ACTIONS, ACTIONS_Cust} from "@/store/datingChats";
+
 const SOCKET_URL = "ws://localhost:8000/ws";
 
 const theme = createTheme(myTheme);
@@ -69,6 +70,8 @@ function MyApp({Component, pageProps, emotionCache = clientSideEmotionCache}) {
                 const message = JSON.parse(json.body);
                 // console.log(message.value);
                 dispatch(ACTIONS_Cust.getUnseenMessages(user.id));
+                const counterparts = {activeInterlocutor: message.fromId, userId: message.toId};
+                dispatch(ACTIONS_Cust.getReceivedMessages(counterparts));
                 dispatch(ACTIONS.addSendMessageNotification({notification: message, userId: user.id}));
             }
         }

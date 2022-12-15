@@ -21,6 +21,7 @@ const DatingChatMsgElement = ({msg}) => {
         border: (msg.fromId === activeInterlocutor) ? '1px solid red' : '1px solid blue',
         borderRadius: (msg.fromId === activeInterlocutor) ? '20px 20px 20px 0px' : '20px 20px 0px 20px'
     }
+
     const date = new Date(msg.createdDate).toLocaleDateString();
     const time = new Date(msg.createdDate).toLocaleTimeString().slice(0, -3);
     const updateDate = new Date(msg.lastModifiedDate).toLocaleDateString();

@@ -54,7 +54,7 @@ VALUES
     (3, 19, 'dating', false, 'hi, its Ozzy, are you tired of me?', null, null),
 
     (19, 1, 'dating', false, 'hi, Bob!', '2022-09-02T02:19:29.503359+03:00', null),
-    (19, 1, 'dating', false, 'I am not bad, bro!', '2022-11-04T04:05:29.503359+03:00', null),
+    (19, 1, 'dating', false, 'I am not bad, bro!', '2022-10-04T04:05:29.503359+03:00', null),
     (19, 1, 'dating', false, 'Not really!', '2022-11-04T20:45:29.503359+03:00', null);
 
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
-import {ACTIONS} from '@/store/datingChats';
+import {ACTIONS, ACTIONS_Cust} from "@/store/datingChats";
 import {shallowEqual, useDispatch, useSelector} from "react-redux";
 import selDatingChats from "@/store/datingChats/selectors";
 import Badge from "@mui/material/Badge";
@@ -15,19 +15,18 @@ const DatingChatInterlocutorElem = ({interlocutor}) => {
     const activeInterlocutor = useSelector(selDatingChats.activeInterlocutor);
     const unseenReceivedMessages = useSelector(selDatingChats.unseenReceivedMessages, shallowEqual);
 
-
-    const setActiveInterlocutorChat = (event) => {
-        dispatch(ACTIONS.setActiveInterlocutor(interlocutor.userId));
-    };
-    const setReceivedMessagesAsSeen = () => {}
-    const loadReceivedMessages = ()=>{};
-    const loadSentMessages = ()=>{};
+    if( !(user && activeInterlocutor)) return;
 
     const currInterlocutorChatHandler = (event) => {
-        setActiveInterlocutorChat(event);
-        setReceivedMessagesAsSeen();
-        loadReceivedMessages();
-        loadSentMessages();
+        dispatch(ACTIONS.setActiveInterlocutor(interlocutor.userId));
+        const counterparts = {fromId: interlocutor.userId, toId: user.id};
+        dispatch(ACTIONS_Cust.getReceivedMessages(counterparts));
+        dispatch(ACTIONS_Cust.getSentMessages(counterparts));
+        const unseenFromThisInterlocutor = unseenReceivedMessages.filter(m=> m.toId===user.id && m.fromId===interlocutor.userId);
+        console.log("unseenFromThisInterlocutor: ", unseenFromThisInterlocutor)
+        if (unseenFromThisInterlocutor?.length>0) {
+            dispatch(ACTIONS_Cust.setMessagesAsSeen(counterparts));
+        }
     };
 
     const unseenMessagesFromThisInterlocutor = unseenReceivedMessages.filter(msg => msg.fromId === interlocutor.userId);

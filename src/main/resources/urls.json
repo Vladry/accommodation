@@ -30,6 +30,7 @@
     "storePhotos": "/users/photos",
     "userSubscriptions": "/users/subscriptions",
     "messages": "/messages",
+    "msgSetToSeen": "/messages/setSeen",
     "chatMessages": "/messages/chat/from/to",
     "unseenMessages": "/messages/chat/unseen/to/",
     "messagesToId": "/messages/to",

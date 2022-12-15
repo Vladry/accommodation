@@ -4,7 +4,7 @@ import {Button, InputLabel, TextField, useMediaQuery} from "@mui/material";
 import {useDispatch, useSelector, shallowEqual} from "react-redux";
 import selUser from '@/store/user/selectors';
 import selDatingChats from '@/store/datingChats/selectors';
-import {ACTIONS} from '@/store/datingChats';
+import {ACTIONS, ACTIONS_Cust} from '@/store/datingChats';
 import destinations from "../../../src/main/resources/destinations.json";
 
 const ChatMsgInputBox = () => {
@@ -25,7 +25,7 @@ const ChatMsgInputBox = () => {
     }
     const handleSend = () => {
         const newMessage = {
-            destination: `${destinations.datingMessageSentNotifications}${user.id}`,
+            destination: `${destinations.datingMessageSentNotifications}${activeInterlocutor}`,
             type: "DATING_MESSAGE_SENT_NOTIFICATION", // id.current обязательно, иначе: Cannot read properties of null (reading 'id')
             chat: 'dating',
             value: inputRef.current.value,
@@ -35,19 +35,15 @@ const ChatMsgInputBox = () => {
             timestampUpdated: 0
         };
         inputRef.current.value = '';
-
-        const data = {msg: newMessage, client: stompClient};
-
-        dispatch(ACTIONS.sendNewMessage(data));
+        const counterparts = {activeInterlocutor: activeInterlocutor, userId: user.id};
+        const data = {msg: newMessage, client: stompClient, counterparts: counterparts};
+        dispatch(ACTIONS_Cust.sendNewMessage(data));
     }
 
 
     return (
         <Box sx={{
             marginTop: '30px',
-            // alignSelf: isMediumScreen ? '' : 'flex-end',
-            // alignSelf: 'center',
-            // width: isMediumScreen ? '75%' : '25%',
             borderRadius: '20px', border: '1px solid green'
         }}>
             {/*<InputLabel htmlFor="message"></InputLabel>*/}
