@@ -1,11 +1,13 @@
 package com.hub.accommodation.controller;
 
+import com.hub.accommodation.domain.dating.Interlocutor;
 import com.hub.accommodation.domain.Message;
 import com.hub.accommodation.service.MessageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor

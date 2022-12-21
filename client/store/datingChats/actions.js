@@ -7,13 +7,14 @@ import context from "@/root/contextValues";
 const actions = createActions(
     {
         actionTypes: [
-            "SET_ACTIVE_INTERLOCUTOR", "SET_ALL_MESSAGES",  "ADD_ALL_MESSAGES", "ADD_RECEIVED_MESSAGES",
-            "ADD_SEND_MESSAGE_NOTIFICATION", "SET_UNSEEN_MESSAGES",
+            "SET_ACTIVE_INTERLOCUTOR", "SET_ALL_MESSAGES", "ADD_ALL_MESSAGES", "ADD_RECEIVED_MESSAGES",
+            "ADD_SEND_MESSAGE_NOTIFICATION", "SET_UNSEEN_MESSAGES", "SET_CHATS"
 
 
         ],
 
-        asyncTypes: ["GET_UNSEEN_MESSAGES", "GET_RECEIVED_MESSAGES", "GET_SENT_MESSAGES", "SEND_NEW_MESSAGE", "SET_MESSAGES_AS_SEEN"],
+        asyncTypes: ["GET_UNSEEN_MESSAGES", "GET_RECEIVED_MESSAGES", "GET_SENT_MESSAGES", "SEND_NEW_MESSAGE", "SET_MESSAGES_AS_SEEN",
+            "GET_CHATS", "GET_CHAT_SETTINGS"],
     },
     {
         prefix: 'datingChats',
@@ -40,7 +41,7 @@ const getReceivedMessages = ({fromId, toId}) => async dispatch => {
     try {
         dispatch(ACTIONS.getReceivedMessages.request());
         const received = await
-        api.get( `${urls.chatMessages}?chat=dating&fromId=${fromId}&toId=${toId}`).then();
+            api.get(`${urls.chatMessages}?chat=dating&fromId=${fromId}&toId=${toId}`).then();
         dispatch(ACTIONS.getReceivedMessages.success(received));
     } catch (e) {
         dispatch(ACTIONS.getReceivedMessages.fail());
@@ -54,7 +55,7 @@ const getSentMessages = ({fromId, toId}) => async dispatch => {
     try {
         dispatch(ACTIONS.getSentMessages.request());
         const sent = await
-            api.get( `${urls.chatMessages}?chat=dating&fromId=${toId}&toId=${fromId}`).then();
+            api.get(`${urls.chatMessages}?chat=dating&fromId=${toId}&toId=${fromId}`).then();
         dispatch(ACTIONS.getSentMessages.success(sent));
     } catch (e) {
         dispatch(ACTIONS.getSentMessages.fail());
@@ -62,9 +63,9 @@ const getSentMessages = ({fromId, toId}) => async dispatch => {
     }
 };
 
-const sendNewMessage = (payload)=> async dispatch=> {
+const sendNewMessage = (payload) => async dispatch => {
     const message = payload.msg;
-    const counterparts =  payload.counterparts;
+    const counterparts = payload.counterparts;
     try {
         api.post(`${urls.messages}`, message).then(() => {
         });
@@ -76,7 +77,7 @@ const sendNewMessage = (payload)=> async dispatch=> {
 
 };
 
-const setMessagesAsSeen = ({fromId, toId})=> async dispatch=> {
+const setMessagesAsSeen = ({fromId, toId}) => async dispatch => {
     // console.log("payload activeInterlocutor: ", fromId)
     // console.log("payload userId: ", toId)
     try {
@@ -89,13 +90,37 @@ const setMessagesAsSeen = ({fromId, toId})=> async dispatch=> {
 
 };
 
+const getChats = (toId) => async dispatch => {
+    try {
+        console.log("getChats action. fetching interlocutors->  toId:", toId)
+        const allChatInterlocutors = await api.get(`${urls.allInterlocutors}/${toId}?chat=dating`);
+        console.log("fetched allChatInterlocutors: ", allChatInterlocutors)
+        dispatch(ACTIONS.setChats(allChatInterlocutors));
+        console.log("getChats done. allChatInterlocutors: ", allChatInterlocutors)
+    } catch (e) {
+        console.log("error in getChats. allChatInterlocutors not set in Store! \n", e.message);
+    }
+};
+
+const getChatSettings = (userId) => async dispatch => {
+    try {
+        const chatSettings = await api.get(`${urls.chatSettings}/${userId}?chatType=DATING`);
+        dispatch(ACTIONS.getChatSettings.success(chatSettings));
+        console.log("chatSettings received from server: ", chatSettings);
+    } catch (e) {
+        console.log(`error getting datingChatSettings for user ${userId}: `, e.message)
+    }
+}
+
 
 export const ACTIONS_Cust = {
     getUnseenMessages,
     getReceivedMessages,
     getSentMessages,
     sendNewMessage,
-    setMessagesAsSeen
+    setMessagesAsSeen,
+    getChats,
+    getChatSettings
 }
 
 

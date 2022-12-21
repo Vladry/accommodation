@@ -3,7 +3,7 @@
     "dating": "/dating",
     "likedYou": "/LikedYou",
     "inbox": "/Inbox",
-    "chatMessages": "/messages",
+    "datingChatMessages": "/messages",
     "favorites": "/Favorites",
     "mutualLikes": "/MutualLikes",
     "searchCriteria": "/SearchCriteriaFormPage",
@@ -15,7 +15,7 @@
 
 
     "setLastVisitDating": "/users/visits",
-    "accomodationList": "/formPages/AccommodationList",
+    "accommodationList": "/formPages/AccommodationList",
     "tenantFormPage": "/formPages/TenantFormPage",
     "queriedCandidateProfile": "/dating/CandidateProfile/?queriedUserId=",
 
@@ -23,7 +23,7 @@
     "userUrl": "/users/profile",
     "datingProfile": "/users/datingProfile",
     "datingSearchCriteriaProfile": "/users/datingSearchCriteriaProfile",
-    "accommodProfile": "/accommodations",
+    "accommodationProfile": "/accommodations",
     "tenantUserProfile": "/tenants",
     "allUsersByIds" : "/users/allByIds",
     "candidatesIds" : "/users/candidatesIds",
@@ -32,6 +32,8 @@
     "messages": "/messages",
     "msgSetToSeen": "/messages/setSeen",
     "chatMessages": "/messages/chat/from/to",
+    "allInterlocutors": "/chats/interlocutors",
+    "chatSettings": "/chats/settings",
     "unseenMessages": "/messages/chat/unseen/to/",
     "messagesToId": "/messages/to",
     "messagesFromId": "/messages/from",

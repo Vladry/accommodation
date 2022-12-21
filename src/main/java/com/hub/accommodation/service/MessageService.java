@@ -1,8 +1,10 @@
 package com.hub.accommodation.service;
 
+import com.hub.accommodation.domain.dating.Interlocutor;
 import com.hub.accommodation.domain.Message;
-import com.hub.accommodation.exception.NoDataFoundException;
+import com.hub.accommodation.domain.user.User;
 import com.hub.accommodation.repository.MessageRepository;
+import com.hub.accommodation.repository.UserRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -78,30 +80,30 @@ public class MessageService {
 
     @Transactional(readOnly = true)
     public List<Message> getNotificationByTypeAndFromId(String type, Long id) {
-        System.out.println("in service.getMessageByTypeAndFromId");
-        System.out.println("type: " + type + ", id: " + id);
+//        System.out.println("in service.getMessageByTypeAndFromId");
+//        System.out.println("type: " + type + ", id: " + id);
         return messageRepository.getMessageByTypeAndFromId(type, id);
     }
 
     @Transactional(readOnly = true)
     public List<Message> getMessageByChatAndFromId(String chat, Long id) {
-        System.out.println("in service.getMessageByTypeAndFromId");
-        System.out.println("type: " + chat + ", id: " + id);
+//        System.out.println("in service.getMessageByTypeAndFromId");
+//        System.out.println("type: " + chat + ", id: " + id);
         return messageRepository.getMessageByChatAndFromId(chat, id);
     }
 
     @Transactional(readOnly = true)
     public List<Message> getUnseenMessageByChatAndToId(String chat, Long id) {
 //        System.out.println("in service.getUnseenMessageByChatAndToId");
-        System.out.println("type: " + chat + ", id: " + id);
+//        System.out.println("type: " + chat + ", id: " + id);
         return messageRepository.getUnseenMessageByChatAndSeenAndToId(chat, false, id);
     }
 
 
     @Transactional(readOnly = true)
     public List<Message> getMessageByTypeAndFromIdAndToId(String type, Long fromId, Long toId) {
-        System.out.println("in service.getMessageByTypeAndFromIdAndToId");
-        System.out.println("type: " + type + ",  fromId: " + fromId + ", toId: " + toId);
+//        System.out.println("in service.getMessageByTypeAndFromIdAndToId");
+//        System.out.println("type: " + type + ",  fromId: " + fromId + ", toId: " + toId);
         return messageRepository.getMessageByTypeAndFromIdAndToId(type, fromId, toId);
     }
 
@@ -109,14 +111,14 @@ public class MessageService {
     @Transactional(readOnly = true)
     public List<Message> getMessageByChatAndFromIdAndToId(String chat, Long fromId, Long toId) {
 //        System.out.println("in service.getMessageByChatAndFromIdAndToId");
-        System.out.println("chat: " + chat + ",  fromId: " + fromId + ", toId: " + toId);
+//        System.out.println("chat: " + chat + ",  fromId: " + fromId + ", toId: " + toId);
         return messageRepository.getMessageByChatAndFromIdAndToId(chat, fromId, toId);
     }
 
 
     public void deleteMessageByTypeAndFromIdAndToId(String type, Long fromId, Long toId) {
-        System.out.println("in service.deleteMessageByTypeAndFromIdAndToId");
-        System.out.println("type: " + type + ",  fromId: " + fromId + ", toId: " + toId);
+//        System.out.println("in service.deleteMessageByTypeAndFromIdAndToId");
+//        System.out.println("type: " + type + ",  fromId: " + fromId + ", toId: " + toId);
         messageRepository.deleteMessageByTypeAndFromIdAndToId(type, fromId, toId);
     }
 
@@ -124,7 +126,7 @@ public class MessageService {
     @Transactional(readOnly = true)
     public List<Message> getMessageByType(String type) {
         System.out.println("in service.getMessageByType");
-        System.out.println("type: " + type);
+//        System.out.println("type: " + type);
         return messageRepository.findMessageByType(type);
     }
 

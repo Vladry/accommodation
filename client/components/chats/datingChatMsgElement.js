@@ -28,11 +28,13 @@ const DatingChatMsgElement = ({msg}) => {
     const updateTime = new Date(msg.lastModifiedDate).toLocaleTimeString().slice(0, -3);
     const isMsgWasUpdated = (msg.lastModifiedDate !=null && msg.lastModifiedDate > 0);
 
+    const selectMessage = ()=>{console.log("выделить текущее сообщение")}
+
     const contextMenuOpenHandler = (e) => {
         e.preventDefault();
         setContextEl(e.currentTarget);
+
     }
-    const selectMessage = ()=>{console.log("выделить текущее сообщение")}
 
     const contextMenuCloseHandler = () =>{
         setContextEl(()=> null);

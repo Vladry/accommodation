@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import DatingMenuWrapper from "../../components/dating_components/datingMenuItems/DatingMenuWrapper";
 import {datingMenu} from "../../public/menuConfig";
 import {Box, Paper, useMediaQuery} from "@mui/material";
@@ -8,6 +8,9 @@ import Interlocutors from "@/components/chats/Interlocutors";
 import ChatContainer from "@/components/chats/ChatContainer";
 import ChatMsgInputBox from "@/components/chats/ChatMsgInputBox";
 import DatingMenuDrawer from "@/components/dating_components/DatingMenuDrawer";
+import {shallowEqual, useDispatch, useSelector} from "react-redux";
+import sel from "@/store/user/selectors";
+import {ACTIONS_Cust} from "@/store/datingChats";
 
 
 const Inbox = () => {
@@ -16,6 +19,18 @@ const Inbox = () => {
 
     const isSmallScreen = useMediaQuery('(max-width: 705px)');
     const isMediumScreen = useMediaQuery('(min-width: 706px)  AND (max-width: 800px)');
+
+    const user = useSelector(sel.user, shallowEqual);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        console.log("inbox.js: in useEffect getting getChatSettings and getChats")
+        if(!user) return;
+        dispatch(ACTIONS_Cust.getChatSettings(user.id))
+        dispatch(ACTIONS_Cust.getChats(user.id))
+    },[user])
+
+
 
     let justifyProp = '';
     if (isSmallScreen) {

@@ -15,7 +15,7 @@ export const mainMenu = [
             inactiveTitle: "Заходи сюда для создания профайла в службе знакомств. Подбор кандидатов производится на основании этого профайла.",
         },
         {
-            url: urls.accomodationList,
+            url: urls.accommodationList,
             linkName: "Предложить жильё",
             title: "Fill in the form bellow describing in details the accommodation that you are offering. That data is required for our search algorithms. Tenants seeking accommodation will be finding your offers based on the data you've provided./  Заполните форму. Детально опишите предлагаемое жильё. Претенденты будут искать себе жильё на основании Ваших данных, поэтому они требуются для более эффективного подбора жилья для нуждающихся претендентов.",
         },
@@ -82,8 +82,8 @@ export const datingMenu = [
         linkName: "homepage",
     },
     {
-        url: `${urls.dating}${urls.chatMessages}`,
-        linkName: "chatMessages",
-        title: "chatMessages",
+        url: `${urls.dating}${urls.datingChatMessages}`,
+        linkName: "datingChatMessages",
+        title: "datingChatMessages",
     },
 ];

@@ -5,18 +5,32 @@ import context from '@/root/contextValues.js';
 import types from "@/store/datingChats/types";
 
 const chatSettings = {
+    chatType: 'DATING',
     lastActiveChatUserId: 1,
     blackListedInterlocutorsIds: [3],
+    mutedInterlocutorsIds: [3],
+    notificationSound: true,
+    favoritesUserIds: [1],
+    keepMediaFilesDays: 10,
+    localMediaFilesFolder: 'C:\\Users\\dating',
+    photoSentQuality: 250,
+}
+
+const chatSettingsInit = {
+    chatType: 'DATING',
+    lastActiveChatUserId: 0,
+    blackListedInterlocutorsIds: [],
+    mutedInterlocutorsIds: [],
+    notificationSound: true,
     favoritesUserIds: [],
     keepMediaFilesDays: 10,
     localMediaFilesFolder: 'C:\\Users\\dating',
-    notificationSound: true,
     photoSentQuality: 250,
 }
 
 const init = {
     allowedInterlocutorsData: [
-        {
+/*        {
             userId: 1,
             avatar: 'https://res.cloudinary.com/vladry/image/upload/v1628868305/avatars/Ira_yvvlml.png',
             nick: 'Bob',
@@ -40,7 +54,7 @@ const init = {
             userId: 20,
             avatar: 'https://res.cloudinary.com/vladry/image/upload/v1628498610/vlad_shrunk/cat2_x0yqxm.jpg',
             nick: 'Sender',
-        },
+        },*/
     ],
     activeInterlocutor: 1,
     receivedMessages: [],
@@ -53,7 +67,7 @@ const init = {
     datingNotifications: [],
     datingLikedNotifications: [],
 
-    chatSettings: chatSettings
+    chatSettings: chatSettingsInit
 }
 
 
@@ -71,6 +85,25 @@ const messageExample = {
 
 const reducer = (state = init, {type, payload}) => {
     switch (type) {
+
+        case String(ACTIONS.getChatSettings.success):
+            console.log("in case String(ACTIONS.getChatSettings.success):");
+            return {
+                ...state,
+                chatSettings: payload
+            };
+
+        case String(ACTIONS.setChats):
+            let allowed = payload;
+        if(state.chatSettings?.blackListedInterlocutorsIds?.length){
+            console.log("blacklisted: ", state.chatSettings.blackListedInterlocutorsIds)
+            allowed = payload.filter(chat => !state.chatSettings.blackListedInterlocutorsIds.includes(chat.userId));
+        }
+            console.log("in case String(ACTIONS.setChats):   allowed: ",allowed )
+            return {
+                ...state,
+                allowedInterlocutorsData: allowed
+            };
 
         case String(ACTIONS.setActiveInterlocutor):
             return {
