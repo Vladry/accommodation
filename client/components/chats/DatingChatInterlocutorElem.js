@@ -3,11 +3,11 @@ import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import {ACTIONS, ACTIONS_Cust} from "@/store/datingChats";
 import {shallowEqual, useDispatch, useSelector} from "react-redux";
-import selDatingChats from "@/store/datingChats/selectors";
 import Badge from "@mui/material/Badge";
 import sel from '@/store/user/selectors';
+import selDatingChats from "@/store/datingChats/selectors";
 import globalVariables from '@/root/globalVariables.json';
-import ChatMessageContextMenu from "@/components/chats/ChatMessageContextMenu";
+import InterlocutorContextMenu from "@/components/chats/InterlocutorContextMenu";
 
 
 const DatingChatInterlocutorElem = ({interlocutor}) => {
@@ -24,7 +24,6 @@ const DatingChatInterlocutorElem = ({interlocutor}) => {
     const contextMenuOpenHandler = (e) => {
         e.preventDefault();
         setContextEl(e.currentTarget);
-        console.log("in contextMenuOpenHandler")
     }
     const contextMenuCloseHandler = () => {
         setContextEl(() => null);
@@ -60,13 +59,12 @@ const DatingChatInterlocutorElem = ({interlocutor}) => {
                  onClick={currInterlocutorChatHandler}
 
                  onContextMenu={contextMenuOpenHandler}
-                 onMouseEnter={() => {
+
+                 onMouseEnter={(e) => {
                      setIsHover(() => true);
-                     console.log("onMouseEnter");
                  }}
-                 onMouseLeave={() => {
+                 onMouseLeave={(e) => {
                      setIsHover(() => false);
-                     console.log("onMouseLeave");
                  }}
             >
                 {unseenMessagesFromThisInterlocutor?.length > 0 ?
@@ -78,7 +76,7 @@ const DatingChatInterlocutorElem = ({interlocutor}) => {
                 <p>{interlocutor.nick}</p>
                 <p>{interlocutor.userId}</p>
 
-                <ChatMessageContextMenu contextEl={contextEl} contextMenuCloseHandler={contextMenuCloseHandler}/>
+                <InterlocutorContextMenu contextEl={contextEl} contextMenuCloseHandler={contextMenuCloseHandler}/>
             </Box>
 
         </>

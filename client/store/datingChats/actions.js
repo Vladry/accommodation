@@ -14,7 +14,7 @@ const actions = createActions(
         ],
 
         asyncTypes: ["GET_UNSEEN_MESSAGES", "GET_RECEIVED_MESSAGES", "GET_SENT_MESSAGES", "SEND_NEW_MESSAGE", "SET_MESSAGES_AS_SEEN",
-            "GET_CHATS", "GET_CHAT_SETTINGS"],
+            "GET_CHATS", "GET_CHAT_SETTINGS", "DELETE_CHAT", "BLOCK_INTERLOCUTOR", "UNBLOCK_INTERLOCUTOR"],
     },
     {
         prefix: 'datingChats',
@@ -112,6 +112,16 @@ const getChatSettings = (userId) => async dispatch => {
     }
 }
 
+const deleteChat = () => async dispatch => {
+    dispatch(ACTIONS.deleteChat.success());
+}
+const blockInterlocutor = () => async dispatch => {
+    dispatch(ACTIONS.blockInterlocutor.success());
+}
+const unblockInterlocutor = () => async dispatch => {
+    dispatch(ACTIONS.unblockInterlocutor.success());
+}
+
 
 export const ACTIONS_Cust = {
     getUnseenMessages,
@@ -120,7 +130,10 @@ export const ACTIONS_Cust = {
     sendNewMessage,
     setMessagesAsSeen,
     getChats,
-    getChatSettings
+    getChatSettings,
+    deleteChat,
+    blockInterlocutor,
+    unblockInterlocutor
 }
 
 

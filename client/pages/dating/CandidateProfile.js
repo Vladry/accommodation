@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useRef, useState} from 'react';
-import {useDispatch, useSelector} from "react-redux";
+import {shallowEqual, useDispatch, useSelector} from "react-redux";
 import {Avatar, Box, Paper, useMediaQuery} from "@mui/material";
 import {fetchData} from "@/store/user/actions";
 import types from "@/store/user/types";
@@ -26,7 +26,7 @@ const CandidateProfile = () => {
     const theme = useTheme();
     const context = useContext(Context);
     const dispatch = useDispatch();
-    const user = useSelector(selUser.user);
+    const user = useSelector(selUser.user, shallowEqual);
     const [pictures, setPictures] = useState([]);
     const stompClient = useSelector(selUser.stompClient);
     const router = useRouter();
@@ -44,8 +44,7 @@ const CandidateProfile = () => {
 
     //***************** <ActionPanel/>drawer  functionality **********************//
     useEffect(() => {//здесь получаем состояния isLiked и isBookMarked для кандидата, чтобы отрендерить соответствующие иконки в ActionPanel
-        if (debounce.current['checkingIsLiked']) return;
-        debounce.current['checkingIsLiked'] = true;
+        if(!user || !queriedUserId) return;
 // проверяем isLiked
         api.get(`${urls.likesAndBookmarks}?type=${destinations.likesNotifType}&fromId=${id.current}&toId=${candidateId.current}`)
             .then(data => {
@@ -60,6 +59,7 @@ const CandidateProfile = () => {
         });
 
 // проверяем isBookmarked
+        console.log("проверяем isBookmarked. id.current: ", id.current, "candidateId.current: ",candidateId.current)
         api.get(`${urls.likesAndBookmarks}?type=BOOKMARKED&fromId=${id.current}&toId=${candidateId.current}`)
             .then(data => {
                 if (data[0] && data[0].type) {
@@ -71,7 +71,7 @@ const CandidateProfile = () => {
             }).catch(() => {
             console.log("error checking IF this candidate was bookmarked by current user")
         });
-    }, [router.query])
+    }, [user, router.query])
 
 
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -115,7 +115,7 @@ const CandidateProfile = () => {
 
 
     const [isBookmarked, setIsBookmarked] = useState(false);
-    const bookmarkHandler = () => {
+    const bookmarkHandler = () => { //TODO объединить с bookmarkHandler в файле InterlocutorContextMenu.js
         setIsBookmarked(!isBookmarked);
         const nowBookmarkedState = !isBookmarked;//эта переменная нужна, т.к. state не обновляется мгновенна и путает данные
 
@@ -131,9 +131,9 @@ const CandidateProfile = () => {
 
         if (!nowBookmarkedState) {// удалить из базы нотификейшн о том, что этот кандидат ранее был лайкнут текущим ющером
             api.delete(`${urls.likesAndBookmarks}?type=BOOKMARKED&fromId=${id.current}&toId=${candidateId.current}`).then(data => {
-                console.log("isLiked deleted!");
+                console.log("isBookmarked deleted!");
             }).catch(() => {
-                console.log("not found an isLiked notification to delete!")
+                console.log("not found an isBookmarked notification to delete!")
             });
         }
 

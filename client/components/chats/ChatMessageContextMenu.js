@@ -9,7 +9,7 @@ const ChatMessageContextMenu = ({contextEl, contextMenuCloseHandler}) => {
     const open = !!contextEl;
     const id = open ? 'context-menu-popover' : undefined;
 
-    const paragraphStyle = {fontSize: '12px', fontWeight: '500', margin: '5px'}
+    const paragraphStyle = {fontSize: '12px', fontWeight: '500', margin: '5px', cursor: 'pointer'}
 
     return (
         <div>

@@ -7,7 +7,7 @@ import Link from 'next/link';
 import UnlockedMenu from "./UnlockedMenu";
 import LockedMenu from "./LockedMenu";
 import {mainMenu} from '../../public/menuConfig.js';
-import {LocalMenuItem, NavLink_styled, NavLinkLogin} from "../../utils/typography";
+import {LocalMenuItem, NavLink_styled, NavLinkLogin} from "@/root/utils/typography";
 import {NavLink} from "./NavLink";
 
 
