@@ -31,6 +31,7 @@ const InterlocutorContextMenu = ({contextEl, contextMenuCloseHandler}) => {
     useEffect(() => {//здесь получаем состояния isBookMarked, isBlocked
         if(!user?.id || !activeInterlocutor) return;
 // проверяем isBlocked
+        console.log("in interlocutorContextMenu  useEffect.  activeInterlocutor: ", activeInterlocutor)
 
 /*        api.get(`${urls.likesAndBookmarks}?type=${destinations.likesNotifType}&fromId=${id.current}&toId=${candidateId.current}`)
             .then(data => {
@@ -93,11 +94,8 @@ const InterlocutorContextMenu = ({contextEl, contextMenuCloseHandler}) => {
 
 
 
-
-
     const paragraphStyle = {fontSize: '12px', fontWeight: '500', margin: '5px', cursor: 'pointer'}
-    const bookMarkActionText = isBookmarked? 'Удалить из избранного' : 'Добавить в избранное';
-    return (
+    const bookMarkActionText = isBookmarked? 'Удалить из избранного' : 'Добавить в избранное';return (
         <div>
             <Popover
                 id={id}
