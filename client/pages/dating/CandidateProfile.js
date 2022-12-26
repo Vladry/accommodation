@@ -94,21 +94,21 @@ const CandidateProfile = () => {
         };
 
 
-         /* // тут либо записывали, либо удаляли из БД лайки. Но мы решили сохранять ВСЁ, что было
+         // тут либо записывали, либо удаляли из БД лайки.
         if (nowLikedState) {
-            //отослать stomp-уведомление о лайке юзеру, которого я лайкнул и записать лайк в БД:
             api.post(`${urls.messages}`, likeNotification).then(() => {});
         }
 
-       if (!nowLikedState) {// удалить из базы нотификейшн о том, что этот кандидат ранее был лайкнут текущим ющером
+
+       if (!nowLikedState) {
             api.delete(`${urls.likesAndBookmarks}?type=${destinations.likesNotifType}&fromId=${user.id.toString()}&toId=${queriedUserId.toString()}`).then(data => {
-                console.log("isLiked deleted!");
+                // console.log("isLiked deleted!");
             }).catch(() => {
                 console.log("not found an isLiked notification to delete!")
             });
-        }*/
+        }
 
-        api.post(`${urls.messages}`, likeNotification).then(() => {});
+
         const data = {msg: likeNotification, client: stompClient}
         context.stompNotifier(data);
     }

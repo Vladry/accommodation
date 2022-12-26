@@ -92,11 +92,11 @@ const setMessagesAsSeen = ({fromId, toId}) => async dispatch => {
 
 const getChats = (toId) => async dispatch => {
     try {
-        console.log("getChats action. fetching interlocutors->  toId:", toId)
+        // console.log("getChats action. fetching interlocutors->  toId:", toId)
         const allChatInterlocutors = await api.get(`${urls.allInterlocutors}/${toId}?chat=dating`);
-        console.log("fetched allChatInterlocutors: ", allChatInterlocutors)
+        // console.log("fetched allChatInterlocutors: ", allChatInterlocutors)
         dispatch(ACTIONS.setChats(allChatInterlocutors));
-        console.log("getChats done. allChatInterlocutors: ", allChatInterlocutors)
+        // console.log("getChats done. allChatInterlocutors: ", allChatInterlocutors)
     } catch (e) {
         console.log("error in getChats. allChatInterlocutors not set in Store! \n", e.message);
     }

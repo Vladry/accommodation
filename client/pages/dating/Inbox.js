@@ -24,7 +24,7 @@ const Inbox = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log("inbox.js: in useEffect getting getChatSettings and getChats")
+        // console.log("inbox.js: in useEffect getting getChatSettings and getChats")
         if(!user) return;
         dispatch(ACTIONS_Cust.getChatSettings(user.id))
         dispatch(ACTIONS_Cust.getChats(user.id))

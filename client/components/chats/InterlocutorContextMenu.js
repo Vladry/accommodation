@@ -18,35 +18,33 @@ import PersonAddDisabledIcon from "@mui/icons-material/PersonAddDisabled";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 
-const InterlocutorContextMenu = ({contextEl, contextMenuCloseHandler}) => {
+const InterlocutorContextMenu = ({interlocutorId, contextEl, contextMenuCloseHandler}) => {
     // https://mui.com/material-ui/react-popover/#anchor-playground
     const open = !!contextEl;
     const id = open ? 'context-menu-popover' : undefined;
 
     const user = useSelector(sel.user);
-    const activeInterlocutor = useSelector(selDatingChats.activeInterlocutor);
 
 
     let isBlocked = false;
     useEffect(() => {//здесь получаем состояния isBookMarked, isBlocked
-        if(!user?.id || !activeInterlocutor) return;
+        if (!user?.id || !interlocutorId) return;
 // проверяем isBlocked
-        console.log("in interlocutorContextMenu  useEffect.  activeInterlocutor: ", activeInterlocutor)
 
-/*        api.get(`${urls.likesAndBookmarks}?type=${destinations.likesNotifType}&fromId=${id.current}&toId=${candidateId.current}`)
-            .then(data => {
-                if (data[0] && data[0].type) {
-                    setIsLiked(true);
-                    // console.log("this candidate WAS liked by current user");
-                } else {
-                    // console.log("this candidate was NOT liked by current user");
-                }
-            }).catch(() => {
-            console.log("error checking IF this candidate was liked by current user")
-        });*/
+        /*        api.get(`${urls.likesAndBookmarks}?type=${destinations.likesNotifType}&fromId=${id.current}&toId=${candidateId.current}`)
+                    .then(data => {
+                        if (data[0] && data[0].type) {
+                            setIsLiked(true);
+                            // console.log("this candidate WAS liked by current user");
+                        } else {
+                            // console.log("this candidate was NOT liked by current user");
+                        }
+                    }).catch(() => {
+                    console.log("error checking IF this candidate was liked by current user")
+                });*/
 
 // проверяем isBookMarked
-        api.get(`${urls.likesAndBookmarks}?type=BOOKMARKED&fromId=${user.id}&toId=${activeInterlocutor}`)
+        api.get(`${urls.likesAndBookmarks}?type=BOOKMARKED&fromId=${user.id}&toId=${interlocutorId}`)
             .then(data => {
                 if (data[0] && data[0].type) {
                     setIsBookmarked(true);
@@ -57,45 +55,79 @@ const InterlocutorContextMenu = ({contextEl, contextMenuCloseHandler}) => {
             }).catch(() => {
             console.log("error checking IF this candidate was bookmarked by current user")
         });
-    }, [user, activeInterlocutor])
+    }, [user, interlocutorId])
+
+
+    const deleteCorrespondenceFromDB = () => {
+        if (!user || !interlocutorId) {
+            console.log("cannot delete correspondence because user or interlocutorId does not exist");
+            return;
+        }
+        console.log("deleting correspondence between user.id: ", user.id, " and interlocutorId: ", interlocutorId);
+        api.delete(`${urls.chatMessages}?chat=dating&fromId=${interlocutorId}&toId=${user.id}`).then();
+    }
+
+    const blockInterlocutorHideCorrespondence = ()=>{
+        api.put(`${urls.blockInterlocutorHideCorrespondence}?chat=dating&fromId=${interlocutorId}&toId=${user.id}`).then();
+    };
+
+    const blockInterlocutorLeaveCorrespondence = ()=>{
+        api.put(`${urls.blockInterlocutorLeaveCorrespondence}?chat=dating&fromId=${interlocutorId}&toId=${user.id}`).then();
+    };
+
+    const unBlockInterlocutorAndCorrespondence = ()=>{//TODO перенести на соответствующую сервисную страницу приложения
+        api.put(`${urls.unBlockInterlocutorAndCorrespondence}?chat=dating&fromId=${interlocutorId}&toId=${user.id}`).then();
+    };
+
+    const hideCorrespondenceForMe = ()=>{
+        api.put(`${urls.hideCorrespondenceForMe}?chat=dating&fromId=${interlocutorId}&toId=${user.id}`).then();
+    };
+
+    const hideCorrespondenceForAll = ()=>{
+        api.put(`${urls.hideCorrespondenceForAll}?chat=dating&fromId=${interlocutorId}&toId=${user.id}`).then();
+    };
+
+
+
+
+
 
 
 
     const [isBookmarked, setIsBookmarked] = useState(false);
     const bookmarkHandler = () => { //TODO объединить с bookmarkHandler в файле CandidateProfile.js
-        console.log("in bookmarkHandler, isBookmarked: ", isBookmarked)
+        // console.log("in bookmarkHandler, isBookmarked: ", isBookmarked)
         setIsBookmarked(!isBookmarked);
         const nowBookmarkedState = !isBookmarked;//эта переменная нужна, т.к. state не обновляется мгновенна и путает данные
-        console.log("nowBookmarkedState: ", nowBookmarkedState)
+        // console.log("nowBookmarkedState: ", nowBookmarkedState)
         if (nowBookmarkedState) {
             //записать метку bookmarked в БД:
-            console.log("setting isBookmarked");
+            // console.log("setting isBookmarked");
             const msg = {
                 destination: null, type: "BOOKMARKED", value: null, subject: null,
-                fromId: user.id, toId: activeInterlocutor,
+                fromId: user.id, toId: interlocutorId,
             };
-            console.log("api.post(`${urls.messages}`, msg)");
+            // console.log("api.post(`${urls.messages}`, msg)");
             api.post(`${urls.messages}`, msg).then(() => {
             });
-            console.log("isBookmarked must be!");
         }
 
         if (!nowBookmarkedState) {// удалить из базы нотификейшн о том, что этот кандидат ранее был лайкнут текущим ющером
-            console.log("in  if (!nowBookmarkedState)");
-            console.log(" api.delete(`${urls.likesAndBookmarks}");
-            api.delete(`${urls.likesAndBookmarks}?type=BOOKMARKED&fromId=${user.is}&toId=${activeInterlocutor}`).then(data => {
-                console.log("isBookmarked must be deleted!");
+            // console.log("in  if (!nowBookmarkedState)");
+            // console.log(" api.delete(`${urls.likesAndBookmarks}");
+            api.delete(`${urls.likesAndBookmarks}?type=BOOKMARKED&fromId=${user.id}&toId=${interlocutorId}`).then(data => {
+                // console.log("isBookmarked must be deleted!");
             }).catch(() => {
-                console.log("not found an isLiked notification to delete!")
+                // console.log("not found an isLiked notification to delete!")
             });
         }
 
     }
 
 
-
     const paragraphStyle = {fontSize: '12px', fontWeight: '500', margin: '5px', cursor: 'pointer'}
-    const bookMarkActionText = isBookmarked? 'Удалить из избранного' : 'Добавить в избранное';return (
+    const bookMarkActionText = isBookmarked ? 'Удалить из избранного' : 'Добавить в избранное';
+    return (
         <div>
             <Popover
                 id={id}
@@ -107,18 +139,38 @@ const InterlocutorContextMenu = ({contextEl, contextMenuCloseHandler}) => {
                     horizontal: 'left',
                 }}
             >
-                <Paper elevation={12} sx={{display: 'flex', flexFlow: 'column noWrap', padding: '10px', borderRadius: '10px'}}>
+                <Paper elevation={12}
+                       sx={{display: 'flex', flexFlow: 'column noWrap', padding: '10px', borderRadius: '10px'}}>
                     {/*<p style={paragraphStyle} onClick={()=>{}}>Смотреть профайл</p>*/}
                     <p style={{...paragraphStyle, color: 'blue'}}>
-                        <VisibilityIcon/><NavLink href={`${urls.queriedCandidateProfile}${activeInterlocutor}`}>Смотреть
-                        профайл</NavLink></p>
+                        <VisibilityIcon/>
+                        <NavLink href={`${urls.queriedCandidateProfile}${interlocutorId}`}>Смотреть профайл</NavLink>
+                    </p>
                     <p style={paragraphStyle} onClick={bookmarkHandler}>
-                        <BookmarkAddIcon sx={{color : `${isBookmarked ? 'green' : ""}` }}/>
+                        <BookmarkAddIcon sx={{color: `${isBookmarked ? 'green' : ""}`}}/>
                         {bookMarkActionText}</p>
-                    <p style={{...paragraphStyle, color: 'darkred'}} onClick={() => {
-                    }}><RemoveCircleIcon/><span style={{color: '#000'}}>Заблокировать(возможно восстановить)</span></p>
-                    <p style={{...paragraphStyle, color: 'red'}} onClick={() => {
-                    }}><PersonAddDisabledIcon/><span style={{color: '#000'}}>Удалить собеседника и переписку</span></p>
+
+                    <p style={{...paragraphStyle, color: 'darkred'}} onClick={blockInterlocutorHideCorrespondence}><RemoveCircleIcon/>
+                        <span style={{color: '#000'}}>Заблокировать. Переписку скрыть для всех(действие обратимо)</span></p>
+
+                    <p style={{...paragraphStyle, color: 'darkred'}} onClick={blockInterlocutorLeaveCorrespondence}><RemoveCircleIcon/>
+                        <span style={{color: '#000'}}>Заблокировать. Переписку оставить для всех(действие обратимо)</span></p>
+
+                    <p style={{...paragraphStyle, color: 'darkred'}} onClick={unBlockInterlocutorAndCorrespondence}><RemoveCircleIcon/>
+                        <span style={{color: '#000'}}>Разблокировать пользователя и историю переписки</span></p>
+
+                    <p style={{...paragraphStyle, color: 'red'}} onClick={hideCorrespondenceForMe}>
+                        <PersonAddDisabledIcon/>
+                        <span style={{color: '#000'}}>Очистить переписку у меня</span></p>
+
+                    <p style={{...paragraphStyle, color: 'red'}} onClick={hideCorrespondenceForAll}>
+                        <PersonAddDisabledIcon/>
+                        <span style={{color: '#000'}}>Очистить переписку у всех</span></p>
+
+
+                    <p style={{...paragraphStyle, color: 'red'}} onClick={deleteCorrespondenceFromDB}>
+                        <PersonAddDisabledIcon/>
+                        <span style={{color: '#000'}}>Удалить переписку из БД</span></p>
                 </Paper>
             </Popover>
         </div>

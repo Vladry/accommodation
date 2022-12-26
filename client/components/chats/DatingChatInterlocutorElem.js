@@ -23,7 +23,6 @@ const DatingChatInterlocutorElem = ({interlocutor}) => {
     const [contextEl, setContextEl] = useState(null);
     const contextMenuOpenHandler = (e) => {
         e.preventDefault();
-        dispatch(ACTIONS.setActiveInterlocutor(interlocutor.userId));
         setContextEl(e.currentTarget);
     }
     const contextMenuCloseHandler = () => {
@@ -77,7 +76,7 @@ const DatingChatInterlocutorElem = ({interlocutor}) => {
                 <p>{interlocutor.nick}</p>
                 <p>{interlocutor.userId}</p>
 
-                <InterlocutorContextMenu contextEl={contextEl} contextMenuCloseHandler={contextMenuCloseHandler}/>
+                <InterlocutorContextMenu interlocutorId={interlocutor.userId} contextEl={contextEl} contextMenuCloseHandler={contextMenuCloseHandler}/>
             </Box>
 
         </>

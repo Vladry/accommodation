@@ -116,6 +116,19 @@ public class MessageService {
     }
 
 
+    public void deleteAllCorrespondenceBetweenFromIdAndToId(String chat, Long fromId, Long toId) {
+        System.out.println("in service.deleteAllCorrespondenceBetweenFromIdAndToId");
+        System.out.println("chat: " + chat);
+        System.out.println("fromId: " + fromId);
+        System.out.println("toId: " + toId);
+        messageRepository.deleteAllMessageByChatAndFromIdAndToId(chat, fromId, toId);
+        System.out.println("done: deleteAllMessagesByChatAndFromIdAndToId");
+        messageRepository.deleteAllMessageByChatAndFromIdAndToId(chat, toId, fromId);
+        System.out.println("done: deleteAllMessagesByChatAndFromIdAndToId");
+    }
+
+
+
     public void deleteMessageByTypeAndFromIdAndToId(String type, Long fromId, Long toId) {
 //        System.out.println("in service.deleteMessageByTypeAndFromIdAndToId");
 //        System.out.println("type: " + type + ",  fromId: " + fromId + ", toId: " + toId);

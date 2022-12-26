@@ -26,7 +26,10 @@ public interface MessageRepository extends RepositoryInterface<Message> {
     List<Message> getUnseenMessageByChatAndSeenAndToId(String chat, Boolean seen, Long id);
     List<Message> getMessageByTypeAndFromIdAndToId(String type, Long fromId, Long toId);
     List<Message> getMessageByChatAndFromIdAndToId(String chat, Long fromId, Long toId);
-    void deleteMessageByTypeAndFromIdAndToId(String type, Long fromId, Long toId);
     List<Message> findMessageByType(String type);
 
+
+
+    void deleteMessageByTypeAndFromIdAndToId(String type, Long fromId, Long toId);
+    void deleteAllMessageByChatAndFromIdAndToId(String chat, Long fromId, Long toId);
 }

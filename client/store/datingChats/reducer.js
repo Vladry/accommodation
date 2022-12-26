@@ -87,7 +87,7 @@ const reducer = (state = init, {type, payload}) => {
     switch (type) {
 
         case String(ACTIONS.getChatSettings.success):
-            console.log("in case String(ACTIONS.getChatSettings.success):");
+            // console.log("in case String(ACTIONS.getChatSettings.success):");
             return {
                 ...state,
                 chatSettings: payload
@@ -99,7 +99,7 @@ const reducer = (state = init, {type, payload}) => {
             console.log("blacklisted: ", state.chatSettings.blackListedInterlocutorsIds)
             allowed = payload.filter(chat => !state.chatSettings.blackListedInterlocutorsIds.includes(chat.userId));
         }
-            console.log("in case String(ACTIONS.setChats):   allowed: ",allowed )
+            // console.log("in case String(ACTIONS.setChats):   allowed: ",allowed )
             return {
                 ...state,
                 allowedInterlocutorsData: allowed

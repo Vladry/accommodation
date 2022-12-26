@@ -22,21 +22,6 @@ public class MessageController {
         messageService.saveMessage(message);
     }
 
-    @PutMapping("/setSeen/{fromId}/{toId}")
-    public void setSeenTrue (@PathVariable("fromId") Long fromId, @PathVariable("toId") Long toId){
-        messageService.setSeenTrue(fromId, toId);
-    }
-    // const unseen = await api.get(`${urls.unseenMessages}${id}?chat=dating`).then();
-
-    @DeleteMapping
-    public void deleteMessage(@RequestBody Message message) {
-        messageService.deleteMessage(message);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteMessageById(@PathVariable("id") Long id) {
-        messageService.deleteMessageById(id);
-    }
 
     @GetMapping("/to/{id}")
     public List<Message> getMessageByToId(@PathVariable("id") Long id) {
@@ -61,18 +46,6 @@ public class MessageController {
     @GetMapping("/chat/from")
     public List<Message> getMessageByChatAndFromId(@RequestParam("chat") String chat, @RequestParam("id") Long id) {
         return messageService.getMessageByChatAndFromId(chat, id);
-    }
-
-    @GetMapping("/chat/unseen/to/{id}")
-    public List<Message> getUnseenMessageByChatAndToId(@RequestParam("chat") String chat, @PathVariable("id") Long id) {
-        return messageService.getUnseenMessageByChatAndToId(chat, id);
-    }
-
-    @GetMapping("/chat/from/to")
-    public List<Message> getMessageByChatAndFromIdAndToId(@RequestParam("chat") String chat,
-                                                          @RequestParam("fromId") Long fromId,
-                                                          @RequestParam("toId") Long toId) {
-        return messageService.getMessageByChatAndFromIdAndToId(chat, fromId, toId);
     }
 
 
@@ -100,4 +73,17 @@ public class MessageController {
     public List<Message> getAllMessages() {
         return messageService.getAllMessages();
     }
+
+
+/*** DELETE ***/
+    @DeleteMapping
+    public void deleteMessage(@RequestBody Message message) {
+        messageService.deleteMessage(message);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteMessageById(@PathVariable("id") Long id) {
+        messageService.deleteMessageById(id);
+    }
+
 }

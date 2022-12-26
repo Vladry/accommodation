@@ -31,9 +31,18 @@
     "userSubscriptions": "/users/subscriptions",
     "messages": "/messages",
     "msgSetToSeen": "/messages/setSeen",
+
+
     "chatMessages": "/messages/chat/from/to",
+    "blockInterlocutorHideCorrespondence":  "/chats/blockInterlocutorHideCorrespondence",
+    "blockInterlocutorLeaveCorrespondence": "/chats/blockInterlocutorLeaveCorrespondence",
+    "unBlockInterlocutorAndCorrespondence": "/chats/unBlockInterlocutorAndCorrespondence",
+    "hideCorrespondenceForMe":  "/chats/hideCorrespondenceForMe",
+    "hideCorrespondenceForAll": "/chats/hideCorrespondenceForAll",
+
     "allInterlocutors": "/chats/interlocutors",
     "chatSettings": "/chats/settings",
+
     "unseenMessages": "/messages/chat/unseen/to/",
     "messagesToId": "/messages/to",
     "messagesFromId": "/messages/from",
