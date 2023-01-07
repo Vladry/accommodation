@@ -20,33 +20,41 @@
     "queriedCandidateProfile": "/dating/CandidateProfile/?queriedUserId=",
 
 
+    "accommodationProfile": "/accommodations",
+    "tenantUserProfile": "/tenants",
     "userUrl": "/users/profile",
     "datingProfile": "/users/datingProfile",
     "datingSearchCriteriaProfile": "/users/datingSearchCriteriaProfile",
-    "accommodationProfile": "/accommodations",
-    "tenantUserProfile": "/tenants",
     "allUsersByIds" : "/users/allByIds",
     "candidatesIds" : "/users/candidatesIds",
     "storePhotos": "/users/photos",
     "userSubscriptions": "/users/subscriptions",
+
+
     "messages": "/messages",
-    "msgSetToSeen": "/messages/setSeen",
-
-
-    "chatMessages": "/messages/chat/from/to",
-    "blockInterlocutorHideCorrespondence":  "/chats/blockInterlocutorHideCorrespondence",
-    "blockInterlocutorLeaveCorrespondence": "/chats/blockInterlocutorLeaveCorrespondence",
-    "unBlockInterlocutorAndCorrespondence": "/chats/unBlockInterlocutorAndCorrespondence",
-    "hideCorrespondenceForMe":  "/chats/hideCorrespondenceForMe",
-    "hideCorrespondenceForAll": "/chats/hideCorrespondenceForAll",
-
-    "allInterlocutors": "/chats/interlocutors",
-    "chatSettings": "/chats/settings",
-
-    "unseenMessages": "/messages/chat/unseen/to/",
     "messagesToId": "/messages/to",
     "messagesFromId": "/messages/from",
     "messagesFromType": "/messages/fromType",
     "allMessages" : "/messages/all",
-    "likesAndBookmarks": "/messages/likesAndBookmarks"
+    "likesAndBookmarks": "/messages/likesAndBookmarks",
+
+
+
+    "msgSetToSeen": "/chats/setSeen",
+    "chatMessages": "/chats/from/to",
+    "allInterlocutors": "/chats/interlocutors",
+    "chatSettings": "/chats/settings",
+    "interlocutorStatus": "/chats/interlocutorStatus",
+    "allInterlocutorsStatus": "/chats/allInterlocutorsStatus",
+    "unseenMessages": "/chats/unseen/to/",
+    "blockInterlocutorHideCorrespondenceForAll":  "/chats/blockInterlocutorHideCorrespondenceForAll",
+    "blockInterlocutorLeaveCorrespondenceForAll": "/chats/blockInterlocutorLeaveCorrespondenceForAll",
+    "blockInterlocutorLeaveCorrespondenceForRecipient": "/chats/blockInterlocutorLeaveCorrespondenceForRecipient",
+    "blockInterlocutorDeleteAllCorrespondence": "/chats/blockInterlocutorDeleteAllCorrespondence",
+    "unBlockInterlocutorAndShowCorrespondence": "/chats/unBlockInterlocutorAndShowCorrespondence",
+    "hideCorrespondenceForRecipient":  "/chats/hideCorrespondenceForRecipient",
+    "hideCorrespondenceForInterlocutor": "/chats/hideCorrespondenceForInterlocutor",
+    "hideCorrespondenceForAll": "/chats/hideCorrespondenceForAll"
+
+
 }

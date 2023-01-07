@@ -23,9 +23,12 @@ public class Message extends BaseEntity {
     private String chat; //по этому полю определяем, к какому чату относится сообщение (к примеру к dating или volunteer или accommodation )
     private String value;
     private String subject;
-    private Boolean seen = false;
     private Long fromId;
     private Long toId;
+    private Boolean seen = false;
+    private Boolean hiddenForSender = false;//TODO возможно потом нужно будет удалить
+    private Boolean hiddenForRecipient = false;//TODO возможно потом нужно будет удалить
+    private Boolean deleted = false;
 
 
     @Override

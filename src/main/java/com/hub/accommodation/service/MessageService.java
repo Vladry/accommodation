@@ -30,8 +30,6 @@ public class MessageService {
     }
 
     public void setSeenTrue(Long fromId, Long toId) {
-//        System.out.println("in service.setSeenTrue");
-//        System.out.println("fromId: " + fromId + ",  toId: " + toId);
         Set<Message> msgs = messageRepository.findBySeenAndFromIdAndToId(false, fromId, toId);
         Set<Message> updated = msgs.stream().peek(
                 m -> m.setSeen(true)
@@ -39,21 +37,6 @@ public class MessageService {
         messageRepository.saveAll(updated);
     }
 
-    //тот же самый метод, что и выше, но только шлем кучу запросов:
-/*    public void setSeenTrue(Long fromId, Long toId) {
-        System.out.println("in service.setSeenTrue");
-        System.out.println("fromId: " + fromId + ",  toId: " + toId);
-        Set<Message> msgs = messageRepository.findBySeenAndFromIdAndToId(false, fromId, toId);
-        //TODO для оптимизации -возможно можно собрать в коллекцию и заперсистить коллекцией?
-        msgs.forEach(
-                m -> {
-                    System.out.println("message before: " + m);
-                    m.setSeen(true);
-                    System.out.println("message after: " + m);
-                    messageRepository.save(m);
-                }
-        );
-    }*/
 
     public void deleteMessage(Message message) {
         messageRepository.delete(message);
@@ -80,58 +63,39 @@ public class MessageService {
 
     @Transactional(readOnly = true)
     public List<Message> getNotificationByTypeAndFromId(String type, Long id) {
-//        System.out.println("in service.getMessageByTypeAndFromId");
-//        System.out.println("type: " + type + ", id: " + id);
         return messageRepository.getMessageByTypeAndFromId(type, id);
     }
 
     @Transactional(readOnly = true)
     public List<Message> getMessageByChatAndFromId(String chat, Long id) {
-//        System.out.println("in service.getMessageByTypeAndFromId");
-//        System.out.println("type: " + chat + ", id: " + id);
         return messageRepository.getMessageByChatAndFromId(chat, id);
     }
 
     @Transactional(readOnly = true)
     public List<Message> getUnseenMessageByChatAndToId(String chat, Long id) {
-//        System.out.println("in service.getUnseenMessageByChatAndToId");
-//        System.out.println("type: " + chat + ", id: " + id);
         return messageRepository.getUnseenMessageByChatAndSeenAndToId(chat, false, id);
     }
 
 
     @Transactional(readOnly = true)
     public List<Message> getMessageByTypeAndFromIdAndToId(String type, Long fromId, Long toId) {
-//        System.out.println("in service.getMessageByTypeAndFromIdAndToId");
-//        System.out.println("type: " + type + ",  fromId: " + fromId + ", toId: " + toId);
         return messageRepository.getMessageByTypeAndFromIdAndToId(type, fromId, toId);
     }
 
 
     @Transactional(readOnly = true)
     public List<Message> getMessageByChatAndFromIdAndToId(String chat, Long fromId, Long toId) {
-//        System.out.println("in service.getMessageByChatAndFromIdAndToId");
-//        System.out.println("chat: " + chat + ",  fromId: " + fromId + ", toId: " + toId);
         return messageRepository.getMessageByChatAndFromIdAndToId(chat, fromId, toId);
     }
 
 
     public void deleteAllCorrespondenceBetweenFromIdAndToId(String chat, Long fromId, Long toId) {
-        System.out.println("in service.deleteAllCorrespondenceBetweenFromIdAndToId");
-        System.out.println("chat: " + chat);
-        System.out.println("fromId: " + fromId);
-        System.out.println("toId: " + toId);
         messageRepository.deleteAllMessageByChatAndFromIdAndToId(chat, fromId, toId);
-        System.out.println("done: deleteAllMessagesByChatAndFromIdAndToId");
         messageRepository.deleteAllMessageByChatAndFromIdAndToId(chat, toId, fromId);
-        System.out.println("done: deleteAllMessagesByChatAndFromIdAndToId");
     }
 
 
-
     public void deleteMessageByTypeAndFromIdAndToId(String type, Long fromId, Long toId) {
-//        System.out.println("in service.deleteMessageByTypeAndFromIdAndToId");
-//        System.out.println("type: " + type + ",  fromId: " + fromId + ", toId: " + toId);
         messageRepository.deleteMessageByTypeAndFromIdAndToId(type, fromId, toId);
     }
 
@@ -139,7 +103,6 @@ public class MessageService {
     @Transactional(readOnly = true)
     public List<Message> getMessageByType(String type) {
         System.out.println("in service.getMessageByType");
-//        System.out.println("type: " + type);
         return messageRepository.findMessageByType(type);
     }
 

@@ -24,10 +24,10 @@ const Inbox = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        // console.log("inbox.js: in useEffect getting getChatSettings and getChats")
+        // console.log("inbox.js: in useEffect getting getChatSettings and getInterlocutors")
         if(!user) return;
         dispatch(ACTIONS_Cust.getChatSettings(user.id))
-        dispatch(ACTIONS_Cust.getChats(user.id))
+        dispatch(ACTIONS_Cust.getInterlocutors(user.id))
     },[user])
 
 

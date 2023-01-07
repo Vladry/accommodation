@@ -4,10 +4,24 @@ import urls from "../../../src/main/resources/urls.json";
 import context from '@/root/contextValues.js';
 import types from "@/store/datingChats/types";
 
+
+const messageExample = {
+    fromId: 0,
+    toId: 0,
+    chat: 'dating',
+    value: '',
+    subject: '',
+    createdDate: 0,
+    lastModifiedDate: 0,
+    seen: false,
+    hiddenForSender: false,
+    hiddenForRecipient: false,
+    deleted: false
+}
 const chatSettings = {
     chatType: 'DATING',
     lastActiveChatUserId: 1,
-    blackListedInterlocutorsIds: [3],
+    blockedInterlocutorsIds: [3],
     mutedInterlocutorsIds: [3],
     notificationSound: true,
     favoritesUserIds: [1],
@@ -19,7 +33,7 @@ const chatSettings = {
 const chatSettingsInit = {
     chatType: 'DATING',
     lastActiveChatUserId: 0,
-    blackListedInterlocutorsIds: [],
+    blockedInterlocutorsIds: [],
     mutedInterlocutorsIds: [],
     notificationSound: true,
     favoritesUserIds: [],
@@ -29,33 +43,7 @@ const chatSettingsInit = {
 }
 
 const init = {
-    allowedInterlocutorsData: [
-/*        {
-            userId: 1,
-            avatar: 'https://res.cloudinary.com/vladry/image/upload/v1628868305/avatars/Ira_yvvlml.png',
-            nick: 'Bob',
-        },
-        {
-            userId: 2,
-            avatar: 'https://res.cloudinary.com/vladry/image/upload/v1628868305/avatars/Tanya_mi0o0m.png',
-            nick: 'Martin',
-        },
-        {
-            userId: 3,
-            avatar: 'https://res.cloudinary.com/vladry/image/upload/v1628498610/vlad_shrunk/cat2_x0yqxm.jpg',
-            nick: 'Ozzy',
-        },
-        {
-            userId: 19,
-            avatar: 'https://res.cloudinary.com/vladry/image/upload/v1628498610/vlad_shrunk/cat2_x0yqxm.jpg',
-            nick: 'Vlad',
-        },
-        {
-            userId: 20,
-            avatar: 'https://res.cloudinary.com/vladry/image/upload/v1628498610/vlad_shrunk/cat2_x0yqxm.jpg',
-            nick: 'Sender',
-        },*/
-    ],
+    allowedInterlocutorsData: [],
     activeInterlocutor: 1,
     receivedMessages: [],
     sentMessages: [],
@@ -71,35 +59,22 @@ const init = {
 }
 
 
-const messageExample = {
-    fromId: 0,
-    toId: 0,
-    chat: 'dating',
-    value: '',
-    subject: '',
-    seen: false,
-    createdDate: 0,
-    lastModifiedDate: 0
-}
-
 
 const reducer = (state = init, {type, payload}) => {
     switch (type) {
 
         case String(ACTIONS.getChatSettings.success):
-            // console.log("in case String(ACTIONS.getChatSettings.success):");
             return {
                 ...state,
                 chatSettings: payload
             };
 
-        case String(ACTIONS.setChats):
+        case String(ACTIONS.setInterlocutors):
             let allowed = payload;
-        if(state.chatSettings?.blackListedInterlocutorsIds?.length){
-            console.log("blacklisted: ", state.chatSettings.blackListedInterlocutorsIds)
-            allowed = payload.filter(chat => !state.chatSettings.blackListedInterlocutorsIds.includes(chat.userId));
+        if(state.chatSettings?.blockedInterlocutorsIds?.length){
+            console.log("blacklisted: ", state.chatSettings.blockedInterlocutorsIds)
+            allowed = payload.filter(chat => !state.chatSettings.blockedInterlocutorsIds.includes(chat.userId));
         }
-            // console.log("in case String(ACTIONS.setChats):   allowed: ",allowed )
             return {
                 ...state,
                 allowedInterlocutorsData: allowed
@@ -111,11 +86,6 @@ const reducer = (state = init, {type, payload}) => {
                 activeInterlocutor: payload
             };
 
-        /*            case String(ACTIONS.addReceivedMessages):
-                    return {
-                        ...state,
-                        receivedMessages: [...state.receivedMessages, payload]
-                    };*/
 
         case String(ACTIONS.addSendMessageNotification):
             return {
@@ -148,10 +118,6 @@ const reducer = (state = init, {type, payload}) => {
                 ...state
             };
 
-        // case String(ACTIONS_Cust.setMessagesAsSeen):
-        //     return {
-        //         ...state
-        //     };
 
 
         case types.SET_DATING_MESSAGES:

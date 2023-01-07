@@ -44,7 +44,9 @@ public class MessageController {
     }
 
     @GetMapping("/chat/from")
-    public List<Message> getMessageByChatAndFromId(@RequestParam("chat") String chat, @RequestParam("id") Long id) {
+    public List<Message> getMessageByChatAndFromId(
+            @RequestParam("chat") String chat,
+            @RequestParam("id") Long id) {
         return messageService.getMessageByChatAndFromId(chat, id);
     }
 

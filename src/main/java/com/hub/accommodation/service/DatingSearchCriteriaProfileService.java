@@ -30,18 +30,10 @@ public class DatingSearchCriteriaProfileService implements ServiceInterface<Dati
 
 
     public DatingSearchCriteriaProfileRsDto saveOrUpdate(DatingSearchCriteriaProfile entity) throws NoSuchFieldException, IllegalAccessException {
-//        String idStr = String.valueOf(entity.getId() != null ? entity.getId() : "null");
-//        String userIdStr = String.valueOf(entity.getUserId() != null ? entity.getUserId() : "null");
-
         if (entity.getId() == null) {
-//            System.out.println("id: " + idStr);
-//            System.out.println("userId: " + userIdStr);
-//            System.out.println("seems as a new entity, just saving!");
             return datingSearchCriteriaProfileFacade.convertToDto(datingSearchCriteriaProfileRepository.save(entity));
         } else {
-//            System.out.println("entity is not new, modifying!");
             DatingSearchCriteriaProfile scp = findDatingSearchCriteriaProfileByUserId(entity.getUserId()).get();
-//            System.out.println("scp before change: " + scp);
 
             Field[] fields = scp.getClass().getDeclaredFields();
 

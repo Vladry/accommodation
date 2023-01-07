@@ -58,35 +58,69 @@ const InterlocutorContextMenu = ({interlocutorId, contextEl, contextMenuCloseHan
     }, [user, interlocutorId])
 
 
+
+
+/*** БЛОК функционала работы с InterlocutorSettings из DatingChatSettings и режимами InterlocutorStatus, определяющими фильтрацию загружаемых и показываемых сообщений ***/
+
+    const blockInterlocutorHideCorrespondenceForAll = ()=>{
+        // BLOCKED_CORR_HIDDEN_FOR_ALL
+        console.log("blockInterlocutorHideCorrespondenceForAll");
+        console.log("interlocutorId: ", interlocutorId, "user.id: ", user.id);
+        api.put(`${urls.blockInterlocutorHideCorrespondenceForAll}?chat=datingChatStatus&fromId=${interlocutorId}&toId=${user.id}`).then();
+    };
+
+
+        const blockInterlocutorLeaveCorrespondenceForAll = ()=>{
+            // BLOCKED_CORRESPONDENCE_AVAILABLE_FOR_ALL
+        console.log("blockInterlocutorLeaveCorrespondenceForAll");
+        api.put(`${urls.blockInterlocutorLeaveCorrespondenceForAll}?chat=datingChatStatus&fromId=${interlocutorId}&toId=${user.id}`).then();
+    };
+
+        const blockInterlocutorLeaveCorrespondenceForRecipient = ()=>{
+            // BLOCKED_CORRESPONDENCE_AVAILABLE_FOR_RECIPIENT
+        console.log("blockInterlocutorLeaveCorrespondenceForRecipient");
+        api.put(`${urls.blockInterlocutorLeaveCorrespondenceForRecipient}?chat=datingChatStatus&fromId=${interlocutorId}&toId=${user.id}`).then();
+    };
+        const blockInterlocutorDeleteAllCorrespondence = ()=>{
+            // BLOCKED_CORRESPONDENCE_DELETED
+        console.log("blockInterlocutorDeleteAllCorrespondence");
+        api.put(`${urls.blockInterlocutorDeleteAllCorrespondence}?chat=datingChatStatus&fromId=${interlocutorId}&toId=${user.id}`).then();
+    };
+
+
+    const unBlockInterlocutorAndShowCorrespondence = ()=>{//TODO перенести на соответствующую сервисную страницу приложения
+        // UNBLOCKED
+        console.log("unBlockInterlocutorAndShowCorrespondence");
+        api.put(`${urls.unBlockInterlocutorAndShowCorrespondence}?chat=datingChatStatus&fromId=${interlocutorId}&toId=${user.id}`).then();
+    };
+
+    const hideCorrespondenceForRecipient = ()=>{
+        // UNBLOCKED_CORRESPONDENCE_HIDDEN_FOR_RECIPIENT
+        console.log("hideCorrespondenceForRecipient");
+        api.put(`${urls.hideCorrespondenceForRecipient}?chat=datingChatStatus&fromId=${interlocutorId}&toId=${user.id}`).then();
+    };
+
+    const hideCorrespondenceForInterlocutor = ()=>{
+        // UNBLOCKED_CORRESPONDENCE_HIDDEN_FOR_INTERLOCUTOR
+        console.log("hideCorrespondenceForInterlocutor");
+        api.put(`${urls.hideCorrespondenceForInterlocutor}?chat=datingChatStatus&fromId=${interlocutorId}&toId=${user.id}`).then();
+    };
+
+    const hideCorrespondenceForAll = ()=>{
+        // UNBLOCKED_CORRESPONDENCE_HIDDEN_FOR_ALL
+        console.log("hideCorrespondenceForAll");
+        api.put(`${urls.hideCorrespondenceForAll}?chat=datingChatStatus&fromId=${interlocutorId}&toId=${user.id}`).then();
+    };
+
     const deleteCorrespondenceFromDB = () => {
         if (!user || !interlocutorId) {
             console.log("cannot delete correspondence because user or interlocutorId does not exist");
             return;
         }
         console.log("deleting correspondence between user.id: ", user.id, " and interlocutorId: ", interlocutorId);
-        api.delete(`${urls.chatMessages}?chat=dating&fromId=${interlocutorId}&toId=${user.id}`).then();
+        api.delete(`${urls.chatMessages}?chat=datingChatStatus&fromId=${interlocutorId}&toId=${user.id}`).then();
     }
-
-    const blockInterlocutorHideCorrespondence = ()=>{
-        api.put(`${urls.blockInterlocutorHideCorrespondence}?chat=dating&fromId=${interlocutorId}&toId=${user.id}`).then();
-    };
-
-    const blockInterlocutorLeaveCorrespondence = ()=>{
-        api.put(`${urls.blockInterlocutorLeaveCorrespondence}?chat=dating&fromId=${interlocutorId}&toId=${user.id}`).then();
-    };
-
-    const unBlockInterlocutorAndCorrespondence = ()=>{//TODO перенести на соответствующую сервисную страницу приложения
-        api.put(`${urls.unBlockInterlocutorAndCorrespondence}?chat=dating&fromId=${interlocutorId}&toId=${user.id}`).then();
-    };
-
-    const hideCorrespondenceForMe = ()=>{
-        api.put(`${urls.hideCorrespondenceForMe}?chat=dating&fromId=${interlocutorId}&toId=${user.id}`).then();
-    };
-
-    const hideCorrespondenceForAll = ()=>{
-        api.put(`${urls.hideCorrespondenceForAll}?chat=dating&fromId=${interlocutorId}&toId=${user.id}`).then();
-    };
-
+    /*** конец БЛОК функционала фильтрации сообщений в зависимости от InterlocutorSettings ***/
 
 
 
@@ -150,27 +184,37 @@ const InterlocutorContextMenu = ({interlocutorId, contextEl, contextMenuCloseHan
                         <BookmarkAddIcon sx={{color: `${isBookmarked ? 'green' : ""}`}}/>
                         {bookMarkActionText}</p>
 
-                    <p style={{...paragraphStyle, color: 'darkred'}} onClick={blockInterlocutorHideCorrespondence}><RemoveCircleIcon/>
-                        <span style={{color: '#000'}}>Заблокировать. Переписку скрыть для всех(действие обратимо)</span></p>
+                    <p style={{...paragraphStyle, color: 'darkred'}} onClick={blockInterlocutorHideCorrespondenceForAll}><RemoveCircleIcon/>
+                        <span style={{color: '#000'}}>Заблокировать. Переписку скрыть от всех. (восстановимо)</span></p>
 
-                    <p style={{...paragraphStyle, color: 'darkred'}} onClick={blockInterlocutorLeaveCorrespondence}><RemoveCircleIcon/>
-                        <span style={{color: '#000'}}>Заблокировать. Переписку оставить для всех(действие обратимо)</span></p>
+                    <p style={{...paragraphStyle, color: 'darkred'}} onClick={blockInterlocutorLeaveCorrespondenceForAll}><RemoveCircleIcon/>
+                        <span style={{color: '#000'}}>Заблокировать. Переписку оставить для всех. (восстановимо)</span></p>
 
-                    <p style={{...paragraphStyle, color: 'darkred'}} onClick={unBlockInterlocutorAndCorrespondence}><RemoveCircleIcon/>
-                        <span style={{color: '#000'}}>Разблокировать пользователя и историю переписки</span></p>
+                    <p style={{...paragraphStyle, color: 'darkred'}} onClick={blockInterlocutorLeaveCorrespondenceForRecipient}><RemoveCircleIcon/>
+                        <span style={{color: '#000'}}>Заблокировать. Переписку оставить только для себя. (восстановимо)</span></p>
 
-                    <p style={{...paragraphStyle, color: 'red'}} onClick={hideCorrespondenceForMe}>
+                    <p style={{...paragraphStyle, color: 'darkred'}} onClick={blockInterlocutorDeleteAllCorrespondence}><RemoveCircleIcon/>
+                        <span style={{color: '#000'}}>Заблокировать. Переписку удалить навсегда.(необратимо)</span></p>
+
+                    <p style={{...paragraphStyle, color: 'darkred'}} onClick={unBlockInterlocutorAndShowCorrespondence}><RemoveCircleIcon/>
+                        <span style={{color: '#000'}}>Разблокировать собеседника и восстановить сокрытую переписку (удаленная не восстановима)</span></p>
+
+                    <p style={{...paragraphStyle, color: 'red'}} onClick={hideCorrespondenceForRecipient}>
                         <PersonAddDisabledIcon/>
-                        <span style={{color: '#000'}}>Очистить переписку у меня</span></p>
+                        <span style={{color: '#000'}}>Скрыть собеседника и переписку только у меня. (скрытая переписка восстановима)</span></p>
+
+
+                    <p style={{...paragraphStyle, color: 'red'}} onClick={hideCorrespondenceForInterlocutor}>
+                        <PersonAddDisabledIcon/>
+                        <span style={{color: '#000'}}>Скрыть переписку только для собеседника. (восстановимо)</span></p>
 
                     <p style={{...paragraphStyle, color: 'red'}} onClick={hideCorrespondenceForAll}>
                         <PersonAddDisabledIcon/>
-                        <span style={{color: '#000'}}>Очистить переписку у всех</span></p>
-
+                        <span style={{color: '#000'}}>Скрыть переписку для всех. (восстановимо)</span></p>
 
                     <p style={{...paragraphStyle, color: 'red'}} onClick={deleteCorrespondenceFromDB}>
                         <PersonAddDisabledIcon/>
-                        <span style={{color: '#000'}}>Удалить переписку из БД</span></p>
+                        <span style={{color: '#000'}}>Навсегда удалить переписку у всех (необратимо)</span></p>
                 </Paper>
             </Popover>
         </div>
