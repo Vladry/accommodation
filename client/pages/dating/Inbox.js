@@ -11,6 +11,7 @@ import DatingMenuDrawer from "@/components/dating_components/DatingMenuDrawer";
 import {shallowEqual, useDispatch, useSelector} from "react-redux";
 import sel from "@/store/user/selectors";
 import {ACTIONS_Cust} from "@/store/datingChats";
+import selDatingChats from "@/store/datingChats/selectors";
 
 
 const Inbox = () => {
@@ -23,12 +24,14 @@ const Inbox = () => {
     const user = useSelector(sel.user, shallowEqual);
     const dispatch = useDispatch();
 
+    const allowedInterlocutorsData = useSelector(selDatingChats.allowedInterlocutorsData, shallowEqual);
+
     useEffect(() => {
         // console.log("inbox.js: in useEffect getting getChatSettings and getInterlocutors")
         if(!user) return;
         dispatch(ACTIONS_Cust.getChatSettings(user.id))
         dispatch(ACTIONS_Cust.getInterlocutors(user.id))
-    },[user])
+    },[user, allowedInterlocutorsData])
 
 
 

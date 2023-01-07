@@ -99,19 +99,29 @@ const getChatSettings = (userId) => async dispatch => {
     }
 }
 
-
 const getInterlocutors = (toId) => async dispatch => {
     try {
         //TODO потом вынести ВЕСЬ ф-ционал сортировки собеседников на БЭК, а сюда получить только валидных interlocutors (на заблокированных):
-        const allChatInterlocutors = new Object( await api.get(`${urls.allInterlocutors}/${toId}?chat=datingChatStatus`) );
-    // после получения всех-всех собеседников во все времена, включая заблокированных и удаленных - далее получить статусы собеседников для дальнейшей фильтрации:
-        const interlocutorsStatus = await api.get(`${urls.allInterlocutorsStatus}/${toId}?chat=datingChatStatus`);
-        const allowedInterlocutors = allChatInterlocutors.filter(interlocutor=>{
-            for(const status of allowedInterlocutors){
-                if (interlocutor.userId() !== status.userId) {}
-            }
-        });
-        dispatch(ACTIONS.setInterlocutors(allChatInterlocutors));
+        const allChatInterlocutors = new Object(await api.get(`${urls.allInterlocutors}/${toId}?chat=dating`));
+
+        // после получения всех-всех собеседников во все времена, включая заблокированных и удаленных - далее получить статусы собеседников для дальнейшей фильтрации:
+        const interlocutorsStatus = new Object(await api.get(`${urls.allInterlocutorsStatus}?toId=${toId}&chat=datingChatStatus`));
+
+
+        const allowedInterlocutors = allChatInterlocutors.filter(
+            interlocutor => {
+                let allowed = true;
+                interlocutorsStatus.forEach((status) => {
+                    if (interlocutor.userId === status.interlocutorId
+                        &&  status.datingChatStatus.toLowerCase().startsWith("blocked")) {
+                        allowed=false;
+                    }
+                });
+                return allowed;
+            });
+
+
+        dispatch(ACTIONS.setInterlocutors(allowedInterlocutors));
     } catch (e) {
         console.log("error in getInterlocutors. allChatInterlocutors not set in Store! \n", e.message);
     }
