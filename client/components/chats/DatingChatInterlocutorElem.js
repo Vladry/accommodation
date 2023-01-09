@@ -7,7 +7,7 @@ import Badge from "@mui/material/Badge";
 import sel from '@/store/user/selectors';
 import selDatingChats from "@/store/datingChats/selectors";
 import globalVariables from '@/root/globalVariables.json';
-import InterlocutorContextMenu from "@/components/chats/InterlocutorContextMenu";
+import InterlocutorContextMenu from "@/components/chats/InterlocutorContextMenuItems/InterlocutorContextMenu";
 
 
 const DatingChatInterlocutorElem = ({interlocutor}) => {

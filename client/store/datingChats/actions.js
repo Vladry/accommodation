@@ -104,7 +104,7 @@ const getInterlocutors = (toId) => async dispatch => {
         //TODO потом вынести ВЕСЬ ф-ционал сортировки собеседников на БЭК, а сюда получить только валидных interlocutors (на заблокированных):
         const allChatInterlocutors = new Object(await api.get(`${urls.allInterlocutors}/${toId}?chat=dating`));
 
-        // после получения всех-всех собеседников во все времена, включая заблокированных и удаленных - далее получить статусы собеседников для дальнейшей фильтрации:
+        // после получения всех-всех собеседников которые когда-либо были, включая заблокированных и удаленных - далее получить статусы собеседников для дальнейшей фильтрации:
         const interlocutorsStatus = new Object(await api.get(`${urls.allInterlocutorsStatus}?toId=${toId}&chat=datingChatStatus`));
 
 

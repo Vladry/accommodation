@@ -31,7 +31,7 @@ const Inbox = () => {
         if(!user) return;
         dispatch(ACTIONS_Cust.getChatSettings(user.id))
         dispatch(ACTIONS_Cust.getInterlocutors(user.id))
-    },[user, allowedInterlocutorsData])
+    },[user])
 
 
 

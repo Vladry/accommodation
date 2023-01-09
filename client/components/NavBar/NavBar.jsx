@@ -7,7 +7,6 @@ import Box from "@mui/material/Box";
 import MainMenu from "./MainMenu";
 import TweetButton from "./TweetButton";
 import {LogoIcon} from "../.";
-import SidebarFooter from "../Sidebar/components/SidebarFooter";
 import {PATH} from "@/utils/constants";
 
 const NavBar = ({authorized, menu}) => {
@@ -28,7 +27,6 @@ const NavBar = ({authorized, menu}) => {
           </Box>
         }
       </Box>
-      {authorized && <SidebarFooter/>}
     </StyledBox>
   );
 }

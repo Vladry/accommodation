@@ -1,22 +1,18 @@
 import React, {useEffect, useState} from 'react';
 import Popover from '@mui/material/Popover';
-import Typography from '@mui/material/Typography';
-import {Button, Paper} from "@mui/material";
-import Box from "@mui/material/Box";
+import {Paper} from "@mui/material";
 
 import sel from '@/store/user/selectors';
-import selDatingChats from "@/store/datingChats/selectors";
 import {useSelector} from "react-redux";
-import {ACTIONS, ACTIONS_Cust} from "@/store/datingChats";
 import api from "@/root/lib/API";
-import urls from "../../../src/main/resources/urls.json";
-import destinations from "../../../src/main/resources/destinations.json";
+import urls from "../../../../src/main/resources/urls.json";
 import {NavLink} from "@/components/appbar/NavLink";
-import {NavLink_styled} from "@/utils/typography";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import PersonAddDisabledIcon from "@mui/icons-material/PersonAddDisabled";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import BlockingOptionsSubmenu from "@/components/chats/InterlocutorContextMenuItems/BlockingOptionsSubmenu";
+import HidingOptionsSubmenu from "@/components/chats/InterlocutorContextMenuItems/HidingOptionsSubmenu";
 
 const InterlocutorContextMenu = ({interlocutorId, contextEl, contextMenuCloseHandler}) => {
     // https://mui.com/material-ui/react-popover/#anchor-playground
@@ -58,55 +54,54 @@ const InterlocutorContextMenu = ({interlocutorId, contextEl, contextMenuCloseHan
     }, [user, interlocutorId])
 
 
+    /*** БЛОК функционала работы с InterlocutorSettings из DatingChatSettings и режимами InterlocutorStatus, определяющими фильтрацию загружаемых и показываемых сообщений ***/
 
 
-/*** БЛОК функционала работы с InterlocutorSettings из DatingChatSettings и режимами InterlocutorStatus, определяющими фильтрацию загружаемых и показываемых сообщений ***/
+    const BlockingContextMenuHandler = () => {
+        setIsBlockingOptionsActive((val)=>!val)
+    }
+    const HidingContextMenuHandler = () => {
+        setIsHidingOptionsActive((val)=>!val)
+    }
 
-    const blockInterlocutorHideCorrespondenceForAll = ()=>{
+    const blockInterlocutorHideCorrespondenceForAll = () => {
         // BLOCKED_CORR_HIDDEN_FOR_ALL
         console.log("blockInterlocutorHideCorrespondenceForAll");
         console.log("interlocutorId: ", interlocutorId, "user.id: ", user.id);
         api.put(`${urls.blockInterlocutorHideCorrespondenceForAll}?chat=datingChatStatus&fromId=${interlocutorId}&toId=${user.id}`).then();
     };
-
-
-        const blockInterlocutorLeaveCorrespondenceForAll = ()=>{
-            // BLOCKED_CORRESPONDENCE_AVAILABLE_FOR_ALL
+    const blockInterlocutorLeaveCorrespondenceForAll = () => {
+        // BLOCKED_CORRESPONDENCE_AVAILABLE_FOR_ALL
         console.log("blockInterlocutorLeaveCorrespondenceForAll");
         api.put(`${urls.blockInterlocutorLeaveCorrespondenceForAll}?chat=datingChatStatus&fromId=${interlocutorId}&toId=${user.id}`).then();
     };
-
-        const blockInterlocutorLeaveCorrespondenceForRecipient = ()=>{
-            // BLOCKED_CORRESPONDENCE_AVAILABLE_FOR_RECIPIENT
+    const blockInterlocutorLeaveCorrespondenceForRecipient = () => {
+        // BLOCKED_CORRESPONDENCE_AVAILABLE_FOR_RECIPIENT
         console.log("blockInterlocutorLeaveCorrespondenceForRecipient");
         api.put(`${urls.blockInterlocutorLeaveCorrespondenceForRecipient}?chat=datingChatStatus&fromId=${interlocutorId}&toId=${user.id}`).then();
     };
-        const blockInterlocutorDeleteAllCorrespondence = ()=>{
-            // BLOCKED_CORRESPONDENCE_DELETED
+    const blockInterlocutorDeleteAllCorrespondence = () => {
+        // BLOCKED_CORRESPONDENCE_DELETED
         console.log("blockInterlocutorDeleteAllCorrespondence");
         api.put(`${urls.blockInterlocutorDeleteAllCorrespondence}?chat=datingChatStatus&fromId=${interlocutorId}&toId=${user.id}`).then();
     };
-
-
-    const unBlockInterlocutorAndShowCorrespondence = ()=>{//TODO перенести на соответствующую сервисную страницу приложения
+    const unBlockInterlocutorAndShowCorrespondence = () => {//TODO перенести на соответствующую сервисную страницу приложения
         // UNBLOCKED
         console.log("unBlockInterlocutorAndShowCorrespondence");
         api.put(`${urls.unBlockInterlocutorAndShowCorrespondence}?chat=datingChatStatus&fromId=${interlocutorId}&toId=${user.id}`).then();
     };
 
-    const hideCorrespondenceForRecipient = ()=>{
+    const hideCorrespondenceForRecipient = () => {
         // UNBLOCKED_CORRESPONDENCE_HIDDEN_FOR_RECIPIENT
         console.log("hideCorrespondenceForRecipient");
         api.put(`${urls.hideCorrespondenceForRecipient}?chat=datingChatStatus&fromId=${interlocutorId}&toId=${user.id}`).then();
     };
-
-    const hideCorrespondenceForInterlocutor = ()=>{
+    const hideCorrespondenceForInterlocutor = () => {
         // UNBLOCKED_CORRESPONDENCE_HIDDEN_FOR_INTERLOCUTOR
         console.log("hideCorrespondenceForInterlocutor");
         api.put(`${urls.hideCorrespondenceForInterlocutor}?chat=datingChatStatus&fromId=${interlocutorId}&toId=${user.id}`).then();
     };
-
-    const hideCorrespondenceForAll = ()=>{
+    const hideCorrespondenceForAll = () => {
         // UNBLOCKED_CORRESPONDENCE_HIDDEN_FOR_ALL
         console.log("hideCorrespondenceForAll");
         api.put(`${urls.hideCorrespondenceForAll}?chat=datingChatStatus&fromId=${interlocutorId}&toId=${user.id}`).then();
@@ -121,11 +116,6 @@ const InterlocutorContextMenu = ({interlocutorId, contextEl, contextMenuCloseHan
         api.delete(`${urls.chatMessages}?chat=datingChatStatus&fromId=${interlocutorId}&toId=${user.id}`).then();
     }
     /*** конец БЛОК функционала фильтрации сообщений в зависимости от InterlocutorSettings ***/
-
-
-
-
-
 
 
     const [isBookmarked, setIsBookmarked] = useState(false);
@@ -161,6 +151,40 @@ const InterlocutorContextMenu = ({interlocutorId, contextEl, contextMenuCloseHan
 
     const paragraphStyle = {fontSize: '12px', fontWeight: '500', margin: '5px', cursor: 'pointer'}
     const bookMarkActionText = isBookmarked ? 'Удалить из избранного' : 'Добавить в избранное';
+
+    const blockingOptions = {
+        blockInterlocutorHideCorrespondenceForAll,
+        blockInterlocutorLeaveCorrespondenceForAll,
+        blockInterlocutorLeaveCorrespondenceForRecipient,
+        blockInterlocutorDeleteAllCorrespondence,
+        unBlockInterlocutorAndShowCorrespondence,
+        BlockingContextMenuHandler,
+        paragraphStyle
+    }
+    const hidingOptions = {
+        hideCorrespondenceForRecipient,
+        hideCorrespondenceForInterlocutor,
+        hideCorrespondenceForAll,
+        HidingContextMenuHandler,
+        paragraphStyle
+    };
+
+    const [isBlockingOptionsActive, setIsBlockingOptionsActive] = useState(false);
+    const [isHidingOptionsActive, setIsHidingOptionsActive] = useState(false);
+
+    useEffect(() => {
+        if(!open){
+            setIsBlockingOptionsActive(()=>false)
+            setIsHidingOptionsActive(()=>false)
+        }
+    },[open])
+
+    const BlockingSubmenu = isBlockingOptionsActive ? <BlockingOptionsSubmenu menuHandler={BlockingContextMenuHandler} props={blockingOptions}/>
+        : <p onClick={BlockingContextMenuHandler}> <RemoveCircleIcon style={{color: 'darkred'}}/> Заблокировать (опции)</p>
+    const HidingSubmenu = isHidingOptionsActive ? <HidingOptionsSubmenu menuHandler={HidingContextMenuHandler}  props={hidingOptions}/>
+        : <p onClick={HidingContextMenuHandler}> <PersonAddDisabledIcon style={{color: 'darkred'}}/> Припрятать переписку (опции)</p>
+
+
     return (
         <div>
             <Popover
@@ -178,39 +202,15 @@ const InterlocutorContextMenu = ({interlocutorId, contextEl, contextMenuCloseHan
                     {/*<p style={paragraphStyle} onClick={()=>{}}>Смотреть профайл</p>*/}
                     <p style={{...paragraphStyle, color: 'blue'}}>
                         <VisibilityIcon/>
-                        <NavLink href={`${urls.queriedCandidateProfile}${interlocutorId}`}>Смотреть профайл</NavLink>
-                    </p>
+                        <NavLink href={`${urls.queriedCandidateProfile}${interlocutorId}`}>Смотреть профайл</NavLink></p>
+
                     <p style={paragraphStyle} onClick={bookmarkHandler}>
                         <BookmarkAddIcon sx={{color: `${isBookmarked ? 'green' : ""}`}}/>
                         {bookMarkActionText}</p>
 
-                    <p style={{...paragraphStyle, color: 'darkred'}} onClick={blockInterlocutorHideCorrespondenceForAll}><RemoveCircleIcon/>
-                        <span style={{color: '#000'}}>Заблокировать. Переписку скрыть от всех. (восстановимо)</span></p>
+                    {BlockingSubmenu}
 
-                    <p style={{...paragraphStyle, color: 'darkred'}} onClick={blockInterlocutorLeaveCorrespondenceForAll}><RemoveCircleIcon/>
-                        <span style={{color: '#000'}}>Заблокировать. Переписку оставить для всех. (восстановимо)</span></p>
-
-                    <p style={{...paragraphStyle, color: 'darkred'}} onClick={blockInterlocutorLeaveCorrespondenceForRecipient}><RemoveCircleIcon/>
-                        <span style={{color: '#000'}}>Заблокировать. Переписку оставить только для себя. (восстановимо)</span></p>
-
-                    <p style={{...paragraphStyle, color: 'darkred'}} onClick={blockInterlocutorDeleteAllCorrespondence}><RemoveCircleIcon/>
-                        <span style={{color: '#000'}}>Заблокировать. Переписку удалить навсегда.(необратимо)</span></p>
-
-                    <p style={{...paragraphStyle, color: 'darkred'}} onClick={unBlockInterlocutorAndShowCorrespondence}><RemoveCircleIcon/>
-                        <span style={{color: '#000'}}>Разблокировать собеседника и восстановить сокрытую переписку (удаленная не восстановима)</span></p>
-
-                    <p style={{...paragraphStyle, color: 'red'}} onClick={hideCorrespondenceForRecipient}>
-                        <PersonAddDisabledIcon/>
-                        <span style={{color: '#000'}}>Скрыть собеседника и переписку только у меня. (скрытая переписка восстановима)</span></p>
-
-
-                    <p style={{...paragraphStyle, color: 'red'}} onClick={hideCorrespondenceForInterlocutor}>
-                        <PersonAddDisabledIcon/>
-                        <span style={{color: '#000'}}>Скрыть переписку только для собеседника. (восстановимо)</span></p>
-
-                    <p style={{...paragraphStyle, color: 'red'}} onClick={hideCorrespondenceForAll}>
-                        <PersonAddDisabledIcon/>
-                        <span style={{color: '#000'}}>Скрыть переписку для всех. (восстановимо)</span></p>
+                    {HidingSubmenu}
 
                     <p style={{...paragraphStyle, color: 'red'}} onClick={deleteCorrespondenceFromDB}>
                         <PersonAddDisabledIcon/>
