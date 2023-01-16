@@ -56,6 +56,7 @@ import MailIcon from "@mui/icons-material/Mail";
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import BookmarksIcon from '@mui/icons-material/Bookmarks';
@@ -76,6 +77,17 @@ import PeopleIcon from '@mui/icons-material/People';
 import AccessibilityIcon from '@mui/icons-material/Accessibility';
 import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew';
 import GroupsIcon from '@mui/icons-material/Groups';
+import NotificationsOffIcon from '@mui/icons-material/NotificationsOff';
+import SpeakerNotesIcon from '@mui/icons-material/SpeakerNotes';
+import SpeakerNotesOffIcon from '@mui/icons-material/SpeakerNotesOff';
+import MessageIcon from '@mui/icons-material/Message';
+import MailLockIcon from '@mui/icons-material/MailLock';
+import UnsubscribeIcon from '@mui/icons-material/Unsubscribe';
+import CommentsDisabledIcon from '@mui/icons-material/CommentsDisabled';
+import PersonOffIcon from '@mui/icons-material/PersonOff';
+import BabyChangingStationIcon from '@mui/icons-material/BabyChangingStation';
+import PetsIcon from '@mui/icons-material/Pets';
+
 
 const MyIcons = () => {
     return (
@@ -91,6 +103,7 @@ const MyIcons = () => {
 
 
 
+
             <Box>
                 <EmojiPeopleIcon/>
                 <PeopleIcon/>
@@ -101,10 +114,10 @@ const MyIcons = () => {
             <Box>
                 <FavoriteIcon/>
                 <FavoriteBorderIcon/>
-                <NotificationsIcon/>
                 <ThumbUpAltIcon/>
                 <ThumbUpOffAltIcon/>
                 <VisibilityIcon/>
+                <VisibilityOffIcon/>
                 <ArrowCircleLeftIcon/>
                 <ArrowCircleRightIcon/>
                 <AddAPhotoIcon/>
@@ -112,6 +125,18 @@ const MyIcons = () => {
                 <PhotoIcon/>
                 <HomeIcon/>
             </Box>
+
+            <Box>
+                <NotificationsIcon/>
+                <NotificationsOffIcon/>
+                <SpeakerNotesIcon/>
+                <SpeakerNotesOffIcon/>
+                <MessageIcon/>
+                <MailLockIcon/>
+                <UnsubscribeIcon/>
+                <CommentsDisabledIcon/>
+            </Box>
+
             <Box>
                 <BookmarkAddIcon/>
                 <BookmarksIcon/>
@@ -153,7 +178,8 @@ const MyIcons = () => {
                 <SentimentSatisfiedIcon/>
                 <DoNotDisturbOnIcon/>
                 <RemoveCircleIcon/>
-                <RemoveCircleOutlineIcon/>
+                <BabyChangingStationIcon/>
+                <PetsIcon/>
             </Box>
 
             <Box>
@@ -168,6 +194,7 @@ const MyIcons = () => {
                 <PersonAddIcon/>
                 <PersonRemoveIcon/>
                 <PersonAddDisabledIcon/>
+                <PersonOffIcon/>
             </Box>
 
             <Box>

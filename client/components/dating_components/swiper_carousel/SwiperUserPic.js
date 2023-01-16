@@ -1,15 +1,12 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React from 'react';
 import {Swiper, SwiperSlide} from 'swiper/react';
-import {Navigation, Autoplay, Pagination, EffectFade, Thumbs, FreeMode} from "swiper";
-import {Box, useMediaQuery} from "@mui/material";
+import {Autoplay, EffectFade, Navigation, Pagination} from "swiper";
 import 'swiper/css';
 import "swiper/css/autoplay";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "swiper/css/effect-fade";
 import styles from "./SwiperUserPic.module.css";
-import {Context} from "../../../context";
-import styled from '@emotion/styled';
 import {useTheme} from "@mui/material/styles";
 
 

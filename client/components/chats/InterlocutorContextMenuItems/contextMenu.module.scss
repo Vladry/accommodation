@@ -1,0 +1,91 @@
+.danger {
+  color: darkred;
+}
+.warning {
+  color: darkgreen;
+}
+
+.menu {
+  display: flex;
+  flex-flow: column noWrap;
+  justify-content: center;
+  align-items: start;
+  padding: 10px;
+  border-radius: 10px
+}
+
+@mixin menuItem {
+  display: block;
+  list-style-type: none;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 10px 1px;
+  padding-left: 5px;
+  cursor: pointer;
+}
+
+.menuItemClass{
+  @include menuItem;
+}
+
+
+$menu-background-color: #bebebf;
+$submenuLeftMargin: 40px;
+@media (max-width: 500px) {
+  $submenuLeftMargin: 10px;
+}
+
+.menu li:hover {
+  background: #bebebf;
+  border-radius: 15px;
+}
+
+.menu p::first-letter {
+  font-size: 130%;
+}
+
+.menu li p:hover {
+  box-shadow: 0 0 2px #fff, 0 0 10px #daa, 0 0 20px $menu-background-color, 0 0 30px #767c7e,
+  0 0 40px #606364, 0 0 50px #404546;
+  width: 95%;
+  }
+
+.menu li > p {
+  display: inline;
+  border-radius: 5px;
+  width: 90%;
+}
+
+
+.menu li:hover>p {
+  font-weight: bold;
+}
+
+.menu .submenu {
+  display: none;
+}
+
+
+.submenu {
+  display: block;
+
+  position: relative;
+  cursor: pointer;
+  left: $submenuLeftMargin px;
+  top: - ($submenuLeftMargin /4);
+  max-width: calc(100% - 40px);
+  z-index: 9;
+}
+
+
+.menu .submenu > li.dropdown:hover > .submenu,
+.menu li.dropdown:hover > .submenu,
+.submenu li
+{
+  display: block;
+}
+
+
+
+
+

@@ -11,8 +11,12 @@ import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import PersonAddDisabledIcon from "@mui/icons-material/PersonAddDisabled";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import BlockingOptionsSubmenu from "@/components/chats/InterlocutorContextMenuItems/BlockingOptionsSubmenu";
-import HidingOptionsSubmenu from "@/components/chats/InterlocutorContextMenuItems/HidingOptionsSubmenu";
+import classes from "./contextMenu.module.scss";
+import {v4 as uuidv4} from 'uuid';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import SpeakerNotesOffIcon from '@mui/icons-material/SpeakerNotesOff';
+import PersonOffIcon from '@mui/icons-material/PersonOff';
+import datingMenuClasses from '../../dating_components/datingMenuItems/datingMenu.module.scss';
 
 const InterlocutorContextMenu = ({interlocutorId, contextEl, contextMenuCloseHandler}) => {
     // https://mui.com/material-ui/react-popover/#anchor-playground
@@ -55,13 +59,8 @@ const InterlocutorContextMenu = ({interlocutorId, contextEl, contextMenuCloseHan
 
 
     /*** БЛОК функционала работы с InterlocutorSettings из DatingChatSettings и режимами InterlocutorStatus, определяющими фильтрацию загружаемых и показываемых сообщений ***/
-
-
-    const BlockingContextMenuHandler = () => {
-        setIsBlockingOptionsActive((val)=>!val)
-    }
     const HidingContextMenuHandler = () => {
-        setIsHidingOptionsActive((val)=>!val)
+        setIsHidingOptionsActive((val) => !val)
     }
 
     const blockInterlocutorHideCorrespondenceForAll = () => {
@@ -152,13 +151,13 @@ const InterlocutorContextMenu = ({interlocutorId, contextEl, contextMenuCloseHan
     const paragraphStyle = {fontSize: '12px', fontWeight: '500', margin: '5px', cursor: 'pointer'}
     const bookMarkActionText = isBookmarked ? 'Удалить из избранного' : 'Добавить в избранное';
 
+
     const blockingOptions = {
         blockInterlocutorHideCorrespondenceForAll,
         blockInterlocutorLeaveCorrespondenceForAll,
         blockInterlocutorLeaveCorrespondenceForRecipient,
         blockInterlocutorDeleteAllCorrespondence,
         unBlockInterlocutorAndShowCorrespondence,
-        BlockingContextMenuHandler,
         paragraphStyle
     }
     const hidingOptions = {
@@ -169,20 +168,111 @@ const InterlocutorContextMenu = ({interlocutorId, contextEl, contextMenuCloseHan
         paragraphStyle
     };
 
-    const [isBlockingOptionsActive, setIsBlockingOptionsActive] = useState(false);
-    const [isHidingOptionsActive, setIsHidingOptionsActive] = useState(false);
 
-    useEffect(() => {
-        if(!open){
-            setIsBlockingOptionsActive(()=>false)
-            setIsHidingOptionsActive(()=>false)
+    /*** секция из рекурсивного меню: ***/
+    const menuLinks = [
+
+        {
+            label: <p><RemoveCircleIcon className={`${datingMenuClasses['menu-icons']}  ${classes['warning']}`}/> Заблокировать</p>,
+            value: [
+                {
+                    label: <p onClick={blockInterlocutorHideCorrespondenceForAll}>
+                        <RemoveCircleIcon className={`${datingMenuClasses['menu-icons']} ${classes['danger']}`}/>
+                        Заблокировать. Переписку скрыть от всех. (восстановимо)</p>,
+                    value: null
+                },
+
+                {
+                    label: <p onClick={blockInterlocutorLeaveCorrespondenceForAll}>
+                        <RemoveCircleIcon className={`${datingMenuClasses['menu-icons']} ${classes['danger']}`}/>
+                        Заблокировать. Переписку оставить для всех. (восстановимо)</p>,
+                    value: null
+                },
+
+                {
+                    label: <p onClick={blockInterlocutorLeaveCorrespondenceForRecipient}>
+                        <RemoveCircleIcon className={`${datingMenuClasses['menu-icons']} ${classes['danger']}`}/>
+                        Заблокировать (восстановимо), Переписку оставить только для себя.</p>,
+                    value: null
+                },
+                {
+                    label: <p onClick={blockInterlocutorDeleteAllCorrespondence}>
+                        <RemoveCircleIcon className={`${datingMenuClasses['menu-icons']} ${classes['danger']}`}/>
+                        Заблокировать. Переписку удалить навсегда.(необратимо)</p>,
+                    value: null
+                }, {
+                    label: <p onClick={unBlockInterlocutorAndShowCorrespondence}>
+                        <RemoveCircleIcon className={`${datingMenuClasses['menu-icons']} ${classes['danger']}`}/>
+                        Разблокировать собеседника и восстановить сокрытую переписку (удаленная не восстановима)</p>,
+                    value: null
+                },
+            ]
+        },
+
+        {
+            label: <p><SpeakerNotesOffIcon className={`${datingMenuClasses['menu-icons']}  ${classes['warning']}`}/> Сокрыть сообщения</p>,
+
+            value: [
+                {
+                    label: <p>
+                        <VisibilityOffIcon className={`${datingMenuClasses['menu-icons']} ${classes['danger']}`}/>
+                        <span>Скрыть собеседника и переписку только у меня. (скрытая переписка восстановима)</span></p>,
+                    value: null
+                },
+
+                {
+                    label: <p onClick={hideCorrespondenceForInterlocutor}>
+                        <VisibilityOffIcon className={`${datingMenuClasses['menu-icons']} ${classes['danger']}`}/>
+                        <span>Скрыть переписку только для собеседника. (восстановимо)</span></p>,
+                    value: null
+                },
+
+                {
+                    label: <p onClick={hideCorrespondenceForAll}>
+                        <VisibilityOffIcon className={`${datingMenuClasses['menu-icons']} ${classes['danger']}`}/>
+                        <span>Скрыть переписку для всех. (восстановимо)</span></p>,
+                    value: null
+                }
+            ]
+        },
+
+        //дальше могут следовать многоуровневые рекурсивные элементы меню любой вложенности:
+        /*        {
+                    label: "Second",
+                    value: [
+                        {
+                            label: "Nested first",
+                            value: "nestedFirst"
+                        },
+                        {
+                            label: "Nested second",
+                            value: [
+                                {
+                                    label: "Nested third",
+                                    value: "nestedThird"
+                                }
+                            ]
+                        }
+                    ]
+                }*/
+    ];
+
+    const mapLink = (link) => {
+        if (Array.isArray(link.value)) {
+            return (
+                <li key={link.value} className={`${classes['menuItemClass']}  ${classes['dropdown']}`}>
+                    {link.label}
+                    <ul className={classes['submenu']}>{link.value.map(mapLink)}</ul>
+                </li>
+            );
         }
-    },[open])
 
-    const BlockingSubmenu = isBlockingOptionsActive ? <BlockingOptionsSubmenu menuHandler={BlockingContextMenuHandler} props={blockingOptions}/>
-        : <p onClick={BlockingContextMenuHandler}> <RemoveCircleIcon style={{color: 'darkred'}}/> Заблокировать (опции)</p>
-    const HidingSubmenu = isHidingOptionsActive ? <HidingOptionsSubmenu menuHandler={HidingContextMenuHandler}  props={hidingOptions}/>
-        : <p onClick={HidingContextMenuHandler}> <PersonAddDisabledIcon style={{color: 'darkred'}}/> Припрятать переписку (опции)</p>
+        return (
+            <li key={uuidv4()} className={classes['menuItemClass']}>
+                <p>{link.label}</p>
+            </li>
+        );
+    };
 
 
     return (
@@ -196,29 +286,33 @@ const InterlocutorContextMenu = ({interlocutorId, contextEl, contextMenuCloseHan
                     vertical: 'bottom',
                     horizontal: 'left',
                 }}
+                PaperProps={{ // тут задаются размеры для Popover
+                    // style: {width: '55%'},
+                }}
             >
-                <Paper elevation={12}
-                       sx={{display: 'flex', flexFlow: 'column noWrap', padding: '10px', borderRadius: '10px'}}>
-                    {/*<p style={paragraphStyle} onClick={()=>{}}>Смотреть профайл</p>*/}
-                    <p style={{...paragraphStyle, color: 'blue'}}>
-                        <VisibilityIcon/>
-                        <NavLink href={`${urls.queriedCandidateProfile}${interlocutorId}`}>Смотреть профайл</NavLink></p>
-
-                    <p style={paragraphStyle} onClick={bookmarkHandler}>
-                        <BookmarkAddIcon sx={{color: `${isBookmarked ? 'green' : ""}`}}/>
-                        {bookMarkActionText}</p>
-
-                    {BlockingSubmenu}
-
-                    {HidingSubmenu}
-
-                    <p style={{...paragraphStyle, color: 'red'}} onClick={deleteCorrespondenceFromDB}>
-                        <PersonAddDisabledIcon/>
-                        <span style={{color: '#000'}}>Навсегда удалить переписку у всех (необратимо)</span></p>
+                <Paper elevation={2}>
+                    <ul style={{display: 'flex', flexFlow: 'column noWrap', justifyContent: 'center', alignItems: 'start', padding: '10px', borderRadius: '10px'}}
+                        className={classes['menu']}>
+                        <li className={classes['menuItemClass']}>
+                            <VisibilityIcon className={datingMenuClasses['menu-icons']}/>
+                            <p><NavLink href={`${urls.queriedCandidateProfile}${interlocutorId}`}>Смотреть
+                                профайл</NavLink></p>
+                        </li>
+                        <li className={classes['menuItemClass']} onClick={bookmarkHandler}>
+                            <BookmarkAddIcon className={datingMenuClasses['menu-icons']} sx={{color: `${isBookmarked ? 'green' : ""}`}}/>
+                            <p>{bookMarkActionText}</p>
+                        </li>
+                        <li className={classes['menuItemClass']} onClick={deleteCorrespondenceFromDB}>
+                            <PersonOffIcon  style={{color: 'red'}} className={datingMenuClasses['menu-icons']}/>
+                            <p>/Удалить навсегда</p>
+                        </li>
+                        {menuLinks.map(mapLink)}
+                    </ul>
                 </Paper>
             </Popover>
         </div>
-    );
+    )
+        ;
 };
 
 export default InterlocutorContextMenu;
