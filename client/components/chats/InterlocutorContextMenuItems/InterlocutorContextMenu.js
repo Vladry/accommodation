@@ -216,7 +216,7 @@ const InterlocutorContextMenu = ({interlocutorId, contextEl, contextMenuCloseHan
                 {
                     label: <p>
                         <VisibilityOffIcon className={`${datingMenuClasses['menu-icons']} ${classes['danger']}`}/>
-                        <span>Скрыть собеседника и переписку только у меня. (скрытая переписка восстановима)</span></p>,
+                        <span>Скрыть собеседника и переписку только у меня. (восстановимо)</span></p>,
                     value: null
                 },
 
@@ -269,7 +269,7 @@ const InterlocutorContextMenu = ({interlocutorId, contextEl, contextMenuCloseHan
 
         return (
             <li key={uuidv4()} className={classes['menuItemClass']}>
-                <p>{link.label}</p>
+                {link.label}
             </li>
         );
     };
