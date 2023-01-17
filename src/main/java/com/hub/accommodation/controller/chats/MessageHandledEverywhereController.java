@@ -1,19 +1,17 @@
-package com.hub.accommodation.controller;
+package com.hub.accommodation.controller.chats;
 
-import com.hub.accommodation.domain.dating.Interlocutor;
 import com.hub.accommodation.domain.Message;
 import com.hub.accommodation.service.MessageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*") //TODO это обязательно во всех контроллерах. Но, при деплое -поудалять!
 @RequestMapping("/api/v1/messages")
-public class MessageController {
+public class MessageHandledEverywhereController {
 
     private final MessageService messageService;
 

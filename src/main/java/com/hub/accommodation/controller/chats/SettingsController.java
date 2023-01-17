@@ -1,9 +1,8 @@
-package com.hub.accommodation.controller;
+package com.hub.accommodation.controller.chats;
 
 import com.hub.accommodation.domain.dating.ChatSettings.ChatType;
 import com.hub.accommodation.domain.dating.DatingChatSettings;
 import com.hub.accommodation.domain.dating.Interlocutor;
-import com.hub.accommodation.repository.UserRepositoryImpl;
 import com.hub.accommodation.service.ChatService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +13,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*")
 @RequestMapping("/api/v1/chats")
-public class ChatController {
+public class SettingsController {
 
     private final ChatService chatService;
 
@@ -29,8 +28,5 @@ public class ChatController {
         chatService.saveDatingChatSettings(settings);
     }
 
-    @GetMapping("/interlocutors/{toId}")
-    public Set<Interlocutor> getInterlocutorsByToId(@RequestParam("chat") String chat, @PathVariable("toId") Long toId) {
-        return chatService.getInterlocutorsByChatAndToId(chat, toId);
-    }
+
 }

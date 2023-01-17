@@ -59,9 +59,6 @@ const InterlocutorContextMenu = ({interlocutorId, contextEl, contextMenuCloseHan
 
 
     /*** БЛОК функционала работы с InterlocutorSettings из DatingChatSettings и режимами InterlocutorStatus, определяющими фильтрацию загружаемых и показываемых сообщений ***/
-    const HidingContextMenuHandler = () => {
-        setIsHidingOptionsActive((val) => !val)
-    }
 
     const blockInterlocutorHideCorrespondenceForAll = () => {
         // BLOCKED_CORR_HIDDEN_FOR_ALL
@@ -112,7 +109,7 @@ const InterlocutorContextMenu = ({interlocutorId, contextEl, contextMenuCloseHan
             return;
         }
         console.log("deleting correspondence between user.id: ", user.id, " and interlocutorId: ", interlocutorId);
-        api.delete(`${urls.chatMessages}?chat=datingChatStatus&fromId=${interlocutorId}&toId=${user.id}`).then();
+        api.delete(`${urls.deleteChatMessages}?chat=datingChatStatus&fromId=${interlocutorId}&toId=${user.id}`).then();
     }
     /*** конец БЛОК функционала фильтрации сообщений в зависимости от InterlocutorSettings ***/
 
@@ -158,14 +155,11 @@ const InterlocutorContextMenu = ({interlocutorId, contextEl, contextMenuCloseHan
         blockInterlocutorLeaveCorrespondenceForRecipient,
         blockInterlocutorDeleteAllCorrespondence,
         unBlockInterlocutorAndShowCorrespondence,
-        paragraphStyle
     }
     const hidingOptions = {
         hideCorrespondenceForRecipient,
         hideCorrespondenceForInterlocutor,
         hideCorrespondenceForAll,
-        HidingContextMenuHandler,
-        paragraphStyle
     };
 
 

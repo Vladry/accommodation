@@ -41,20 +41,27 @@
 
 
     "msgSetToSeen": "/chats/setSeen",
-    "chatMessages": "/chats/from/to",
-    "allInterlocutors": "/chats/interlocutors",
-    "chatSettings": "/chats/settings",
-    "interlocutorStatus": "/chats/interlocutorStatus",
-    "allInterlocutorsStatus": "/chats/allInterlocutorsStatus",
     "unseenMessages": "/chats/unseen/to/",
-    "blockInterlocutorHideCorrespondenceForAll":  "/chats/blockInterlocutorHideCorrespondenceForAll",
-    "blockInterlocutorLeaveCorrespondenceForAll": "/chats/blockInterlocutorLeaveCorrespondenceForAll",
-    "blockInterlocutorLeaveCorrespondenceForRecipient": "/chats/blockInterlocutorLeaveCorrespondenceForRecipient",
-    "blockInterlocutorDeleteAllCorrespondence": "/chats/blockInterlocutorDeleteAllCorrespondence",
-    "unBlockInterlocutorAndShowCorrespondence": "/chats/unBlockInterlocutorAndShowCorrespondence",
-    "hideCorrespondenceForRecipient":  "/chats/hideCorrespondenceForRecipient",
-    "hideCorrespondenceForInterlocutor": "/chats/hideCorrespondenceForInterlocutor",
-    "hideCorrespondenceForAll": "/chats/hideCorrespondenceForAll"
+    "chatMessages": "/chats/from/to",
+
+
+    "chatSettings": "/chats/settings",
+
+
+    "allInterlocutors": "/chats/interlocutors/interlocutors",
+    "interlocutorStatus": "/chats/interlocutors/interlocutorStatus",
+    "allInterlocutorsStatus": "/chats/interlocutors/allInterlocutorsStatus",
+    "blockInterlocutorHideCorrespondenceForAll":  "/chats/interlocutors/blockInterlocutorHideCorrespondenceForAll",
+    "blockInterlocutorLeaveCorrespondenceForAll": "/chats/interlocutors/blockInterlocutorLeaveCorrespondenceForAll",
+    "blockInterlocutorLeaveCorrespondenceForRecipient": "/chats/interlocutors/blockInterlocutorLeaveCorrespondenceForRecipient",
+    "blockInterlocutorDeleteAllCorrespondence": "/chats/interlocutors/blockInterlocutorDeleteAllCorrespondence",
+    "unBlockInterlocutorAndShowCorrespondence": "/chats/interlocutors/unBlockInterlocutorAndShowCorrespondence",
+
+
+    "hideCorrespondenceForRecipient":  "/chats/correspondence/hideCorrespondenceForRecipient",
+    "hideCorrespondenceForInterlocutor": "/chats/correspondence/hideCorrespondenceForInterlocutor",
+    "hideCorrespondenceForAll": "/chats/correspondence/hideCorrespondenceForAll",
+    "deleteChatMessages": "/chats/correspondence/from/to"
 
 
 }
