@@ -63,6 +63,12 @@ const init = {
 const reducer = (state = init, {type, payload}) => {
     switch (type) {
 
+        case String(ACTIONS.removeInterlocutorFromStore): {
+            const newAllowedInterlocutorsData = state.allowedInterlocutorsData.filter(interlocutor=> interlocutor.userId !== payload);
+ //TODO вставить сюда обновление receivedMessages (актуализировать сообщения от interlocutors)
+            return {...state, allowedInterlocutorsData: newAllowedInterlocutorsData}
+        }
+
         case String(ACTIONS.getChatSettings.success):
             return {
                 ...state,

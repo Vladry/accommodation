@@ -3,7 +3,7 @@ import Popover from '@mui/material/Popover';
 import {Paper} from "@mui/material";
 
 import sel from '@/store/user/selectors';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import api from "@/root/lib/API";
 import urls from "../../../../src/main/resources/urls.json";
 import {NavLink} from "@/components/appbar/NavLink";
@@ -17,12 +17,13 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import SpeakerNotesOffIcon from '@mui/icons-material/SpeakerNotesOff';
 import PersonOffIcon from '@mui/icons-material/PersonOff';
 import datingMenuClasses from '../../dating_components/datingMenuItems/datingMenu.module.scss';
+import {ACTIONS} from '@/store/datingChats/actions.js';
 
 const InterlocutorContextMenu = ({interlocutorId, contextEl, contextMenuCloseHandler}) => {
     // https://mui.com/material-ui/react-popover/#anchor-playground
     const open = !!contextEl;
     const id = open ? 'context-menu-popover' : undefined;
-
+    const dispatch = useDispatch();
     const user = useSelector(sel.user);
 
 
@@ -60,26 +61,31 @@ const InterlocutorContextMenu = ({interlocutorId, contextEl, contextMenuCloseHan
 
     /*** БЛОК функционала работы с InterlocutorSettings из DatingChatSettings и режимами InterlocutorStatus, определяющими фильтрацию загружаемых и показываемых сообщений ***/
 
-    const blockInterlocutorHideCorrespondenceForAll = () => {
+    const blockInterlocutorHideCorrespondenceForAll = async () => {
         // BLOCKED_CORR_HIDDEN_FOR_ALL
         console.log("blockInterlocutorHideCorrespondenceForAll");
         console.log("interlocutorId: ", interlocutorId, "user.id: ", user.id);
-        api.put(`${urls.blockInterlocutorHideCorrespondenceForAll}?chat=datingChatStatus&fromId=${interlocutorId}&toId=${user.id}`).then();
+        await api.put(`${urls.blockInterlocutorHideCorrespondenceForAll}?chat=datingChatStatus&fromId=${interlocutorId}&toId=${user.id}`).then();
+        dispatch(ACTIONS.removeInterlocutorFromStore(interlocutorId));
+
     };
-    const blockInterlocutorLeaveCorrespondenceForAll = () => {
+    const blockInterlocutorLeaveCorrespondenceForAll = async () => {
         // BLOCKED_CORRESPONDENCE_AVAILABLE_FOR_ALL
         console.log("blockInterlocutorLeaveCorrespondenceForAll");
-        api.put(`${urls.blockInterlocutorLeaveCorrespondenceForAll}?chat=datingChatStatus&fromId=${interlocutorId}&toId=${user.id}`).then();
+        await api.put(`${urls.blockInterlocutorLeaveCorrespondenceForAll}?chat=datingChatStatus&fromId=${interlocutorId}&toId=${user.id}`).then();
+        dispatch(ACTIONS.removeInterlocutorFromStore(interlocutorId));
     };
-    const blockInterlocutorLeaveCorrespondenceForRecipient = () => {
+    const blockInterlocutorLeaveCorrespondenceForRecipient = async () => {
         // BLOCKED_CORRESPONDENCE_AVAILABLE_FOR_RECIPIENT
         console.log("blockInterlocutorLeaveCorrespondenceForRecipient");
-        api.put(`${urls.blockInterlocutorLeaveCorrespondenceForRecipient}?chat=datingChatStatus&fromId=${interlocutorId}&toId=${user.id}`).then();
+        await api.put(`${urls.blockInterlocutorLeaveCorrespondenceForRecipient}?chat=datingChatStatus&fromId=${interlocutorId}&toId=${user.id}`).then();
+        dispatch(ACTIONS.removeInterlocutorFromStore(interlocutorId));
     };
-    const blockInterlocutorDeleteAllCorrespondence = () => {
+    const blockInterlocutorDeleteAllCorrespondence = async () => {
         // BLOCKED_CORRESPONDENCE_DELETED
         console.log("blockInterlocutorDeleteAllCorrespondence");
-        api.put(`${urls.blockInterlocutorDeleteAllCorrespondence}?chat=datingChatStatus&fromId=${interlocutorId}&toId=${user.id}`).then();
+        await api.put(`${urls.blockInterlocutorDeleteAllCorrespondence}?chat=datingChatStatus&fromId=${interlocutorId}&toId=${user.id}`).then();
+        dispatch(ACTIONS.removeInterlocutorFromStore(interlocutorId));
     };
     const unBlockInterlocutorAndShowCorrespondence = () => {//TODO перенести на соответствующую сервисную страницу приложения
         // UNBLOCKED
@@ -116,18 +122,14 @@ const InterlocutorContextMenu = ({interlocutorId, contextEl, contextMenuCloseHan
 
     const [isBookmarked, setIsBookmarked] = useState(false);
     const bookmarkHandler = () => { //TODO объединить с bookmarkHandler в файле CandidateProfile.js
-        // console.log("in bookmarkHandler, isBookmarked: ", isBookmarked)
         setIsBookmarked(!isBookmarked);
         const nowBookmarkedState = !isBookmarked;//эта переменная нужна, т.к. state не обновляется мгновенна и путает данные
-        // console.log("nowBookmarkedState: ", nowBookmarkedState)
         if (nowBookmarkedState) {
             //записать метку bookmarked в БД:
-            // console.log("setting isBookmarked");
             const msg = {
                 destination: null, type: "BOOKMARKED", value: null, subject: null,
                 fromId: user.id, toId: interlocutorId,
             };
-            // console.log("api.post(`${urls.messages}`, msg)");
             api.post(`${urls.messages}`, msg).then(() => {
             });
         }

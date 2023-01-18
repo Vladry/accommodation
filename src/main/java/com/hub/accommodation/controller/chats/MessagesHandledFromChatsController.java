@@ -15,7 +15,6 @@ import java.util.List;
 public class MessagesHandledFromChatsController {
 
     private final MessageService messageService;
-    private final ChatService chatService;
 
 
     @PutMapping("/setSeen/{fromId}/{toId}")

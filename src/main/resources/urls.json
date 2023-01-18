@@ -49,6 +49,7 @@
 
 
     "allInterlocutors": "/chats/interlocutors/interlocutors",
+    "allowedInterlocutors": "/chats/interlocutors/allowedInterlocutors",
     "interlocutorStatus": "/chats/interlocutors/interlocutorStatus",
     "allInterlocutorsStatus": "/chats/interlocutors/allInterlocutorsStatus",
     "blockInterlocutorHideCorrespondenceForAll":  "/chats/interlocutors/blockInterlocutorHideCorrespondenceForAll",

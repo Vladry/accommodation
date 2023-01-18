@@ -8,7 +8,7 @@ const actions = createActions(
     {
         actionTypes: [
             "SET_ACTIVE_INTERLOCUTOR", "SET_ALL_MESSAGES", "ADD_ALL_MESSAGES", "ADD_RECEIVED_MESSAGES",
-            "ADD_SEND_MESSAGE_NOTIFICATION", "SET_UNSEEN_MESSAGES", "SET_INTERLOCUTORS"
+            "ADD_SEND_MESSAGE_NOTIFICATION", "SET_UNSEEN_MESSAGES", "SET_INTERLOCUTORS", "REMOVE_INTERLOCUTOR_FROM_STORE"
 
 
         ],
@@ -101,26 +101,7 @@ const getChatSettings = (userId) => async dispatch => {
 
 const getInterlocutors = (toId) => async dispatch => {
     try {
-        //TODO потом вынести ВЕСЬ ф-ционал сортировки собеседников на БЭК, а сюда получить только валидных interlocutors (на заблокированных):
-        const allChatInterlocutors = new Object(await api.get(`${urls.allInterlocutors}/${toId}?chat=dating`));
-
-        // после получения всех-всех собеседников которые когда-либо были, включая заблокированных и удаленных - далее получить статусы собеседников для дальнейшей фильтрации:
-        const interlocutorsStatus = new Object(await api.get(`${urls.allInterlocutorsStatus}?toId=${toId}&chat=datingChatStatus`));
-
-
-        const allowedInterlocutors = allChatInterlocutors.filter(
-            interlocutor => {
-                let allowed = true;
-                interlocutorsStatus.forEach((status) => {
-                    if (interlocutor.userId === status.interlocutorId
-                        &&  status.datingChatStatus.toLowerCase().startsWith("blocked")) {
-                        allowed=false;
-                    }
-                });
-                return allowed;
-            });
-
-
+        const allowedInterlocutors = await api.get(`${urls.allowedInterlocutors}/${toId}?chat=dating`);
         dispatch(ACTIONS.setInterlocutors(allowedInterlocutors));
     } catch (e) {
         console.log("error in getInterlocutors. allChatInterlocutors not set in Store! \n", e.message);

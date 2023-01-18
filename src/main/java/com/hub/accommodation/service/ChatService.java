@@ -88,11 +88,11 @@ public class ChatService {
         messageRepository.saveAll(updated);
     }
 
-    public void handleInterlocutorStatus(Long userId, Long interlocutorId, InterlocutorStatusEnum newStatus, String chatName) {
-        getInterlocutorStatus(userId, interlocutorId, chatName).ifPresentOrElse(
+    public void handleInterlocutorStatus(Long userId, Long interlocutorId, InterlocutorStatusEnum newStatus, String chatStatus) {
+        getInterlocutorStatus(userId, interlocutorId, chatStatus).ifPresentOrElse(
                 (existingInterlocutorStatus) -> {
                     try {
-                        Field f = existingInterlocutorStatus.getClass().getDeclaredField(chatName);
+                        Field f = existingInterlocutorStatus.getClass().getDeclaredField(chatStatus);
                         f.setAccessible(true);
                         f.set(existingInterlocutorStatus, newStatus);
                     } catch (NoSuchFieldException | IllegalAccessException e) {
@@ -106,7 +106,7 @@ public class ChatService {
                             .setUserId(userId).setInterlocutorId(interlocutorId);
 
                     try {
-                        Field f = newInterlocutorStatus.getClass().getDeclaredField(chatName);
+                        Field f = newInterlocutorStatus.getClass().getDeclaredField(chatStatus);
                         f.setAccessible(true);
                         f.set(newInterlocutorStatus, newStatus);
                     } catch (NoSuchFieldException | IllegalAccessException e) {
@@ -121,9 +121,9 @@ public class ChatService {
     }
 
 
-    public Optional<InterlocutorStatus> getInterlocutorStatus(Long userId, Long interlocutorId, String chatName) {
+    public Optional<InterlocutorStatus> getInterlocutorStatus(Long userId, Long interlocutorId, String chatStatus) {
 
-        return switch (chatName) {
+        return switch (chatStatus) {
             case "datingChatStatus" -> interlocutorStatusRepository.getDatingInterlocutorStatusByUserIdAndInterlocutorId(userId, interlocutorId);
             case "accommodationChatStatus" ->
                     interlocutorStatusRepository.getAccommodationInterlocutorStatusByUserIdAndInterlocutorId(userId, interlocutorId);
@@ -135,9 +135,9 @@ public class ChatService {
 
     }
 
-    public Set<InterlocutorStatus> getAllInterlocutorsStatus(Long userId, String chatName) {
+    public Set<InterlocutorStatus> getAllInterlocutorsStatus(Long userId, String chatStatus) {
 
-        return switch (chatName) {
+        return switch (chatStatus) {
             case "datingChatStatus" -> interlocutorStatusRepository.getAllDatingInterlocutorsStatusByUserId(userId);
             case "accommodationChatStatus" ->
                     interlocutorStatusRepository.getAllAccommodationInterlocutorsStatusByUserId(userId);

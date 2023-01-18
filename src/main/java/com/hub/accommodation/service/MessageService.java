@@ -1,10 +1,7 @@
 package com.hub.accommodation.service;
 
-import com.hub.accommodation.domain.dating.Interlocutor;
 import com.hub.accommodation.domain.Message;
-import com.hub.accommodation.domain.user.User;
 import com.hub.accommodation.repository.MessageRepository;
-import com.hub.accommodation.repository.UserRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +19,18 @@ public class MessageService {
 
     private Optional<Message> getMessage(Long id) {
         return messageRepository.findById(id);
+    }
+
+    private String getChatNameFromChatStatus(String ChatStatus) {
+        String chatName = null;
+        if (ChatStatus.contains("dating")) {
+            chatName = "dating";
+        } else if (ChatStatus.contains("accommodation")) {
+            chatName = "accommodation";
+        } else if (ChatStatus.contains("volunteering")) {
+            chatName = "volunteering";
+        }
+        return chatName;
     }
 
 
@@ -89,7 +98,8 @@ public class MessageService {
     }
 
 
-    public void deleteAllCorrespondenceBetweenFromIdAndToId(String chat, Long fromId, Long toId) {
+    public void deleteAllCorrespondenceBetweenFromIdAndToId(String chatStatus, Long fromId, Long toId) {
+        String chat = getChatNameFromChatStatus(chatStatus);
         messageRepository.deleteAllMessageByChatAndFromIdAndToId(chat, fromId, toId);
         messageRepository.deleteAllMessageByChatAndFromIdAndToId(chat, toId, fromId);
     }
@@ -102,14 +112,12 @@ public class MessageService {
 
     @Transactional(readOnly = true)
     public List<Message> getMessageByType(String type) {
-        System.out.println("in service.getMessageByType");
         return messageRepository.findMessageByType(type);
     }
 
 
     @Transactional(readOnly = true)
     public List<Message> getAllMessages() {
-        System.out.println("in service.getAllMessages");
         return messageRepository.findAll();
     }
 }

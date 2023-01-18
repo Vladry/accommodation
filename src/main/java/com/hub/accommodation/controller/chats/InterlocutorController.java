@@ -8,8 +8,13 @@ import com.hub.accommodation.service.MessageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 
 /*** БЛОК функционала работы с InterlocutorStatus для всех типов чатов (datingChatStatus,
@@ -27,69 +32,85 @@ public class InterlocutorController {
     private final ChatService chatService;
 
 
-
-
     @PutMapping("/blockInterlocutorHideCorrespondenceForAll")
-    public void blockInterlocutorHideCorrespondenceForAll(@RequestParam("chat") String chatName,
+    public void blockInterlocutorHideCorrespondenceForAll(@RequestParam("chat") String chatStatus,
                                                           @RequestParam("fromId") Long fromId,
                                                           @RequestParam("toId") Long toId) {
-        chatService.handleInterlocutorStatus(toId, fromId, InterlocutorStatusEnum.BLOCKED_CORRESPONDENCE_HIDDEN_FOR_ALL, chatName);
+        chatService.handleInterlocutorStatus(toId, fromId, InterlocutorStatusEnum.BLOCKED_CORRESPONDENCE_HIDDEN_FOR_ALL, chatStatus);
 
         //TODO удалить обработку кучи сообщений на след.строке:
-        chatService.hideCorrespondenceForAll(chatName, fromId, toId);
+        chatService.hideCorrespondenceForAll(chatStatus, fromId, toId);
     }
 
     @PutMapping("/blockInterlocutorLeaveCorrespondenceForAll")
-    public void blockInterlocutorLeaveCorrespondenceForAll(@RequestParam("chat") String chatName,
+    public void blockInterlocutorLeaveCorrespondenceForAll(@RequestParam("chat") String chatStatus,
                                                            @RequestParam("fromId") Long fromId,
                                                            @RequestParam("toId") Long toId) {
-        chatService.handleInterlocutorStatus(toId, fromId, InterlocutorStatusEnum.BLOCKED_CORRESPONDENCE_AVAILABLE_FOR_ALL, chatName);
+        chatService.handleInterlocutorStatus(toId, fromId, InterlocutorStatusEnum.BLOCKED_CORRESPONDENCE_AVAILABLE_FOR_ALL, chatStatus);
     }
 
     @PutMapping("/blockInterlocutorLeaveCorrespondenceForRecipient")
-    public void blockInterlocutorLeaveCorrespondenceForRecipient(@RequestParam("chat") String chatName,
+    public void blockInterlocutorLeaveCorrespondenceForRecipient(@RequestParam("chat") String chatStatus,
                                                                  @RequestParam("fromId") Long fromId,
                                                                  @RequestParam("toId") Long toId) {
-        chatService.handleInterlocutorStatus(toId, fromId, InterlocutorStatusEnum.BLOCKED_CORRESPONDENCE_AVAILABLE_FOR_RECIPIENT, chatName);
+        chatService.handleInterlocutorStatus(toId, fromId, InterlocutorStatusEnum.BLOCKED_CORRESPONDENCE_AVAILABLE_FOR_RECIPIENT, chatStatus);
     }
 
     @PutMapping("/blockInterlocutorDeleteAllCorrespondence")
-    public void blockInterlocutorDeleteAllCorrespondence(@RequestParam("chat") String chatName,
+    public void blockInterlocutorDeleteAllCorrespondence(@RequestParam("chat") String chatStatus,
                                                          @RequestParam("fromId") Long fromId,
                                                          @RequestParam("toId") Long toId) {
-        chatService.handleInterlocutorStatus(toId, fromId, InterlocutorStatusEnum.BLOCKED_CORRESPONDENCE_DELETED, chatName);
-        messageService.deleteAllCorrespondenceBetweenFromIdAndToId(chatName, fromId, toId);
+        chatService.handleInterlocutorStatus(toId, fromId, InterlocutorStatusEnum.BLOCKED_CORRESPONDENCE_DELETED, chatStatus);
+        messageService.deleteAllCorrespondenceBetweenFromIdAndToId(chatStatus, fromId, toId);
     }
 
     @PutMapping("/unBlockInterlocutorAndShowCorrespondence")
-    public void unBlockInterlocutorAndShowCorrespondence(@RequestParam("chat") String chatName,
+    public void unBlockInterlocutorAndShowCorrespondence(@RequestParam("chat") String chatStatus,
                                                          @RequestParam("fromId") Long fromId,
                                                          @RequestParam("toId") Long toId) {
-        chatService.handleInterlocutorStatus(toId, fromId, InterlocutorStatusEnum.UNBLOCKED, chatName);
+        chatService.handleInterlocutorStatus(toId, fromId, InterlocutorStatusEnum.UNBLOCKED, chatStatus);
 
         //TODO удалить обработку кучи сообщений на след.строке:
-        chatService.unHideCorrespondenceForAll(chatName, fromId, toId);
+        chatService.unHideCorrespondenceForAll(chatStatus, fromId, toId);
     }
 
 
     @GetMapping("/interlocutorStatus")
     public Optional<InterlocutorStatus> getInterlocutorStatus(@RequestParam("toId") Long userId,
                                                               @RequestParam("fromId") Long interlocutorId,
-                                                              @RequestParam("chat") String chatName) {
-        return chatService.getInterlocutorStatus(userId, interlocutorId, chatName);
+                                                              @RequestParam("chat") String chatStatus) {
+        return chatService.getInterlocutorStatus(userId, interlocutorId, chatStatus);
     }
 
     @GetMapping("/allInterlocutorsStatus")
     public Set<InterlocutorStatus> getAllInterlocutorsStatus(@RequestParam("toId") Long userId,
-                                                             @RequestParam("chat") String chatName) {
-        return chatService.getAllInterlocutorsStatus(userId, chatName);
+                                                             @RequestParam("chat") String chatStatus) {
+        return chatService.getAllInterlocutorsStatus(userId, chatStatus);
     }
-/*** конец БЛОКа функционала работы с InterlocutorStatus ***/
 
 
+    @GetMapping("/interlocutors/{toId}")
+    public Set<Interlocutor> getInterlocutorsByToId(@RequestParam("chat") String chat, @PathVariable("toId") Long toId) {
+        return chatService.getInterlocutorsByChatAndToId(chat, toId);
+    }
 
-@GetMapping("/interlocutors/{toId}")
-public Set<Interlocutor> getInterlocutorsByToId(@RequestParam("chat") String chat, @PathVariable("toId") Long toId) {
-    return chatService.getInterlocutorsByChatAndToId(chat, toId);
-}
+
+    @GetMapping("/allowedInterlocutors/{toId}")
+    public Set<Interlocutor> getAllowedInterlocutorsByToId(@RequestParam("chat") String chatStatus, @PathVariable("toId") Long toId) {
+
+        Set<InterlocutorStatus> interlocutorsStatus = chatService.getAllInterlocutorsStatus(toId, chatStatus);
+        Set<Interlocutor> allInterlocutors = chatService.getInterlocutorsByChatAndToId(chatStatus, toId);
+        // после получения всех-всех имеющихся собеседников allInterlocutors которые когда-либо были, включая заблокированных и удаленных - далее получить статусы собеседников для дальнейшей фильтрации:
+        return allInterlocutors.stream().filter(
+                interlocutor -> {
+                    AtomicBoolean allowed = new AtomicBoolean(true);
+                    interlocutorsStatus.forEach((status) -> {
+                        if (Objects.equals(interlocutor.getUserId(), status.getInterlocutorId())
+                                && status.getDatingChatStatus().name().toLowerCase().startsWith("blocked")) {
+                            allowed.set(false);
+                        }
+                    });
+                    return allowed.get();
+                }).collect(Collectors.toSet());
+    }
 }

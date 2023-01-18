@@ -10,6 +10,7 @@ const ChatContainer = () => {
     const receivedMessages = useSelector(selDatingChats.receivedMessages, shallowEqual);
     const sentMessages = useSelector(selDatingChats.sentMessages, shallowEqual);
     const activeInterlocutor = useSelector(selDatingChats.activeInterlocutor, shallowEqual);
+    // const allowedInterlocutorsData = useSelector(selDatingChats.allowedInterlocutorsData, shallowEqual);
     const [msgEls, setMsgEls] = useState([]);
 
     const msgContent = useMemo(() => {
