@@ -47,7 +47,7 @@ const chatSettingsInit = {
 const init = {
     allowedInterlocutorsData: [],
     activeInterlocutor: 0,
-    previousInterlocutor: 0,
+    previousActiveInterlocutor: 0,
     receivedMessages: [],
     sentMessages: [],
     newDatingChatMessage: {},
@@ -68,12 +68,28 @@ const reducer = (state = init, {type, payload}) => {
         case String(ACTIONS.removeInterlocutorFromStore): {
             const newAllowedInterlocutorsData = state.allowedInterlocutorsData.filter(interlocutor => interlocutor.userId !== payload);
             console.log("in ACTIONS.removeInterlocutorFromStore");
-            console.log("previous: ", state.previousInterlocutor)
-            console.log("current: ", state.previousInterlocutor)
+            console.log("previous: ", state.previousActiveInterlocutor)
+            console.log("current: ", state.previousActiveInterlocutor)
             return {
-                ...state, allowedInterlocutorsData: newAllowedInterlocutorsData, activeInterlocutor: state.previousInterlocutor
+                ...state, allowedInterlocutorsData: newAllowedInterlocutorsData, activeInterlocutor: state.previousActiveInterlocutor
             }
         }
+
+
+        case String(ACTIONS.setActiveInterlocutor): {
+            console.log("in ACTIONS.setActiveInterlocutor");
+            let temp = state.previousActiveInterlocutor;
+            if (payload !== state.activeInterlocutor) {
+                temp = state.activeInterlocutor;
+            }
+            console.log("previous: ", temp)
+            console.log("current: ", payload)
+            return {
+                ...state,
+                previousActiveInterlocutor: temp, activeInterlocutor: payload
+            };
+        }
+
 
         case String(ACTIONS.getChatSettings.success):
             return {
@@ -91,20 +107,6 @@ const reducer = (state = init, {type, payload}) => {
                 ...state,
                 allowedInterlocutorsData: allowed
             };
-
-        case String(ACTIONS.setActiveInterlocutor): {
-            console.log("in ACTIONS.setActiveInterlocutor");
-            let temp = state.previousInterlocutor;
-            if (payload !== state.activeInterlocutor) {
-                temp = state.activeInterlocutor;
-            }
-            console.log("previous: ", temp)
-            console.log("current: ", payload)
-            return {
-                ...state,
-                previousInterlocutor: temp, activeInterlocutor: payload
-            };
-        }
 
 
         case String(ACTIONS.addSendMessageNotification):

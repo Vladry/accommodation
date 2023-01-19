@@ -10,6 +10,7 @@ const ChatContainer = () => {
     const receivedMessages = useSelector(selDatingChats.receivedMessages, shallowEqual);
     const sentMessages = useSelector(selDatingChats.sentMessages, shallowEqual);
     const activeInterlocutor = useSelector(selDatingChats.activeInterlocutor);
+    const previousActiveInterlocutor = useSelector(selDatingChats.previousActiveInterlocutor);
     const [msgEls, setMsgEls] = useState([]);
 
     const msgContent = useMemo(() => {
@@ -29,7 +30,7 @@ const ChatContainer = () => {
 
     useEffect(() => {
         setMsgEls(msgContent.map((msg, ind) => (<DatingChatMsgElement key={ind} msg={msg}/>)));
-    }, [activeInterlocutor, msgContent])
+    }, [activeInterlocutor, previousActiveInterlocutor, msgContent])
 
     return (
         <Box sx={{

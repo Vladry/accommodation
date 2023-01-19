@@ -1,4 +1,5 @@
 const activeInterlocutor = state => state.datingChatData.activeInterlocutor;
+const previousActiveInterlocutor = state => state.datingChatData.previousActiveInterlocutor;
 
 const datingMessages = state => state.datingChatData.datingMessages;
 const receivedMessages = state => state.datingChatData.receivedMessages;
@@ -15,6 +16,7 @@ const allowedInterlocutorsData = state => state.datingChatData.allowedInterlocut
 
 export default {
     activeInterlocutor,
+    previousActiveInterlocutor,
 
     datingMessages,
 
