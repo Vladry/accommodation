@@ -16,7 +16,6 @@ const Interlocutors = ({title}) => {
             interlocutor={interlocutor}
         />);
 
-
     return (
         <Box sx={{
             maxHeight: '100vh',

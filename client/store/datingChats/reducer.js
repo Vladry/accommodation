@@ -3,6 +3,8 @@ import api from "../../lib/API";
 import urls from "../../../src/main/resources/urls.json";
 import context from '@/root/contextValues.js';
 import types from "@/store/datingChats/types";
+import {shallowEqual, useSelector} from "react-redux";
+import selDatingChats from "@/store/datingChats/selectors";
 
 
 const messageExample = {
@@ -44,7 +46,8 @@ const chatSettingsInit = {
 
 const init = {
     allowedInterlocutorsData: [],
-    activeInterlocutor: 1,
+    activeInterlocutor: 0,
+    previousInterlocutor: 0,
     receivedMessages: [],
     sentMessages: [],
     newDatingChatMessage: {},
@@ -59,14 +62,17 @@ const init = {
 }
 
 
-
 const reducer = (state = init, {type, payload}) => {
     switch (type) {
 
         case String(ACTIONS.removeInterlocutorFromStore): {
-            const newAllowedInterlocutorsData = state.allowedInterlocutorsData.filter(interlocutor=> interlocutor.userId !== payload);
- //TODO вставить сюда обновление receivedMessages (актуализировать сообщения от interlocutors)
-            return {...state, allowedInterlocutorsData: newAllowedInterlocutorsData}
+            const newAllowedInterlocutorsData = state.allowedInterlocutorsData.filter(interlocutor => interlocutor.userId !== payload);
+            console.log("in ACTIONS.removeInterlocutorFromStore");
+            console.log("previous: ", state.previousInterlocutor)
+            console.log("current: ", state.previousInterlocutor)
+            return {
+                ...state, allowedInterlocutorsData: newAllowedInterlocutorsData, activeInterlocutor: state.previousInterlocutor
+            }
         }
 
         case String(ACTIONS.getChatSettings.success):
@@ -77,20 +83,28 @@ const reducer = (state = init, {type, payload}) => {
 
         case String(ACTIONS.setInterlocutors):
             let allowed = payload;
-        if(state.chatSettings?.blockedInterlocutorsIds?.length){
-            console.log("blacklisted: ", state.chatSettings.blockedInterlocutorsIds)
-            allowed = payload.filter(chat => !state.chatSettings.blockedInterlocutorsIds.includes(chat.userId));
-        }
+            if (state.chatSettings?.blockedInterlocutorsIds?.length) {
+                console.log("blacklisted: ", state.chatSettings.blockedInterlocutorsIds)
+                allowed = payload.filter(chat => !state.chatSettings.blockedInterlocutorsIds.includes(chat.userId));
+            }
             return {
                 ...state,
                 allowedInterlocutorsData: allowed
             };
 
-        case String(ACTIONS.setActiveInterlocutor):
+        case String(ACTIONS.setActiveInterlocutor): {
+            console.log("in ACTIONS.setActiveInterlocutor");
+            let temp = state.previousInterlocutor;
+            if (payload !== state.activeInterlocutor) {
+                temp = state.activeInterlocutor;
+            }
+            console.log("previous: ", temp)
+            console.log("current: ", payload)
             return {
                 ...state,
-                activeInterlocutor: payload
+                previousInterlocutor: temp, activeInterlocutor: payload
             };
+        }
 
 
         case String(ACTIONS.addSendMessageNotification):
@@ -123,7 +137,6 @@ const reducer = (state = init, {type, payload}) => {
             return {
                 ...state
             };
-
 
 
         case types.SET_DATING_MESSAGES:

@@ -31,11 +31,12 @@ const DatingChatInterlocutorElem = ({interlocutor}) => {
     }
     /*** Конец: Управление контекстным меню ***/
 
-    if (!(user && activeInterlocutor)) return;
+    if (!user) return;
 
 
     const currInterlocutorChatHandler = (event) => {
-        dispatch(ACTIONS.setActiveInterlocutor(interlocutor.userId));
+
+                dispatch(ACTIONS.setActiveInterlocutor(interlocutor.userId));
         const counterparts = {fromId: interlocutor.userId, toId: user.id};
         const unseenFromThisInterlocutor = unseenReceivedMessages.filter(m => m.toId === user.id && m.fromId === interlocutor.userId);
         if (unseenFromThisInterlocutor?.length > 0) {
