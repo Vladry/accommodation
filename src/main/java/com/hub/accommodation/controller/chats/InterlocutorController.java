@@ -101,16 +101,42 @@ public class InterlocutorController {
         Set<InterlocutorStatus> interlocutorsStatus = chatService.getAllInterlocutorsStatus(toId, chatStatus);
         Set<Interlocutor> allInterlocutors = chatService.getInterlocutorsByChatAndToId(chatStatus, toId);
         // после получения всех-всех имеющихся собеседников allInterlocutors которые когда-либо были, включая заблокированных и удаленных - далее получить статусы собеседников для дальнейшей фильтрации:
-        return allInterlocutors.stream().filter(
+        Set<Interlocutor> notBlockedInterlocutors = allInterlocutors.stream().filter(
                 interlocutor -> {
                     AtomicBoolean allowed = new AtomicBoolean(true);
                     interlocutorsStatus.forEach((status) -> {
-                        if (Objects.equals(interlocutor.getUserId(), status.getInterlocutorId())
-                                && status.getDatingChatStatus().name().toLowerCase().startsWith("blocked")) {
+                        if (
+                                Objects.equals(interlocutor.getUserId(), status.getInterlocutorId())
+                                        &&
+                                        (status.getDatingChatStatus() == InterlocutorStatusEnum.BLOCKED_CORRESPONDENCE_HIDDEN_FOR_ALL
+                                                || status.getDatingChatStatus() == InterlocutorStatusEnum.BLOCKED_CORRESPONDENCE_DELETED)
+
+                        ) {
                             allowed.set(false);
                         }
                     });
                     return allowed.get();
                 }).collect(Collectors.toSet());
+
+
+        Set<Interlocutor> markedInterlocutors = notBlockedInterlocutors.stream().map(
+                interlocutor -> {
+                    AtomicBoolean blacklisted = new AtomicBoolean(false);
+                    interlocutorsStatus.forEach((status) -> {
+                        if (
+                                (status.getDatingChatStatus() == InterlocutorStatusEnum.BLOCKED_CORRESPONDENCE_AVAILABLE_FOR_ALL
+                                        || status.getDatingChatStatus() == InterlocutorStatusEnum.BLOCKED_CORRESPONDENCE_AVAILABLE_FOR_RECIPIENT)
+
+                        ) {
+                            blacklisted.set(true);
+
+                        }
+                    });
+                    interlocutor.setBlacklisted(blacklisted.get());
+                    return interlocutor;
+                }
+        ).collect(Collectors.toSet());
+
+        return markedInterlocutors;
     }
 }

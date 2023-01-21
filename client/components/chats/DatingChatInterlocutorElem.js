@@ -35,18 +35,16 @@ const DatingChatInterlocutorElem = ({interlocutor}) => {
 
 
     const currInterlocutorChatHandler = (event) => {
-
-                dispatch(ACTIONS.setActiveInterlocutor(interlocutor.userId));
+        event.stopPropagation();
+        console.log("in currInterlocutorChatHandler:")
+        dispatch(ACTIONS.setActiveInterlocutor(interlocutor.userId));
         const counterparts = {fromId: interlocutor.userId, toId: user.id};
         const unseenFromThisInterlocutor = unseenReceivedMessages.filter(m => m.toId === user.id && m.fromId === interlocutor.userId);
         if (unseenFromThisInterlocutor?.length > 0) {
             dispatch(ACTIONS_Cust.setMessagesAsSeen(counterparts));
         }
-        const seenMsgReduxRefresh = setTimeout(() => {
             dispatch(ACTIONS_Cust.getReceivedMessages(counterparts));
             dispatch(ACTIONS_Cust.getSentMessages(counterparts));
-            clearTimeout(seenMsgReduxRefresh);
-        }, globalVariables.reduxUpdateAfterClearingSeenFlagInMessages);
     };
 
     const unseenMessagesFromThisInterlocutor = unseenReceivedMessages.filter(msg => msg.fromId === interlocutor.userId);
@@ -55,7 +53,10 @@ const DatingChatInterlocutorElem = ({interlocutor}) => {
         <>
             <Box sx={{
                 cursor: 'pointer', display: 'flex', flexDirection: 'row', gap: '10px',
-                backgroundColor: (activeInterlocutor === interlocutor.userId) ? 'lightgray' : ''
+                borderRadius: '10px',
+                backgroundColor: (activeInterlocutor === interlocutor.userId) ? 'lightgray' : '',
+                opacity: (interlocutor.blacklisted === true)? 0.4: 1,
+                border: (interlocutor.blacklisted === true)? 'solid 1px red' : ''
             }}
                  onClick={currInterlocutorChatHandler}
 
@@ -74,10 +75,11 @@ const DatingChatInterlocutorElem = ({interlocutor}) => {
                            color="error">
                     </Badge> : null}
                 <Avatar src={interlocutor?.avatar}/>
-                <p>{interlocutor.nick}</p>
+                <p style={{color: (interlocutor.blacklisted === true)? 'red': 'dark' }}>{interlocutor.nick}</p>
                 <p>{interlocutor.userId}</p>
 
-                <InterlocutorContextMenu interlocutorId={interlocutor.userId} contextEl={contextEl} contextMenuCloseHandler={contextMenuCloseHandler}/>
+                <InterlocutorContextMenu interlocutorId={interlocutor.userId} contextEl={contextEl}
+                                         contextMenuCloseHandler={contextMenuCloseHandler}/>
             </Box>
 
         </>

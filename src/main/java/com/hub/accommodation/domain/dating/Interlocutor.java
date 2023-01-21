@@ -8,6 +8,7 @@ public class Interlocutor {
     private Long userId;
     private String avatar;
     private String nick;
+    private Boolean blacklisted;
 
     public Interlocutor(Long id, String avatar, String name, String lastName){
         this.userId = id;

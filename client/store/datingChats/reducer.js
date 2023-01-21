@@ -47,7 +47,6 @@ const chatSettingsInit = {
 const init = {
     allowedInterlocutorsData: [],
     activeInterlocutor: 0,
-    previousActiveInterlocutor: 0,
     receivedMessages: [],
     sentMessages: [],
     newDatingChatMessage: {},
@@ -65,31 +64,26 @@ const init = {
 const reducer = (state = init, {type, payload}) => {
     switch (type) {
 
+
+        case String(ACTIONS.blockThisInterlocutor): {
+            const notBlacklistedInterlocutors = state.allowedInterlocutorsData.filter(interlocutor => interlocutor.userId !== payload);
+            const blacklistedInterlocutors = state.allowedInterlocutorsData.filter(interlocutor => interlocutor.userId === payload);
+            blacklistedInterlocutors.map(interlocutor => {
+                interlocutor.blacklisted = true;
+                return interlocutor;
+            })
+            return {
+                ...state, allowedInterlocutorsData: [...notBlacklistedInterlocutors, ...blacklistedInterlocutors],
+                receivedMessages: [], sentMessages: [], activeInterlocutor: 0
+            }
+        }
+
         case String(ACTIONS.removeInterlocutorFromStore): {
             const newAllowedInterlocutorsData = state.allowedInterlocutorsData.filter(interlocutor => interlocutor.userId !== payload);
-            console.log("in ACTIONS.removeInterlocutorFromStore");
-            console.log("previous: ", state.previousActiveInterlocutor)
-            console.log("current: ", state.previousActiveInterlocutor)
             return {
-                ...state, allowedInterlocutorsData: newAllowedInterlocutorsData, activeInterlocutor: state.previousActiveInterlocutor
+                ...state, allowedInterlocutorsData: newAllowedInterlocutorsData, receivedMessages: [], sentMessages: [], activeInterlocutor: 0
             }
         }
-
-
-        case String(ACTIONS.setActiveInterlocutor): {
-            console.log("in ACTIONS.setActiveInterlocutor");
-            let temp = state.previousActiveInterlocutor;
-            if (payload !== state.activeInterlocutor) {
-                temp = state.activeInterlocutor;
-            }
-            console.log("previous: ", temp)
-            console.log("current: ", payload)
-            return {
-                ...state,
-                previousActiveInterlocutor: temp, activeInterlocutor: payload
-            };
-        }
-
 
         case String(ACTIONS.getChatSettings.success):
             return {
@@ -98,15 +92,17 @@ const reducer = (state = init, {type, payload}) => {
             };
 
         case String(ACTIONS.setInterlocutors):
-            let allowed = payload;
-            if (state.chatSettings?.blockedInterlocutorsIds?.length) {
-                console.log("blacklisted: ", state.chatSettings.blockedInterlocutorsIds)
-                allowed = payload.filter(chat => !state.chatSettings.blockedInterlocutorsIds.includes(chat.userId));
-            }
             return {
                 ...state,
-                allowedInterlocutorsData: allowed
+                allowedInterlocutorsData: payload
             };
+
+        case String(ACTIONS.setActiveInterlocutor): {
+            return {
+                ...state,
+                activeInterlocutor: payload
+            };
+        }
 
 
         case String(ACTIONS.addSendMessageNotification):
