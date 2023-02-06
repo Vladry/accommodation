@@ -93,7 +93,7 @@ const getChatSettings = (userId) => async dispatch => {
     try {
         const chatSettings = await api.get(`${urls.chatSettings}/${userId}?chatType=DATING`);
         dispatch(ACTIONS.getChatSettings.success(chatSettings));
-        console.log("chatSettings received from server: ", chatSettings);
+        // console.log("chatSettings received from server: ", chatSettings);
     } catch (e) {
         console.log(`error getting datingChatSettings for user ${userId}: `, e.message)
     }

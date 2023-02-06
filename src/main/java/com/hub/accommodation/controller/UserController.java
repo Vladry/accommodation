@@ -1,5 +1,7 @@
 package com.hub.accommodation.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.hub.accommodation.config.Views;
 import com.hub.accommodation.dto.request.UserRqDto;
 import com.hub.accommodation.dto.response.UserAgeRsDto;
 import com.hub.accommodation.dto.response.UserRsDto;
@@ -87,6 +89,7 @@ public class UserController {
             @RequestParam("email") String email) {
         User user = userService.getUserByEmail(email)
                 .orElseThrow(() -> new NoDataFoundException("no User found by this email")); //https://habr.com/ru/post/346782/
+        System.out.println("user delivered from findUserByEmail");
         return userFacade.convertToDto(user);
     }
 

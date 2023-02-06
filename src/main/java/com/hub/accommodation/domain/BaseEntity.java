@@ -22,7 +22,7 @@ abstract public class BaseEntity {
     @Column(name = "id", updatable = false, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @JsonView({Views.Public.class, Views.Internal.class})
+    @JsonView({Views.Public.class, Views.SeenToAll.class})
     protected Long id;
 
     @LastModifiedDate

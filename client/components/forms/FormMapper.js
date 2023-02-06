@@ -7,11 +7,18 @@ import InputSelectGoals from "./dating_user_profile_form/InputSelectGoals";
 import InputSelectSex from "./dating_user_profile_form/InputSelectSex";
 import InputSelectCountry from "./dating_user_profile_form/InputSelectCountry";
 import InputSelectInterests from "./dating_user_profile_form/InputSelectInterests";
-import {FormItem, Label} from '../../utils/typography';
+import {FormItem, Label} from '@/utils/typography';
 
 const FormMapper = ({fields, initVal, validation, handleSubmit}) => {
 //обязательно использовать formik.setValues(), т.к. при пере-рендерах, initialValues уже НЕ изменяются! Подробнее:
 // см. https://github.com/jaredpalmer/formik/issues/2397   и   https://formik.org/docs/api/formik
+
+    console.log("in FormMapper")
+
+    console.log("fields: ",fields)
+    console.log("initVal: ",initVal)
+    console.log("validation: ", validation)
+    console.log("handleSubmit: ", handleSubmit)
     const formik = useFormik(
         {
             enableReinitialize: true,

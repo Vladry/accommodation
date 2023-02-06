@@ -19,8 +19,18 @@ import destinations from '../../src/main/resources/destinations.json';
 import {StylesProvider} from "@material-ui/core/styles"
 import {ACTIONS, ACTIONS_Cust} from "@/store/datingChats";
 
-const SOCKET_URL = "ws://localhost:8000/ws";
+let SOCKET_URL = process.env.NEXT_PUBLIC_REACT_APP_SOCKET_URL ?  process.env.NEXT_PUBLIC_REACT_APP_SOCKET_URL : null;
+if(SOCKET_URL === null) {
+    console.log("process.env.NEXT_PUBLIC_REACT_APP_SOCKET_URL is undefined!");
+    SOCKET_URL = "ws://localhost:8000/ws";
+}
 
+// console.log("process.env.SOCKET_URL: ", process.env.SOCKET_URL)
+// console.log("process.env.ANOTHER_SOCKET_URL: ", process.env.ANOTHER_SOCKET_URL)
+// console.log("process.env.NEXT_PUBLIC_ANOTHER_SOCKET_URL: ", process.env.NEXT_PUBLIC_ANOTHER_SOCKET_URL)
+
+// const SOCKET_URL = "ws://localhost:8000/ws"; // TODO упорядочиться здесь
+// console.log("SOCKET_URL: ", SOCKET_URL)
 const theme = createTheme(myTheme);
 const clientSideEmotionCache = createEmotionCache();
 

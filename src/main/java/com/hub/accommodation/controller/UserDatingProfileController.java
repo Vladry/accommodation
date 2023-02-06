@@ -53,23 +53,19 @@ public class UserDatingProfileController {
     }
 
 
-    //  http://localhost:8000/api/v1/datingProfile/visits/19
     @GetMapping("/datingProfile/visits/{id}")
     public void registerVisitToDating(@PathVariable("id") Long id) {
         userDatingProfileService.registerVisitToDating(id);
     }
 
     //    @PreAuthorize("hasAuthority('read')")
-    @JsonView(Views.Public.class)
+    @JsonView(Views.SeenToAll.class)
     @GetMapping("/datingProfile/{id}")
     public UserDatingProfileRsDto findUserDatingProfileById(@PathVariable("id") Long id) {
         if (id == null) {
             return null;
         }
-//        System.out.println("in controller.findUserDatingProfileById-> userId:"+ id);
         Optional<UserDatingProfile> udpOpt = userDatingProfileService.findUserDatingProfileByUserId(id);
-//        System.out.println("controller.findUserDatingProfileById-> udpOpt.get():"+ udpOpt.get());
-//        System.out.println("returning udp: " + udpOpt.map(userDatingProfileFacade::convertToDto).orElse(null));
         return udpOpt.map(userDatingProfileFacade::convertToDto).orElse(null);
     }
 
@@ -78,14 +74,10 @@ public class UserDatingProfileController {
     @PostMapping("/candidatesIds")
     public List<Long> getMatchingDatingCandidatesIds(
             @RequestParam("currentUserId") String currentUserId, @RequestBody UserDatingProfileRqDto udpRqDto) {
-//        System.out.println("getCandidatesIds, param userId: " + currentUserId);
-//        System.out.println("running: UserDatingProfile udp = userDatingProfileFacade.convertToEntity(udpRqDto);");
         UserDatingProfile udp = userDatingProfileFacade.convertToEntity(udpRqDto);
-//        System.out.println("udp: "+ udp);
         if (udp.getMySex() != null) {
             List<UserDatingProfile> candidatesMatchingCriteria = userDatingProfileService.findAllMatchingTheCriteria(udp);
             List<Long> IDsOfSelectedCandidates = candidatesMatchingCriteria.stream().map(UserDatingProfile::getId).collect(Collectors.toList());
-//            System.out.println("IDsOfSelectedCandidates: "+ IDsOfSelectedCandidates);
             return IDsOfSelectedCandidates;
         } else {
             throw new NoDataFoundException(String.format("NoDataFoundException: userDatingProfile for user %s does not exist", currentUserId));

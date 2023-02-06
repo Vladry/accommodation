@@ -18,10 +18,10 @@ public class SecurityUser implements UserDetails {
     private final boolean isActive = true;
 
     public SecurityUser(String username, String password, List<SimpleGrantedAuthority> authorities, Long id) {
-        this.id = id;
         this.username = username;
         this.password = password;
         this.authorities = authorities;
+        this.id = id;
     }
 
 
@@ -61,6 +61,7 @@ public class SecurityUser implements UserDetails {
     }
 
     public static UserDetails fromUser(User user) {
+        System.out.println("user.getRole().getAuthorities(): " + user.getRole().getAuthorities());
         return new org.springframework.security.core.userdetails.User(
                 user.getEmail(), user.getPassword(),
                 user.getRole().getAuthorities()

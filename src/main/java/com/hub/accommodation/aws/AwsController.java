@@ -1,8 +1,7 @@
-package com.hub.accommodation.controller;
+package com.hub.accommodation.aws;
 
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.SdkClientException;
-import com.hub.accommodation.service.AwsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
