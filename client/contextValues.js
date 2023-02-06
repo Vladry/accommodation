@@ -3,7 +3,7 @@ import types from "@/store/user/types";
 import globalVariables from '@/root/globalVariables.json';
 
 const neatUpZonedDateTime = (datingLastVisitDate) => {
-    if (datingLastVisitDate !== null) {
+    if (datingLastVisitDate) {
         let index = datingLastVisitDate.indexOf("[");
         return datingLastVisitDate.slice(0, index); // убираем в конце:  [Europe/Helsinki]
     }

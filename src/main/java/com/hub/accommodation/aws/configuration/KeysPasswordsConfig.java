@@ -1,4 +1,4 @@
-package com.hub.accommodation.config;
+package com.hub.accommodation.aws.configuration;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -9,7 +9,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 // задачу можно выполнить либо с помощью record(){} (в java 17), либо классичеким классом с аннотацией @Value lombok (для java-11)
 
 
-@ConfigurationProperties("aws")
+@ConfigurationProperties("aws") - чтобы активировать, добавить в AccommodationApplication аннотацию: //@EnableConfigurationProperties(KeysPasswordsConfig.class)  // --для AWS
 //либо record (java 17):
 public record KeysPasswordsConfig(String accessKeyId, String accessSecretKey){};
 

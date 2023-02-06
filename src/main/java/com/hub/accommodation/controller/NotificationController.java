@@ -18,7 +18,7 @@ public class NotificationController {
     public ResponseEntity<Void> sendMessage(
             @RequestBody TextMessageDTO textMessageDTO,
             @PathVariable("id") Long id) {
-        template.convertAndSend("/queue/dating/"+id, textMessageDTO);
+        template.convertAndSend("/queue.dating."+id, textMessageDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

@@ -1,10 +1,10 @@
 {
-  "likesNotifications": "/queue/dating/likes.notifications/",
+  "likesNotifications": "/queue.dating.likes.notifications.",
   "likesNotifType" : "LIKED",
   "likedSubject": "has liked you!",
   "unlikedSubject": "has unliked you!",
 
-  "datingMessageSentNotifications": "/queue/dating/message.sent.notifications/",
-  "privateNotifications": "/queue/dating/",
-  "generalNotifications": "/topic/dating.announcements"
+  "datingMessageSentNotifications": "/queue.dating.message.sent.notifications.",
+  "privateNotifications": "/queue.dating.",
+  "generalNotifications": "/topic.dating.announcements"
 }

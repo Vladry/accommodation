@@ -4,6 +4,7 @@ import com.amazonaws.AmazonServiceException;
 import com.amazonaws.HttpMethod;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
+import com.hub.accommodation.aws.configuration.AwsClientConfig;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

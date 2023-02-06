@@ -18,7 +18,7 @@ public class JacksonConfig {
 
     @PostConstruct
     private void configureObjectMapper() {
-        // новый способ нихера не работает:
+        // этот новый способ конфигурации нихера не работает:
         JsonMapper
                 .builder()
                 .serializationInclusion(JsonInclude.Include.NON_EMPTY)
@@ -26,7 +26,7 @@ public class JacksonConfig {
                 .build();
 
 
-        // а deprecated работает:
+        // а этот старый deprecated работает:
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
         objectMapper.configure(MapperFeature.DEFAULT_VIEW_INCLUSION, true);
     }
