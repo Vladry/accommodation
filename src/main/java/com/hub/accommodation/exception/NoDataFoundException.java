@@ -1,13 +1,14 @@
 package com.hub.accommodation.exception;
 
-public class NoDataFoundException extends RuntimeException {
+import com.hub.accommodation.exception.groups.HandledNotConfidentialException;
 
-    public NoDataFoundException(String entityName, Long id) {
+public class NoDataFoundException extends HandledNotConfidentialException {
+    //образец выброса этих ислючений в сервисах:  new NoDataFoundException("user in UserController::findUserByEmail" +email));
 
-        super(String.format("%s with Id %d not found", entityName, id));
+    public NoDataFoundException(String entityName) {
+        super(String.format("Error: %s not found", entityName));
     }
-    public NoDataFoundException(String message) {
-
-        super(message);
+    public NoDataFoundException(String entityName, String identifier) {
+        super(String.format("Error: %s not found by identifier: %s", entityName, identifier));
     }
 }

@@ -10,7 +10,7 @@ import axios from "axios";
 import {useTheme} from "@mui/material/styles";
 import BackButton from "../../components/BackButton";
 import classes from '../../components/dating_components/datingMenuItems/dating.module.css';
-import globalVariables from '../../globalVariables.json';
+import globalVariables from '@/root/globalVariables.json';
 import SearchCriteriaForm from "../../components/forms/dating_user_profile_form/SearchCriteriaForm";
 
 const SearchCriteriaFormPage = () => {
@@ -41,7 +41,7 @@ const SearchCriteriaFormPage = () => {
         ).then((res) => {
             if (res != null) {
                 dispatch({type: types.SET_USER_DATING_SEARCH_CRITERIA_PROFILE_SUCCESS, payload: res.data});
-                // dispatch({type: types.SET_USER_DATING_SEARCH_CRITERIA_PROFILE_SUCCESS, payload: datingSearchCriteriaProfileFormNewValues});
+                // dispatch({type: datingChatsTypes.SET_USER_DATING_SEARCH_CRITERIA_PROFILE_SUCCESS, payload: datingSearchCriteriaProfileFormNewValues});
             } else {
                 console.log("error getting&dispatching updated datingSearchCriteriaProfile!. The store continues holding the old version of datingSearchCriteriaProfile (if any)");
             }

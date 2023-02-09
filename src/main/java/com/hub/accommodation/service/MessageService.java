@@ -1,6 +1,6 @@
 package com.hub.accommodation.service;
 
-import com.hub.accommodation.domain.StompMessage;
+import com.hub.accommodation.domain.Message;
 import com.hub.accommodation.repository.MessageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -16,64 +17,107 @@ import java.util.Set;
 public class MessageService {
     private final MessageRepository messageRepository;
 
-    public void saveMessage(StompMessage message){
+    private Optional<Message> getMessage(Long id) {
+        return messageRepository.findById(id);
+    }
+
+    private String getChatNameFromChatStatus(String ChatStatus) {
+        String chatName = null;
+        if (ChatStatus.contains("dating")) {
+            chatName = "dating";
+        } else if (ChatStatus.contains("accommodation")) {
+            chatName = "accommodation";
+        } else if (ChatStatus.contains("volunteering")) {
+            chatName = "volunteering";
+        }
+        return chatName;
+    }
+
+
+    public void saveMessage(Message message) {
         messageRepository.save(message);
     }
 
-    public void deleteMessage(StompMessage message){
+    public void setSeenTrue(Long fromId, Long toId) {
+        Set<Message> msgs = messageRepository.findBySeenAndFromIdAndToId(false, fromId, toId);
+        Set<Message> updated = msgs.stream().peek(
+                m -> m.setSeen(true)
+        ).collect(Collectors.toSet());
+        messageRepository.saveAll(updated);
+    }
+
+
+    public void deleteMessage(Message message) {
         messageRepository.delete(message);
     }
-    public void deleteMessageById(Long id){
+
+    public void deleteMessageById(Long id) {
         messageRepository.deleteMessageById(id);
     }
+
     @Transactional(readOnly = true)
-    public List<StompMessage>  getMessageByToId(Long id){
-        return  messageRepository.getStompMessageByToId(id);
+    public List<Message> getMessageByToId(Long id) {
+        return messageRepository.getMessageByToId(id);
     }
+
     @Transactional(readOnly = true)
-    public List<StompMessage>  getMessageByFromId(Long id){
-        return  messageRepository.getStompMessageByFromId(id);
+    public List<Message> getMessageByFromId(Long id) {
+        return messageRepository.getMessageByFromId(id);
     }
+
     @Transactional(readOnly = true)
-    public List<StompMessage>  getMessageByTypeAndToId(String type, Long id){
-        return  messageRepository.getStompMessageByTypeAndToId(type, id);
+    public List<Message> getMessageByTypeAndToId(String type, Long id) {
+        return messageRepository.getMessageByTypeAndToId(type, id);
     }
+
     @Transactional(readOnly = true)
-    public List<StompMessage>  getMessageByTypeAndFromId(String type, Long id){
-        System.out.println("in service.getMessageByTypeAndFromId");
-        System.out.println("type: "+ type+ ", id: "+ id);
-        return messageRepository.getStompMessageByTypeAndFromId(type, id);
+    public List<Message> getNotificationByTypeAndFromId(String type, Long id) {
+        return messageRepository.getMessageByTypeAndFromId(type, id);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Message> getMessageByChatAndFromId(String chat, Long id) {
+        return messageRepository.getMessageByChatAndFromId(chat, id);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Message> getUnseenMessageByChatAndToId(String chat, Long id) {
+        return messageRepository.getUnseenMessageByChatAndSeenAndToId(chat, false, id);
     }
 
 
     @Transactional(readOnly = true)
-    public List<StompMessage>  getMessageByTypeAndFromIdAndToId(String type, Long fromId, Long toId){
-        System.out.println("in service.getMessageByTypeAndFromIdAndToId");
-        System.out.println("type: "+ type+ ",  fromId: " + fromId + ", toId: " + toId);
+    public List<Message> getMessageByTypeAndFromIdAndToId(String type, Long fromId, Long toId) {
         return messageRepository.getMessageByTypeAndFromIdAndToId(type, fromId, toId);
     }
 
 
-    public void  deleteMessageByTypeAndFromIdAndToId(String type, Long fromId, Long toId){
-        System.out.println("in service.deleteMessageByTypeAndFromIdAndToId");
-        System.out.println("type: "+ type+ ",  fromId: " + fromId + ", toId: " + toId);
-         messageRepository.deleteMessageByTypeAndFromIdAndToId(type, fromId, toId);
+    @Transactional(readOnly = true)
+    public List<Message> getMessageByChatAndFromIdAndToId(String chat, Long fromId, Long toId) {
+        return messageRepository.getMessageByChatAndFromIdAndToId(chat, fromId, toId);
     }
 
 
+    public void deleteAllCorrespondenceBetweenFromIdAndToId(String chatStatus, Long fromId, Long toId) {
+        String chat = getChatNameFromChatStatus(chatStatus);
+        messageRepository.deleteAllMessageByChatAndFromIdAndToId(chat, fromId, toId);
+        messageRepository.deleteAllMessageByChatAndFromIdAndToId(chat, toId, fromId);
+    }
 
 
-    @Transactional(readOnly = true)
-    public List<StompMessage> getMessageByType(String type){
-        System.out.println("in service.getMessageByType");
-        System.out.println("type: "+ type);
-        return messageRepository.findStompMessageByType(type);
+    public void deleteMessageByTypeAndFromIdAndToId(String type, Long fromId, Long toId) {
+        messageRepository.deleteMessageByTypeAndFromIdAndToId(type, fromId, toId);
     }
 
 
     @Transactional(readOnly = true)
-    public List<StompMessage> getAllMessages(){
-        System.out.println("in service.getAllMessages");
+    public List<Message> getMessageByType(String type) {
+        return messageRepository.findMessageByType(type);
+    }
+
+
+    @Transactional(readOnly = true)
+    public List<Message> getAllMessages() {
         return messageRepository.findAll();
     }
 }

@@ -18,7 +18,6 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 
@@ -65,18 +64,15 @@ public class UserController {
         try {
             User user = userFacade.convertToEntity(userRqDto);
             userService.save(user);
-//            log.info("in createUser: new user (user.name: " + userRqDto.getName() + " " + userRqDto.getLastName() + " created");
             return findUserByEmail(user.getEmail());
         } catch (Exception e) {
-//            log.error("error creating a new user: " + userRqDto.getName() + " " + userRqDto.getLastName());
-            throw new CreatingEntityFailed("error creating a new user");
+            throw new CreatingEntityFailed("new user in UserController::createUser");
         }
     }
 
     @PreAuthorize("hasAuthority('read')")
     @GetMapping("/users/profile")
     public UserRsDto getUserProfile(Principal principal) {
-//        System.out.println("in @GetMapping(/users/profile), \n UserRsDto getUserProfile(Principal principal), \n principal: "+principal);
         return userFacade.getUserByEmail(principal.getName());
     }
 
@@ -86,7 +82,7 @@ public class UserController {
     public UserRsDto findUserByEmail(
             @RequestParam("email") String email) {
         User user = userService.getUserByEmail(email)
-                .orElseThrow(() -> new NoDataFoundException("no User found by this email")); //https://habr.com/ru/post/346782/
+                .orElseThrow(() -> new NoDataFoundException("user in UserController::findUserByEmail" +email)); //https://habr.com/ru/post/346782/
         return userFacade.convertToDto(user);
     }
 
@@ -99,13 +95,11 @@ public class UserController {
 
     @PostMapping("/users/allByIds")
     public List<UserRsDto> findAllById(@RequestBody List<Long> ids) {
-//        System.out.println("in /allByIds.  ids list is: " + ids);
         if (ids.isEmpty()) {
             log.warn("in /allByIds, argument ids is empty - returning empty List<UserRsDto>");
             return new ArrayList<>();
         }
         List<User> users = userService.findAllByIds(ids);
-//        System.out.println("in /allByIds, users: "+users);
         List<UserAgeRsDto> listUserAgeRsDtos = userService.getUsersAges(ids);
         List<UserRsDto> listusers = users.stream().map(userFacade::convertToDto).collect(Collectors.toList());
 

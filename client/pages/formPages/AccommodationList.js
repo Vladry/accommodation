@@ -20,7 +20,7 @@ const AccommodationList = () => {
     const handleSubmit = async (values) => {
         values = {...values, userId: user.id};
 
-        await api.post(urls.accommodProfile, values
+        await api.post(urls.accommodationProfile, values
         ).then(() => {
         }).catch(err => {
             console.log(err)

@@ -4,21 +4,22 @@ import {CssBaseline} from "@mui/material";
 import {createTheme, ThemeProvider} from "@mui/material/styles"
 import {Provider, useDispatch, useSelector} from "react-redux";
 import {SessionProvider} from "next-auth/react";
-import {store, wrapper} from "../store/store";
+import {store, wrapper} from "@/store/store.js";
 import createEmotionCache from "../utils/createEmotionCache";
 import {CacheProvider} from "@emotion/react";
 import RefreshTokenHandler from "../components/RefreshTokenHandler";
-import {Context} from '../context';
+import {Context} from '@/root/context.js';
 import myTheme from "../utils/myTheme";
 import sel from '@/store/user/selectors';
 import {Client} from '@stomp/stompjs';
-import types from "@/store/user/types";
-import {StylesProvider} from "@material-ui/core/styles" // <-- import this component, and wrap your App.
+import userTypes from "@/store/user/types";
+import datingTypes from "@/store/datingChats/types";
 import './_app.css';
-import destinations from '../../src/main/resources/destinations.json'
+import destinations from '../../src/main/resources/destinations.json';
+import {StylesProvider} from "@material-ui/core/styles"
+import {ACTIONS, ACTIONS_Cust} from "@/store/datingChats";
 
-const SOCKET_URL = "ws://localhost:8000/ws";
-
+let SOCKET_URL = process.env.SOCKET_URL ?  process.env.SOCKET_URL : "ws://localhost:8000/ws";// TODO порешать с .env
 const theme = createTheme(myTheme);
 const clientSideEmotionCache = createEmotionCache();
 
@@ -49,17 +50,28 @@ function MyApp({Component, pageProps, emotionCache = clientSideEmotionCache}) {
             console.log("datingLikeNotificationCB->")
             if (json.body) {
                 const message = JSON.parse(json.body);
-                    alert(message.value)
-                    dispatch({type: types.SET_DATING_NOTIFICATIONS, payload: message});
+                // console.log(message);
+                if (message.subject.includes(`${destinations.likedSubject}`)) {
+                    // console.log("datingTypes.ADD_DATING_LIKED_NOTIFICATIONS");
+                    dispatch({type: datingTypes.ADD_DATING_LIKED_NOTIFICATIONS, payload: message});
+                } else if (message.subject.includes(`${destinations.unlikedSubject}`)) {
+                    // console.log("datingTypes.ADD_DATING_UNLIKED_NOTIFICATIONS");
+                    dispatch({type: datingTypes.ADD_DATING_UNLIKED_NOTIFICATIONS, payload: message});
+                }
+
+
             }
         }
 
         const datingPrivateMessageCB = (json) => {
-            console.log("datingPrivateMessageCB->")
+            console.log("datingPrivateMessageCB-> , userId: ", user.id)
             if (json.body) {
                 const message = JSON.parse(json.body);
-                    alert(message.value)
-                    dispatch({type: types.SET_DATING_MESSAGES, payload: message});
+                // console.log(message.value);
+                dispatch(ACTIONS_Cust.getUnseenMessages(user.id));
+                const counterparts = {fromId: message.fromId, toId: message.toId};
+                dispatch(ACTIONS_Cust.getReceivedMessages(counterparts));
+                dispatch(ACTIONS.addSendMessageNotification({notification: message, userId: user.id}));
             }
         }
 
@@ -71,14 +83,15 @@ function MyApp({Component, pageProps, emotionCache = clientSideEmotionCache}) {
         currentSubscriptions.forEach(destination => {
             // console.log("subscribed to: ", destination);
             let cb = {};
-            switch (destination){
+            switch (destination) {
                 case `${destinations.likesNotifications}${user.id}`:
-                    cb= datingLikeNotificationCB;
+                    cb = datingLikeNotificationCB;
                     break;
-                    case `${destinations.privateMessages}${user.id}`:
-                    cb= datingPrivateMessageCB;
-                        break;
+                case `${destinations.datingMessageSentNotifications}${user.id}`:
+                    cb = datingPrivateMessageCB;
+                    break;
                 default:
+                    // console.log("case: default")
             }
 
             subscribeMe(destination, cb);
@@ -107,14 +120,14 @@ function MyApp({Component, pageProps, emotionCache = clientSideEmotionCache}) {
 //см. пример:  https://github.com/stomp-js/samples/blob/master/stompjs/chat/chat.html
         });
         client.activate();
-        dispatch({type: types.SET_STOMP_CLIENT, payload: client});
+        dispatch({type: userTypes.SET_STOMP_CLIENT, payload: client});
         // console.log("stompClient: ", stompClient)
     }, [])
 
     useEffect(() => {
         if (!isUserAppliedHisSubscriptions && subscriptions.length > 0) {
             setSubscriptions(stompClient, subscriptions);
-            dispatch({type: types.SET_USER_SUBSCRIPTIONS_APPLIED, payload: null});
+            dispatch({type: userTypes.SET_USER_SUBSCRIPTIONS_APPLIED, payload: null});
         }
     }, [subscriptions, user])
 

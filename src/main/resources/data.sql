@@ -3,7 +3,7 @@ SET
 
 INSERT INTO users (name, last_name, email, password, role, hide_social_data, dating_participation,
                    dating_last_visit_date, avatar, location)
-VALUES ('Eva', 'Brown', 'EvaBrown@ukr.net', 'Eva', 'USER', true, true, '2021-10-03T09:59:29.503359+03:00',
+VALUES ('Larisa', 'Goliychuk', 'LarisaGoliychuk@ukr.net', 'Larisa', 'USER', true, true, '2021-10-03T09:59:29.503359+03:00',
         'https://res.cloudinary.com/vladry/image/upload/v1628868305/avatars/Ira_yvvlml.png', 'KrivoyRog, UA'),
        ('Serge', 'Goulida', 'Serge@ukr.net', 'pasSerge', 'USER', true, true, '2020-06-03T09:59:29.503359+03:00',
         'https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vocal-studio-bruce_fzmdlp.jpg',
@@ -44,6 +44,28 @@ VALUES ('Eva', 'Brown', 'EvaBrown@ukr.net', 'Eva', 'USER', true, true, '2021-10-
        ('Efimovna', 'Nedavalka', 'Efimovna@ukr.net', 'pasEfimovna', 'USER', false, false,
         '2022-04-03T09:29:29.503359+03:00',
         'https://res.cloudinary.com/vladry/image/upload/v1628498610/vlad_shrunk/cat1_ygmygo.jpg', 'Boryspil, UA');
+
+INSERT INTO MESSAGES (from_Id, to_Id, chat, seen, value, created_Date, last_Modified_Date)
+VALUES
+    (1, 19, 'dating', false, 'Hi, its me Larisa!', '2022-08-01T09:59:29.503359+03:00', null),
+    (19, 1, 'dating', false, 'hi, Larisa!', '2022-09-02T02:19:29.503359+03:00', null),
+    (1, 19, 'dating', false, 'how are you?',  '2022-10-03T09:59:29.503359+03:00', '2022-10-03T20:59:29.503359+03:00'),
+    (19, 1, 'dating', false, 'I am not bad, honey!', '2022-10-04T04:05:29.503359+03:00', null),
+    (1, 19, 'dating', false, 'any plans for the weekends?', '2022-11-03T09:59:29.503359+03:00', '2022-11-04T09:59:29.503359+03:00'),
+    (19, 1, 'dating', false, 'Not really!', '2022-11-04T20:45:29.503359+03:00', null),
+
+    (2, 19, 'dating', false, 'Hi, its Serge, how are you?', null, null),
+    (19, 2, 'dating', false, 'hi, Serge, want a beer?', null, null),
+    (2, 19, 'dating', false, 'Yes, Vlad, but lets also invite Oleg with is', null, null),
+    (3, 19, 'dating', false, 'Hi, its Andrey, are you tired of me?', null, null),
+    (19, 3, 'dating', false, 'No, Andrey, actually I blocked you?', null, null),
+    (3, 19, 'dating', false, 'Why did you block me, Vlad?', null, null),
+    (19, 3, 'dating', false, 'I dont know, Andrey', null, null);
+
+
+
+
+
 
 
 INSERT INTO accommodations (user_id, locations, acc_type, num_of_rooms, num_of_beds,

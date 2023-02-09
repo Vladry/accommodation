@@ -79,7 +79,7 @@ export const newUserFormFields = [
     //     formikRef: "messenger3",
     //     label: "Your nick and name of messenger1/Ваш ник и название мессенджера1",
     //     valueByDefault: "",
-    //     types: "text",
+    //     datingChatsTypes: "text",
     // },
     // {
     //     id: "city",
@@ -87,7 +87,7 @@ export const newUserFormFields = [
     //     formikRef: "city",
     //     label: "City/город",
     //     valueByDefault: "",
-    //     types: "text",
+    //     datingChatsTypes: "text",
     // },
     // {
     //     id: "country",
@@ -95,7 +95,7 @@ export const newUserFormFields = [
     //     formikRef: "country",
     //     label: "Country/страна",
     //     valueByDefault: "",
-    //     types: "text",
+    //     datingChatsTypes: "text",
     // },
     {
         id: "location",

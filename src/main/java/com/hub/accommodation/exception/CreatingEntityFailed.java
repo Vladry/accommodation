@@ -1,7 +1,14 @@
 package com.hub.accommodation.exception;
 
-public class CreatingEntityFailed extends RuntimeException {
-    public CreatingEntityFailed(String message){
-        super(String.format("Error creating an Entity: %s", message));
+import com.hub.accommodation.exception.groups.HandledNotConfidentialException;
+
+public class CreatingEntityFailed extends HandledNotConfidentialException {
+
+    //образец выброса этих ислючений в сервисах:  new CreatingEntityFailed("user in UserController::findUserByEmail" + email));)
+    public CreatingEntityFailed(String entityName) {
+        super(String.format("Error: failed to create %s", entityName));
+    }
+    public CreatingEntityFailed(String entityName, String identifier) {
+        super(String.format("Error: failed to create %s by identifier: %s", entityName, identifier));
     }
 }

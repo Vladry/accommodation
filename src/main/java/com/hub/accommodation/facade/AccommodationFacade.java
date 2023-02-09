@@ -24,7 +24,7 @@ public class AccommodationFacade extends GeneralFacade<
     @PostConstruct
     public void init() {
         Converter<Long, User> ID_TO_USER =
-                mappingContext -> userService.findById(mappingContext.getSource()).orElseThrow(() -> new NoDataFoundException("User not found"));
+                mappingContext -> userService.findById(mappingContext.getSource()).orElseThrow(() -> new NoDataFoundException("AccommodationFacade::init()::userService.findById"));
 
         super.getMm().typeMap(AccommodationRqDto.class, Accommodation.class)
                 .addMapping(AccommodationRqDto::getAccType, Accommodation::setAccommodationType)

@@ -23,12 +23,9 @@ function NavLink({ href, exact, children, ...props }) {
     }
 
     return (
-        <Link href={href}>
+        <Link  href={href}>
             {/*в 13м next.js убрали сылки <a></a> см. https://nextjs.org/docs/advanced-features/codemods#new-link*/}
-            {/*поэтому я <a> заменил на <Button> но я не уверен, что правильно отобразятся пропсы и чилдрены:*/}
-            <Button {...props}>
-                {children}
-            </Button>
+            {children}
         </Link>
     );
 }

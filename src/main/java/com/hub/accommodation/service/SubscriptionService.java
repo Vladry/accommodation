@@ -1,19 +1,13 @@
 package com.hub.accommodation.service;
 
 import com.hub.accommodation.domain.user.Subscriptions;
-import com.hub.accommodation.domain.user.UserDatingProfile;
-import com.hub.accommodation.dto.response.UserDatingProfileRsDto;
-import com.hub.accommodation.facade.UserDatingProfileFacade;
+import com.hub.accommodation.exception.NoDataFoundException;
+import com.hub.accommodation.repository.SubscriptionDao;
 import com.hub.accommodation.repository.SubscriptionRepository;
-import com.hub.accommodation.repository.UdpRepository2;
-import com.hub.accommodation.repository.UserDatingProfileRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,9 +15,15 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class SubscriptionService {
     private final SubscriptionRepository subscriptionRepository;
+    private final SubscriptionDao subscriptionDao;
 
-    public Optional<Subscriptions> findSubscriptionsByUserId(Long userId) {
-        return subscriptionRepository.findSubscriptionsByUserId(userId);
+    public Subscriptions getSubscriptions(Long userId) throws RuntimeException  {
+        try {
+            Optional<Subscriptions> sOpt = subscriptionRepository.findSubscriptionsByUserId(userId);
+            return sOpt.orElseGet(() -> subscriptionDao.getDefaultSubscriptions(userId));
+        } catch (Exception e) {
+            throw new NoDataFoundException("subscriptions in SubscriptionService::getSubscriptions for userId", String.valueOf(userId) );
+        }
     }
 
 

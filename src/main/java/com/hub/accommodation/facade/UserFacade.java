@@ -20,7 +20,7 @@ public class UserFacade extends GeneralFacade<User, UserRqDto, UserRsDto>{
     }
 
     public UserRsDto getUserByEmail(String email) {
-        return convertToDto(userService.getUserByEmail(email).orElseThrow(() -> new NoDataFoundException("User not found")));
+        return convertToDto(userService.getUserByEmail(email).orElseThrow(() -> new NoDataFoundException("convertToDto failed in UserFacade::getUserByEmail-> not found by email: ")));
     }
 
     @Override

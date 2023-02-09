@@ -12,8 +12,20 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 	
 	 @Override
 	 public void configureMessageBroker(MessageBrokerRegistry config) {
-	  config.enableSimpleBroker("/topic", "/queue");
-	  config.setApplicationDestinationPrefixes("/app");
+	  config
+			  .setApplicationDestinationPrefixes("/app")
+			  .enableSimpleBroker("/topic", "/queue");
+
+//подключаем rabbitMq:
+//	  config
+//			  .setApplicationDestinationPrefixes("/app")
+//			  .enableStompBrokerRelay("/topic", "/queue")
+//			  .setSystemLogin("admin")
+//			  .setSystemPasscode("admin")
+//			  .setClientLogin("admin")
+//			  .setClientPasscode("admin")
+//			  .setRelayHost("localhost")
+//			  .setRelayPort(61613);
 	 }
 	 
 	 @Override

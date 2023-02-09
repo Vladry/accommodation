@@ -34,9 +34,9 @@
     "aws-sdk": "^2.1235.0",
     "axios": "^0.26.1",
     "classnames": "^2.3.2",
-    "dotenv": "^16.0.3",
     "formik": "^2.2.9",
     "material-ui-phone-number-2": "^1.2.4",
+    "material-ui-popup-state": "^4.1.0",
     "next": "^13.0.6",
     "next-auth": "^4.3.1",
     "next-redux-wrapper": "^7.0.5",
@@ -57,6 +57,7 @@
     "styled-components": "^5.3.6",
     "swiper": "^8.1.4",
     "uuid": "^9.0.0",
+    "webpack": "^5.75.0",
     "websocket": "^1.0.34",
     "yup": "^0.32.11"
   },

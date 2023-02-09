@@ -40,12 +40,9 @@ public class UserDatingProfileController {
     public UserDatingProfileRsDto saveByUserId(
             @RequestBody String jsonString,
             @RequestHeader("datingServiceParticipation") Boolean datingServiceParticipation) {
-//        System.out.println("in controller.saveByUserId-> RequestBody: "+jsonString);
         JsonToDtoConverter<UserDatingProfileRqDto> converter = new JsonToDtoConverter<>(UserDatingProfileRqDto.class);
         UserDatingProfileRqDto udpRqDto = converter.doConvert(jsonString);
-//        System.out.println("UserDatingProfileRqDto udpRqDto: "+udpRqDto);
         UserDatingProfile udp = userDatingProfileFacade.convertToEntity(udpRqDto);
-//        System.out.println("UserDatingProfile udp to be persisted now: "+udp);
         if (!datingServiceParticipation) {
             userService.setDatingParticipationFlag(udp.getUserId(), true);
         }
@@ -53,23 +50,19 @@ public class UserDatingProfileController {
     }
 
 
-    //  http://localhost:8000/api/v1/datingProfile/visits/19
     @GetMapping("/datingProfile/visits/{id}")
     public void registerVisitToDating(@PathVariable("id") Long id) {
         userDatingProfileService.registerVisitToDating(id);
     }
 
     //    @PreAuthorize("hasAuthority('read')")
-    @JsonView(Views.Public.class)
+    @JsonView(Views.SeenToAll.class)
     @GetMapping("/datingProfile/{id}")
     public UserDatingProfileRsDto findUserDatingProfileById(@PathVariable("id") Long id) {
         if (id == null) {
             return null;
         }
-//        System.out.println("in controller.findUserDatingProfileById-> userId:"+ id);
         Optional<UserDatingProfile> udpOpt = userDatingProfileService.findUserDatingProfileByUserId(id);
-//        System.out.println("controller.findUserDatingProfileById-> udpOpt.get():"+ udpOpt.get());
-//        System.out.println("returning udp: " + udpOpt.map(userDatingProfileFacade::convertToDto).orElse(null));
         return udpOpt.map(userDatingProfileFacade::convertToDto).orElse(null);
     }
 
@@ -78,41 +71,15 @@ public class UserDatingProfileController {
     @PostMapping("/candidatesIds")
     public List<Long> getMatchingDatingCandidatesIds(
             @RequestParam("currentUserId") String currentUserId, @RequestBody UserDatingProfileRqDto udpRqDto) {
-//        System.out.println("getCandidatesIds, param userId: " + currentUserId);
-//        System.out.println("running: UserDatingProfile udp = userDatingProfileFacade.convertToEntity(udpRqDto);");
         UserDatingProfile udp = userDatingProfileFacade.convertToEntity(udpRqDto);
-//        System.out.println("udp: "+ udp);
         if (udp.getMySex() != null) {
             List<UserDatingProfile> candidatesMatchingCriteria = userDatingProfileService.findAllMatchingTheCriteria(udp);
             List<Long> IDsOfSelectedCandidates = candidatesMatchingCriteria.stream().map(UserDatingProfile::getId).collect(Collectors.toList());
-//            System.out.println("IDsOfSelectedCandidates: "+ IDsOfSelectedCandidates);
             return IDsOfSelectedCandidates;
         } else {
-            throw new NoDataFoundException(String.format("NoDataFoundException: userDatingProfile for user %s does not exist", currentUserId));
+            throw new NoDataFoundException("userDatingProfile in UserDatingProfileController::getMatchingDatingCandidatesIds->  for user %s ", currentUserId);
         }
 
     }
-
-
-    //TODO этот метод -аналог метода выше. Служит для случая, когда не передаем udp с фронта, а запрашиваем из БД, увеличивая кол-во запросов
-/* // запускать на:  http://localhost:8000/api/v1/users/1/candidatesIds
- @CrossOrigin(origins = "*")
-    @GetMapping("/candidatesIds/{currentUserId}")
-    public List<Long> getMatchingDatingCandidatesIds(@PathVariable("currentUserId") Long currentUserId) {
-        if (currentUserId == null) {
-            System.out.println("getCandidatesIds argument currentUserId is null: returning null");
-            return null;
-        }
-        Optional<UserDatingProfile> currUdpOpt = userDatingProfileService.findUserDatingProfileByUserId(currentUserId);
-
-        if (currUdpOpt.isPresent()) {
-            List<UserDatingProfile> candidatesMatchingCriteria = userDatingProfileService.findAllMatchingTheCriteria(currUdpOpt.get());
-            List<Long> IDsOfSelectedCandidates = candidatesMatchingCriteria.stream().map(UserDatingProfile::getId).collect(Collectors.toList());
-               return IDsOfSelectedCandidates;
-        } else {
-            throw new NoDataFoundException(String.format("NoDataFoundException: userDatingProfile for user %d does not exist", currentUserId));
-        }
-
-    }*/
 
 }

@@ -1,11 +1,12 @@
-import React from 'react';
-import {datingMenu} from "../../../public/menuConfig";
-import {LocalMenuItem, NavLink_styled} from "../../../utils/typography";
+import React, {useEffect} from 'react';
+import {datingMenu} from "@/root/public/menuConfig";
+import {LocalMenuItem, NavLink_styled} from "@/utils/typography";
 import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
 import MailIcon from "@mui/icons-material/Mail";
 import sel from '@/store/user/selectors';
-import {useSelector} from "react-redux";
+import selDatingChats from '@/store/datingChats/selectors';
+import {useSelector, shallowEqual, useDispatch} from "react-redux";
 import {Divider, Paper} from "@mui/material";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import BookmarksIcon from "@mui/icons-material/Bookmarks";
@@ -16,12 +17,18 @@ import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import classes from './datingMenu.module.scss';
 import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
+import {ACTIONS, ACTIONS_Cust} from "@/store/datingChats";
 
 const DatingMenu = ({disabled}) => {
-    const datingMessages = useSelector(sel.datingMessages);
-    const datingNotifications = useSelector(sel.datingNotifications);
-    const datingMessagesDb = useSelector(sel.datingMessagesDb);
-    const datingNotificationsDb = useSelector(sel.datingNotificationsDb);
+    const user = useSelector(sel.user, shallowEqual);
+    const datingLikedNotifications = useSelector(selDatingChats.datingLikedNotifications, shallowEqual);
+    const unseenReceivedMessages = useSelector(selDatingChats.unseenReceivedMessages, shallowEqual);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (!user) return;
+        dispatch(ACTIONS_Cust.getUnseenMessages(user.id));
+    }, [user]);
 
     return (
         <Paper variant={'elevation'} elevation={8}>
@@ -37,10 +44,12 @@ const DatingMenu = ({disabled}) => {
                     <IconButton
                         size="large" aria-label="show 17 new notifications" color="inherit" sx={{mx: '0', px: '0'}}
                     >
-                        <Badge sx={{position: 'relative', top: '-20px', left: '30px'}}
-                               badgeContent={datingNotificationsDb ? `${datingNotificationsDb.length}` : ''}
-                               color="error">
-                        </Badge><ThumbUpAltIcon className={classes['menu-icons']}/>
+                        {datingLikedNotifications?.length > 0 ?
+                            <Badge sx={{position: 'relative', top: '-20px', left: '30px'}}
+                                   badgeContent={datingLikedNotifications ? `${datingLikedNotifications.length}` : ''}
+                                   color="error">
+                            </Badge> : null}
+                        <ThumbUpAltIcon className={classes['menu-icons']}/>
                     </IconButton>
                     <NavLink_styled
                         href={datingMenu[1].url}>{datingMenu[1].linkName}
@@ -51,9 +60,11 @@ const DatingMenu = ({disabled}) => {
             {!(disabled === datingMenu[2].url)
                 && <LocalMenuItem className={classes['local-menu']}>
                     <IconButton size="large" aria-label="show 4 new mails" color="inherit" sx={{mx: '0', px: '0'}}>
-                        <Badge sx={{position: 'relative', top: '-18px', left: '30px'}}
-                               badgeContent={datingMessagesDb ? `${datingMessagesDb.length}` : ''} color="error">
-                        </Badge>
+                        {unseenReceivedMessages?.length > 0 ?
+                            <Badge sx={{position: 'relative', top: '-18px', left: '30px'}}
+                                   badgeContent={unseenReceivedMessages ? `${unseenReceivedMessages.length}` : ''}
+                                   color="error">
+                            </Badge> : null}
                         <MailIcon className={classes['menu-icons']}/>
                     </IconButton>
                     <NavLink_styled
@@ -106,13 +117,6 @@ const DatingMenu = ({disabled}) => {
                 <HomeIcon className={classes['menu-icons']}/>
                 <NavLink_styled
                     href={datingMenu[8].url}>{datingMenu[8].linkName}
-                </NavLink_styled>
-            </LocalMenuItem>
-
-            <LocalMenuItem className={classes['local-menu']}>
-                <HomeIcon className={classes['menu-icons']}/>
-                <NavLink_styled
-                    href={datingMenu[9].url}>{datingMenu[9].linkName}
                 </NavLink_styled>
             </LocalMenuItem>
 

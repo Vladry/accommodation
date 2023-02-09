@@ -1,6 +1,6 @@
 package com.hub.accommodation;
 
-import com.hub.accommodation.config.KeysPasswordsConfig;
+//import com.hub.accommodation.config.KeysPasswordsConfig;
 import com.hub.accommodation.domain.accommodation.enums.Country;
 import com.hub.accommodation.domain.user.Goals;
 import com.hub.accommodation.domain.user.UserDatingProfile;
@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.core.SpringVersion;
@@ -26,7 +27,6 @@ import java.util.List;
 @Slf4j
 @SpringBootApplication
 @EnableTransactionManagement
-@EnableConfigurationProperties(KeysPasswordsConfig.class)
 public class AccommodationApplication implements ApplicationRunner {
 
 /*    public static void cls() {
@@ -81,7 +81,7 @@ public class AccommodationApplication implements ApplicationRunner {
 /*
         ObjectMapper mapper = new ObjectMapper();
         UserDatingProfileRqDto udpRqDto = mapper.readValue(
-                new File("src/main/resources/test.json"), UserDatingProfileRqDto.class);
+                new File("src/main/resources/urls.json"), urls.class);
         System.out.println("converted from JSON udpRsDto: " + udpRqDto);
 */
 

@@ -1,21 +1,23 @@
 import React, {useEffect, useRef, useState} from 'react';
-import DatingMenuWrapper from "../../components/dating_components/datingMenuItems/DatingMenuWrapper";
 import {datingMenu} from "../../public/menuConfig";
-import {Box, useMediaQuery} from '@mui/material';
-import DatingUserList from "../../components/dating_components/DatingUserList";
+import {Box} from '@mui/material';
+import DatingUserList from "@/components/dating_components/DatingUserList";
 import api from "../../lib/API";
 import {useDispatch, useSelector} from "react-redux";
 import sel from "@/store/user/selectors";
+import selDatingChats from "@/store/datingChats/selectors";
 import urls from '../../../src/main/resources/urls.json';
-import My_Drawer from "../../components/appbar/My_Drawer";
-import ToggleMenuIconButton from "../../components/ToggleMenuIconButton";
-import BackButton from "../../components/BackButton";
-import {NavLink_styled} from "../../utils/typography";
-import types from "@/store/user/types";
-import classes from "../../components/dating_components/datingMenuItems/dating.module.css";
+import BackButton from "@/components/BackButton";
+import {NavLink_styled} from "@/utils/typography";
+import datingChatsTypes from "@/store/datingChats/types";
+import classes from "@/components/dating_components/datingMenuItems/dating.module.css";
 import {useRouter} from "next/router";
 import styled from "@emotion/styled";
-import globalVariables from '../../globalVariables.json';
+import globalVariables from '@/root/globalVariables.json';
+import DatingMenuDrawer from "@/components/dating_components/DatingMenuDrawer";
+import destinations from '../../../src/main/resources/destinations.json';
+import datingTypes from "@/store/datingChats/types";
+import {ACTIONS} from "@/store/datingChats";
 
 const Index = () => {
 
@@ -29,20 +31,19 @@ const Index = () => {
         const [candidates, setCandidates] = useState(null);
         const candidatesIds = useRef({});
         let resUsers;
-        const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-        const toggleDrawer = () => setIsDrawerOpen((isDrawerOpen) => !isDrawerOpen);
-        const isSmallScreen = useMediaQuery('(max-width: 600px)');
+
         const dispatch = useDispatch();
         const debounce = useRef(false);
         const datingServiceParticipation = useSelector(sel.datingServiceParticipation);
-        const datingNotifications = useSelector(sel.datingNotifications);
-        const datingMessages = useSelector(sel.datingMessages);
-    const datingMessagesDb = useSelector(sel.datingMessagesDb);
-    const datingNotificationsDb = useSelector(sel.datingNotificationsDb);
+        const datingNotifications = useSelector(selDatingChats.datingNotifications);
+        const receivedMessages = useSelector(selDatingChats.receivedMessages);
+        const datingLikedNotifications = useSelector(selDatingChats.datingLikedNotifications);
+        const datingMessages = useSelector(selDatingChats.datingMessages);
         const router = useRouter();
         const datingGuestPeriodMs = globalVariables.datingGuestPeriodMs;
         const timersInit = {datingRegistrationChecker: null}
         const timers = useRef(timersInit);
+
 
         const checkDatingRegistration = () => {
             console.log("datingRegistrationChecker->");
@@ -61,7 +62,7 @@ const Index = () => {
         useEffect(() => {
             if (!datingServiceParticipation && !timers.current['datingRegistrationChecker']) {
                 timers.current['datingRegistrationChecker'] = setTimeout(() => {
-                    checkDatingRegistration();
+                    // checkDatingRegistration(); //TODO раскомментировать для проверки регистрации
                 }, datingGuestPeriodMs);
             } else if (datingServiceParticipation && timers.current['datingRegistrationChecker']) {
                 clearTimeout(timers.current['datingRegistrationChecker']);
@@ -70,33 +71,34 @@ const Index = () => {
         }, [datingServiceParticipation]);
 
 
-
-    useEffect(() => {
-        console.log("in useEffect, [datingNotifications]")
-        api.get(`${urls.messagesToId}?type=DATING_NOTIFICATION&id=${19}`).then(data => {
-            if (data && data[0]) {
-                dispatch({type: types.SET_DATING_NOTIFICATIONS_DB, payload: data});
-            }
-
-        }).catch((e) => {
-            console.log("ошибка при получении уведомлений");
-        });
-    }, [datingNotifications])
-
-
-    useEffect(() => {
-            api.get(`${urls.messagesToId}?type=PRIVATE_MESSAGE&id=${19}`).then(data => {
+        useEffect(() => {
+            if (!user?.id) return;
+            console.log("in useEffect, [datingNotifications]")
+            api.get(`${urls.messagesToId}?type=DATING_NOTIFICATION&id=${user.id}`).then(data => {
                 if (data && data[0]) {
-                    dispatch({type: types.SET_DATING_MESSAGES_DB, payload: data});
+                    // dispatch({type: datingChatsTypes.SET_DATING_NOTIFICATIONS, payload: data});
                 }
 
             }).catch((e) => {
-                console.log("ошибка при получении сообщений");
+                console.log("ошибка при получении уведомлений", e.message);
             });
+        }, [datingNotifications])
 
-        }, [datingMessages])
 
+        useEffect(() => {
+            if (!user?.id) return;
+            // console.log("in useEffect, checking [LIKED] from DB");
+            api.get(`${urls.messagesToId}?type=${destinations.likesNotifType}&id=${user.id}`).then(data => {
+                if (data && data[0]) {
+                    let newNotifications = [...data];
+                    newNotifications = newNotifications.filter(notif => notif.seen === false);
+                    dispatch({type: datingTypes.SET_DATING_LIKED_NOTIFICATIONS, payload: newNotifications});
+                }
 
+            }).catch((e) => {
+                console.log("ошибка при получении уведомлений", e.message);
+            });
+        }, [user])
 
 
         async function getCandidatesIds() {// получим ids кандидатов, подходящих под критерии userDatingProfile:
@@ -105,8 +107,6 @@ const Index = () => {
 //TODO возможно userDatingProfile не понадобится алгоритму поиска в составе aggregatedProfile
 //                 console.log("getCandidatesIds()->");
                 const getIds = await api.post(`${urls.candidatesIds}?currentUserId=${user.id}`, aggregatedProfile);
-//ниже: доп. get-версия (вместо api.post), когда udp на бЭк не передается с фронта, а отдельно фЭтчуется из бЭка доп.запросом из БД:
-                // const getIds = await api.get(`${urls.candidatesIds}/${user.id}`);
                 candidatesIds.current["ids"] = await getIds;
                 // console.log(`ids successfully fetched: `, candidatesIds.current["ids"]);
                 if (candidatesIds.current["ids"]) {
@@ -145,7 +145,8 @@ const Index = () => {
 
         useEffect(() => {
             if (user && !loadingMatchingCandidatesIds) {
-                getCandidatesIds().then(()=>{});
+                getCandidatesIds().then(() => {
+                });
             }
         }, [userDatingProfile, datingSearchCriteriaProfile])
 
@@ -157,23 +158,9 @@ const Index = () => {
 
         return (
             <Box sx={{display: 'flex'}}>
-                <Box>
-                    {isSmallScreen &&
-                        <My_Drawer
-                            isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer}>
-                            <DatingMenuWrapper disabled={datingMenu[0].url}>
-                                {datingMenu[0].linkName}
-                            </DatingMenuWrapper>
-                        </My_Drawer>}
-                    {isSmallScreen && <Box sx={{position: 'absolute', top: '1px', left: '15px'}}>
-                        <ToggleMenuIconButton
-                            color={'#333A9D'} toggleDrawer={toggleDrawer}/></Box>}
 
-
-                    {!isSmallScreen && <DatingMenuWrapper disabled={datingMenu[0].url}>
-                        {datingMenu[0].linkName}
-                    </DatingMenuWrapper>}
-                </Box>
+                <DatingMenuDrawer hideThreshold={600}
+                                  menuIndex={0}/> {/*menuIndex - это порядковый номер  массива datingMenu[] файле menuConfig.js*/}
 
 
                 <Box>

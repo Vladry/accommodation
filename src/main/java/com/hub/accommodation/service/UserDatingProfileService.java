@@ -38,27 +38,9 @@ public class UserDatingProfileService implements ServiceInterface<UserDatingProf
         if (userId == null) {
             return Optional.empty();
         }
-//        System.out.println("in service.findUserDatingProfileByUserId->  userId: " + userId);
         return userDatingProfileRepository.findUserDatingProfileByUserId(userId);
-
-/*        EntityManager em = entityManagerFactory.createEntityManager();
-        UserDatingProfile udp;
-        try {
-            Query q = em.createQuery("select udp from UserDatingProfile udp where udp.userId = :userId")
-                    .setParameter("userId", userId);
-            udp = (UserDatingProfile) q.getSingleResult();
-            System.out.println("udp: " + udp);
-            em.close();
-            return Optional.ofNullable(udp);
-        } catch (Exception e) {
-            if (em != null) {
-                em.close();
-            }
-            System.out.println("Exception in service.findUserDatingProfileByUserId(Long userId) Or userDatingProfile not found");
-            return Optional.empty();
-        }*/
-
     }
+
     @Override
     public List<UserDatingProfile> findAll() {
         return null;
@@ -86,41 +68,9 @@ public class UserDatingProfileService implements ServiceInterface<UserDatingProf
 
     /***SAVE METHODS***/
     public UserDatingProfileRsDto saveOrUpdate(UserDatingProfile entity) {
-//        System.out.println("in userDatingProfileService.saveOnly ->");
         return userDatingProfileFacade.convertToDto(udpRepository2.saveCustomised(entity));
     }
-    /*    // старый метод сохранения, с некорректным использованием CrudRepo методом save:
-        public UserDatingProfileRsDto saveByUserId(UserDatingProfileRqDto udpRqDto)
-    {
-            UserDatingProfile newUserDatingProfile = userDatingProfileFacade.convertToEntity(udpRqDto);
-            Optional<UserDatingProfile> oldProfileByIdOpt = findUserDatingProfileByUserId(newUserDatingProfile.getUserId());
-            Long entityId;
-            if (oldProfileByIdOpt.isPresent()) {
-                entityId = oldProfileByIdOpt.get().getId();
-                newUserDatingProfile.setId(entityId);
-                try {
-                    userDatingProfileRepository.save(newUserDatingProfile);
-                    Optional<UserDatingProfile> controlOpt = userDatingProfileRepository.findById(entityId);
-                    if (controlOpt.isPresent()) {
-                        return userDatingProfileFacade.convertToDto(newUserDatingProfile);
-                    } else {
-                        return null;
-                    }
-                } catch (Exception e) {
-                    System.out.println("Exception in saveByUserId-> section 1(finding old entity)");
-                    return null;
-                }
-            } else {
-                try {
-                    userDatingProfileRepository.save(newUserDatingProfile);
-                    Optional<UserDatingProfile> controlOpt = findUserDatingProfileByUserId(newUserDatingProfile.getUserId());
-                    return controlOpt.map(userDatingProfileFacade::convertToDto).orElse(null);
-                } catch (Exception e) {
-                    System.out.println("Exception in saveByUserId-> section 2 (saving new entity and re-getting it from DB");
-                    return null;
-                }
-            }
-        }*/
+
     @Override
     public UserDatingProfile save(UserDatingProfile entity) {
         return userDatingProfileRepository.save(entity);

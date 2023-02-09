@@ -44,8 +44,7 @@ public abstract class GeneralService<E extends BaseEntity> implements ServiceInt
   public void deleteById(Long id) {
     Optional<E> entityOpt = repo.findById(id);
     if (entityOpt.isEmpty()) {
-      String msg = String.format("Entity with id %d was not found.", id);
-      throw new NoDataFoundException(msg);
+      throw new NoDataFoundException("entityOpt is empty in GeneralService::deleteById for id", String.valueOf(id));
     }
 
     delete(entityOpt.get());

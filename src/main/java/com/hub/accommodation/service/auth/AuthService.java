@@ -59,7 +59,7 @@ public class AuthService {
                     t.setIsUsed(true);
                     return refreshTokenRepository.save(t);
                 })
-                .orElseThrow(() -> new NoDataFoundException("refreshToken", id));
+                .orElseThrow(() -> new NoDataFoundException("refreshToken in AuthService::markUsed"));
     }
 
     public Map<Object, Object> createTokens(User o) {
@@ -79,7 +79,7 @@ public class AuthService {
     }
 
     public Map<Object, Object> authenticate(String email, String password) throws NoDataFoundException {
-        User user = userRepository.findUserByEmail(email).orElseThrow(() -> new NoDataFoundException("user doesn't exists"));
+        User user = userRepository.findUserByEmail(email).orElseThrow(() -> new NoDataFoundException("user in AuthService::authenticate"));
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
         return createTokens(user);
     }
@@ -90,7 +90,7 @@ public class AuthService {
         User newUser = userFacade.convertToEntity(userRqDto);
         String email = newUser.getEmail();
         if (userRepository.findUserByEmail(email).isPresent()) {
-            throw new UserAlreadyExistException(email);
+            throw new UserAlreadyExistException("user AuthService::register" , email);
         } else {
             userRepository.save(newUser);
             return authenticate(newUser.getEmail(), originalPassword); //сюда вернулся  Map<o,o> tokens -токенов
@@ -106,7 +106,7 @@ public class AuthService {
             throw new JwtAuthenticationException("refreshToken is expired", HttpStatus.UNAUTHORIZED);
         } else {
             markUsed(refreshTokenId);
-            User user = userRepository.findById(rt.getUser().getId()).orElseThrow(() -> new NoDataFoundException("User doesn't exists"));
+            User user = userRepository.findById(rt.getUser().getId()).orElseThrow(() -> new NoDataFoundException("user = userRepository.findById  in AuthService::refresh"));
             return createTokens(user);
         }
     }

@@ -41,7 +41,7 @@ public class AccommodationController {
     //fixme
     public void update(Accommodation accommodation) {
         Accommodation accInDb = accommodMainService.findById(accommodation.getId())
-                .orElseThrow(() -> new NoDataFoundException("object not found")); //https://habr.com/ru/post/346782/
+                .orElseThrow(() -> new NoDataFoundException("accommodation in AccommodationController::update", String.valueOf(accommodation.getId()))); //https://habr.com/ru/post/346782/
         accInDb = accommodation;
         accommodMainService.save(accInDb);
     }

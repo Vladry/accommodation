@@ -6,7 +6,7 @@ import types from "@/store/user/types";
 import {useDispatch, useSelector} from "react-redux";
 import sel from "@/store/user/selectors";
 import useAuth from "../../../hooks/useAuth";
-import {Context} from "../../../context";
+import {Context} from "@/root/context.js";
 import {accommodationFormFields} from "../accommodation_form/accommodationFormFields";
 
 
@@ -27,7 +27,7 @@ const TenantForm = ({handleSubmit}) => {
             if (!user) return;
             const tenantUserProfileURL = `/tenants/${user.id}`;
             const callback = () => setIsRenderFormikFormAllowed(true);
-            !accommodationUserProfiles && fetchData(tenantUserProfileURL, types.GET_TENANT_USER_PROFILE, types.SET_TENANT_USER_PROFILE_SUCCESS, types.SET_TENANT_USER_PROFILE_FAIL, callback, dispatch);
+            !accommodationUserProfiles && fetchData(tenantUserProfileURL, datingChatsTypes.GET_TENANT_USER_PROFILE, datingChatsTypes.SET_TENANT_USER_PROFILE_SUCCESS, datingChatsTypes.SET_TENANT_USER_PROFILE_FAIL, callback, dispatch);
         }, [user]
     );
 */

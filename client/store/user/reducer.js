@@ -36,42 +36,29 @@ const initialState = {
     isUserAppliedHisSubscriptions: false,
     stompClient: null,
 
-    datingMessages: [],
-    datingNotifications: [],
 
-    datingMessagesDb: [],
-    datingNotificationsDb: [],
 }
 
-const reducer = (state = initialState, action) => {
-    switch (action.type) {
+const reducer = (state = initialState, {type, payload}) => {
+    switch (type) {
 
         case types.SET_TRUE_DATING_SERVICE_PARTICIPATION:
             const updatedUser = {...state.user};
             updatedUser.datingServiceParticipation = true;
             return {...state, user: updatedUser};
 
-        case types.SET_DATING_MESSAGES:
-            return {...state, datingMessages: action.payload};
-
-        case types.SET_DATING_NOTIFICATIONS:
-            return {...state, datingNotifications: action.payload};
-
-        case types.SET_DATING_MESSAGES_DB:
-            return {...state, datingMessagesDb: action.payload};
-
-        case types.SET_DATING_NOTIFICATIONS_DB:
-            return {...state, datingNotificationsDb: action.payload};
 
         case types.SET_STOMP_CLIENT:
-            return {...state, stompClient: action.payload}
+            return {...state, stompClient: payload}
 
         case types.SET_USER_SUBSCRIPTIONS_APPLIED:
+            // console.log("in reducer-> SET_USER_SUBSCRIPTIONS_APPLIED");
             return {...state, isUserAppliedHisSubscriptions: true}
 
         case types.SET_SUBSCRIPTIONS_SUCCESS:
+            console.log("in reducer-> SET_SUBSCRIPTIONS_SUCCESS,  payload: ", payload);
             return {
-                ...state, subscriptions: action.payload.subscriptions, loadingSubscriptions: false
+                ...state, subscriptions: payload.subscriptions, loadingSubscriptions: false
             }
         case types.SET_SUBSCRIPTIONS_FAIL:
             return {
@@ -83,17 +70,17 @@ const reducer = (state = initialState, action) => {
             }
 
         case types.FETCHING_PHOTOS:
-            return {...state, isPhotosFetching: action.payload}
+            return {...state, isPhotosFetching: payload}
 
         case types.SHELF_REVIEWED_USER_DATA:
-            return {...state, reviewedUser: action.payload}
+            return {...state, reviewedUser: payload}
 
         case types.GET_TENANT_USER_PROFILE:
             return {...state, loadingTenantUserProfile: true}
         case types.SET_TENANT_USER_PROFILE_SUCCESS:
             return {
                 ...state,
-                tenantUserProfile: action.payload,
+                tenantUserProfile: payload,
                 loadingTenantUserProfile: false,
                 isCurrUserHasTenantProfile: true
             }
@@ -111,7 +98,7 @@ const reducer = (state = initialState, action) => {
         case types.SET_ACCOMMODATION_USER_PROFILE_SUCCESS:
             return {
                 ...state,
-                accommodationUserProfiles: action.payload,
+                accommodationUserProfiles: payload,
                 loadingAccommodationUserProfile: false,
                 isCurrUserHasAccommodationProfile: true
             }
@@ -132,7 +119,7 @@ const reducer = (state = initialState, action) => {
         case types.SET_USER_SUCCESS:
             return {
                 ...state,
-                user: action.payload,
+                user: payload,
                 loading: false
             }
         case types.SET_USER_FAILURE:
@@ -145,10 +132,10 @@ const reducer = (state = initialState, action) => {
         case types.GET_USER_DATING_PROFILE:
             return {...state, loadingUserDatingProfile: true}
         case types.SET_USER_DATING_PROFILE_SUCCESS:
-            // console.log("userDatingProfile from DB: ",action.payload);
+            // console.log("in reducer-> userDatingProfile from DB: ", payload);
             return {
                 ...state,
-                userDatingProfile: action.payload,
+                userDatingProfile: payload,
                 isCurrUserHasDatingProfile: true,
                 loadingUserDatingProfile: false,
             }
@@ -164,9 +151,10 @@ const reducer = (state = initialState, action) => {
             return {...state, loadingDatingSearchCriteriaProfile: true}
 
         case types.SET_USER_DATING_SEARCH_CRITERIA_PROFILE_SUCCESS:
+            // console.log("in reducer-> searchCriteria: ", payload)
             return {
                 ...state,
-                datingSearchCriteriaProfile: action.payload,
+                datingSearchCriteriaProfile: payload,
                 isDatingSearchCriteriaProfile: true,
                 loadingDatingSearchCriteriaProfile: false,
             }
@@ -179,7 +167,7 @@ const reducer = (state = initialState, action) => {
         case types.GET_CANDIDATE_DATING_PROFILE:
             return {...state, loadingCandidateDatingProfile: true}
         case types.SET_CANDIDATE_DATING_PROFILE_SUCCESS:
-            return {...state, candidateDatingProfile: action.payload, loadingCandidateDatingProfile: false}
+            return {...state, candidateDatingProfile: payload, loadingCandidateDatingProfile: false}
         case types.SET_CANDIDATE_DATING_PROFILE_FAIL:
             return {...state, candidateDatingProfile: null, loadingCandidateDatingProfile: false}
         case types.GET_MATCHING_CANDIDATES_IDS:
@@ -187,7 +175,7 @@ const reducer = (state = initialState, action) => {
         case types.SET_MATCHING_CANDIDATES_IDS:
             const newState = {...state};
             newState.matchingCandidatesIds = {...state.matchingCandidatesIds};// в данном случае необязательная строчка
-            return {newState, matchingCandidatesIds: action.payload, loadingMatchingCandidatesIds: false}
+            return {newState, matchingCandidatesIds: payload, loadingMatchingCandidatesIds: false}
 
         default:
             return state;

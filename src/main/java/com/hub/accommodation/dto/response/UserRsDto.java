@@ -1,6 +1,8 @@
 package com.hub.accommodation.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.databind.MapperFeature;
 import com.hub.accommodation.config.Views;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,40 +11,42 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonView(Views.Public.class)
+//@JsonInclude(JsonInclude.Include.USE_DEFAULTS)
 public class UserRsDto {
+
 
     private Long id;
     private Integer age;
-    @JsonView(Views.Public.class)
-    private String datingLastVisitDate; //rq String
-    private String accommodationLastVisitDate; //rq String
-    private String volunteerLastVisitDate; //rq String
-
-    @JsonView(Views.Public.class)
+    private String datingLastVisitDate;
+    private String accommodationLastVisitDate;
+    private String volunteerLastVisitDate;
     private String name = "";
-    @JsonView(Views.Public.class)
     private String lastName = "";
-    @JsonView(Views.Internal.class)
-    private String email = "";
-    @JsonView(Views.Internal.class)
-    private String phoneNumber = "";
-    @JsonView(Views.Public.class)
-    private String urlSocial1 = "";
-    @JsonView(Views.Internal.class)
-    private String urlSocial2 = "";
-    @JsonView(Views.Public.class)
-    private String messenger1 = "";
-    @JsonView(Views.Internal.class)
-    private String messenger2 = "";
-    @JsonView(Views.Public.class)
+    private String role;
+    private String location;
     private String avatar = "";
     boolean hideSocialContactData = false;
     boolean datingServiceParticipation = false;
+
+    @JsonView(Views.BasicTarifUsers.class)
+    private String urlSocial2 = "";
+    @JsonView(Views.BasicTarifUsers.class)
+    private String messenger2 = "";
+
+    @JsonView(Views.ElevatedTarifUsers.class)
+    private String email = "";
+    @JsonView(Views.ElevatedTarifUsers.class)
+    private String phoneNumber = "";
+    @JsonView(Views.ElevatedTarifUsers.class)
+    private String urlSocial1 = "";
+    @JsonView(Views.ElevatedTarifUsers.class)
+    private String messenger1 = "";
+
+
     //    Set<AccommodationRsDto> accommodation;
-    private String role;
     //    private String lastModifiedDate;
 //    private String createdDate;
-    @JsonView(Views.Public.class)
-    private String location;
+
 
 }

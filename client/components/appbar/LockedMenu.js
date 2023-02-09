@@ -2,7 +2,7 @@ import React from 'react';
 import Tooltip from "@mui/material/Tooltip";
 import useAuth from "../../hooks/useAuth";
 import {mainMenu} from "../../public/menuConfig";
-import {NavLinkProtected, LocalMenuItem} from "../../utils/typography";
+import {NavLinkProtected, LocalMenuItem} from "@/root/utils/typography";
 
 
 let isAuthenticated = null;

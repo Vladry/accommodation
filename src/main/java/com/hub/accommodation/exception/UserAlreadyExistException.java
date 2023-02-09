@@ -1,9 +1,13 @@
 package com.hub.accommodation.exception;
 
-public class UserAlreadyExistException extends RuntimeException {
+import com.hub.accommodation.exception.groups.HandledNotConfidentialException;
 
-    public UserAlreadyExistException(String email) {
+public class UserAlreadyExistException extends HandledNotConfidentialException {
 
-        super(String.format("User with email %s already exist", email));
-    }
+    public UserAlreadyExistException(String entityName) {
+            super(String.format("Error: %s already exists", entityName));
+        }
+    public UserAlreadyExistException(String entityName, String identifier) {
+            super(String.format("Error: %s already exists by identifier: %s", entityName, identifier));
+        }
 }
