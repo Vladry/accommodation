@@ -1,8 +1,6 @@
 package com.hub.accommodation.dto.response;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonView;
-import com.fasterxml.jackson.databind.MapperFeature;
 import com.hub.accommodation.config.Views;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @JsonView(Views.Public.class)
 //@JsonInclude(JsonInclude.Include.USE_DEFAULTS)
-public class UserRsDto {
+public class UserDbRsDto {
 
 
     private Long id;

@@ -2,7 +2,7 @@ package com.hub.accommodation.controller.auth;
 
 import com.hub.accommodation.dto.request.AuthRequest;
 import com.hub.accommodation.dto.groups.OnCreate;
-import com.hub.accommodation.dto.request.UserRqDto;
+import com.hub.accommodation.dto.request.UserDbRqDto;
 import com.hub.accommodation.exception.JwtAuthenticationException;
 import com.hub.accommodation.service.auth.AuthService;
 import lombok.extern.slf4j.Slf4j;
@@ -45,7 +45,7 @@ public class AuthController {
     @CrossOrigin(origins = "*") // -без неё не проходят работают запросы из браузера (из постмена работают)
     @Validated(OnCreate.class) //основная регистрация нового пользователя
     @PostMapping("/api/v1/auth/register")
-    public ResponseEntity<?> register(@RequestBody @Valid UserRqDto userRqDto) {
+    public ResponseEntity<?> register(@RequestBody @Valid UserDbRqDto userRqDto) {
         try {
             log.info("a new user just registered");
             return ResponseEntity.ok(authService.register(userRqDto));

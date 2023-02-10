@@ -1,23 +1,20 @@
 package com.hub.accommodation.service;
 
 import com.hub.accommodation.dto.response.UserAgeRsDto;
-import com.hub.accommodation.domain.user.User;
+import com.hub.accommodation.domain.user.UserDB;
 import com.hub.accommodation.repository.UserRepository;
 import com.hub.accommodation.repository.UserRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 @Transactional(timeout = 1000)
 @RequiredArgsConstructor
-public class UserService extends GeneralService<User> {
+public class UserService extends GeneralService<UserDB> {
     private final UserRepository userRepository;
     private final UserRepositoryImpl userRepositoryImpl;
 
@@ -26,12 +23,12 @@ public class UserService extends GeneralService<User> {
         return userRepositoryImpl.getUsersAges(ids);
     }
 
-    public Optional<User> findUserById(Long id){
+    public Optional<UserDB> findUserById(Long id){
         return userRepository.findUserById(id);
     }
 
     @Transactional(readOnly = true)
-    public Optional<User> getUserByEmail(String email) {
+    public Optional<UserDB> getUserByEmail(String email) {
         return userRepository.findUserByEmail(email);
     }
 
@@ -48,7 +45,7 @@ public class UserService extends GeneralService<User> {
     }
 
     @Transactional(readOnly = true)
-    public List<User> findAllByIds(List<Long> listOfIds) {
+    public List<UserDB> findAllByIds(List<Long> listOfIds) {
         return userRepositoryImpl.findAllByIds(listOfIds);
     }
 }

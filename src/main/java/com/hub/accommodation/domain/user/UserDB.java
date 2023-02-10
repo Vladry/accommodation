@@ -9,7 +9,6 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.Instant;
 import java.time.ZonedDateTime;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -18,7 +17,7 @@ import java.util.Set;
 @NoArgsConstructor
 //@AllArgsConstructor  -так, как Ломбок не генерирует поля от BaseEntity, то этот конструктор я создаю везде самостоятельно
 @Table(name = "users")
-public class User extends BaseEntity {
+public class UserDB extends BaseEntity {
 
 //    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    @PrimaryKeyJoinColumn
@@ -78,13 +77,13 @@ public class User extends BaseEntity {
     private Role role = Role.USER;
 
 
-    public User(String email, String password) {
+    public UserDB(String email, String password) {
         this.email = email;
         this.password = password;
     }
 
     // из-за конфликта Ломбоковской генерации с суперклассом BaseEntity, всегда прописываем AllArgsConstructor руками
-    public User(Long id, Instant lastModifiedDate, ZonedDateTime createdDate, /*UserDatingProfile userDatingProfile, */Set<Accommodation> accommodation, String name, String lastName, String email, String password, String phoneNumber, String urlSocial1, String urlSocial2, String messenger1, String messenger2, String avatar, boolean hideSocialContactData, boolean datingServiceParticipation, Role role, Integer age, String location) {
+    public UserDB(Long id, Instant lastModifiedDate, ZonedDateTime createdDate, /*UserDatingProfile userDatingProfile, */Set<Accommodation> accommodation, String name, String lastName, String email, String password, String phoneNumber, String urlSocial1, String urlSocial2, String messenger1, String messenger2, String avatar, boolean hideSocialContactData, boolean datingServiceParticipation, Role role, Integer age, String location) {
         this.id = id;
         this.lastModifiedDate = lastModifiedDate;
         this.createdDate = createdDate;
@@ -112,7 +111,7 @@ public class User extends BaseEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        User user = (User) o;
+        UserDB user = (UserDB) o;
 
         return (long) this.id == user.id;
     }

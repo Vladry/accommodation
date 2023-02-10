@@ -1,10 +1,9 @@
 package com.hub.accommodation.service;
 
 import com.hub.accommodation.domain.Photo;
-import com.hub.accommodation.domain.user.User;
+import com.hub.accommodation.domain.user.UserDB;
 import com.hub.accommodation.domain.user.enums.ServiceGroup;
 import com.hub.accommodation.repository.PhotoRepository;
-import com.hub.accommodation.repository.PhotoJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +15,7 @@ import java.util.Set;
 @Service
 @Transactional(timeout = 1000)
 @RequiredArgsConstructor
-public class DatingPhotoService extends GeneralService<User> {
+public class DatingPhotoService extends GeneralService<UserDB> {
 
     private final PhotoRepository photoRepository;
 

@@ -1,10 +1,13 @@
 package com.hub.accommodation.domain.user.enums;
 
 public enum Permission {
-    READ("read"),
-    WRITE("write"),
-    WRITE_ACCOMMODATION("writeAccommodation"),
-    GET_TOTAL("getTotal");
+    GUEST_ACCESS("guest_access"),
+    GENERAL("general"),
+    ACCOMMODATION("accommodation"),
+    DATING("dating"),
+    VOLUNTEERING("volunteering"),
+    ADMINISTRATION("administration"),
+    MODERATION("moderation");
 
     private final String permission;
 

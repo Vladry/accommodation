@@ -6,7 +6,7 @@ import com.hub.accommodation.domain.dating.ChatSettings.InterlocutorStatus;
 import com.hub.accommodation.domain.dating.ChatSettings.InterlocutorStatusEnum;
 import com.hub.accommodation.domain.dating.DatingChatSettings;
 import com.hub.accommodation.domain.dating.Interlocutor;
-import com.hub.accommodation.domain.user.User;
+import com.hub.accommodation.domain.user.UserDB;
 import com.hub.accommodation.repository.ChatRepository;
 import com.hub.accommodation.repository.InterlocutorStatusRepository;
 import com.hub.accommodation.repository.MessageRepository;
@@ -45,7 +45,7 @@ public class ChatService {
         List<Long> sendersIds = messageRepository.getFromIdDistinctByChatAndToIdOrderByCreatedDate(chat, toId);
         Set<Long> addreceesIds = messageRepository.getToIdDistinctByChatAndFromIdOrderByCreatedDate(chat, toId);
         sendersIds.addAll(addreceesIds);
-        List<User> users = userRepositoryImpl.findAllByIds(sendersIds);
+        List<UserDB> users = userRepositoryImpl.findAllByIds(sendersIds);
         return users.stream().map(user ->
                         new Interlocutor(user.getId(), user.getAvatar(), user.getName(), user.getLastName()))
                 .collect(Collectors.toSet());

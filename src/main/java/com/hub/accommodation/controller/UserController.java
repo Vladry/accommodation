@@ -1,9 +1,9 @@
 package com.hub.accommodation.controller;
 
-import com.hub.accommodation.dto.request.UserRqDto;
+import com.hub.accommodation.dto.request.UserDbRqDto;
 import com.hub.accommodation.dto.response.UserAgeRsDto;
-import com.hub.accommodation.dto.response.UserRsDto;
-import com.hub.accommodation.domain.user.User;
+import com.hub.accommodation.dto.response.UserDbRsDto;
+import com.hub.accommodation.domain.user.UserDB;
 import com.hub.accommodation.exception.CreatingEntityFailed;
 import com.hub.accommodation.exception.NoDataFoundException;
 import com.hub.accommodation.facade.UserFacade;
@@ -35,11 +35,11 @@ public class UserController {
     //------------------------------------------------
 //    @PreAuthorize("hasAuthority('read')")
     @GetMapping("/users/{id}")
-    public UserRsDto findUserById(
+    public UserDbRsDto findUserById(
             @PathVariable("id") Long id) {
-        Optional<User> optionalUser = userService.findUserById(id);
+        Optional<UserDB> optionalUser = userService.findUserById(id);
         if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
+            UserDB user = optionalUser.get();
             return userFacade.convertToDto(user);
         } else {
             return null;
@@ -60,9 +60,9 @@ public class UserController {
 
 
     @PostMapping("/users")
-    public UserRsDto createUser(@RequestBody UserRqDto userRqDto) {
+    public UserDbRsDto createUser(@RequestBody UserDbRqDto userRqDto) {
         try {
-            User user = userFacade.convertToEntity(userRqDto);
+            UserDB user = userFacade.convertToEntity(userRqDto);
             userService.save(user);
             return findUserByEmail(user.getEmail());
         } catch (Exception e) {
@@ -70,18 +70,18 @@ public class UserController {
         }
     }
 
-    @PreAuthorize("hasAuthority('read')")
+    @PreAuthorize("hasAuthority('guest_access')")
     @GetMapping("/users/profile")
-    public UserRsDto getUserProfile(Principal principal) {
+    public UserDbRsDto getUserProfile(Principal principal) {
         return userFacade.getUserByEmail(principal.getName());
     }
 
 
-    @PreAuthorize("hasAuthority('read')")
+    @PreAuthorize("hasAuthority('guest_access')")
     @GetMapping("/users")
-    public UserRsDto findUserByEmail(
+    public UserDbRsDto findUserByEmail(
             @RequestParam("email") String email) {
-        User user = userService.getUserByEmail(email)
+        UserDB user = userService.getUserByEmail(email)
                 .orElseThrow(() -> new NoDataFoundException("user in UserController::findUserByEmail" +email)); //https://habr.com/ru/post/346782/
         return userFacade.convertToDto(user);
     }
@@ -89,19 +89,19 @@ public class UserController {
 
     //    @PreAuthorize("hasAuthority('read')")
     @GetMapping("/users/all")
-    public List<UserRsDto> findAll() {
+    public List<UserDbRsDto> findAll() {
         return userService.findAll().stream().map(userFacade::convertToDto).collect(Collectors.toList());
     }
 
     @PostMapping("/users/allByIds")
-    public List<UserRsDto> findAllById(@RequestBody List<Long> ids) {
+    public List<UserDbRsDto> findAllById(@RequestBody List<Long> ids) {
         if (ids.isEmpty()) {
             log.warn("in /allByIds, argument ids is empty - returning empty List<UserRsDto>");
             return new ArrayList<>();
         }
-        List<User> users = userService.findAllByIds(ids);
+        List<UserDB> users = userService.findAllByIds(ids);
         List<UserAgeRsDto> listUserAgeRsDtos = userService.getUsersAges(ids);
-        List<UserRsDto> listusers = users.stream().map(userFacade::convertToDto).collect(Collectors.toList());
+        List<UserDbRsDto> listusers = users.stream().map(userFacade::convertToDto).collect(Collectors.toList());
 
         listusers = listusers.stream().map(user -> {
             for (UserAgeRsDto userAgeData : listUserAgeRsDtos) {

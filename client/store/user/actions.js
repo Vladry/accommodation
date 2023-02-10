@@ -6,7 +6,7 @@ export const getUser = () => (dispatch) => { //TODO разделить фетч�
     dispatch({type: userTypes.SET_LOADING_TRUE});
     api.get(urls.userUrl)
         .then( user => {
-            // console.log("before dispatch:  SET_USER_SUCCESS");
+            // console.log("user: ", user);
             dispatch({type: userTypes.SET_USER_SUCCESS, payload: user});
             const datingUserProfile = fetchData(urls.datingProfile, user.id, userTypes.GET_USER_DATING_PROFILE, userTypes.SET_USER_DATING_PROFILE_SUCCESS, userTypes.SET_USER_DATING_PROFILE_FAIL);
             const subscriptions =     fetchData(urls.userSubscriptions, user.id, userTypes.GET_SUBSCRIPTIONS, userTypes.SET_SUBSCRIPTIONS_SUCCESS, userTypes.SET_SUBSCRIPTIONS_FAIL);

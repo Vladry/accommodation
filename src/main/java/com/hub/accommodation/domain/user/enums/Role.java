@@ -9,10 +9,10 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public enum Role {
-    USER(new HashSet<>(List.of(Permission.READ, Permission.WRITE))),
-    ADMIN(new HashSet<>(List.of(Permission.READ, Permission.WRITE))),
-    GUEST(new HashSet<>(List.of(Permission.READ, Permission.WRITE))),
-    MODERATOR(new HashSet<>(List.of(Permission.READ, Permission.WRITE)));
+    GUEST(new HashSet<>(List.of(Permission.GUEST_ACCESS))),
+    USER(new HashSet<>(List.of(Permission.GUEST_ACCESS, Permission.GENERAL))),
+    MODERATOR(new HashSet<>(List.of(Permission.GUEST_ACCESS, Permission.GENERAL, Permission.MODERATION))),
+    ADMIN(new HashSet<>(List.of(Permission.GUEST_ACCESS, Permission.GENERAL, Permission.MODERATION, Permission.ADMINISTRATION)));
 
     private final Set<Permission> permissions;
 

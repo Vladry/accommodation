@@ -1,7 +1,7 @@
 package com.hub.accommodation.domain.auth;
 
 import com.hub.accommodation.domain.BaseEntity;
-import com.hub.accommodation.domain.user.User;
+import com.hub.accommodation.domain.user.UserDB;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -26,9 +26,9 @@ public class RefreshToken extends BaseEntity {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private User user;
+    private UserDB user;
 
-    public RefreshToken(Long validityRefreshToken, User user) {
+    public RefreshToken(Long validityRefreshToken, UserDB user) {
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityRefreshToken * 1000);
         this.issueDate = now;

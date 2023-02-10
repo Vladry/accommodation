@@ -1,8 +1,8 @@
 package com.hub.accommodation.service.auth;
 
-import com.hub.accommodation.dto.request.UserRqDto;
+import com.hub.accommodation.dto.request.UserDbRqDto;
 import com.hub.accommodation.domain.auth.RefreshToken;
-import com.hub.accommodation.domain.user.User;
+import com.hub.accommodation.domain.user.UserDB;
 import com.hub.accommodation.exception.JwtAuthenticationException;
 import com.hub.accommodation.exception.NoDataFoundException;
 import com.hub.accommodation.exception.UserAlreadyExistException;
@@ -49,7 +49,7 @@ public class AuthService {
         return refreshTokenRepository.findById(id).orElseThrow(() -> new JwtAuthenticationException("refreshToken not found", HttpStatus.FORBIDDEN));
     }
 
-    public RefreshToken createRefreshToken(User user) {
+    public RefreshToken createRefreshToken(UserDB user) {
         return refreshTokenRepository.save(new RefreshToken(validityRefreshToken, user));
     }
 
@@ -62,7 +62,7 @@ public class AuthService {
                 .orElseThrow(() -> new NoDataFoundException("refreshToken in AuthService::markUsed"));
     }
 
-    public Map<Object, Object> createTokens(User o) {
+    public Map<Object, Object> createTokens(UserDB o) {
         String token = jwtTokenProvider.createToken(o.getEmail(), o.getRole().name(), o.getId());
 
         RefreshToken createdRefreshToken = this.createRefreshToken(o);
@@ -79,15 +79,15 @@ public class AuthService {
     }
 
     public Map<Object, Object> authenticate(String email, String password) throws NoDataFoundException {
-        User user = userRepository.findUserByEmail(email).orElseThrow(() -> new NoDataFoundException("user in AuthService::authenticate"));
+        UserDB user = userRepository.findUserByEmail(email).orElseThrow(() -> new NoDataFoundException("user in AuthService::authenticate"));
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
         return createTokens(user);
     }
 
 
-    public Map<Object, Object> register(UserRqDto userRqDto) {
+    public Map<Object, Object> register(UserDbRqDto userRqDto) {
         String originalPassword = userRqDto.getPassword();
-        User newUser = userFacade.convertToEntity(userRqDto);
+        UserDB newUser = userFacade.convertToEntity(userRqDto);
         String email = newUser.getEmail();
         if (userRepository.findUserByEmail(email).isPresent()) {
             throw new UserAlreadyExistException("user AuthService::register" , email);
@@ -106,7 +106,7 @@ public class AuthService {
             throw new JwtAuthenticationException("refreshToken is expired", HttpStatus.UNAUTHORIZED);
         } else {
             markUsed(refreshTokenId);
-            User user = userRepository.findById(rt.getUser().getId()).orElseThrow(() -> new NoDataFoundException("user = userRepository.findById  in AuthService::refresh"));
+            UserDB user = userRepository.findById(rt.getUser().getId()).orElseThrow(() -> new NoDataFoundException("user = userRepository.findById  in AuthService::refresh"));
             return createTokens(user);
         }
     }

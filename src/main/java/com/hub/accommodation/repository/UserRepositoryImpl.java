@@ -1,8 +1,7 @@
 package com.hub.accommodation.repository;
 
-import com.hub.accommodation.domain.user.UserDatingProfile;
 import com.hub.accommodation.dto.response.UserAgeRsDto;
-import com.hub.accommodation.domain.user.User;
+import com.hub.accommodation.domain.user.UserDB;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
@@ -10,12 +9,9 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
-import java.sql.SQLException;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -51,12 +47,12 @@ public class UserRepositoryImpl {
 //        System.out.println("location: " + location);
 
         EntityManager em = emf.createEntityManager();
-        User e = null;
+        UserDB e = null;
         try {
 //            System.out.println("in 1st try-catch: trying to find existing user");
-            Query q = em.createQuery("select u from User u where u.id = :id")
+            Query q = em.createQuery("select u from UserDB u where u.id = :id")
                     .setParameter("id", id);
-            e = (User) q.getSingleResult();
+            e = (UserDB) q.getSingleResult();
 //            System.out.println("successful end of 1st try-catch -> user found: " + e);
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
@@ -91,7 +87,7 @@ public class UserRepositoryImpl {
 
     }
 
-    public List<User> findAllByIds(List<Long> ids) {
+    public List<UserDB> findAllByIds(List<Long> ids) {
         if (ids.isEmpty()) {
             return null;
         }
@@ -99,10 +95,10 @@ public class UserRepositoryImpl {
         try {
             em = emf.createEntityManager();
 //            em.getTransaction().begin();
-            Query q = em.createQuery("select u from User u where u.id in :ids")
+            Query q = em.createQuery("select u from UserDB u where u.id in :ids")
                     .setParameter("ids", ids);
 
-            List<User> users = q.getResultList();
+            List<UserDB> users = q.getResultList();
 //            em.getTransaction().commit();
             em.close();
             return users;
@@ -123,7 +119,7 @@ public class UserRepositoryImpl {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            User u = em.find(User.class, id);
+            UserDB u = em.find(UserDB.class, id);
             u.setDatingLastVisitDate(ZonedDateTime.now());
             em.getTransaction().commit();
         } catch (Exception e) {
@@ -140,7 +136,7 @@ public class UserRepositoryImpl {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            User u = em.find(User.class, userId);
+            UserDB u = em.find(UserDB.class, userId);
             u.setDatingServiceParticipation(value);
             em.getTransaction().commit();
         } catch (Exception e) {
