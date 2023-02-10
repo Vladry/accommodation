@@ -3,9 +3,6 @@ package com.hub.accommodation.domain.accommodation;
 import com.hub.accommodation.domain.BaseEntity;
 import com.hub.accommodation.domain.accommodation.enums.AccommodationStatus;
 import com.hub.accommodation.domain.accommodation.enums.AccommodationType;
-import com.hub.accommodation.domain.accommodation.enums.Country;
-import com.hub.accommodation.domain.accommodation.enums.Pets;
-import com.hub.accommodation.domain.user.User;
 import lombok.*;
 
 import javax.persistence.*;
@@ -22,19 +19,8 @@ import java.util.Set;
 //@AttributeOverride(name="id", column=@Column(name="user_id"))  // https://www.baeldung.com/jpa-attributeoverride
 public class Accommodation extends BaseEntity  {
 
-//
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "user_id")
-//    User user;
-
     @Column(name="user_id")
     Long userId;
-
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @MapsId
-//    User user;
-//
-
     @Column(name = "locations", length = 50)
     String location;
     @Enumerated(EnumType.ORDINAL)
@@ -51,9 +37,9 @@ public class Accommodation extends BaseEntity  {
     @Column(name = "price_per_person", nullable = true)
     Integer pricePerPerson;
     @Column(name = "provide_work")
-    boolean helpFindWork;
+    Boolean helpFindWork;
     @Column(name = "provide_food")
-    boolean helpWithFood;
+    Boolean helpWithFood;
 
     @OneToMany(mappedBy = "accommodationDetails", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     Set<Picture> pictures = new HashSet<>();
@@ -64,12 +50,11 @@ public class Accommodation extends BaseEntity  {
 
 
     @Column(name = "disab_sprt")
-    boolean disabilityOrElderlySupport;
+    Boolean disabilityOrElderlySupport;
     @Column(name = "childcare_sprt")
-    boolean childCareSupport;
+    Boolean childCareSupport;
     @Column(name = "pets")
-    @Enumerated(EnumType.ORDINAL)
-    Pets petsAllowed;
+    Boolean petsAllowed;
     @OneToMany(mappedBy = "accommodation", cascade = CascadeType.ALL)
     Set<LikeDate> liked = new HashSet<>();
 

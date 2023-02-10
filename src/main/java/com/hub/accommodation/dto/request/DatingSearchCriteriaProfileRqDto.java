@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
+import javax.validation.constraints.NotEmpty;
 import java.util.Set;
 
 @Accessors(chain=true)
@@ -15,7 +16,9 @@ import java.util.Set;
 @NoArgsConstructor
 public class DatingSearchCriteriaProfileRqDto {
 
+    @NotEmpty
     private String userId;
+    @NotEmpty
     private String id;
     private String seekAPersonOfSex;
     private Integer minHeightIWant;

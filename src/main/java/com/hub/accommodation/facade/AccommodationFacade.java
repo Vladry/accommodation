@@ -26,12 +26,6 @@ public class AccommodationFacade extends GeneralFacade<
         Converter<Long, User> ID_TO_USER =
                 mappingContext -> userService.findById(mappingContext.getSource()).orElseThrow(() -> new NoDataFoundException("AccommodationFacade::init()::userService.findById"));
 
-        super.getMm().typeMap(AccommodationRqDto.class, Accommodation.class)
-                .addMapping(AccommodationRqDto::getAccType, Accommodation::setAccommodationType)
-                .addMapping(AccommodationRqDto::getAccStatus, Accommodation::setStatus)
-                .addMapping(AccommodationRqDto::getPetEnum, Accommodation::setPetsAllowed)
-// TODO               .addMappings(mappings -> mappings.using(ID_TO_USER).map(AccommodationRqDto::getUserId, Accommodation::setUser))
-                 ;
         super.getMm().typeMap(Accommodation.class, AccommodationRsDto.class)
                 .addMapping(Accommodation::getAccommodationType, AccommodationRsDto::setAccommodationType);
     }

@@ -4,12 +4,15 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public enum Role {
-    USER(new HashSet<>(Arrays.asList(Permission.READ, Permission.WRITE_ACCOMMODATION))),
-    ADMIN(new HashSet<>(Arrays.asList(Permission.READ, Permission.WRITE, Permission.GET_TOTAL)));
+    USER(new HashSet<>(List.of(Permission.READ, Permission.WRITE))),
+    ADMIN(new HashSet<>(List.of(Permission.READ, Permission.WRITE))),
+    GUEST(new HashSet<>(List.of(Permission.READ, Permission.WRITE))),
+    MODERATOR(new HashSet<>(List.of(Permission.READ, Permission.WRITE)));
 
     private final Set<Permission> permissions;
 

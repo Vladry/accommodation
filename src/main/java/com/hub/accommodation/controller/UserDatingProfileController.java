@@ -59,9 +59,6 @@ public class UserDatingProfileController {
     @JsonView(Views.SeenToAll.class)
     @GetMapping("/datingProfile/{id}")
     public UserDatingProfileRsDto findUserDatingProfileById(@PathVariable("id") Long id) {
-        if (id == null) {
-            return null;
-        }
         Optional<UserDatingProfile> udpOpt = userDatingProfileService.findUserDatingProfileByUserId(id);
         return udpOpt.map(userDatingProfileFacade::convertToDto).orElse(null);
     }

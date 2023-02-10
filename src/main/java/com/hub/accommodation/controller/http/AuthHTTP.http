@@ -18,7 +18,7 @@ POST http://localhost:8000/api/v1/auth/register
 Content-Type: application/json
 
 {
-  "name": "1",
+  "name": "another Vlad",
   "lastName": "Rvy",
   "role": "USER",
   "datingServiceParticipation": false,
@@ -35,7 +35,7 @@ POST http://localhost:8000/api/v1/auth/register
 Content-Type: application/json
 
 {
-  "name": "2",
+  "name": "another vlad 2",
   "lastName": "Rvy",
   "role": "USER",
   "datingServiceParticipation": false,
@@ -52,7 +52,7 @@ POST http://localhost:8000/api/v1/auth/register
 Content-Type: application/json
 
 {
-  "name": "3",
+  "name": "another vlad 3",
   "lastName": "Rvy",
   "role": "USER",
   "datingServiceParticipation": false,
@@ -69,7 +69,7 @@ POST http://localhost:8000/api/v1/auth/register
 Content-Type: application/json
 
 {
-  "name": "4",
+  "name": "another vlad 4",
   "lastName": "Rvy",
   "role": "USER",
   "datingServiceParticipation": false,
@@ -86,7 +86,7 @@ POST http://localhost:8000/api/v1/auth/register
 Content-Type: application/json
 
 {
-  "name": "5",
+  "name": "another vlad 5",
   "lastName": "Rvy",
   "role": "USER",
   "datingServiceParticipation": false,
@@ -104,7 +104,7 @@ POST http://localhost:8000/api/v1/auth/register
 Content-Type: application/json
 
 {
-  "name": "6",
+  "name": "another vlad 6",
   "lastName": "Rvy",
   "role": "USER",
   "datingServiceParticipation": false,
@@ -121,7 +121,7 @@ POST http://localhost:8000/api/v1/auth/register
 Content-Type: application/json
 
 {
-  "name": "7",
+  "name": "another vlad 7",
   "lastName": "Rvy",
   "role": "USER",
   "datingServiceParticipation": false,
@@ -137,7 +137,7 @@ POST http://localhost:8000/api/v1/auth/register
 Content-Type: application/json
 
 {
-  "name": "8",
+  "name": "another vlad 8",
   "lastName": "Rvy",
   "role": "USER",
   "datingServiceParticipation": false,
@@ -154,7 +154,7 @@ POST http://localhost:8000/api/v1/auth/register
 Content-Type: application/json
 
 {
-  "name": "9",
+  "name": "another vlad 9",
   "lastName": "Rvy",
   "role": "USER",
   "datingServiceParticipation": false,
@@ -177,7 +177,7 @@ Content-Type: application/json
   "datingServiceParticipation": false,
   "location": "Wroclaw, PL",
   "avatar": "https://res.cloudinary.com/vladry/image/upload/v1628196607/avatars/Vlad_avatar_tjrcut.jpg",
-  "email": "11@ukr.net",
+  "email": "111@ukr.net",
   "password": "123"
 }
 
