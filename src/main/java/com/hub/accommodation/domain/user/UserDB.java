@@ -74,7 +74,7 @@ public class UserDB extends BaseEntity {
     private String avatar = "";
 
     @Enumerated(EnumType.STRING)
-    private Role role = Role.USER;
+    private Role role = Role.GUEST;
 
 
     public UserDB(String email, String password) {
