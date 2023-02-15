@@ -12,7 +12,7 @@ Content-Type: application/json
   "avatar": "https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_in_car_rtzqzp.jpg"
 }
 
-###1
+###
 
 POST http://localhost:8000/api/v1/auth/register
 Content-Type: application/json

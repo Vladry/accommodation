@@ -25,8 +25,8 @@ public class AuthController {
         this.authService = authService;
     }
 
-    @PostMapping("/api/v1/auth/login")
-    public ResponseEntity<?> authenticate(@RequestBody @Valid AuthRequest request) {
+    @PostMapping("${api.ver}/auth/login")
+    public ResponseEntity<?> login(@RequestBody @Valid AuthRequest request) {
         try {
             log.info("a user logged in");
             return ResponseEntity.ok(authService.authenticate(request.getEmail(), request.getPassword()));
@@ -36,27 +36,27 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/api/v1/auth/logout")
+    @PostMapping("${api.ver}/auth/logout")
     public void logout() {
 
     }
 
 
-    @CrossOrigin(origins = "*") // -без неё не проходят работают запросы из браузера (из постмена работают)
+//    @CrossOrigin(origins = "*") // -без неё не проходят работают запросы из браузера (из постмена работают)
     @Validated(OnCreate.class) //основная регистрация нового пользователя
     @PostMapping("/api/v1/auth/register")
     public ResponseEntity<?> register(@RequestBody @Valid UserDbRqDto userRqDto) {
         try {
-            log.info("a new user just registered");
-            return ResponseEntity.ok(authService.register(userRqDto));
+            log.info("registering a new user");
+            return new ResponseEntity<>(authService.register(userRqDto), HttpStatus.CREATED);
         } catch (AuthenticationException e) {
             log.error("error registering a new user");
-            return new ResponseEntity<>("Error with registration: " + e.getMessage(), HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("Error with registration: NOT_ACCEPTABLE" + e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
         }
     }
 
 
-    @GetMapping("/api/v1/auth/refresh")
+    @GetMapping("${api.ver}/auth/refresh")
     public ResponseEntity<?> refresh(@RequestHeader("Refresh-token") String token) {
         try {
             return ResponseEntity.ok(authService.refresh(token));

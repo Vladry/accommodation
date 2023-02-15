@@ -3,7 +3,8 @@
 # для справки:
 #    https://www.baeldung.com/spring-boot-data-sql-and-schema-sql
 
-
+api:
+  ver: /api/v1
 # ОБЩИЕ ПАРАМЕТРЫ КОНФИГУРАЦИИ
 server:
   port: 8000
@@ -19,7 +20,6 @@ spring:
 #          time_zone: UTC
 #  jackson:
 #    default-property-inclusion: non_null     #позволит избежать указания во всех responseDto-шках  @JsonInclude(JsonInclude.Include.NON_EMPTY) для случаев, если не хочу, чтобы на фронт улетали пустые поля
-
 CLOUDINARY_SECRET: P6FFb0lbPJkqkIR-9FshinRLNKo
 ---
 # КОНФИГУРАЦИЯ ПОД H2
@@ -68,21 +68,19 @@ jwt:
 #  secretPasswordReset: ${JWT_SECRET_PASSWORD_RESET}
 #  secretPasswordUpdate: ${JWT_SECRET_PASSWORD_UPDATE}
 
+
   header: Authorization
+#  6*1200 = 6 часов =7200 сек
   expiration: 7200
+#  3*7*24*1200 -3 недели =604800 сек
   expirationRefresh: 604800
+#  3*24*1200 -3 дня =86400 сек
   expirationPasswordReset: 86400
+#  3*1200} -3 часа =3600 сек
   expirationPasswordUpdate: 3600
 
-#
-#  header: Authorization
-#  expiration: ${6*1200}                      #6 часов   =7200 сек
-#  expirationRefresh: ${3*7*24*1200}          #3 недели  =604800 сек
-#  expirationPasswordReset: ${3*24*1200}      #3 дня     =86400 сек
-#  expirationPasswordUpdate: ${3*1200}        #3 часа    =3600 сек
-#
 
-aws:
+#aws:
 #  access-key-id: ${AWS_ACCESS_KEY_ID}
 #  access-secret-key: ${AWS_SECRET_KEY}
 ---

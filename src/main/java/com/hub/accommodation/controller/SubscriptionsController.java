@@ -19,7 +19,7 @@ import java.util.Set;
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*")
-@RequestMapping("/api/v1/users")
+@RequestMapping("${api.ver}/users")
 public class SubscriptionsController {
     private final SubscriptionService subscriptionService;
 

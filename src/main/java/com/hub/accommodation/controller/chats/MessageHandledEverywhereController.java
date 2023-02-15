@@ -10,7 +10,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*") //TODO это обязательно во всех контроллерах. Но, при деплое -поудалять!
-@RequestMapping("/api/v1/messages")
+@RequestMapping("${api.ver}/messages")
 public class MessageHandledEverywhereController {
 
     private final MessageService messageService;

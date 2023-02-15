@@ -25,7 +25,7 @@ import static java.util.stream.Collectors.toList;
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*")
-@RequestMapping("/api/v1/chats/interlocutors")
+@RequestMapping("${api.ver}/chats/interlocutors")
 public class InterlocutorController {
 
     private final MessageService messageService;

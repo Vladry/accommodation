@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*")
-@RequestMapping("/api/v1/users")
+@RequestMapping("${api.ver}/users")
 public class UserDatingProfileController {
 
     private final UserDatingProfileService userDatingProfileService;

@@ -12,7 +12,7 @@ import java.util.Set;
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*")
-@RequestMapping("/api/v1/chats")
+@RequestMapping("${api.ver}/chats")
 public class SettingsController {
 
     private final ChatService chatService;

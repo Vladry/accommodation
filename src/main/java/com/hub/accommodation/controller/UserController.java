@@ -10,10 +10,12 @@ import com.hub.accommodation.facade.UserFacade;
 import com.hub.accommodation.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,14 +28,13 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*")
-@RequestMapping("/api/v1")
+@RequestMapping("${api.ver}")
 public class UserController {
 
     private final UserService userService;
     private final UserFacade userFacade;
 
-    //------------------------------------------------
-//    @PreAuthorize("hasAuthority('read')")
+
     @GetMapping("/users/{id}")
     public UserDbRsDto findUserById(
             @PathVariable("id") Long id) {
@@ -44,10 +45,8 @@ public class UserController {
         } else {
             return null;
         }
-
     }
 
-    //------------------------------------------------
     @GetMapping("/users/visits/{id}")
     public void registerVisitToDating(@PathVariable("id") Long id) {
         userService.registerVisitToDating(id);
@@ -73,6 +72,7 @@ public class UserController {
     @PreAuthorize("hasAuthority('guest_access')")
     @GetMapping("/users/profile")
     public UserDbRsDto getUserProfile(Principal principal) {
+        System.out.println("public UserDbRsDto getUserProfile -> ");
         return userFacade.getUserByEmail(principal.getName());
     }
 
@@ -81,20 +81,24 @@ public class UserController {
     @GetMapping("/users")
     public UserDbRsDto findUserByEmail(
             @RequestParam("email") String email) {
+        System.out.println("public UserDbRsDto findUserByEmail -> ");
         UserDB user = userService.getUserByEmail(email)
-                .orElseThrow(() -> new NoDataFoundException("user in UserController::findUserByEmail" +email)); //https://habr.com/ru/post/346782/
+                .orElseThrow(() -> new NoDataFoundException("user in UserController::findUserByEmail" + email)); //https://habr.com/ru/post/346782/
         return userFacade.convertToDto(user);
     }
 
 
-    //    @PreAuthorize("hasAuthority('read')")
+    @RolesAllowed({"ADMIN", "MODERATOR"})
     @GetMapping("/users/all")
     public List<UserDbRsDto> findAll() {
+        System.out.println("public List<UserDbRsDto> findAll() -> ");
         return userService.findAll().stream().map(userFacade::convertToDto).collect(Collectors.toList());
     }
 
+    @Secured({"ADMIN", "MODERATOR"})
     @PostMapping("/users/allByIds")
     public List<UserDbRsDto> findAllById(@RequestBody List<Long> ids) {
+        System.out.println("public List<UserDbRsDto> findAllById -> ");
         if (ids.isEmpty()) {
             log.warn("in /allByIds, argument ids is empty - returning empty List<UserRsDto>");
             return new ArrayList<>();
@@ -106,7 +110,7 @@ public class UserController {
         listusers = listusers.stream().map(user -> {
             for (UserAgeRsDto userAgeData : listUserAgeRsDtos) {
                 if (userAgeData.getUserId().equals(user.getId())) {
-                    user.setAge( userAgeData.getAge() );
+                    user.setAge(userAgeData.getAge());
                     return user;
                 }
 

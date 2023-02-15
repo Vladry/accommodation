@@ -26,7 +26,7 @@ import java.util.Optional;
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*")
-@RequestMapping("/api/v1/users")
+@RequestMapping("${api.ver}/users")
 public class DatingSearchCriteriaProfileController {
 
     private final DatingSearchCriteriaProfileService datingSearchCriteriaProfileService;

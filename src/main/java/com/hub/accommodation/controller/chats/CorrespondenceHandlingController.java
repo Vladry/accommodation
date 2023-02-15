@@ -14,7 +14,7 @@ import java.util.Set;
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*")
-@RequestMapping("/api/v1/chats/correspondence")
+@RequestMapping("${api.ver}/chats/correspondence")
 public class CorrespondenceHandlingController {
 
     private final MessageService messageService;

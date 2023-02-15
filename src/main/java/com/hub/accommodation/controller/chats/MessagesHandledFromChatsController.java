@@ -11,7 +11,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*")
-@RequestMapping("/api/v1/chats")
+@RequestMapping("${api.ver}/chats")
 public class MessagesHandledFromChatsController {
 
     private final MessageService messageService;

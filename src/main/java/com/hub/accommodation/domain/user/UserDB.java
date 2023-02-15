@@ -5,27 +5,29 @@ import com.hub.accommodation.domain.accommodation.Accommodation;
 import com.hub.accommodation.domain.BaseEntity;
 import com.hub.accommodation.domain.user.enums.Role;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.time.Instant;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString(of = {"name", "lastName", "email", "role"})
 //@AllArgsConstructor  -так, как Ломбок не генерирует поля от BaseEntity, то этот конструктор я создаю везде самостоятельно
 @Table(name = "users")
 public class UserDB extends BaseEntity {
-
-//    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    @PrimaryKeyJoinColumn
-//    UserDatingProfile userDatingProfile;
-
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    private Set<Accommodation> accommodation = new HashSet<>();
-
 
 
     @Column(name = "dating_last_visit_date")
@@ -42,7 +44,7 @@ public class UserDB extends BaseEntity {
 
     @Transient
     private Integer age;
-    @Column(name="location")
+    @Column(name = "location")
     String location;
     @Column(name = "hide_social_data", nullable = false)
     private boolean hideSocialContactData = false; //снимите галочку, если хотите, чтобы Ваши социальные сети и мессенджеры были доступны соискателям. Иначе, они будут доступны только нашему сервису для взаимодействия с Вами, но скрыты от других пользователей.
@@ -121,17 +123,17 @@ public class UserDB extends BaseEntity {
         return id.hashCode();
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", age='" + age + '\'' +
-                ", email='" + email + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", role=" + role +
-                ", location= " + location +
-                ", id=" + id +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "User{" +
+//                "name='" + name + '\'' +
+//                ", lastName='" + lastName + '\'' +
+//                ", age='" + age + '\'' +
+//                ", email='" + email + '\'' +
+//                ", phoneNumber='" + phoneNumber + '\'' +
+//                ", role=" + role +
+//                ", location= " + location +
+//                ", id=" + id +
+//                '}';
+//    }
 }

@@ -15,7 +15,7 @@ import java.util.Optional;
 @Validated
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/api/v1/tenants")
+@RequestMapping("${api.ver}/tenants")
 public class TenantController {
 
     private final TenantService tenantService;
