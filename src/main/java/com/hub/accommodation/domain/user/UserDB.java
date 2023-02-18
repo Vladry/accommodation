@@ -78,6 +78,15 @@ public class UserDB extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Role role = Role.GUEST;
 
+    @Column(name="acc_not_expired")
+    private boolean isAccountNonExpired;
+    @Column(name="acc_non_locked")
+    private boolean isAccountNonLocked;
+    @Column(name="credentials_non_expired")
+    private boolean isCredentialsNonExpired;
+    @Column(name="is_enabled")
+    private boolean isEnabled;
+
 
     public UserDB(String email, String password) {
         this.email = email;

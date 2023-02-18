@@ -42,6 +42,15 @@ public class UserDbRsDto {
     private String messenger1 = "";
 
 
+    @JsonView(Views.Internal.class)
+    private boolean isAccountNonExpired;
+    @JsonView(Views.Internal.class)
+    private boolean isAccountNonLocked;
+    @JsonView(Views.Internal.class)
+    private boolean isCredentialsNonExpired;
+    @JsonView(Views.Internal.class)
+    private boolean isEnabled;
+
     //    Set<AccommodationRsDto> accommodation;
     //    private String lastModifiedDate;
 //    private String createdDate;

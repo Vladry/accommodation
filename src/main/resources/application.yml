@@ -3,9 +3,10 @@
 # для справки:
 #    https://www.baeldung.com/spring-boot-data-sql-and-schema-sql
 
+
+# ОБЩИЕ ПАРАМЕТРЫ
 api:
   ver: /api/v1
-# ОБЩИЕ ПАРАМЕТРЫ КОНФИГУРАЦИИ
 server:
   port: 8000
 spring:
@@ -21,6 +22,18 @@ spring:
 #  jackson:
 #    default-property-inclusion: non_null     #позволит избежать указания во всех responseDto-шках  @JsonInclude(JsonInclude.Include.NON_EMPTY) для случаев, если не хочу, чтобы на фронт улетали пустые поля
 CLOUDINARY_SECRET: P6FFb0lbPJkqkIR-9FshinRLNKo
+
+jwt:
+  header: Authorization
+  accessTokenExpiration: 7200   #  секунды  6*1200 = 6 часов =7200 сек
+  refreshTokenExpiration:  21   #  дни
+  passwordResetExpiration:  3   #  дни
+  passwordUpdateExpiration: 3   #  часы
+
+#aws:
+#  access-key-id: ${AWS_ACCESS_KEY_ID}
+#  access-secret-key: ${AWS_SECRET_KEY}
+
 ---
 # КОНФИГУРАЦИЯ ПОД H2
 logging: # https://habr.com/ru/post/521950/
@@ -62,27 +75,7 @@ spring:
       ddl-auto: update  # update - будет менять настройки реляционной модели (таблиц) если я в коде буду менять объекты данных (меняется объектная модель)
     show-sql: false
 #spring.jpa.properties.hibernate.generate_statistics=true
-jwt:
-#  secret: ${JWT_SECRET:""}
-#  secretRefresh: ${JWT_SECRET_REFRESH}
-#  secretPasswordReset: ${JWT_SECRET_PASSWORD_RESET}
-#  secretPasswordUpdate: ${JWT_SECRET_PASSWORD_UPDATE}
 
-
-  header: Authorization
-#  6*1200 = 6 часов =7200 сек
-  expiration: 7200
-#  3*7*24*1200 -3 недели =604800 сек
-  expirationRefresh: 604800
-#  3*24*1200 -3 дня =86400 сек
-  expirationPasswordReset: 86400
-#  3*1200} -3 часа =3600 сек
-  expirationPasswordUpdate: 3600
-
-
-#aws:
-#  access-key-id: ${AWS_ACCESS_KEY_ID}
-#  access-secret-key: ${AWS_SECRET_KEY}
 ---
 # КОНФИГУРАЦИЯ ПОД POSTGRES
 spring:

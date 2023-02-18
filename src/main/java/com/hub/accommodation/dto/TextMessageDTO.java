@@ -1,4 +1,4 @@
-package com.hub.accommodation.config;
+package com.hub.accommodation.dto;
 
 public class TextMessageDTO {
 

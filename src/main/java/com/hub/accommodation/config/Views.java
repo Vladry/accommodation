@@ -6,4 +6,5 @@ public class Views {
     public static class BasicTarifUsers extends Public {}
     public static class ElevatedTarifUsers extends BasicTarifUsers {}
     public static class SeenToAll extends ElevatedTarifUsers{}
+    public static class Internal extends SeenToAll{}
 }

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -35,7 +36,13 @@ public class UserDbRqDto {
     private String messenger1 = "";
     private String messenger2 = "";
     private String avatar = "";
-    boolean hideSocialContactData = false;
-    boolean datingServiceParticipation = false;
+    private boolean hideSocialContactData = false;
+    private boolean datingServiceParticipation = false;
     private String location = "";
+
+    private boolean isAccountNonExpired;
+    private boolean isAccountNonLocked;
+    private boolean isCredentialsNonExpired;
+    private boolean isEnabled;
+
 }

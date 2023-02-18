@@ -72,6 +72,7 @@
             <version>0.9.1</version>
         </dependency>
 
+
         <!-- подключаем маппинг нового класса даты/времени java.time из Java8 в JDBC Date:
          https://mvnrepository.com/artifact/org.hibernate/hibernate-java8 -->
         <dependency>

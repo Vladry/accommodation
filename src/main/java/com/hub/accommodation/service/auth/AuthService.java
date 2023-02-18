@@ -39,18 +39,18 @@ public class AuthService {
         this.userFacade = userFacade;
     }
 
-    @Value("${jwt.expirationRefresh}")
-    private long validityRefreshToken;
+    @Value("${jwt.refreshTokenExpiration}")
+    private long refreshTokenExpiration;
 
-    @Value("${jwt.expiration}")
-    private long validityToken;
+    @Value("${jwt.accessTokenExpiration}")
+    private long accessTokenExpiration;
 
     public RefreshToken readRefreshToken(Long id) throws JwtAuthenticationException {
         return refreshTokenRepository.findById(id).orElseThrow(() -> new JwtAuthenticationException("refreshToken not found", HttpStatus.FORBIDDEN));
     }
 
     public RefreshToken createRefreshToken(UserDB user) {
-        return refreshTokenRepository.save(new RefreshToken(validityRefreshToken, user));
+        return refreshTokenRepository.save(new RefreshToken(refreshTokenExpiration, user));
     }
 
     public void markUsed(Long id) {
@@ -73,7 +73,7 @@ public class AuthService {
         Map<Object, Object> tokens = new HashMap<>();
         tokens.put("userId", o.getId());
         tokens.put("token", token);
-        tokens.put("tokenExpiry", now.getTime() + validityToken * 1000);
+        tokens.put("tokenExpiry", now.getTime() + accessTokenExpiration * 1000);
         tokens.put("refreshToken", refreshToken);
         return tokens;
     }
