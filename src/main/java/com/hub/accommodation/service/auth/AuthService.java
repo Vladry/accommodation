@@ -17,6 +17,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -45,11 +47,11 @@ public class AuthService {
     @Value("${jwt.accessTokenExpiration}")
     private long accessTokenExpiration;
 
-    public RefreshToken readRefreshToken(Long id) throws JwtAuthenticationException {
+    public RefreshToken readRefreshTokenEntity(Long id) throws JwtAuthenticationException {
         return refreshTokenRepository.findById(id).orElseThrow(() -> new JwtAuthenticationException("refreshToken not found", HttpStatus.FORBIDDEN));
     }
 
-    public RefreshToken createRefreshToken(UserDB user) {
+    public RefreshToken createRefreshTokenEntity(UserDB user) {
         return refreshTokenRepository.save(new RefreshToken(refreshTokenExpiration, user));
     }
 
@@ -63,17 +65,15 @@ public class AuthService {
     }
 
     public Map<Object, Object> createTokens(UserDB o) {
-        String token = jwtTokenProvider.createToken(o.getEmail(), o.getRole().name(), o.getId());
+        String token = jwtTokenProvider.createAccessTokenStr(o.getEmail(), o.getRole().name(), o.getId());
 
-        RefreshToken createdRefreshToken = this.createRefreshToken(o);
-        String refreshToken = jwtTokenProvider.createRefreshToken(createdRefreshToken.getId());
-
-        Date now = new Date();
-
+        RefreshToken createdRefreshToken = this.createRefreshTokenEntity(o);
+        String refreshToken = jwtTokenProvider.createRefreshTokenStr(createdRefreshToken.getId());
+        Instant now = Instant.now();
         Map<Object, Object> tokens = new HashMap<>();
         tokens.put("userId", o.getId());
         tokens.put("token", token);
-        tokens.put("tokenExpiry", now.getTime() + accessTokenExpiration * 1000);
+        tokens.put("tokenExpiry", Date.from(now.plus(accessTokenExpiration, ChronoUnit.SECONDS)));
         tokens.put("refreshToken", refreshToken);
         return tokens;
     }
@@ -100,7 +100,7 @@ public class AuthService {
 
     public Map<Object, Object> refresh(String refreshToken) throws JwtAuthenticationException, NoDataFoundException {
         Long refreshTokenId = jwtTokenProvider.getRefreshTokenId(refreshToken);
-        RefreshToken rt = readRefreshToken(refreshTokenId);
+        RefreshToken rt = readRefreshTokenEntity(refreshTokenId);
 
         if (rt.getExpirationDate().before(new Date()) || rt.getIsUsed()) {
             throw new JwtAuthenticationException("refreshToken is expired", HttpStatus.UNAUTHORIZED);

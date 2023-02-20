@@ -33,9 +33,9 @@ public class JwtTokenProvider {
     private long refreshTokenExpiration;
 
 
-    @Value("jwt.passwordResetSecretKey")
+    @Value("${jwt.passwordResetSecretKey}")
     private String passwordResetSecretKey;
-    @Value("jwt.passwordUpdateSecretKey")
+    @Value("${jwt.passwordUpdateSecretKey}")
     private String passwordUpdateSecretKey;
     @Value("${jwt.passwordResetExpiration}")
     private long passwordResetExpiration;
@@ -49,69 +49,66 @@ public class JwtTokenProvider {
 
     @PostConstruct
     protected void init() {
-        System.out.println("accessTokenSecretKey before conversion: " + accessTokenSecretKey);
         accessTokenSecretKey = Base64.getEncoder().encodeToString(accessTokenSecretKey.getBytes());
-        System.out.println("accessTokenSecretKey after conversion: " + accessTokenSecretKey);
-        System.out.println("refreshTokenSecretKey before conversion: " + refreshTokenSecretKey);
         refreshTokenSecretKey = Base64.getEncoder().encodeToString(refreshTokenSecretKey.getBytes());
-        System.out.println("refreshTokenSecretKey after conversion: " + refreshTokenSecretKey);
-        System.out.println("passwordResetSecretKey before conversion: " + passwordResetSecretKey);
         passwordResetSecretKey = Base64.getEncoder().encodeToString(passwordResetSecretKey.getBytes());
-        System.out.println("passwordResetSecretKey after conversion: " + passwordResetSecretKey);
-        System.out.println("passwordUpdateSecretKey before conversion: " + passwordUpdateSecretKey);
         passwordUpdateSecretKey = Base64.getEncoder().encodeToString(passwordUpdateSecretKey.getBytes());
-        System.out.println("passwordUpdateSecretKey after conversion: " + passwordUpdateSecretKey);
     }
 
 
-    public String createToken(String username, String role, Long id) {
+    public String resolveToken(HttpServletRequest request) {
+        return request.getHeader(authorizationHeader);
+    }
+
+    public String createAccessTokenStr(String username, String role, Long id) {
         Claims claims = Jwts.claims().setSubject(username);
         claims.put("role", role);
         claims.put("id", id);
         Date now = new Date();
-        Date validity = new Date(now.getTime() + accessTokenExpiration * 1000);
+        claims.setIssuedAt(now);
+        Date expDate = new Date(now.getTime() + accessTokenExpiration * 1000);
 
         return Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(now)
-                .setExpiration(validity)
+                .setExpiration(expDate)
                 .signWith(SignatureAlgorithm.HS256, accessTokenSecretKey)
                 .compact();
     }
 
-    public String createRefreshToken(Long id) {
+    public String createRefreshTokenStr(Long id) {
         Claims claims = Jwts.claims().setSubject(String.valueOf(id));
         Instant now = Instant.now();
-        Date validity = Date.from(now.plus(refreshTokenExpiration, ChronoUnit.DAYS));
-
+        Date expDate = Date.from(now.plus(refreshTokenExpiration, ChronoUnit.DAYS));
         return Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(Date.from(now))
-                .setExpiration(validity)
+                .setExpiration(expDate)
                 .signWith(SignatureAlgorithm.HS256, refreshTokenSecretKey)
                 .compact();
     }
 
+
     public boolean validateToken(String token) throws JwtAuthenticationException {
         try {
             Jws<Claims> claimsJws = Jwts.parser().setSigningKey(accessTokenSecretKey).parseClaimsJws(token);
-            return !claimsJws.getBody().getExpiration().before(new Date());
+            Date expDate = claimsJws.getBody().getExpiration();
+            return !expDate.before(new Date());
         } catch (JwtException | IllegalArgumentException e) {
-            throw new JwtAuthenticationException("JWT token is expired or invalid", HttpStatus.UNAUTHORIZED);
+            throw new JwtAuthenticationException("JWT token is expired or invalid ", HttpStatus.UNAUTHORIZED);
         }
     }
 
     public Authentication getAuthentication(String token) {
-        UserDetails userDetails = this.userDetailsService.loadUserByUsername(getUsername(token));
-        return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+        String username = getUsername(token);
+        UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
+        Authentication auth = new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+        return auth;
     }
 
     public String getUsername(String token) {
-        return Jwts.parser().setSigningKey(accessTokenSecretKey).parseClaimsJws(token).getBody().getSubject();
-    }
-
-    public String resolveToken(HttpServletRequest request) {
-        return request.getHeader(authorizationHeader);
+        Claims claims = Jwts.parser().setSigningKey(accessTokenSecretKey).parseClaimsJws(token).getBody();
+        return claims.getSubject();
     }
 
     public Long getRefreshTokenId(String token) {

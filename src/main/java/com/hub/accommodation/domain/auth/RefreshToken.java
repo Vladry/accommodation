@@ -6,16 +6,21 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
-@EqualsAndHashCode(callSuper = true)
+
 @Entity
 @Table(name = "refresh_tokens")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
+@DynamicUpdate
 public class RefreshToken extends BaseEntity {
     @Column(name = "expiration_date")
     private Date expirationDate;
@@ -28,11 +33,10 @@ public class RefreshToken extends BaseEntity {
     @JoinColumn(name = "user_id")
     private UserDB user;
 
-    public RefreshToken(Long validityRefreshToken, UserDB user) {
-        Date now = new Date();
-        Date validity = new Date(now.getTime() + validityRefreshToken * 1000);
-        this.issueDate = now;
-        this.expirationDate = validity;
+    public RefreshToken(Long refreshTokenExpiration, UserDB user) {
+        Instant now = Instant.now();
+        this.issueDate = Date.from(now);
+        this.expirationDate = Date.from(now.plus(refreshTokenExpiration, ChronoUnit.DAYS) );
         this.isUsed = false;
         this.user = user;
     }
