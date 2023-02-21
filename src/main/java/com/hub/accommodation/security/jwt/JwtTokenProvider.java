@@ -29,6 +29,8 @@ public class JwtTokenProvider {
     private String refreshTokenSecretKey;
     @Value("${jwt.accessTokenExpiration}")
     private long accessTokenExpiration;
+    @Value("${jwt.accessTokenRememberMeExpiration}")
+    private long accessTokenRememberMeExpiration;
     @Value("${jwt.refreshTokenExpiration}")
     private long refreshTokenExpiration;
 
@@ -56,10 +58,7 @@ public class JwtTokenProvider {
     }
 
 
-    public String resolveToken(HttpServletRequest request) {
-        return request.getHeader(authorizationHeader);
-    }
-
+/*** Блок создания токенов ***/
     public String createAccessTokenStr(String username, String role, Long id) {
         Claims claims = Jwts.claims().setSubject(username);
         claims.put("role", role);
@@ -87,9 +86,16 @@ public class JwtTokenProvider {
                 .signWith(SignatureAlgorithm.HS256, refreshTokenSecretKey)
                 .compact();
     }
+/*** Конец блока создания токенов ***/
 
 
+
+/*** авторизационный блок используемый в JwtFilter при входе в систему по токену ***/
+    public String resolveToken(HttpServletRequest request) {
+        return request.getHeader(authorizationHeader);
+    }
     public boolean validateToken(String token) throws JwtAuthenticationException {
+        System.out.println("in JwtTokenProvider-> validateToken(token)");
         try {
             Jws<Claims> claimsJws = Jwts.parser().setSigningKey(accessTokenSecretKey).parseClaimsJws(token);
             Date expDate = claimsJws.getBody().getExpiration();
@@ -98,13 +104,15 @@ public class JwtTokenProvider {
             throw new JwtAuthenticationException("JWT token is expired or invalid ", HttpStatus.UNAUTHORIZED);
         }
     }
-
     public Authentication getAuthentication(String token) {
+        System.out.println("in JwtTokenProvider-> getAuthentication(token)");
         String username = getUsername(token);
         UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
         Authentication auth = new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
         return auth;
     }
+    /*** конец авторизационного блоа используемого в JwtFilter при попытке входа в систему ***/
+
 
     public String getUsername(String token) {
         Claims claims = Jwts.parser().setSigningKey(accessTokenSecretKey).parseClaimsJws(token).getBody();
@@ -116,6 +124,8 @@ public class JwtTokenProvider {
     }
 
 
+
+/*** Блок работы с токенами пароля ***/
     public String createPasswordResetToken(Long id) {
         Claims claims = Jwts.claims().setSubject(String.valueOf(id));
         Instant now = Instant.now();
@@ -128,7 +138,6 @@ public class JwtTokenProvider {
                 .signWith(SignatureAlgorithm.HS256, passwordResetSecretKey)
                 .compact();
     }
-
     public String createPasswordUpdateToken(Long id) {
         Claims claims = Jwts.claims().setSubject(String.valueOf(id));
         Instant now = Instant.now();
@@ -141,16 +150,12 @@ public class JwtTokenProvider {
                 .signWith(SignatureAlgorithm.HS256, passwordUpdateSecretKey)
                 .compact();
     }
-
     public Long getPasswordResetTokenId(String token) {
         return Long.valueOf(Jwts.parser().setSigningKey(passwordResetSecretKey).parseClaimsJws(token).getBody().getSubject());
     }
-
     public Long getPasswordUpdateTokenId(String token) {
         return Long.valueOf(Jwts.parser().setSigningKey(passwordUpdateSecretKey).parseClaimsJws(token).getBody().getSubject());
     }
-
-
     public boolean validatePasswordResetToken(String token) throws JwtAuthenticationException {
         try {
             Jws<Claims> claimsJws = Jwts.parser().setSigningKey(passwordResetSecretKey).parseClaimsJws(token);
@@ -159,7 +164,6 @@ public class JwtTokenProvider {
             throw new JwtAuthenticationException("JWT token is expired or invalid", HttpStatus.UNAUTHORIZED);
         }
     }
-
     public boolean validatePasswordUpdateToken(String token) throws JwtAuthenticationException {
         try {
             Jws<Claims> claimsJws = Jwts.parser().setSigningKey(passwordUpdateSecretKey).parseClaimsJws(token);
@@ -168,6 +172,6 @@ public class JwtTokenProvider {
             throw new JwtAuthenticationException("JWT token is expired or invalid", HttpStatus.UNAUTHORIZED);
         }
     }
-
+/*** Конец блока работы с токенами пароля ***/
 
 }

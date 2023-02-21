@@ -26,6 +26,7 @@ CLOUDINARY_SECRET: P6FFb0lbPJkqkIR-9FshinRLNKo
 jwt:
   header: Authorization
   accessTokenExpiration: 7200   #  секунды  6*1200 = 6 часов =7200 сек
+  accessTokenRememberMeExpiration: 28800   #  секунды  24*1200 = 24 часа
   refreshTokenExpiration:  21   #  дни
   passwordResetExpiration:  3   #  дни
   passwordUpdateExpiration: 3   #  часы

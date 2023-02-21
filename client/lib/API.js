@@ -1,5 +1,5 @@
 import axios from "axios"
-import {getTokens, setAuthToken, setRefreshToken} from "../utils/tokens";
+import {getTokens, setAuthToken, setRefreshToken} from "@/utils/tokens";
 import {getSession} from "next-auth/react";
 
 const api = axios.create({

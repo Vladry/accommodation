@@ -14,6 +14,8 @@ import java.util.ArrayList;
 
         @Override
         public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+            System.out.println("in CustomAuthenticationProvider-> authenticate(authentication)");
+            System.out.println("arg authentication: " + authentication);
             String name = authentication.getName();
             String password = authentication.getCredentials().toString();
                 return new UsernamePasswordAuthenticationToken(

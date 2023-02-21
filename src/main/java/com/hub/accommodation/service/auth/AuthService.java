@@ -43,7 +43,6 @@ public class AuthService {
 
     @Value("${jwt.refreshTokenExpiration}")
     private long refreshTokenExpiration;
-
     @Value("${jwt.accessTokenExpiration}")
     private long accessTokenExpiration;
 
@@ -79,6 +78,9 @@ public class AuthService {
     }
 
     public Map<Object, Object> authenticate(String email, String password) throws NoDataFoundException {
+        System.out.println("in AuthService-> authenticate(String email, String password)");
+        System.out.println("args String email, String password: " + email + ", " + password);
+
         UserDB user = userRepository.findUserByEmail(email).orElseThrow(() -> new NoDataFoundException("user in AuthService::authenticate"));
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
         return createTokens(user);
