@@ -5,11 +5,12 @@ import api from "../../../lib/API";
 import {signIn} from "next-auth/react";
 import {setUserId} from '@/store/user/actions.js';
 
-const API_URL = "http://localhost:8000"
-
+const API_URL = "http://localhost:8000/api/v1"
+console.log("in [..nextauth].js");
+// https://arunoda.me/blog/add-auth-support-to-a-next-js-app-with-a-custom-backend
 export async function handleRegister(registerData) {
     try {
-        const registrationResponse = await api.post(API_URL + '/api/v1/auth/register', {
+        const registrationResponse = await api.post(API_URL + '/auth/register', {
             email: registerData.email,
             password: registerData.password
         });
@@ -28,7 +29,7 @@ async function refreshAccessToken(tokenObject) {
 
         console.log("Trying to refresh token")
         // Get a new set of tokens with a refreshToken
-        const tokenResponse = await api.get(API_URL + '/api/v1/auth/refresh', {
+        const tokenResponse = await api.get(API_URL + '/auth/refresh', {
             headers: {
                 "Refresh-token": tokenObject.refreshToken
             }
@@ -55,14 +56,15 @@ const providers = [
             console.log('in Credentials Provider!');
             try {
                 // Authenticate user with credentials
-                const user = await axios.post(API_URL + '/api/v1/auth/login', {
-                    password: credentials.password,
-                    email: credentials.email
+                const user = await axios.post(API_URL + '/auth/login', {
+                    email: credentials.email,
+                    password: credentials.password
                 });
 
                 if (user.data.token) {
-                    console.log("user.data.userId: " + user.data.userId);
-                    // setUserId(user.data.userId);
+                    console.log("user.data: " + user.data);
+                    // console.log("user.data.userId: " + user.data.userId);
+                    setUserId(user.data.userId);
                     return user.data;
                 }
                 console.log("user.data.userId: " + user.data.userId);

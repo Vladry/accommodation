@@ -56,7 +56,7 @@ const reducer = (state = initialState, {type, payload}) => {
             return {...state, isUserAppliedHisSubscriptions: true}
 
         case types.SET_SUBSCRIPTIONS_SUCCESS:
-            console.log("in reducer-> SET_SUBSCRIPTIONS_SUCCESS,  payload: ", payload);
+            // console.log("in reducer-> SET_SUBSCRIPTIONS_SUCCESS,  payload: ", payload);
             return {
                 ...state, subscriptions: payload.subscriptions, loadingSubscriptions: false
             }

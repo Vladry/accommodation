@@ -95,7 +95,7 @@ public class JwtTokenProvider {
         return request.getHeader(authorizationHeader);
     }
     public boolean validateToken(String token) throws JwtAuthenticationException {
-        System.out.println("in JwtTokenProvider-> validateToken(token)");
+//        System.out.println("in JwtTokenProvider-> validateToken(token)");
         try {
             Jws<Claims> claimsJws = Jwts.parser().setSigningKey(accessTokenSecretKey).parseClaimsJws(token);
             Date expDate = claimsJws.getBody().getExpiration();
@@ -105,7 +105,7 @@ public class JwtTokenProvider {
         }
     }
     public Authentication getAuthentication(String token) {
-        System.out.println("in JwtTokenProvider-> getAuthentication(token)");
+//        System.out.println("in JwtTokenProvider-> getAuthentication(token)");
         String username = getUsername(token);
         UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
         Authentication auth = new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());

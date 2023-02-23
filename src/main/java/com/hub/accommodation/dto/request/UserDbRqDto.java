@@ -23,6 +23,7 @@ public class UserDbRqDto {
     @NotBlank
     private String name;
     private String lastName;
+    private String role;
     @Email
     @NotBlank
     private String email;

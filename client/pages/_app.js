@@ -100,7 +100,7 @@ function MyApp({Component, pageProps, emotionCache = clientSideEmotionCache}) {
 
 
     const onConnected = () => {
-        console.log("Connected websocket");
+        // console.log("Connected websocket");
     }
 
     const onDisconnected = () => {

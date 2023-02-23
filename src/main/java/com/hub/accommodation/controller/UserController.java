@@ -72,7 +72,6 @@ public class UserController {
     @PreAuthorize("hasAuthority('guest_access')")
     @GetMapping("/users/profile")
     public UserDbRsDto getUserProfile(Principal principal) {
-        System.out.println("public UserDbRsDto getUserProfile -> ");
         return userFacade.getUserByEmail(principal.getName());
     }
 
@@ -81,7 +80,6 @@ public class UserController {
     @GetMapping("/users")
     public UserDbRsDto findUserByEmail(
             @RequestParam("email") String email) {
-        System.out.println("public UserDbRsDto findUserByEmail -> ");
         UserDB user = userService.getUserByEmail(email)
                 .orElseThrow(() -> new NoDataFoundException("user in UserController::findUserByEmail" + email)); //https://habr.com/ru/post/346782/
         return userFacade.convertToDto(user);
@@ -91,14 +89,12 @@ public class UserController {
     @RolesAllowed({"ADMIN", "MODERATOR"})
     @GetMapping("/users/all")
     public List<UserDbRsDto> findAll() {
-        System.out.println("public List<UserDbRsDto> findAll() -> ");
         return userService.findAll().stream().map(userFacade::convertToDto).collect(Collectors.toList());
     }
 
     @Secured({"ADMIN", "MODERATOR"})
     @PostMapping("/users/allByIds")
     public List<UserDbRsDto> findAllById(@RequestBody List<Long> ids) {
-        System.out.println("public List<UserDbRsDto> findAllById -> ");
         if (ids.isEmpty()) {
             log.warn("in /allByIds, argument ids is empty - returning empty List<UserRsDto>");
             return new ArrayList<>();
