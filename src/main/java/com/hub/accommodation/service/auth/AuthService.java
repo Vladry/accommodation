@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -65,7 +67,6 @@ public class AuthService {
 
     public Map<Object, Object> createTokens(UserDB o) {
         String token = jwtTokenProvider.createAccessTokenStr(o.getEmail(), o.getRole().name(), o.getId());
-
         RefreshToken createdRefreshToken = this.createRefreshTokenEntity(o);
         String refreshToken = jwtTokenProvider.createRefreshTokenStr(createdRefreshToken.getId());
         Instant now = Instant.now();
@@ -86,13 +87,16 @@ public class AuthService {
         return createTokens(user);
     }
 
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+    Authentication auth1 = SecurityContextHolder.getContext().getAuthentication();
 
     public Map<Object, Object> register(UserDbRqDto userRqDto) {
         String originalPassword = userRqDto.getPassword();
         UserDB newUser = userFacade.convertToEntity(userRqDto);
         String email = newUser.getEmail();
         if (userRepository.findUserByEmail(email).isPresent()) {
-            throw new UserAlreadyExistException("user AuthService::register" , email);
+            throw new UserAlreadyExistException("user AuthService::register", email);
         } else {
             userRepository.save(newUser);
             return authenticate(newUser.getEmail(), originalPassword); //сюда вернулся  Map<o,o> tokens -токенов

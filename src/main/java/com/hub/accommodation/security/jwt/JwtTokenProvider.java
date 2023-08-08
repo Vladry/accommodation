@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -20,8 +21,6 @@ import java.util.Date;
 @Component
 public class JwtTokenProvider {
     private final UserDetailsService userDetailsService;
-    @Value("${jwt.header}")
-    private String authorizationHeader;
 
     @Value("${jwt.accessTokenSecretKey}")
     private String accessTokenSecretKey;
@@ -91,9 +90,7 @@ public class JwtTokenProvider {
 
 
 /*** авторизационный блок используемый в JwtFilter при входе в систему по токену ***/
-    public String resolveToken(HttpServletRequest request) {
-        return request.getHeader(authorizationHeader);
-    }
+
     public boolean validateToken(String token) throws JwtAuthenticationException {
         System.out.println("in JwtTokenProvider-> validateToken(token)");
         try {

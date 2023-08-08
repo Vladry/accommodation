@@ -62,6 +62,9 @@ const Login = () => {
                     <div style={{margin: '20px auto'}} ><Link href={"/"}>Homepage</Link></div>
                     <Avatar><LockOutlined/></Avatar>
                     <h2>Sign In</h2>
+
+                    <button onClick={() => signIn("google")}>Sign in with Google</button>
+
                 </Grid>
                 <MyTextField onChange={handleChange} value={formData.email} name="email" label='Email' placeholder='Enter email' fullWidth required/>
                 <MyTextField onChange={handleChange} value={formData.password} name="password" label='Password' placeholder='Enter password' type='password' fullWidth required/>
