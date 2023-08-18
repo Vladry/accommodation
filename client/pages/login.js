@@ -24,7 +24,7 @@ const Login = () => {
 
     const [formData, setFormData] = useState({
         email: 'vlad@ukr.net',
-        password: '1Vlad&_@'
+        password: '1Vlad__@'
     });
 
     const [error, setError] = useState("");
@@ -37,19 +37,22 @@ const Login = () => {
     }
 
     const handleLogin = async () => {
+        console.log("in handleLogin->")
         if (formData.email && formData.password) {
             const result = await signIn('credentials', {redirect: false, ...formData});
             if (result.error) {
                 setError(result.error || '')
             } else if (router.query.redirectUrl) {
+
                 await Router.push({
                     pathname: router.query.redirectUrl,
                 });
 
             } else {
+                console.log("loginResult: ", result);
                 await Router.push('/');
             }
-            Router.reload(); // -без перезагрузки не обновляется user в store в store->userData.user.id при переходе на след.стр.
+            // Router.reload(); // -без перезагрузки не обновляется user в store в store->userData.user.id при переходе на след.стр.
         }
     }
 

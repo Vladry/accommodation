@@ -76,7 +76,6 @@ public class JwtFilter extends GenericFilterBean {
         HttpServletResponse httpRes = (HttpServletResponse) servletResponse;
 
         Optional<Cookie> optCookie = getTokenCookie(httpReq);
-
         optCookie.ifPresentOrElse((c) -> {
 
                     if (c.getValue() != null) {
@@ -84,12 +83,9 @@ public class JwtFilter extends GenericFilterBean {
                         System.out.println("token found in cookie: c.getValue()= " + token);
                     } else {
                         token =  httpReq.getHeader(authorizationHeader);
-
-
                         System.out.println("no token in cookie. Resolving from httpReq: " + token);
                         createTokenCookie(token, httpRes);
                     }
-
 
                 },
                 () -> {

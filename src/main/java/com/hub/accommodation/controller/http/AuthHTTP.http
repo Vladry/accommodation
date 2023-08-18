@@ -1,3 +1,20 @@
+GET http://localhost:3000/login
+####
+
+GET http://localhost:3000
+
+###
+
+POST http://localhost:8000/api/v1/auth/login
+Content-Type: application/json
+
+{
+  "email": "vlad@ukr.net",
+  "password": "1Vlad__@"
+}
+
+###
+
 POST http://localhost:8000/api/v1/auth/register
 Content-Type: application/json
 
@@ -7,7 +24,7 @@ Content-Type: application/json
   "role": "USER",
   "datingServiceParticipation": true,
   "email": "vlad@ukr.net",
-  "password": "1Vlad&_@",
+  "password": "1Vlad__@",
 
   "avatar": "https://res.cloudinary.com/vladry/image/upload/v1628498611/vlad_shrunk/vlad_in_car_rtzqzp.jpg"
 }
@@ -25,7 +42,7 @@ Content-Type: application/json
   "location": "Wroclaw, PL",
   "avatar": "https://res.cloudinary.com/vladry/image/upload/v1628196607/avatars/Vlad_avatar_tjrcut.jpg",
   "email": "1@ukr.net",
-  "password": "2Vlad&_@"
+  "password": "2Vlad__@"
 }
 
 ###
@@ -42,7 +59,7 @@ Content-Type: application/json
   "location": "Wroclaw, PL",
   "avatar": "https://res.cloudinary.com/vladry/image/upload/v1628196607/avatars/Vlad_avatar_tjrcut.jpg",
   "email": "2@ukr.net",
-  "password": "3Vlad&_@"
+  "password": "3Vlad__@"
 }
 
 ###
@@ -59,7 +76,7 @@ Content-Type: application/json
   "location": "Wroclaw, PL",
   "avatar": "https://res.cloudinary.com/vladry/image/upload/v1628196607/avatars/Vlad_avatar_tjrcut.jpg",
   "email": "3@ukr.net",
-  "password": "4Vlad&_@"
+  "password": "4Vlad__@"
 }
 
 ###
@@ -76,7 +93,7 @@ Content-Type: application/json
   "location": "Wroclaw, PL",
   "avatar": "https://res.cloudinary.com/vladry/image/upload/v1628196607/avatars/Vlad_avatar_tjrcut.jpg",
   "email": "4@ukr.net",
-  "password": "5Vlad&_@"
+  "password": "5Vlad__@"
 }
 
 ###
@@ -93,7 +110,7 @@ Content-Type: application/json
   "location": "Wroclaw, PL",
   "avatar": "https://res.cloudinary.com/vladry/image/upload/v1628196607/avatars/Vlad_avatar_tjrcut.jpg",
   "email": "5@ukr.net",
-  "password": "6Vlad&_@"
+  "password": "6Vlad__@"
 }
 
 ###
@@ -111,7 +128,7 @@ Content-Type: application/json
   "location": "Wroclaw, PL",
   "avatar": "https://res.cloudinary.com/vladry/image/upload/v1628196607/avatars/Vlad_avatar_tjrcut.jpg",
   "email": "6@ukr.net",
-  "password": "7Vlad&_@"
+  "password": "7Vlad__@"
 }
 
 ###
@@ -128,7 +145,7 @@ Content-Type: application/json
   "location": "Wroclaw, PL",
   "avatar": "https://res.cloudinary.com/vladry/image/upload/v1628196607/avatars/Vlad_avatar_tjrcut.jpg",
   "email": "7@ukr.net",
-  "password": "8Vlad&_@"
+  "password": "8Vlad__@"
 }
 
 ###
@@ -144,7 +161,7 @@ Content-Type: application/json
   "location": "Wroclaw, PL",
   "avatar": "https://res.cloudinary.com/vladry/image/upload/v1628196607/avatars/Vlad_avatar_tjrcut.jpg",
   "email": "8@ukr.net",
-  "password": "9Vlad&_@"
+  "password": "9Vlad__@"
 }
 
 ###
@@ -161,7 +178,7 @@ Content-Type: application/json
   "location": "Wroclaw, PL",
   "avatar": "https://res.cloudinary.com/vladry/image/upload/v1628196607/avatars/Vlad_avatar_tjrcut.jpg",
   "email": "9@ukr.net",
-  "password": "10Vlad&_@"
+  "password": "10Vlad__@"
 }
 
 ###
@@ -178,7 +195,7 @@ Content-Type: application/json
   "location": "Wroclaw, PL",
   "avatar": "https://res.cloudinary.com/vladry/image/upload/v1628196607/avatars/Vlad_avatar_tjrcut.jpg",
   "email": "111@ukr.net",
-  "password": "11Vlad&_@"
+  "password": "11Vlad__@"
 }
 
 ###

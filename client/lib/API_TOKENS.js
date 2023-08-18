@@ -1,4 +1,5 @@
 import axios from "axios"
+import {getTokens, setAuthToken, setRefreshToken} from "@/utils/tokens";
 import {getSession} from "next-auth/react";
 
 const api = axios.create({
@@ -18,9 +19,11 @@ api.interceptors.request.use(async (rq) => {    // https://axios-http.com/docs/i
     Promise.reject(false)
 })
 
+const apiTokens = axios.create({
+    baseURL: "http://localhost:8000/api/v1"
+});
 
 
-/*
 api.interceptors.response.use(
     (response) => response.data,
     async function (error) {
@@ -47,6 +50,5 @@ api.interceptors.response.use(
         return Promise.reject(error)
     }
 )
-*/
 
 export default api

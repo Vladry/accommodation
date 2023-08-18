@@ -7,6 +7,11 @@ import {setUserId} from '@/store/user/actions.js';
 
 const API_URL = "http://localhost:8000"
 
+// documentation:
+//  https://next-auth.js.org/configuration/providers/credentials
+//  https://next-auth.js.org/configuration/callbacks#session-callback
+
+
 export async function handleRegister(registerData) {
     try {
         const registrationResponse = await api.post(API_URL + '/api/v1/auth/register', {
@@ -50,7 +55,7 @@ async function refreshAccessToken(tokenObject) {
 
 const providers = [
     CredentialsProvider({
-        name: 'Credentials',
+        name: 'credentials',
         authorize: async (credentials) => {
             console.log('in Credentials Provider!');
             try {

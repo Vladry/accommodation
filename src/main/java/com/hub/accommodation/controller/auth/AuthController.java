@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,41 +29,28 @@ public class AuthController {
 
     @PostMapping("${api.ver}/auth/login")
     public ResponseEntity<?> login(@RequestBody @Valid AuthRequest request) {
-        try {
-            log.info("a user logged in");
-            return ResponseEntity.ok(authService.authenticate(request.getEmail(), request.getPassword()));
-        } catch (AuthenticationException e) {
-            log.error("error logging a user");
-            return new ResponseEntity<>("Invalid email/password combination", HttpStatus.FORBIDDEN);
-        }
+        return authService.authenticate(request.getEmail(), request.getPassword());
+
     }
 
     @PostMapping("${api.ver}/auth/logout")
     public void logout() {
-
+        String user = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        log.info("a user " +  user  + " logged out");
     }
 
 
 //    @CrossOrigin(origins = "*") // -без неё не проходят работают запросы из браузера (из постмена работают)
     @Validated(OnCreate.class) //основная регистрация нового пользователя
-    @PostMapping("/api/v1/auth/register")
+    @PostMapping("${api.ver}/auth/register")
     public ResponseEntity<?> register(@RequestBody @Valid UserDbRqDto userRqDto) {
-        try {
-            log.info("registering a new user");
-            return new ResponseEntity<>(authService.register(userRqDto), HttpStatus.CREATED);
-        } catch (AuthenticationException e) {
-            log.error("error registering a new user");
-            return new ResponseEntity<>("Error with registration: NOT_ACCEPTABLE" + e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
-        }
+        return authService.register(userRqDto);
+
     }
 
 
     @GetMapping("${api.ver}/auth/refresh")
     public ResponseEntity<?> refresh(@RequestHeader("Refresh-token") String token) {
-        try {
-            return ResponseEntity.ok(authService.refresh(token));
-        } catch (RuntimeException | JwtAuthenticationException e) {
-            return new ResponseEntity<>("JWT token is expired or invalid", HttpStatus.FORBIDDEN);
-        }
+            return authService.refresh(token);
     }
 }
